@@ -1,0 +1,9 @@
+<openerp>
+    <data>
+        <record id="bom_lock_allow_write" model="res.groups">
+            <field name="name">Allow write on locked BOM's</field>
+            <field name="category_id" ref="base.module_category_hidden"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+    </data>
+</openerp>

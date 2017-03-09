@@ -10,8 +10,8 @@
     'depends': ['mrp'],
     'data': [
         # security/ir.model.access.csv,
-        'views/product.xml'
-        # data/
+        'views/product.xml',
+        'data/group.xml',
     ],
     'description': """
 * adds bom locked feature on product template.
