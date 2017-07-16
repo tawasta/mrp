@@ -20,7 +20,7 @@
 {
     'name': 'Archived Product List for BOMs',
     'summary': 'Shows if BOM contains products that have since been archived',
-    'version': '10.0.1.0.0',
+    'version': '9.0.1.0.0',
     'category': 'Accounting',
     'website': 'http://www.vizucom.com',
     'author': 'Vizucom Oy',
@@ -34,5 +34,6 @@
         'data/ir_cron.xml',
         'views/mrp_bom.xml',
         'wizard/bom_archived_product_wizard.xml',
+        'security/ir.model.access.csv',
     ],
 }

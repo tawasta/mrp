@@ -9,7 +9,7 @@
           <header>
           </header>
           <sheet>
-            <p>Click "Compute" to refresh BOMs' archived product lists</p>
+            <p>Click "Compute" to refresh BOMs' archived product lists. This will take a few minutes, depending on the number of BOMs.</p>
           </sheet>
           <footer>
               <button name="compute" type="object" string="Compute" class="oe_highlight"/> or <button string="Cancel" class="oe_link" special="cancel"/>
