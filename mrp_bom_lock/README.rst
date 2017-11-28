@@ -14,7 +14,7 @@ Installation
 
 Configuration
 =============
-* No configuration needed
+* You can add users to the new "Allow editing locked BOMs" group if necessary.
 
 Usage
 =====
