@@ -1,8 +1,9 @@
+# -*- coding: utf-8 -*-
 from openerp import api, fields, models
 from openerp.exceptions import except_orm, Warning, RedirectWarning
 
 
-class Bom(models.Model):
+class MrpBom(models.Model):
 
     _inherit = "mrp.bom"
 
@@ -47,29 +48,4 @@ class Bom(models.Model):
                 if res[0]:
                     self.display_locked_message(res[1])
 
-        return super(Bom, self).write(values)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return super(MrpBom, self).write(values)
