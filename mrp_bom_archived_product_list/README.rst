@@ -29,18 +29,15 @@ a KeyError in cache, which is somehow related to this issue/comment: https://git
 Putting the calculation behind a button click solves this but is slightly clunky to use.
 * This should be tested again in 10.0
 
-Credits
-=======
-
 Contributors
 ------------
-* Timo Talvitie <timo@vizucom.com>
+* Timo Talvitie <timo.talvitie@tawasta.fi>
 
 Maintainer
 ----------
-.. image:: http://vizucom.com/logo.png
-   :alt: Vizucom Oy
-   :target: http://www.vizucom.com
 
+.. image:: http://tawasta.fi/templates/tawastrap/images/logo.png
+   :alt: Oy Tawasta OS Technologies Ltd.
+   :target: http://tawasta.fi/
 
-This module is maintained by Vizucom Oy
+This module is maintained by Oy Tawasta OS Technologies Ltd.
