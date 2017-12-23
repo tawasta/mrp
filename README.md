@@ -3,7 +3,7 @@ Manufacturing
 
 [//]: # (addons)
 
-Available addons
+Unported addons
 ----------------
 **Addon** | **Summary**
 --- | ---
