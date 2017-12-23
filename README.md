@@ -3,6 +3,12 @@ Manufacturing
 
 [//]: # (addons)
 
+Available addons
+----------------
+**Addon** | **Summary**
+--- | ---
+[mrp_bom_editable_name](mrp_bom_editable_name/) | Allows modifying BOM name
+
 Unported addons
 ----------------
 **Addon** | **Summary**
