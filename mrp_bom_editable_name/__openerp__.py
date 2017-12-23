@@ -34,7 +34,7 @@
         'bin': [],
     },
     'depends': [
-        'stock',
+        'mrp',
     ],
     'data': [
         'views/mrp_bom.xml',
