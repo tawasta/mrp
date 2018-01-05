@@ -60,6 +60,7 @@ class MrpProduction(models.Model):
 
                     real_cost += quant_cost
 
-                finished_product_move_id.sudo().quant_ids.cost = real_cost
+                qty = finished_product_move_id.product_uom_qty
+                finished_product_move_id.sudo().quant_ids.cost = real_cost / qty
 
         return res

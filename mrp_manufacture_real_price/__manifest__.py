@@ -22,7 +22,7 @@
 {
     'name': 'Sets real (FIFO) price as manufactured products value',
     'summary': 'Manufactured product value depends on used quants',
-    'version': '10.0.1.0.0',
+    'version': '10.0.1.0.1',
     'category': 'Events',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
