@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="mrp_bom_cost_workcenters_bom_form" model="ir.ui.view">
+		<field name="name">mrp.bom.cost.workcenters.bom.form</field>
+		<field name="model">mrp.bom</field>
+		<field name="inherit_id" ref="mrp_bom_cost.mrp_bom_cost_mrp_bom_form"/>
+		<field name="arch" type="xml">
+
+			<field name="component_cost" position="after">
+				<field name="op_cost" widget="monetary" options="{ 'currency': 'currency_id' }"/>
+				<field name="total_cost" widget="monetary" options="{ 'currency': 'currency_id' }"/>
+			</field>
+
+			<xpath expr="//field[@name='bom_line_ids']/tree/field[@name='component_cost_total']" position="after">
+				<field name="op_cost" widget="monetary" options="{ 'currency': 'currency_id' }"/>
+				<field name="op_cost_total" widget="monetary" options="{ 'currency': 'currency_id' }"/>
+			</xpath>
+
+		</field>
+	</record>
+</odoo>
