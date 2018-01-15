@@ -18,8 +18,9 @@
 			</field>
 
 			<xpath expr="//field[@name='bom_line_ids']/tree/field[@name='operation_id']" position="after">
-				<field name="component_cost" readonly="1"/>
-				<field name="component_cost_total" readonly="1"/>
+				<field name="currency_id" invisible="1"/>
+				<field name="component_cost" widget="monetary" options="{ 'currency': 'currency_id' }" readonly="1"/>
+				<field name="component_cost_total" widget="monetary" options="{ 'currency': 'currency_id' }" readonly="1"/>
 			</xpath>
 		</field>
 	</record>

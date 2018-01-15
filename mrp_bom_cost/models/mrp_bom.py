@@ -49,7 +49,7 @@ class MrpBom(models.Model):
         return cost
 
     @api.multi
-    def _compute_currency_id(self):
+    def _get_currency_id(self):
         try:
             main_company = self.sudo().env.ref('base.main_company')
         except ValueError:
@@ -57,6 +57,6 @@ class MrpBom(models.Model):
         for bom in self:
             bom.currency_id = bom.company_id.sudo().currency_id.id or main_company.currency_id.id
 
-    component_cost = fields.Float(digits=dp.get_precision('Product Price'), string="Component Cost")
+    component_cost = fields.Float(digits=dp.get_precision('Product Price'), string="Component Cost", help='''Contains the combined component costs of all sub-assemblies''')
     cost_updated = fields.Datetime(string="Cost updated", help="Last time BOM cost was updated.")
-    currency_id = fields.Many2one('res.currency', 'Currency', compute='_compute_currency_id')    
+    currency_id = fields.Many2one('res.currency', compute=_get_currency_id, string='Currency')
