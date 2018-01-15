@@ -11,14 +11,14 @@
 				</header>
 			</sheet>
 
-			<field name="product_tmpl_id" position="after">
-				<field name="bom_cost" readonly="1"/>
+			<field name="type" position="after">
+				<field name="component_cost" readonly="1"/>
 				<field name="cost_updated" readonly="1"/>
 			</field>
 
 			<xpath expr="//field[@name='bom_line_ids']/tree/field[@name='operation_id']" position="after">
-				<field name="line_cost" readonly="1"/>
-				<field name="line_cost_total" readonly="1"/>
+				<field name="component_cost" readonly="1"/>
+				<field name="component_cost_total" readonly="1"/>
 			</xpath>
 		</field>
 	</record>
