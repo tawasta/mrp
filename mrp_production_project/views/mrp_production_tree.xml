@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+	<record id="mrp_production_tree_view" model="ir.ui.view">
+		<field name="name">mrp.production.project.tree</field>
+		<field name="model">mrp.production</field>
+		<field name="inherit_id" ref="mrp.mrp_production_tree_view" />
+		<field name="arch" type="xml">
+
+			<field name="origin" position="after">
+				<field name="project_id" />
+			</field>
+
+		</field>
+	</record>
+
+</odoo>
