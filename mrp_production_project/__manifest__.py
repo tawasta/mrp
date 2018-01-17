@@ -22,7 +22,7 @@
 {
     'name': 'Add project relation to MO',
     'summary': 'Allows fetching MO stock locations from project',
-    'version': '10.0.1.0.0',
+    'version': '10.0.1.0.1',
     'category': 'Manufacturing',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
@@ -37,7 +37,7 @@
     'depends': [
         'mrp',
         'project',
-        'stock_location_project',
+        'stock_location_analytic_account',
     ],
     'data': [
         'views/mrp_production.xml',
