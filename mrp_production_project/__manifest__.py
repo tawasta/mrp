@@ -20,10 +20,10 @@
 ##############################################################################
 
 {
-    'name': 'Sets real (FIFO) price as manufactured products value',
-    'summary': 'Manufactured product value depends on used quants',
-    'version': '10.0.1.0.2',
-    'category': 'Events',
+    'name': 'Add project relation to MO',
+    'summary': 'Allows fetching MO stock locations from project',
+    'version': '10.0.1.0.1',
+    'category': 'Manufacturing',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
     'license': 'AGPL-3',
@@ -36,8 +36,11 @@
     },
     'depends': [
         'mrp',
+        'project',
+        'stock_location_analytic_account',
     ],
     'data': [
+        'views/mrp_production.xml',
     ],
     'demo': [
     ],
