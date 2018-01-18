@@ -6,20 +6,21 @@
 Raw Material Transfer for Manufacturing Orders
 ==============================================
 
-* Adds a button to Manufacturing Order view for quick transfer of raw materials from another location to internal location
+* Adds a button to Manufacturing Order view for quick transfer of raw materials from another location to manufacturing location
+* The button is a shortcut to making an Internal Transfer containing the missing raw materials.
 
 Configuration
 =============
-\-
+* Configure the internal transfer picking type and default source location in Manufacturing -> Settings
 
 Usage
 =====
-* Click the "Transfer Materials" button in Manufacturing Order form view
-* After confirming the transfer, check availability for the MO to see updated raw material quantities
+* Click the "Transfer Materials" button in Manufacturing Order form view when raw materials are unavailable for the MO
+* After confirming the internal transfer, click Check Availability for the MO to see updated raw material quantities
 
 Known issues / Roadmap
 ======================
-\-
+* Error messages shown for missing MRP configuration do not currently contain a link to the MRP settings view, navigating there has to be done manually
 
 Credits
 =======

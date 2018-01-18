@@ -38,6 +38,7 @@
     ],
     'data': [
         'views/mrp_production.xml',
+        'views/mrp_config_settings.xml',
     ],
     'demo': [
     ],

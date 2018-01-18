@@ -1,26 +1,45 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, _
+from odoo.exceptions import RedirectWarning
 
 
 class MrpProduction(models.Model):
 
     _inherit = 'mrp.production'
 
+
+    def _get_picking_type_for_transfer(self):
+        if not self.company_id.raw_materials_picking_type_id:
+            action = self.env.ref('mrp.action_mrp_configuration')
+            msg = _('Internal transfer picking type unconfigured. \nPlease go to MRP Configuration.')
+            # TODO: why doesn't the warning show the link to MRP configuration?
+            raise RedirectWarning(msg, action.id, _('Go to the configuration panel'))
+        else:
+            return self.company_id.raw_materials_picking_type_id.id
+
+    def _get_source_location_for_transfer(self):
+        if not self.company_id.raw_materials_src_location_id:
+            action = self.env.ref('mrp.action_mrp_configuration')
+            msg = _('Default Source location unconfigured. \nPlease go to MRP Configuration.')
+            # TODO: why doesn't the warning show the link to MRP configuration?
+            raise RedirectWarning(msg, action.id, _('Go to the configuration panel'))
+        else:
+            return self.company_id.raw_materials_src_location_id.id
+
     @api.multi
     def create_raw_material_transfer(self):
         ''' Creates a new stock picking for transfering raw materials
-        to production location '''
+        to the current production location '''
         self.ensure_one()
 
-        picking_type_model = self.env['stock.picking.type']
         stock_picking_model = self.env['stock.picking']
         stock_move_model = self.env['stock.move']
 
         vals = {
-            'picking_type_id': picking_type_model.search(args=[('code', '=', 'internal')], limit=1).id, # FIXME proper searching
-            'location_id': self.location_src_id.id,
+            'picking_type_id': self._get_picking_type_for_transfer(),
+            'location_id': self._get_source_location_for_transfer(),
             'location_dest_id': self.location_src_id.id,
-            'origin': '%s / Raw Materials' % self.name
+            'origin': '%s %s' % (_('Raw materials for'), self.name)
         }
 
         res = stock_picking_model.create(vals)
