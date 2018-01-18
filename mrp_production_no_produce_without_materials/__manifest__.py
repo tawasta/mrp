@@ -21,7 +21,7 @@
 
 {
     'name': 'No Production Without Materials',
-    'summary': "'Produce' button is hidden from MO if raw materials are missing",
+    'summary': "Hides 'Produce' button from MO if raw materials are missing",
     'version': '10.0.1.0.0',
     'category': 'Manufacturing',
     'website': 'http://www.tawasta.fi',
