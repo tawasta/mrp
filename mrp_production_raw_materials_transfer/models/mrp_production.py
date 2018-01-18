@@ -39,6 +39,12 @@ class MrpProduction(models.Model):
         else:
             return False
 
+    def _get_material_qty(self, material):
+        ''' Set how much of the material should be suggested to
+        be transferred '''
+        return material.product_uom_qty - material.quantity_available
+
+
     @api.multi
     def create_raw_material_transfer(self):
         ''' Creates a new stock picking for transfering raw materials
@@ -64,7 +70,7 @@ class MrpProduction(models.Model):
                     'picking_id': res.id,
                     'product_id': material.product_id.id,
                     'product_uom': material.product_uom.id,
-                    'product_uom_qty': material.product_uom_qty,
+                    'product_uom_qty': self._get_material_qty(material),
                     'location_id': res.location_id.id,
                     'location_dest_id': res.location_dest_id.id,
                 })
