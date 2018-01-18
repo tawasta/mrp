@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models, _
-from odoo.exceptions import RedirectWarning
+from odoo.exceptions import RedirectWarning, UserError
 
 
 class MrpProduction(models.Model):
 
     _inherit = 'mrp.production'
-
 
     def _get_picking_type_for_transfer(self):
         if not self.company_id.raw_materials_picking_type_id:
@@ -25,6 +24,20 @@ class MrpProduction(models.Model):
             raise RedirectWarning(msg, action.id, _('Go to the configuration panel'))
         else:
             return self.company_id.raw_materials_src_location_id.id
+
+    def check_material(self, material):
+        ''' Set conditions when the material should be suggested to
+        be included in the transfer.  '''
+        buy_route = self.env.ref('purchase.route_warehouse0_buy', raise_if_not_found=False)
+        if not buy_route:
+            raise UserError(_("'Buy' route not found in the system."))
+
+        # If the core's Buy route is checked for the product, suggest the
+        # product to be transferred
+        if buy_route.id in [r.id for r in material.product_id.route_ids]:
+            return True
+        else:
+            return False
 
     @api.multi
     def create_raw_material_transfer(self):
@@ -45,7 +58,7 @@ class MrpProduction(models.Model):
         res = stock_picking_model.create(vals)
 
         for material in self.move_raw_ids:
-            if not material.product_id.bom_ids:
+            if self.check_material(material):
                 stock_move_model.create({
                     'name': material.product_id.name,
                     'picking_id': res.id,
