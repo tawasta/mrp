@@ -7,7 +7,8 @@
 		<field name="arch" type="xml">
 
 			<field name="state" position="before">
-				<button name="create_raw_material_transfer" string="Transfer Raw Materials" type="object"/>
+				<button name="create_raw_material_transfer" string="Transfer Raw Materials" type="object"
+						attrs="{'invisible': ['|', ('availability', 'in', ('assigned', 'none')), ('state', 'not in', ('confirmed','progress'))]}"/>
 			</field>
 
 		</field>
