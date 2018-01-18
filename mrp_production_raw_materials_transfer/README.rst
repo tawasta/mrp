@@ -20,7 +20,7 @@ Usage
 
 Known issues / Roadmap
 ======================
-* Error messages shown for missing MRP configuration do not currently contain a link to the MRP settings view, navigating there has to be done manually
+\-
 
 Credits
 =======
