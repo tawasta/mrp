@@ -18,8 +18,8 @@ class MrpProduction(models.Model):
     def onchange_project_id_update_locations(self):
         for record in self:
             if record.analytic_account_id and \
-                    record.analytic_account_id.location_ids:
-                location = record.analytic_account_id.location_ids[0]
+                    record.analytic_account_id.default_location_id:
+                location = record.analytic_account_id.default_location_id
 
                 record.location_dest_id = location.id
                 record.location_src_id = location.id
