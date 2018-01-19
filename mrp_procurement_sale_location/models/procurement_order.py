@@ -16,7 +16,7 @@ class ProcurementOrder(models.Model):
 
             if sale_order.project_id and sale_order.project_id.location_ids:
                 values['location_id'] = \
-                sale_order_line.order_id.project_id.location_ids[0].id
+                sale_order_line.order_id.project_id.default_location_id.id
 
         return super(ProcurementOrder, self).create(values)
 
@@ -28,8 +28,10 @@ class ProcurementOrder(models.Model):
                 ('name', '=', self.group_id.name),
             ])
 
-            if sale_order.project_id and sale_order.project_id.location_ids:
-                location = sale_order.project_id.location_ids[0]
+            if sale_order.project_id and \
+                    sale_order.project_id.default_location_id:
+
+                location = sale_order.project_id.default_location_id
                 result['analytic_account_id'] = sale_order.project_id.id
                 result['location_src_id'] = location.id
                 result['location_dest_id'] = location.id
