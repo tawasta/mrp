@@ -15,7 +15,8 @@ class MrpProduction(models.Model):
     @api.onchange('analytic_account_id')
     def onchange_project_id_update_locations(self):
         for record in self:
-            if record.project_id and record.project_id.location_ids:
+            if record.analytic_account_id and \
+                    record.analytic_account_id.location_ids:
                 location = record.analytic_account_id.location_ids[0]
 
                 record.location_dest_id = location.id
