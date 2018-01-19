@@ -37,10 +37,12 @@
     'depends': [
         'mrp',
         'project',
-        'stock_location_project',
+        'stock_location_analytic_account',
     ],
     'data': [
-        'views/mrp_production.xml',
+        'views/mrp_production_form.xml',
+        'views/mrp_production_search.xml',
+        'views/mrp_production_tree.xml',
     ],
     'demo': [
     ],

@@ -20,8 +20,8 @@
 ##############################################################################
 
 {
-    'name': 'No Production Without Materials',
-    'summary': "Hides 'Produce' button from MO if raw materials are missing",
+    'name': 'Raw Materials Transfer for Manufacturing Order',
+    'summary': "Quick Transfer of Raw Materials to MO Location",
     'version': '10.0.1.0.0',
     'category': 'Manufacturing',
     'website': 'http://www.tawasta.fi',
@@ -38,6 +38,7 @@
     ],
     'data': [
         'views/mrp_production.xml',
+        'views/mrp_config_settings.xml',
     ],
     'demo': [
     ],

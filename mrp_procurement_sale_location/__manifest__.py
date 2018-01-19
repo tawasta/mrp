@@ -22,7 +22,7 @@
 {
     'name': 'Force sale order project stock location to procurement',
     'summary': 'Fetches procurement location from its sale line',
-    'version': '10.0.1.0.0',
+    'version': '10.0.1.0.1',
     'category': 'Manufacturing',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
@@ -37,7 +37,7 @@
     'depends': [
         'mrp',
         'sale',
-        'stock_location_project',
+        'stock_location_analytic_account',
     ],
     'data': [
     ],

@@ -6,7 +6,6 @@ from odoo import api, fields, models
 class ProcurementOrder(models.Model):
     _inherit = 'procurement.order'
 
-    '''
     @api.model
     def create(self, values):
         if 'sale_line_id' in values:
@@ -20,7 +19,6 @@ class ProcurementOrder(models.Model):
                 sale_order_line.order_id.project_id.location_ids[0].id
 
         return super(ProcurementOrder, self).create(values)
-    '''
 
     def _prepare_mo_vals(self, bom):
         result = super(ProcurementOrder, self)._prepare_mo_vals(bom=bom)
@@ -32,6 +30,7 @@ class ProcurementOrder(models.Model):
 
             if sale_order.project_id and sale_order.project_id.location_ids:
                 location = sale_order.project_id.location_ids[0]
+                result['analytic_account_id'] = sale_order.project_id.id
                 result['location_src_id'] = location.id
                 result['location_dest_id'] = location.id
 
