@@ -10,6 +10,8 @@ class MrpProduction(models.Model):
     analytic_account_id = fields.Many2one(
         comodel_name='account.analytic.account',
         string='Project',
+        readonly=True,
+        states={'confirmed': [('readonly', False)]}
     )
 
     @api.onchange('analytic_account_id')
