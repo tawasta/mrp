@@ -20,9 +20,9 @@
 ##############################################################################
 
 {
-    'name': 'Add project relation to MO',
-    'summary': 'Allows fetching MO stock locations from project',
-    'version': '10.0.1.0.0',
+    'name': 'Add analytic account relation to MO',
+    'summary': 'Allows fetching MO stock locations from analytic account',
+    'version': '10.0.1.1.0',
     'category': 'Manufacturing',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',

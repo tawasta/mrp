@@ -2,11 +2,11 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-==========================
-Add project relation to MO
-==========================
+===================================
+Add analytic account relation to MO
+===================================
 
-Allows fetching MO stock locations from project
+Allows fetching MO stock locations from analytic account
 
 Configuration
 =============
@@ -18,7 +18,7 @@ Usage
 
 Known issues / Roadmap
 ======================
-- Does not allow selecting default location from project
+- Does not allow selecting default location from projanalytic accountect
 - Does not allow differentiating source and destination locations
 
 Credits
