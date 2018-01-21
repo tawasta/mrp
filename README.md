@@ -16,7 +16,7 @@ Available addons
 [mrp_production_autoprocess_work_orders](mrp_production_autoprocess_work_orders/) | 10.0.1.0.0 | Created Work Orders get completed instantly
 [mrp_production_no_produce_without_materials](mrp_production_no_produce_without_materials/) | 10.0.1.0.0 | 'Produce' button is hidden from MO if raw materials are missing
 [mrp_production_no_work_orders_without_materials](mrp_production_no_work_orders_without_materials/) | 10.0.1.0.0 | 'Create Work Orders' button is hidden from MO if raw materials are missing
-[mrp_production_raw_materials_transfer](mrp_production_raw_materials_transfer/) | 10.0.1.0.0 | New button to Manufacturing Order for quick transfer of needed raw materials
+[mrp_production_raw_materials_transfer](mrp_production_raw_materials_transfer/) | 10.0.1.0.1 | New button to Manufacturing Order for quick transfer of needed raw materials
 [mrp_production_project](mrp_production_project/) | 10.0.1.0.0 | Allows fetching MO stock locations from project
 [mrp_production_real_price](mrp_production_real_price/) | 10.0.1.0.2 | Manufactured product value depends on used quants
 [mrp_workcenter_cost](mrp_workcenter_cost/) | 10.0.1.0.0 | Adds a service product to work center for calculating costs
