@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="mrp_production_autoprocess_workorders_production_form" model="ir.ui.view">
+		<field name="name">mrp.production.autoprocess.workorders.production.form</field>
+		<field name="model">mrp.production</field>
+		<field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+		<field name="arch" type="xml">
+
+            <button name="button_plan" position="attributes">
+				<attribute name="string">Create and Process Work Orders</attribute>
+			</button>
+
+		</field>
+	</record>
+</odoo>
