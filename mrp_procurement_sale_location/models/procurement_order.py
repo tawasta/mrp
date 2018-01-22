@@ -6,23 +6,25 @@ from odoo import api, fields, models
 class ProcurementOrder(models.Model):
     _inherit = 'procurement.order'
 
-    '''
-    @api.model
-    def create(self, values):
-        if 'sale_line_id' in values:
-            sale_order_line = self.env['sale.order.line'].browse([
-                values['sale_line_id']
-            ])
-            sale_order = sale_order_line.order_id
+    def _get_stock_move_values(self):
+        # Override the procurement rule location with
+        # sale order analytic account location
 
-            if sale_order.project_id and sale_order.project_id.location_ids:
-                values['location_id'] = \
-                sale_order_line.order_id.project_id.default_location_id.id
+        res = super(ProcurementOrder, self)._get_stock_move_values()
 
-        return super(ProcurementOrder, self).create(values)
-    '''
+        if self.sale_line_id:
+            sale_order = self.sale_line_id.order_id
+            project = sale_order.project_id
+
+            if project and project.default_location_id:
+                res['location_id'] = project.default_location_id.id
+
+        return res
 
     def _prepare_mo_vals(self, bom):
+        # Override the MO source and destination location with
+        # sale order analytic account location
+
         result = super(ProcurementOrder, self)._prepare_mo_vals(bom=bom)
 
         if self.group_id:
