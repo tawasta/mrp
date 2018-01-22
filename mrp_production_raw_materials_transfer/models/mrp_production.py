@@ -32,9 +32,10 @@ class MrpProduction(models.Model):
         if not buy_route:
             raise UserError(_("'Buy' route not found in the system."))
 
-        # If the core's Buy route is checked for the product, suggest the
-        # product to be transferred
-        if buy_route.id in [r.id for r in material.product_id.route_ids]:
+        # If the core's Buy route is checked for the product and there is
+        # not enough qty available, suggest the product to be transferred
+        if buy_route.id in [r.id for r in material.product_id.route_ids] \
+            and self._get_material_qty(material) > 0:
             return True
         else:
             return False

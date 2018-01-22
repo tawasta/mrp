@@ -20,9 +20,9 @@
 ##############################################################################
 
 {
-    'name': 'Raw Materials Transfer for Manufacturing Order',
-    'summary': "Quick Transfer of Raw Materials to MO Location",
-    'version': '10.0.1.0.1',
+    'name': 'Auto-process Work Orders',
+    'summary': "Created Work Orders get completed instantly",
+    'version': '10.0.1.0.0',
     'category': 'Manufacturing',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
@@ -38,7 +38,6 @@
     ],
     'data': [
         'views/mrp_production.xml',
-        'views/mrp_config_settings.xml',
     ],
     'demo': [
     ],

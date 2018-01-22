@@ -20,9 +20,9 @@
 ##############################################################################
 
 {
-    'name': 'Raw Materials Transfer for Manufacturing Order',
-    'summary': "Quick Transfer of Raw Materials to MO Location",
-    'version': '10.0.1.0.1',
+    'name': 'No Work Order Creation Without Materials',
+    'summary': "Hides 'Create Work Orders' button from MO if raw materials are missing",
+    'version': '10.0.1.0.0',
     'category': 'Manufacturing',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
@@ -34,11 +34,10 @@
         'bin': [],
     },
     'depends': [
-        'mrp',
+        'mrp_production_no_produce_without_materials',
     ],
     'data': [
         'views/mrp_production.xml',
-        'views/mrp_config_settings.xml',
     ],
     'demo': [
     ],
