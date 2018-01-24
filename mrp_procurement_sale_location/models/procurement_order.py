@@ -32,12 +32,14 @@ class ProcurementOrder(models.Model):
                 ('name', '=', self.group_id.name),
             ])
 
-            if sale_order.project_id and \
-                    sale_order.project_id.default_location_id:
+            if sale_order:
+                project = sale_order.project_id
+                location = sale_order.stock_location_id
 
-                location = sale_order.project_id.default_location_id
-                result['analytic_account_id'] = sale_order.project_id.id
-                result['location_src_id'] = location.id
-                result['location_dest_id'] = location.id
+                if project and location:
+
+                    result['analytic_account_id'] = project.id
+                    result['location_src_id'] = location.id
+                    result['location_dest_id'] = location.id
 
         return result
