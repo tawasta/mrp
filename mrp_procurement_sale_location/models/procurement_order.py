@@ -34,7 +34,11 @@ class ProcurementOrder(models.Model):
 
             if sale_order:
                 project = sale_order.project_id
-                location = sale_order.stock_location_id
+
+                if hasattr(sale_order, 'stock_location_id'):
+                    location = sale_order.stock_location_id
+                else:
+                    location = project.default_location_id
 
                 if project and location:
 
