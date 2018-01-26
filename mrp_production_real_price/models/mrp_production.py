@@ -48,19 +48,28 @@ class MrpProduction(models.Model):
 
             if finished_product_move_id.product_id.cost_method == 'real':
                 # Calculate the real cost
-                real_cost = 0
-
-                # Loop through all the moves
-                for raw_material_move_id in raw_material_move_ids:
-                    quant_cost = 0
-
-                    # Loop through each moved quant in th move
-                    for quant in raw_material_move_id.quant_ids:
-                        quant_cost += quant.inventory_value
-
-                    real_cost += quant_cost
+                real_cost = self._compute_finished_product_move_cost(
+                    raw_material_move_ids,
+                )
 
                 qty = finished_product_move_id.product_uom_qty
                 finished_product_move_id.sudo().quant_ids.cost = real_cost / qty
 
         return res
+
+
+    def _compute_finished_product_move_cost(self, raw_material_move_ids):
+        # Calculate the real cost
+        real_cost = 0
+
+        # Loop through all the moves
+        for raw_material_move_id in raw_material_move_ids:
+            quant_cost = 0
+
+            # Loop through each moved quant in th move
+            for quant in raw_material_move_id.quant_ids:
+                quant_cost += quant.inventory_value
+
+            real_cost += quant_cost
+
+        return real_cost
