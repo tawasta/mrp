@@ -13,8 +13,12 @@ class TestBom(TransactionCase):
         self.uom_unit = self.env.ref('product.product_uom_unit')
         self.uom_dozen = self.env.ref('product.product_uom_dozen')
 
-        self.main_assembly = product_model.create({
-            'name': 'Main assembly',
+        self.main_assembly_1 = product_model.create({
+            'name': 'Main assembly 1',
+            'purchase_line_warn': 'no-message'})
+
+        self.main_assembly_2 = product_model.create({
+            'name': 'Main assembly 2',
             'purchase_line_warn': 'no-message'})
 
         self.subassembly_1 = product_model.create({
@@ -52,7 +56,7 @@ class TestBom(TransactionCase):
     def test_empty_bom(self):
         '''A bom with no lines'''
         bom_res = self.env['mrp.bom'].create({
-            'product_tmpl_id': self.main_assembly.product_tmpl_id.id
+            'product_tmpl_id': self.main_assembly_1.product_tmpl_id.id
         })
         res = bom_res.compute_raw_material_qties()
         self.assertEqual(res, [], 'Empty bom should have no quantities!')
@@ -66,7 +70,7 @@ class TestBom(TransactionCase):
         #  - Component2 x 5
 
         bom_res = self.env['mrp.bom'].create({
-            'product_tmpl_id': self.main_assembly.product_tmpl_id.id
+            'product_tmpl_id': self.main_assembly_1.product_tmpl_id.id
         })
         self.env['mrp.bom.line'].create({
             'bom_id': bom_res.id,
@@ -118,28 +122,28 @@ class TestBom(TransactionCase):
             'product_qty': 30
         })
 
-        main_assembly_bom_res = self.env['mrp.bom'].create({
-            'product_tmpl_id': self.main_assembly.product_tmpl_id.id
+        main_assembly_1_bom_res = self.env['mrp.bom'].create({
+            'product_tmpl_id': self.main_assembly_1.product_tmpl_id.id
         })
         self.env['mrp.bom.line'].create({
-            'bom_id': main_assembly_bom_res.id,
+            'bom_id': main_assembly_1_bom_res.id,
             'product_id': self.component_1.id,
             'product_uom_id': self.uom_unit.id,
             'product_qty': 10
         })
         self.env['mrp.bom.line'].create({
-            'bom_id': main_assembly_bom_res.id,
+            'bom_id': main_assembly_1_bom_res.id,
             'product_id': self.component_2.id,
             'product_uom_id': self.uom_unit.id,
             'product_qty': 20
         })
         self.env['mrp.bom.line'].create({
-            'bom_id': main_assembly_bom_res.id,
+            'bom_id': main_assembly_1_bom_res.id,
             'product_id': self.subassembly_1.id,
             'product_uom_id': self.uom_unit.id,
             'product_qty': 1
         })
-        res = main_assembly_bom_res.compute_raw_material_qties()
+        res = main_assembly_1_bom_res.compute_raw_material_qties()
         self.assertItemsEqual(res,
             [{ 'product': self.component_1, 'quantity': 20},
              { 'product': self.component_2, 'quantity': 20},
@@ -172,28 +176,28 @@ class TestBom(TransactionCase):
             'product_qty': 30
         })
 
-        main_assembly_bom_res = self.env['mrp.bom'].create({
-            'product_tmpl_id': self.main_assembly.product_tmpl_id.id
+        main_assembly_1_bom_res = self.env['mrp.bom'].create({
+            'product_tmpl_id': self.main_assembly_1.product_tmpl_id.id
         })
         self.env['mrp.bom.line'].create({
-            'bom_id': main_assembly_bom_res.id,
+            'bom_id': main_assembly_1_bom_res.id,
             'product_id': self.component_1.id,
             'product_uom_id': self.uom_unit.id,
             'product_qty': 10
         })
         self.env['mrp.bom.line'].create({
-            'bom_id': main_assembly_bom_res.id,
+            'bom_id': main_assembly_1_bom_res.id,
             'product_id': self.component_2.id,
             'product_uom_id': self.uom_unit.id,
             'product_qty': 20
         })
         self.env['mrp.bom.line'].create({
-            'bom_id': main_assembly_bom_res.id,
+            'bom_id': main_assembly_1_bom_res.id,
             'product_id': self.subassembly_1.id,
             'product_uom_id': self.uom_unit.id,
             'product_qty': 2
         })
-        res = main_assembly_bom_res.compute_raw_material_qties()
+        res = main_assembly_1_bom_res.compute_raw_material_qties()
         self.assertItemsEqual(res,
             [{ 'product': self.component_1, 'quantity': 30},
              { 'product': self.component_2, 'quantity': 20},
@@ -221,7 +225,7 @@ class TestBom(TransactionCase):
         # Expected totals:
         # - Component 1: 1 + (2*1) + (2*1) + (2*3*2*1) = 17
         # - Component 2: 2 + (2*3*2) = 14
-        # - Component 3: (2*3) + (2*3) + (2*3*2*3) = 48 
+        # - Component 3: (2*3) + (2*3) + (2*3*2*3) = 48
 
         subassembly_1_bom_res = self.env['mrp.bom'].create({
             'product_tmpl_id': self.subassembly_1.product_tmpl_id.id
@@ -269,7 +273,7 @@ class TestBom(TransactionCase):
             'product_id': self.component_3.id,
             'product_uom_id': self.uom_unit.id,
             'product_qty': 3
-        })        
+        })
         self.env['mrp.bom.line'].create({
             'bom_id': subassembly_2_bom_res.id,
             'product_id': self.subassembly_3.id,
@@ -277,35 +281,35 @@ class TestBom(TransactionCase):
             'product_qty': 3
         })
 
-        main_assembly_bom_res = self.env['mrp.bom'].create({
-            'product_tmpl_id': self.main_assembly.product_tmpl_id.id
+        main_assembly_1_bom_res = self.env['mrp.bom'].create({
+            'product_tmpl_id': self.main_assembly_1.product_tmpl_id.id
         })
         self.env['mrp.bom.line'].create({
-            'bom_id': main_assembly_bom_res.id,
+            'bom_id': main_assembly_1_bom_res.id,
             'product_id': self.component_1.id,
             'product_uom_id': self.uom_unit.id,
             'product_qty': 1
         })
         self.env['mrp.bom.line'].create({
-            'bom_id': main_assembly_bom_res.id,
+            'bom_id': main_assembly_1_bom_res.id,
             'product_id': self.component_2.id,
             'product_uom_id': self.uom_unit.id,
             'product_qty': 2
         })
         self.env['mrp.bom.line'].create({
-            'bom_id': main_assembly_bom_res.id,
+            'bom_id': main_assembly_1_bom_res.id,
             'product_id': self.subassembly_1.id,
             'product_uom_id': self.uom_unit.id,
             'product_qty': 2
         })
         self.env['mrp.bom.line'].create({
-            'bom_id': main_assembly_bom_res.id,
+            'bom_id': main_assembly_1_bom_res.id,
             'product_id': self.subassembly_2.id,
             'product_uom_id': self.uom_unit.id,
             'product_qty': 2
         })
 
-        res = main_assembly_bom_res.compute_raw_material_qties()
+        res = main_assembly_1_bom_res.compute_raw_material_qties()
         self.assertItemsEqual(res,
             [{ 'product': self.component_1, 'quantity': 17},
              { 'product': self.component_2, 'quantity': 14},
@@ -338,29 +342,29 @@ class TestBom(TransactionCase):
             'product_qty': 30
         })
 
-        main_assembly_bom_res = self.env['mrp.bom'].create({
-            'product_tmpl_id': self.main_assembly.product_tmpl_id.id
+        main_assembly_1_bom_res = self.env['mrp.bom'].create({
+            'product_tmpl_id': self.main_assembly_1.product_tmpl_id.id
         })
         self.env['mrp.bom.line'].create({
-            'bom_id': main_assembly_bom_res.id,
+            'bom_id': main_assembly_1_bom_res.id,
             'product_id': self.component_1.id,
             'product_uom_id': self.uom_unit.id,
             'product_qty': 10
         })
         self.env['mrp.bom.line'].create({
-            'bom_id': main_assembly_bom_res.id,
+            'bom_id': main_assembly_1_bom_res.id,
             'product_id': self.component_2.id,
             'product_uom_id': self.uom_unit.id,
             'product_qty': 20
         })
         self.env['mrp.bom.line'].create({
-            'bom_id': main_assembly_bom_res.id,
+            'bom_id': main_assembly_1_bom_res.id,
             'product_id': self.subassembly_1.id,
             'product_uom_id': self.uom_unit.id,
             'product_qty': 2
         })
 
-        res = main_assembly_bom_res.compute_raw_material_qties()
+        res = main_assembly_1_bom_res.compute_raw_material_qties()
         self.assertItemsEqual(res,
             [{ 'product': self.component_1, 'quantity': 58},
              { 'product': self.component_2, 'quantity': 20},
@@ -375,24 +379,194 @@ class TestBom(TransactionCase):
         #  - Component1 x 10 units
         #  - Component4 x 18 units (=1.5 dozen)
 
-        main_assembly_bom_res = self.env['mrp.bom'].create({
-            'product_tmpl_id': self.main_assembly.product_tmpl_id.id
+        main_assembly_1_bom_res = self.env['mrp.bom'].create({
+            'product_tmpl_id': self.main_assembly_1.product_tmpl_id.id
         })
         self.env['mrp.bom.line'].create({
-            'bom_id': main_assembly_bom_res.id,
+            'bom_id': main_assembly_1_bom_res.id,
             'product_id': self.component_1.id,
             'product_uom_id': self.uom_unit.id,
             'product_qty': 10
         })
         self.env['mrp.bom.line'].create({
-            'bom_id': main_assembly_bom_res.id,
+            'bom_id': main_assembly_1_bom_res.id,
             'product_id': self.component_4.id,
             'product_uom_id': self.uom_unit.id,
             'product_qty': 18
         })
 
-        res = main_assembly_bom_res.compute_raw_material_qties()
+        res = main_assembly_1_bom_res.compute_raw_material_qties()
         self.assertItemsEqual(res,
             [{ 'product': self.component_1, 'quantity': 10 },
              { 'product': self.component_4, 'quantity': 1.5}],
-            'Unit to Dozen conversion failed, quantities do not match')            
+            'Unit to Dozen conversion failed, quantities do not match')
+
+
+    def test_two_boms(self):
+        '''Recordset with two boms'''
+
+        '''A bom with no sub-assemblies'''
+        # Main assembly
+        #  - Component1 x 5
+        #  - Component2 x 5
+        #  - Component2 x 5
+
+        # Main assembly 2
+        #  - Component1 x 5
+        #  - Sub-assembly1 x1
+        #    - Component2 x 2
+        #    - Component3 x 3
+
+        # Totals:
+        # - Component 1: 10
+        # - Component 2: 12
+        # - Component 3: 3
+
+        subassembly_1_bom_res = self.env['mrp.bom'].create({
+            'product_tmpl_id': self.subassembly_1.product_tmpl_id.id
+        })
+        self.env['mrp.bom.line'].create({
+            'bom_id': subassembly_1_bom_res.id,
+            'product_id': self.component_2.id,
+            'product_uom_id': self.uom_unit.id,
+            'product_qty': 2
+        })
+        self.env['mrp.bom.line'].create({
+            'bom_id': subassembly_1_bom_res.id,
+            'product_id': self.component_3.id,
+            'product_uom_id': self.uom_unit.id,
+            'product_qty': 3
+        })
+
+
+        main_assembly_1_bom_res = self.env['mrp.bom'].create({
+            'product_tmpl_id': self.main_assembly_1.product_tmpl_id.id
+        })
+        self.env['mrp.bom.line'].create({
+            'bom_id': main_assembly_1_bom_res.id,
+            'product_id': self.component_1.id,
+            'product_uom_id': self.uom_unit.id,
+            'product_qty': 5
+        })
+        self.env['mrp.bom.line'].create({
+            'bom_id': main_assembly_1_bom_res.id,
+            'product_id': self.component_2.id,
+            'product_uom_id': self.uom_unit.id,
+            'product_qty': 5
+        })
+        self.env['mrp.bom.line'].create({
+            'bom_id': main_assembly_1_bom_res.id,
+            'product_id': self.component_2.id,
+            'product_uom_id': self.uom_unit.id,
+            'product_qty': 5
+        })
+
+        main_assembly_2_bom_res = self.env['mrp.bom'].create({
+            'product_tmpl_id': self.main_assembly_2.product_tmpl_id.id
+        })
+        self.env['mrp.bom.line'].create({
+            'bom_id': main_assembly_2_bom_res.id,
+            'product_id': self.component_1.id,
+            'product_uom_id': self.uom_unit.id,
+            'product_qty': 5
+        })
+        self.env['mrp.bom.line'].create({
+            'bom_id': main_assembly_2_bom_res.id,
+            'product_id': self.subassembly_1.id,
+            'product_uom_id': self.uom_unit.id,
+            'product_qty': 1
+        })
+
+        recordset = self.env['mrp.bom'].browse([main_assembly_1_bom_res.id,
+                                                main_assembly_2_bom_res.id])
+
+        res = recordset.compute_raw_material_qties()
+        self.assertItemsEqual(res,
+            [{ 'product': self.component_1, 'quantity': 10},
+             { 'product': self.component_2, 'quantity': 12},
+             { 'product': self.component_3, 'quantity': 3}],
+            'Component quantities do not match')
+
+    def test_same_bom_twice(self):
+        '''Three-BOM recordset with the same BOM twice'''
+        # Main assembly
+        #  - Component1 x 5
+        #  - Component2 x 5
+        #  - Component2 x 5
+
+        # Main assembly 2 twice
+        #  - Component1 x 5
+        #  - Sub-assembly1 x1
+        #    - Component2 x 2
+        #    - Component3 x 3
+
+        # Totals:
+        # - Component 1: 15
+        # - Component 2: 14
+        # - Component 3: 6
+
+        subassembly_1_bom_res = self.env['mrp.bom'].create({
+            'product_tmpl_id': self.subassembly_1.product_tmpl_id.id
+        })
+        self.env['mrp.bom.line'].create({
+            'bom_id': subassembly_1_bom_res.id,
+            'product_id': self.component_2.id,
+            'product_uom_id': self.uom_unit.id,
+            'product_qty': 2
+        })
+        self.env['mrp.bom.line'].create({
+            'bom_id': subassembly_1_bom_res.id,
+            'product_id': self.component_3.id,
+            'product_uom_id': self.uom_unit.id,
+            'product_qty': 3
+        })
+
+
+        main_assembly_1_bom_res = self.env['mrp.bom'].create({
+            'product_tmpl_id': self.main_assembly_1.product_tmpl_id.id
+        })
+        self.env['mrp.bom.line'].create({
+            'bom_id': main_assembly_1_bom_res.id,
+            'product_id': self.component_1.id,
+            'product_uom_id': self.uom_unit.id,
+            'product_qty': 5
+        })
+        self.env['mrp.bom.line'].create({
+            'bom_id': main_assembly_1_bom_res.id,
+            'product_id': self.component_2.id,
+            'product_uom_id': self.uom_unit.id,
+            'product_qty': 5
+        })
+        self.env['mrp.bom.line'].create({
+            'bom_id': main_assembly_1_bom_res.id,
+            'product_id': self.component_2.id,
+            'product_uom_id': self.uom_unit.id,
+            'product_qty': 5
+        })
+
+        main_assembly_2_bom_res = self.env['mrp.bom'].create({
+            'product_tmpl_id': self.main_assembly_2.product_tmpl_id.id
+        })
+        self.env['mrp.bom.line'].create({
+            'bom_id': main_assembly_2_bom_res.id,
+            'product_id': self.component_1.id,
+            'product_uom_id': self.uom_unit.id,
+            'product_qty': 5
+        })
+        self.env['mrp.bom.line'].create({
+            'bom_id': main_assembly_2_bom_res.id,
+            'product_id': self.subassembly_1.id,
+            'product_uom_id': self.uom_unit.id,
+            'product_qty': 1
+        })
+
+        recordset = self.env['mrp.bom'].browse([main_assembly_1_bom_res.id,
+                                                main_assembly_2_bom_res.id,
+                                                main_assembly_2_bom_res.id])
+
+        res = recordset.compute_raw_material_qties()
+        self.assertItemsEqual(res,
+            [{ 'product': self.component_1, 'quantity': 15},
+             { 'product': self.component_2, 'quantity': 14},
+             { 'product': self.component_3, 'quantity': 6}],
+            'Component quantities do not match')
