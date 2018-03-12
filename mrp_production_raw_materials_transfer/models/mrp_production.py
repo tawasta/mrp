@@ -56,10 +56,11 @@ class MrpProduction(models.Model):
         stock_move_model = self.env['stock.move']
 
         vals = {
+            'material_transfer_production_id': self.id,
             'picking_type_id': self._get_picking_type_for_transfer(),
             'location_id': self._get_source_location_for_transfer(),
             'location_dest_id': self.location_src_id.id,
-            'origin': '%s %s' % (_('Raw materials for'), self.name)
+            'origin': u'%s %s' % (_('Raw materials for'), self.name)
         }
 
         res = stock_picking_model.create(vals)
@@ -77,7 +78,7 @@ class MrpProduction(models.Model):
                 })
 
         return {
-            'name': '%s / Raw Materials' % self.name,
+            'name': u'%s / Raw Materials' % self.name,
             'view_type': 'form',
             'view_mode': 'form, tree',
             'res_model': 'stock.picking',
@@ -85,3 +86,9 @@ class MrpProduction(models.Model):
             'target': 'current',
             'res_id': res.id,
         }
+
+    material_transfer_picking_ids = fields.One2many(
+        comodel_name='stock.picking',
+        inverse_name='material_transfer_production_id',
+        string='Raw Material Transfers',
+    )
