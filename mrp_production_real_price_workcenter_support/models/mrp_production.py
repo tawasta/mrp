@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models
-from odoo import _
-from odoo.exceptions import ValidationError
+from odoo import models
 
 
 class MrpProduction(models.Model):
