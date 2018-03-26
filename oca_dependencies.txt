@@ -1,0 +1,1 @@
+stock https://github.com/Tawasta/l10n-finland 10.0
