@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from openerp import models, fields, api, _, exceptions
+from odoo import models, fields, api
 
 
 class MrpBom(models.Model):
@@ -8,8 +8,11 @@ class MrpBom(models.Model):
 
     def iterate_children(self, top_bom_id, bom_lines):
     
-        archived_product_line_model = self.env['mrp_bom_archived_product_list.archived_product_line']
-        ''' Go through the BOM recursively and search for products that have been marked as archived'''
+        archived_product_line_model = \
+            self.env['mrp_bom_archived_product_list.archived_product_line']
+
+        ''' Go through the BOM recursively and search for products that
+        have been marked as archived'''
  
         for line in bom_lines:
             self.iterate_children(top_bom_id, line.child_line_ids)
@@ -27,5 +30,12 @@ class MrpBom(models.Model):
         self.iterate_children(self.id, self.bom_line_ids)
         self.archived_info_last_update = fields.datetime.now()
 
-    archived_info_last_update = fields.Datetime('Archived info last updated')
-    archived_product_line_ids = fields.One2many('mrp_bom_archived_product_list.archived_product_line', 'bom_id', 'Archived Products on BOM')
+    archived_info_last_update = fields.Datetime(
+        string = 'Archived info last updated',
+    )
+
+    archived_product_line_ids = fields.One2many(
+        comodel_name='mrp_bom_archived_product_list.archived_product_line',
+        inverse_name='bom_id',
+        string='Archived Products on BOM',
+    )
