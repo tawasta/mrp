@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models
+from odoo import api, models
 from odoo import _
 from odoo.exceptions import ValidationError
 
@@ -53,10 +53,11 @@ class MrpProduction(models.Model):
                 )
 
                 qty = finished_product_move_id.product_uom_qty
-                finished_product_move_id.sudo().quant_ids.cost = real_cost / qty
+                product_cost = real_cost / qty
+
+                finished_product_move_id.sudo().quant_ids.cost = product_cost
 
         return res
-
 
     def _compute_finished_product_move_cost(self, raw_material_move_ids):
         # Calculate the real cost
