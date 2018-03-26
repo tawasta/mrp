@@ -7,13 +7,13 @@ class MrpBom(models.Model):
     _inherit = 'mrp.bom'
 
     def iterate_children(self, top_bom_id, bom_lines):
-    
+
         archived_product_line_model = \
             self.env['mrp_bom_archived_product_list.archived_product_line']
 
         ''' Go through the BOM recursively and search for products that
         have been marked as archived'''
- 
+
         for line in bom_lines:
             self.iterate_children(top_bom_id, line.child_line_ids)
             if not line.product_id.active:
@@ -31,7 +31,7 @@ class MrpBom(models.Model):
         self.archived_info_last_update = fields.datetime.now()
 
     archived_info_last_update = fields.Datetime(
-        string = 'Archived info last updated',
+        string='Archived info last updated',
     )
 
     archived_product_line_ids = fields.One2many(
