@@ -9,10 +9,11 @@ class MrpBomLine(models.Model):
 
     @api.one
     def calculate_component_cost(self):
-        ''' Returns the cost of the BOM line. By default fetches the cost
-        from the cost price field of the related product. Override this
-        function for more complex calculations. '''
-        cost = self.product_id.standard_price
+        ''' Returns the cost of the BOM line, using the cost price of the
+        line's product, converted to the UoM used on the line '''
+        cost = self.product_id.uom_id._compute_price(
+            self.product_id.standard_price, self.product_uom_id
+        )
         return cost
 
     @api.multi
