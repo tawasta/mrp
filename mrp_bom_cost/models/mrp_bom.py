@@ -26,7 +26,6 @@ class MrpBom(models.Model):
                 'cost_updated': updated
             })
 
-
     def calculate_component_cost(self, bom):
         ''' Calculate costs for the BOM and its lines '''
         mrp_bom_model = self.env["mrp.bom"]
@@ -34,17 +33,20 @@ class MrpBom(models.Model):
 
         for line in bom.bom_line_ids:
             if line.child_bom_id:
-                # If line's product has a BOM, call this function recursively until whole line cost is calculated.
-                component_cost = mrp_bom_model.calculate_component_cost(line.child_bom_id)
+                # If line's product has a BOM, call this function recursively
+                # until whole line cost is calculated.
+                component_cost \
+                    = mrp_bom_model.calculate_component_cost(line.child_bom_id)
             else:
-                # If the product does not have a BOM, add the cost price of the product to the BOM costs                
+                # If the product does not have a BOM,
+                # add the cost price of the product to the BOM costs
                 component_cost = line.calculate_component_cost()[0]
 
             # Update cost shown on the line
             line.component_cost = component_cost
 
             # Multiply line cost with product qty and add it to BOM cost
-            cost += line.product_qty * component_cost 
+            cost += line.product_qty * component_cost
 
         return cost
 
@@ -53,10 +55,26 @@ class MrpBom(models.Model):
         try:
             main_company = self.sudo().env.ref('base.main_company')
         except ValueError:
-            main_company = self.env['res.company'].sudo().search([], limit=1, order="id")
+            main_company = self.env['res.company'].sudo().search([],
+                                                                 limit=1,
+                                                                 order="id")
         for bom in self:
-            bom.currency_id = bom.company_id.sudo().currency_id.id or main_company.currency_id.id
+            bom.currency_id = bom.company_id.sudo().currency_id.id \
+                or main_company.currency_id.id
 
-    component_cost = fields.Float(digits=dp.get_precision('Product Price'), string="Component Cost", help='''Contains the combined component costs of all sub-assemblies''')
-    cost_updated = fields.Datetime(string="Cost updated", help="Last time BOM cost was updated.")
-    currency_id = fields.Many2one('res.currency', compute=_get_currency_id, string='Currency')
+    component_cost = fields.Float(
+        digits=dp.get_precision('Product Price'),
+        string="Component Cost",
+        help='''Contains the combined component costs of all sub-assemblies'''
+    )
+
+    cost_updated = fields.Datetime(
+        string="Cost updated",
+        help="Last time BOM cost was updated."
+    )
+
+    currency_id = fields.Many2one(
+        comodel_name='res.currency',
+        compute=_get_currency_id,
+        string='Currency'
+    )
