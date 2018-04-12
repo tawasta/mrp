@@ -22,7 +22,8 @@ Usage
 
 Known issues / Roadmap
 ======================
-* Vendor price formatting should be done using the decimal precision and separators defined in Odoo
+* Deprecated and marked as uninstallable: use mrp_bom_primary_vendor_info
+  which is more uniform with other vendor info providing modules
 
 Credits
 =======
