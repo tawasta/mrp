@@ -22,7 +22,7 @@
 {
     'name': 'No Work Order Creation Without Materials',
     'summary': "Hides 'Create Work Orders' button from MO if raw materials are missing",
-    'version': '10.0.1.0.0',
+    'version': '10.0.1.0.1',
     'category': 'Manufacturing',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
@@ -34,7 +34,7 @@
         'bin': [],
     },
     'depends': [
-        'mrp_production_no_produce_without_materials',
+        'mrp_production_raw_materials_warning_field',
     ],
     'data': [
         'views/mrp_production.xml',

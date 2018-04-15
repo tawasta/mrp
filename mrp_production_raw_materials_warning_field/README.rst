@@ -2,11 +2,15 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-===============================
-No Production Without Materials
-===============================
+===================================
+Raw Materials Warning Field for MOs
+===================================
 
-* Hides "Produce" button from Manufacturing Order if raw materials are missing
+* Helper field for indicating if raw materials are available and reserved for
+  the manufacturing order
+* Formulates the same condition that shows/hides the 'Raw materials missing!'
+  label in Odoo core's manufacturing order form view
+* Contains no other functionality, intended to be utilized by other modules
 
 Configuration
 =============
@@ -14,7 +18,7 @@ Configuration
 
 Usage
 =====
-\-
+* Inherit the module and use the new field in domains as necessary
 
 Known issues / Roadmap
 ======================

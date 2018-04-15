@@ -20,9 +20,9 @@
 ##############################################################################
 
 {
-    'name': 'No Production Without Materials',
-    'summary': "Hides 'Produce' button from MO if raw materials are missing",
-    'version': '10.0.1.0.1',
+    'name': 'Raw Materials Warning Field for MOs',
+    'summary': "Helper field indicating if materials are available and assigned",
+    'version': '10.0.1.0.0',
     'category': 'Manufacturing',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
@@ -34,10 +34,9 @@
         'bin': [],
     },
     'depends': [
-        'mrp_production_raw_materials_warning_field',
+        'mrp',
     ],
     'data': [
-        'views/mrp_production.xml',
     ],
     'demo': [
     ],
