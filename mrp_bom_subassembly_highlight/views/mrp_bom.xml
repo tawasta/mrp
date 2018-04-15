@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="mrp_bom_subassembly_highlight_bom_tree" model="ir.ui.view">
+        <field name="name">mrp.bom.subassembly.highlight.bom.tree</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_tree_view"/>
+        <field name="arch" type="xml">
+
+            <field name="routing_id" position="after">
+                <field name="has_subassemblies" invisible="1"/>
+            </field>
+
+            <tree position="attributes">
+                <attribute name="decoration-success">has_subassemblies == True</attribute>
+            </tree>
+        </field>
+    </record>
+</odoo>
