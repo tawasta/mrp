@@ -31,10 +31,16 @@ class MrpBom(models.Model):
                 qty_in_uom = \
                     line.product_uom_id._compute_quantity(line.product_qty,
                                                         product.uom_id)
-                if not line.child_bom_id:
-                    # If the product on the line is a raw material either
-                    # add it to the list as a new product or increase the qty
-                    # if it already exists
+
+                buy_route = self.env.ref('purchase.route_warehouse0_buy',
+                                 raise_if_not_found=False)
+
+                if not line.child_bom_id or buy_route in line.product_id.route_ids:
+                    # If the product on the line is
+                    # a) a raw material
+                    # b) a purchasable with a BOM,
+                    # either add it to the list as a new product or increase
+                    # the qty if it already exists
                     product_index = \
                         next((i for (i, d) \
                             in enumerate(raw_mats_needed) \
