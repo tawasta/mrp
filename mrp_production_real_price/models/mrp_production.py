@@ -55,7 +55,11 @@ class MrpProduction(models.Model):
                 qty = finished_product_move_id.product_uom_qty
                 product_cost = real_cost / qty
 
-                finished_product_move_id.sudo().quant_ids.cost = product_cost
+                quant_count = len(finished_product_move_id.sudo().quant_ids)
+                quant_cost = product_cost / quant_count
+
+                for quant in finished_product_move_id.sudo().quant_ids:
+                    quant.cost = quant_cost
 
         return res
 
