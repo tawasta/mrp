@@ -6,11 +6,12 @@
 BOM Component Cost Calculation 
 ==============================
 
-* Shows the cost of BOM based on its components' cost prices
+* Shows the cost of BOM based on its components' prices
 
 Configuration
 =============
-\-
+* Go to MRP settings and define whether the calculation should be based on the
+ cost price of the product or the price of the primary vendor
 
 Usage
 =====
@@ -20,8 +21,12 @@ Usage
 
 Known issues / Roadmap
 ======================
-* It should be tested in a large 10.0 installation if dynamic calculation of BOM costs works OK in 10.0, this would eliminate the need for a cron and a manual button click that the module currently uses as a calculation trigger
-* In 9.0 dynamic calculation would cause a KeyError in cache, somehow related to this issue/comment: https://github.com/odoo/odoo/issues/7326#issuecomment-160159561.
+* It should be tested in a large 10.0 installation if dynamic calculation of
+  BOM costs works OK in 10.0, this would eliminate the need for a cron and a
+  manual button click that the module currently uses as a calculation trigger
+* In 9.0 dynamic calculation would cause a KeyError in cache, somehow related
+  to this issue/comment:
+  https://github.com/odoo/odoo/issues/7326#issuecomment-160159561.
 
 Credits
 =======

@@ -39,6 +39,7 @@
     'data': [
         'data/ir_cron.xml',
         'views/mrp_bom.xml',
+        'views/mrp_config_settings.xml',
     ],
     'demo': [
     ],
