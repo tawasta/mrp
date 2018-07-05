@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from openerp import api, fields, models
-from openerp.exceptions import except_orm, Warning, RedirectWarning
+from odoo import api, fields, models
+from odoo.exceptions import except_orm, Warning, RedirectWarning
 
 
 class MrpBom(models.Model):
@@ -15,7 +15,7 @@ class MrpBom(models.Model):
         """
 
         if bom.product_tmpl_id.bom_locked:
-            return (True, bom.product_tmpl_id)
+            return True, bom.product_tmpl_id
 
         line_obj = self.env["mrp.bom.line"]
         # gets product ids from current product template
@@ -30,7 +30,7 @@ class MrpBom(models.Model):
                 if res[0]:
                     return res
 
-        return (False, [])
+        return False, []
 
     def locked_message(self, template):
         return "BOM is locked for product: %s" % template.display_name
