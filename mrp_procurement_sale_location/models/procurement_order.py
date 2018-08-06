@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from odoo import api, fields, models
+from odoo import models
 
 
 class ProcurementOrder(models.Model):
@@ -14,10 +14,11 @@ class ProcurementOrder(models.Model):
 
         if self.sale_line_id:
             sale_order = self.sale_line_id.order_id
-            project = sale_order.project_id
 
-            if project and project.default_location_id:
-                res['location_id'] = project.default_location_id.id
+            location = self._get_procurement_location(sale_order)
+
+            if location:
+                res['location_id'] = location.id
 
         return res
 
@@ -32,18 +33,28 @@ class ProcurementOrder(models.Model):
                 ('name', '=', self.group_id.name),
             ])
 
-            if sale_order:
-                project = sale_order.project_id
+            location = self._get_procurement_location(sale_order)
+            project = sale_order.project_id
 
-                if hasattr(sale_order, 'stock_location_id'):
-                    location = sale_order.stock_location_id
-                else:
-                    location = project.default_location_id
-
-                if project and location:
-
-                    result['analytic_account_id'] = project.id
-                    result['location_src_id'] = location.id
-                    result['location_dest_id'] = location.id
+            if location and project:
+                result['analytic_account_id'] = project.id
+                result['location_src_id'] = location.id
+                result['location_dest_id'] = location.id
 
         return result
+
+    def _get_procurement_location(self, sale_order):
+        project = sale_order.project_id
+        location = False
+
+        # The module sale_order_project_location_in_header adds the
+        # field stock_location_id to sale order
+        if hasattr(sale_order, 'stock_location_id') and \
+                sale_order.stock_location_id:
+            # If SO has a specific location, use it
+            location = sale_order.stock_location_id
+        elif project:
+            # If SO has no specific location, use project default
+            location = project.default_location_id
+
+        return location

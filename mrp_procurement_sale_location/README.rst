@@ -10,7 +10,7 @@ Fetches procurement location from its sale line
 
 Configuration
 =============
-You will need to have global or location-spesific procurement rules for them
+You will need to have global or location-specific procurement rules for them
 to match for e.g. manufacturing.
 
 Usage
