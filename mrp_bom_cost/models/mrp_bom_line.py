@@ -30,8 +30,10 @@ class MrpBomLine(models.Model):
                               self.currency_id,
                               primary_vendor.price)
 
-                # Calculate cost for the unit used on the BOM
-                cost = self.product_id.uom_id._compute_price(
+                # Calculate cost for the unit used on the BOM.
+                # Note the use of purchase unit of measure instead of
+                # regular uom
+                cost = self.product_id.uom_po_id._compute_price(
                     unit_cost_in_eur, self.product_uom_id
                 )
         else:
