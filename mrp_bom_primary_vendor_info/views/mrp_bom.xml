@@ -12,6 +12,7 @@
                     widget="monetary" 
                     options="{'currency_field': 'primary_vendor_currency_id'}"
                     attrs="{ 'invisible': [('primary_vendor_id', '=', False)] }"/>
+                    <field name="primary_vendor_uom_id"/>
                 <field name="primary_vendor_currency_id" invisible="1"/>
             </xpath>
         </field>

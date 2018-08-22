@@ -22,7 +22,7 @@
 {
     'name': 'Product Primary Vendor Info for BOM lines',
     'summary': "Helper fields for showing primary vendor's info",
-    'version': '10.0.1.0.0',
+    'version': '10.0.1.0.1',
     'category': 'Manufacturing',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',

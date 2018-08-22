@@ -29,3 +29,9 @@ class MrpBomLine(models.Model):
         related='product_id.primary_supplierinfo_id.currency_id',
         string="Primary Vendor's Currency",
     )
+
+    primary_vendor_uom_id = fields.Many2one(
+        comodel_name='product.uom',
+        related='product_id.primary_supplierinfo_id.product_uom',
+        string="Primary Vendor's UoM",
+    )
