@@ -22,7 +22,7 @@
 {
     'name': 'BOM Component Cost Calculation',
     'summary': "Shows the cost of a BOM based on its components' prices",
-    'version': '10.0.1.0.2',
+    'version': '10.0.1.1.0',
     'category': 'Manufacturing',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
@@ -40,6 +40,7 @@
         'data/ir_cron.xml',
         'views/mrp_bom.xml',
         'views/mrp_config_settings.xml',
+        'views/product_template.xml',
     ],
     'demo': [
     ],
