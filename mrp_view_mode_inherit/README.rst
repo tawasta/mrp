@@ -3,10 +3,10 @@
    :alt: License: AGPL-3
 
 ==============
-{module_title}
+MRP view mode inherit
 ==============
 
-This module was written to extend the functionality of mrp_production_request
+Adds calendar, graph and pivot view types for MRP production request
 
 Configuration
 =============
