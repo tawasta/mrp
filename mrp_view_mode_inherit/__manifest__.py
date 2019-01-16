@@ -32,6 +32,6 @@
     'depends': [
         "mrp_production_request",
     ],
-    'data': ['views/main_model.xml',
+    'data': ['views/view_types.xml',
     ],
 }
