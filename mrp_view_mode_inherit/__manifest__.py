@@ -22,7 +22,7 @@
 {
     'name': 'MRP view mode inherit',
     'summary': 'Inherits view types for MRP',
-    'version': '10.0.0.1.0',
+    'version': '10.0.1.1.0',
     'category': 'Manufacturing',
     'website': 'https://tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
