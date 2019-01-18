@@ -27,6 +27,7 @@ addon | version | summary
 [mrp_production_raw_materials_warning_field](mrp_production_raw_materials_warning_field/) | 10.0.1.0.0 | Helper field indicating if materials are available and assigned
 [mrp_production_real_price](mrp_production_real_price/) | 10.0.1.1.1 | Manufactured product value depends on used quants
 [mrp_production_real_price_workcenter_support](mrp_production_real_price_workcenter_support/) | 10.0.1.0.0 | Add workcenter cost to FIFO real price manufactured products
+[mrp_production_request_extra_view_modes](mrp_production_request_extra_view_modes/) | 10.0.1.1.0 | Adds view types for MRP production request
 [mrp_workcenter_cost](mrp_workcenter_cost/) | 10.0.1.0.0 | Adds a service product to work center for calculating costs
 [product_revisioning](product_revisioning/) | 10.0.1.0.0 | Revision a product and replace it in BOMs
 
