@@ -20,7 +20,7 @@
 ##############################################################################
 
 {
-    'name': 'MRP view mode inherit',
+    'name': 'MRP production request extra view modes',
     'summary': 'Adds view types for MRP production request',
     'version': '10.0.1.1.0',
     'category': 'Manufacturing',
