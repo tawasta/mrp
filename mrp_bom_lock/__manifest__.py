@@ -22,7 +22,7 @@
 {
     'name': 'BOM Locking',
     'summary': 'Prevent product BOMs from being edited',
-    'version': '10.0.1.0.0',
+    'version': '1.0.0',
     'category': 'Manufacturing',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',

@@ -22,7 +22,7 @@
 {
     'name': 'MRP production request extra view modes',
     'summary': 'Adds view types for MRP production request',
-    'version': '10.0.1.1.0',
+    'version': '1.1.0',
     'category': 'Manufacturing',
     'website': 'https://tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',

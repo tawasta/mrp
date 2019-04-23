@@ -22,7 +22,7 @@
 {
     'name': 'Manufacturing Order as First View',
     'summary': 'The initial view of the Manufacturing-app is changed to Manufacturing Orders',
-    'version': '10.0.0.1.0',
+    'version': '0.1.0',
     'category': 'Manufacturing',
     'website': 'https://tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',

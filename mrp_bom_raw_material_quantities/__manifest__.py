@@ -22,7 +22,7 @@
 {
     'name': 'BOM Raw Material Quantities',
     'summary': "Helper module for calculating total raw material requirements of a BOM",
-    'version': '10.0.1.1.0',
+    'version': '1.1.0',
     'category': 'Manufacturing',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',

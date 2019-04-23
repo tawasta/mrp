@@ -22,7 +22,7 @@
 {
     'name': 'MO Raw Materials to Purchase Request',
     'summary': "Purchase request creation from manufacturing order",
-    'version': '10.0.1.0.1',
+    'version': '1.0.1',
     'category': 'Manufacturing',
     'website': 'http://www.tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
