@@ -1,2 +1,2 @@
 # -*- coding: utf-8 -*-
-import bom_archived_product_wizard
+from . import bom_archived_product_wizard
