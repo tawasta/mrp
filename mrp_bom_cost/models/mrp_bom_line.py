@@ -6,7 +6,7 @@ class MrpBomLine(models.Model):
 
     _inherit = "mrp.bom.line"
 
-    @api.one
+    @api.multi
     def calculate_component_cost(self):
         ''' Returns the cost of the BOM line, using either
         -the cost price of the line's product, or
@@ -14,6 +14,10 @@ class MrpBomLine(models.Model):
         ...converted to the UoM used on the line (with also currency rate
         conversion if the vendor uses a different currency)'''
 
+        # This should be run for one record at tht time, as it returns
+        # the component cost
+        self.ensure_one()
+        
         if self.bom_id.company_id.bom_cost_calculation_method \
                 == 'vendor_price':
             # Use primary vendor's price, fall back to 0 if no vendor exists
