@@ -17,7 +17,7 @@ class MrpBomLine(models.Model):
         # This should be run for one record at tht time, as it returns
         # the component cost
         self.ensure_one()
-        
+
         if self.bom_id.company_id.bom_cost_calculation_method \
                 == 'vendor_price':
             # Use primary vendor's price, fall back to 0 if no vendor exists
