@@ -3,7 +3,7 @@
    :alt: License: AGPL-3
 
 ===============================
-BOM Workcenter Cost Calculation 
+BOM Workcenter Cost Calculation
 ===============================
 
 * Shows the cost of BOM based on its workcenters' costs
@@ -38,3 +38,4 @@ Maintainer
    :target: http://tawasta.fi/
 
 This module is maintained by Oy Tawasta OS Technologies Ltd.
+
