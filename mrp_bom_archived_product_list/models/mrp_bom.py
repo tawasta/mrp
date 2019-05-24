@@ -10,8 +10,8 @@ class MrpBom(models.Model):
         archived_product_line_model = \
             self.env['mrp_bom_archived_product_list.archived_product_line']
 
-        ''' Go through the BOM recursively and search for products that
-        have been marked as archived'''
+        # ''' Go through the BOM recursively and search for products that
+        # have been marked as archived'''
 
         for line in bom_lines:
             self.iterate_children(top_bom_id, line.child_line_ids)
