@@ -11,7 +11,7 @@ BOM Component Cost Calculation
 Configuration
 =============
 * Go to MRP settings and define whether the calculation should be based on the
- cost price of the product or the price of the primary vendor
+  cost price of the product or the price of the primary vendor
 
 Usage
 =====
