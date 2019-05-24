@@ -16,4 +16,3 @@ class ResCompany(models.Model):
         string='Raw Materials Source Location',
         domain=[('usage', '=', 'internal')],
         help='''Used when transferring raw materials required by a MO''')
-
