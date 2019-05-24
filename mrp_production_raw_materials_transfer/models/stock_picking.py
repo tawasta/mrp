@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-from odoo import api, fields, models, _
-from odoo.exceptions import RedirectWarning, UserError
+from odoo import fields, models
 
 
 class StockPicking(models.Model):
@@ -12,3 +10,4 @@ class StockPicking(models.Model):
         comodel_name='mrp.production',
         help='''Manufacturing Order this Raw Material Transfer is related to'''
     )
+

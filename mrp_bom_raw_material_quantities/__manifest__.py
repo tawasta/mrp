@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
@@ -21,7 +20,8 @@
 
 {
     'name': 'BOM Raw Material Quantities',
-    'summary': "Helper module for calculating total raw material requirements of a BOM",
+    'summary': "Helper module for calculating total raw material \
+            requirements of a BOM",
     'version': '1.1.0',
     'category': 'Manufacturing',
     'website': 'http://www.tawasta.fi',
@@ -35,10 +35,11 @@
     },
     'depends': [
         'mrp',
-        'purchase', # TODO this can be removed
+        'purchase',  # TODO this can be removed
     ],
     'data': [
     ],
     'demo': [
     ],
 }
+

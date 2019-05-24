@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-from odoo import api, fields, models, _, exceptions
+from odoo import fields, models
 
 
 class ResCompany(models.Model):
@@ -17,3 +16,4 @@ class ResCompany(models.Model):
         string='Raw Materials Source Location',
         domain=[('usage', '=', 'internal')],
         help='''Used when transferring raw materials required by a MO''')
+

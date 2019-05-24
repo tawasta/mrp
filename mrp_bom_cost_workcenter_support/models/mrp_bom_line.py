@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 from openerp import api, fields, models
-import openerp.addons.decimal_precision as dp
+# import openerp.addons.decimal_precision as dp
 
 
 class MrpBomLine(models.Model):
@@ -14,5 +13,10 @@ class MrpBomLine(models.Model):
             line.op_cost = line.child_bom_id.op_cost
             line.op_cost_total = line.op_cost * line.product_qty
 
-    op_cost = fields.Float(compute=_get_op_costs, string='Operation Cost per Unit')
-    op_cost_total = fields.Float(compute=_get_op_costs, string='Total Operation Cost')
+    op_cost = fields.Float(
+        compute=_get_op_costs,
+        string='Operation Cost per Unit')
+    op_cost_total = fields.Float(
+        compute=_get_op_costs,
+        string='Total Operation Cost')
+

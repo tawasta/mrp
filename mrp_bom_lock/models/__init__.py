@@ -1,3 +1,3 @@
-# -*- coding: utf-8 -*-
-import mrp_bom
-import product_template
+from . import mrp_bom
+from . import product_template
+

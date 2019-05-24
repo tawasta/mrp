@@ -21,7 +21,8 @@
 
 {
     'name': 'Manufacturing Order as First View',
-    'summary': 'The initial view of the Manufacturing-app is changed to Manufacturing Orders',
+    'summary': 'The initial view of the Manufacturing-app is \
+        changed to Manufacturing Orders',
     'version': '0.1.0',
     'category': 'Manufacturing',
     'website': 'https://tawasta.fi',
@@ -29,8 +30,13 @@
     'license': 'AGPL-3',
     'application': False,
     'installable': True,
-    'depends': ['mrp'
+    'depends':
+    [
+        'mrp'
     ],
-    'data': ['views/sequence_alteration.xml'
+    'data':
+    [
+            'views/sequence_alteration.xml'
     ],
 }
+

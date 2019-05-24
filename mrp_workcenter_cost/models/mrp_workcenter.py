@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class MrpWorkcenter(models.Model):
@@ -12,3 +11,4 @@ class MrpWorkcenter(models.Model):
         domain=[('type', '=', 'service')],
         help='Add a priced service product here to calculate operation costs',
     )
+

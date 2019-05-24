@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 from odoo import api, fields, models
 
 
@@ -23,3 +21,4 @@ class MrpProduction(models.Model):
 
                 record.location_dest_id = location.id
                 record.location_src_id = location.id
+

@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-from odoo import api, fields, models, _, exceptions
+from odoo import fields, models
 
 
 class MrpConfigSettings(models.TransientModel):
@@ -13,3 +12,4 @@ class MrpConfigSettings(models.TransientModel):
     raw_materials_src_location_id = fields.Many2one(
         related='company_id.raw_materials_src_location_id',
         string='Raw Materials Default Source Location')
+

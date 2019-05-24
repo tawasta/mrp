@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-from openerp import models, fields, api, _, exceptions
+from openerp import models, api
 
 
 class ProductSupplierinfo(models.Model):
@@ -8,19 +7,27 @@ class ProductSupplierinfo(models.Model):
 
     @api.multi
     def name_get(self):
-        # Customized name_get() that can show either just the name, or name + vendor code + vendor price,
+        # Customized name_get() that can show either just the name,
+        # or name + vendor code + vendor price,
         # depending on the passed context parameter.
 
         res = []
-        show_code_and_price = self.env.context.get('show_code_and_price', False)
+        show_code_and_price = self.env.context\
+            .get('show_code_and_price', False)
 
         for supplierinfo in self:
             if show_code_and_price:
                 # E.g. "Vendor Inc (PC-0001) - 25€"
-                name = u'{} ({}) - {}{}'.format(supplierinfo.name.name, supplierinfo.product_code, supplierinfo.price, supplierinfo.currency_id.symbol)
+                name = u'{} ({}) - {}{}'.format(
+                    supplierinfo.name.name,
+                    supplierinfo.product_code,
+                    supplierinfo.price,
+                    supplierinfo.currency_id.symbol
+                )
                 res.append((supplierinfo.id, name))
             else:
-                # No context parameter present, so show just the name as fallback
+                # No context parameter present,
+                # so show just the name as fallback
                 res.append((supplierinfo.id, supplierinfo.name.name))
 
         return res

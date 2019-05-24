@@ -1,6 +1,4 @@
-# -*- coding: utf-8 -*-
-from odoo import api, fields, models
-from odoo.exceptions import except_orm, Warning, RedirectWarning
+from odoo import api, models
 
 
 class MrpBom(models.Model):
@@ -42,7 +40,8 @@ class MrpBom(models.Model):
     @api.multi
     def write(self, values):
         """ Write triggers is_locked check for current BOM"""
-        if not self.env["res.users"].has_group("bom_lock.bom_lock_allow_write"):
+        if not self.env["res.users"]\
+                .has_group("bom_lock.bom_lock_allow_write"):
             for bom in self:
                 res = self.is_locked(bom)
                 if res[0]:

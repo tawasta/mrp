@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
@@ -32,6 +31,8 @@
     'depends': [
         "mrp_production_request",
     ],
-    'data': ['views/view_types.xml',
+    'data': [
+        'views/view_types.xml',
     ],
 }
+

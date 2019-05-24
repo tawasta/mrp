@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from odoo.tests.common import TransactionCase
 
 
@@ -52,7 +51,6 @@ class TestBom(TransactionCase):
 
         return res
 
-
     def test_empty_bom(self):
         '''A bom with no lines'''
         bom_res = self.env['mrp.bom'].create({
@@ -60,7 +58,6 @@ class TestBom(TransactionCase):
         })
         res = bom_res.compute_raw_material_qties()
         self.assertEqual(res, [], 'Empty bom should have no quantities!')
-
 
     def test_single_level_bom(self):
         '''A bom with no sub-assemblies'''
@@ -91,11 +88,11 @@ class TestBom(TransactionCase):
             'product_qty': 5
         })
         res = bom_res.compute_raw_material_qties()
-        self.assertItemsEqual(res,
-            [{ 'product': self.component_1, 'quantity': 5},
-             { 'product': self.component_2, 'quantity': 10}],
+        self.assertItemsEqual(
+            res,
+            [{'product': self.component_1, 'quantity': 5},
+             {'product': self.component_2, 'quantity': 10}],
             'Component quantities do not match')
-
 
     def test_subassembly(self):
         '''A bom with a single sub-assembly'''
@@ -144,10 +141,11 @@ class TestBom(TransactionCase):
             'product_qty': 1
         })
         res = main_assembly_1_bom_res.compute_raw_material_qties()
-        self.assertItemsEqual(res,
-            [{ 'product': self.component_1, 'quantity': 20},
-             { 'product': self.component_2, 'quantity': 20},
-             { 'product': self.component_3, 'quantity': 30}],
+        self.assertItemsEqual(
+            res,
+            [{'product': self.component_1, 'quantity': 20},
+             {'product': self.component_2, 'quantity': 20},
+             {'product': self.component_3, 'quantity': 30}],
             'Component quantities do not match')
 
     def test_subassembly_with_multiplier(self):
@@ -198,10 +196,11 @@ class TestBom(TransactionCase):
             'product_qty': 2
         })
         res = main_assembly_1_bom_res.compute_raw_material_qties()
-        self.assertItemsEqual(res,
-            [{ 'product': self.component_1, 'quantity': 30},
-             { 'product': self.component_2, 'quantity': 20},
-             { 'product': self.component_3, 'quantity': 60}],
+        self.assertItemsEqual(
+            res,
+            [{'product': self.component_1, 'quantity': 30},
+             {'product': self.component_2, 'quantity': 20},
+             {'product': self.component_3, 'quantity': 60}],
             'Component quantities do not match')
 
     def test_complex_multilevel_subassembly(self):
@@ -310,12 +309,12 @@ class TestBom(TransactionCase):
         })
 
         res = main_assembly_1_bom_res.compute_raw_material_qties()
-        self.assertItemsEqual(res,
-            [{ 'product': self.component_1, 'quantity': 17},
-             { 'product': self.component_2, 'quantity': 14},
-             { 'product': self.component_3, 'quantity': 48}],
+        self.assertItemsEqual(
+            res,
+            [{'product': self.component_1, 'quantity': 17},
+             {'product': self.component_2, 'quantity': 14},
+             {'product': self.component_3, 'quantity': 48}],
             'Component quantities do not match')
-
 
     def test_uom_conversion(self):
         '''A BOM where different UoMs are used for same component'''
@@ -365,12 +364,12 @@ class TestBom(TransactionCase):
         })
 
         res = main_assembly_1_bom_res.compute_raw_material_qties()
-        self.assertItemsEqual(res,
-            [{ 'product': self.component_1, 'quantity': 58},
-             { 'product': self.component_2, 'quantity': 20},
-             { 'product': self.component_3, 'quantity': 60}],
+        self.assertItemsEqual(
+            res,
+            [{'product': self.component_1, 'quantity': 58},
+             {'product': self.component_2, 'quantity': 20},
+             {'product': self.component_3, 'quantity': 60}],
             'Dozen to Unit conversion failed, quantities do not match')
-
 
     def test_reverse_uom_conversion(self):
         '''A BOM where line uses Units but the product has another UoM
@@ -396,11 +395,11 @@ class TestBom(TransactionCase):
         })
 
         res = main_assembly_1_bom_res.compute_raw_material_qties()
-        self.assertItemsEqual(res,
-            [{ 'product': self.component_1, 'quantity': 10 },
-             { 'product': self.component_4, 'quantity': 1.5}],
+        self.assertItemsEqual(
+            res,
+            [{'product': self.component_1, 'quantity': 10},
+             {'product': self.component_4, 'quantity': 1.5}],
             'Unit to Dozen conversion failed, quantities do not match')
-
 
     def test_two_boms(self):
         '''Recordset with two boms'''
@@ -437,7 +436,6 @@ class TestBom(TransactionCase):
             'product_uom_id': self.uom_unit.id,
             'product_qty': 3
         })
-
 
         main_assembly_1_bom_res = self.env['mrp.bom'].create({
             'product_tmpl_id': self.main_assembly_1.product_tmpl_id.id
@@ -481,10 +479,11 @@ class TestBom(TransactionCase):
                                                 main_assembly_2_bom_res.id])
 
         res = recordset.compute_raw_material_qties()
-        self.assertItemsEqual(res,
-            [{ 'product': self.component_1, 'quantity': 10},
-             { 'product': self.component_2, 'quantity': 12},
-             { 'product': self.component_3, 'quantity': 3}],
+        self.assertItemsEqual(
+            res,
+            [{'product': self.component_1, 'quantity': 10},
+             {'product': self.component_2, 'quantity': 12},
+             {'product': self.component_3, 'quantity': 3}],
             'Component quantities do not match')
 
     def test_same_bom_twice(self):
@@ -520,7 +519,6 @@ class TestBom(TransactionCase):
             'product_uom_id': self.uom_unit.id,
             'product_qty': 3
         })
-
 
         main_assembly_1_bom_res = self.env['mrp.bom'].create({
             'product_tmpl_id': self.main_assembly_1.product_tmpl_id.id
@@ -565,8 +563,9 @@ class TestBom(TransactionCase):
                                                 main_assembly_2_bom_res.id])
 
         res = recordset.compute_raw_material_qties()
-        self.assertItemsEqual(res,
-            [{ 'product': self.component_1, 'quantity': 15},
-             { 'product': self.component_2, 'quantity': 14},
-             { 'product': self.component_3, 'quantity': 6}],
+        self.assertItemsEqual(
+            res,
+            [{'product': self.component_1, 'quantity': 15},
+             {'product': self.component_2, 'quantity': 14},
+             {'product': self.component_3, 'quantity': 6}],
             'Component quantities do not match')

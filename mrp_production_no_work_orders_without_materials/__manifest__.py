@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
@@ -21,7 +20,8 @@
 
 {
     'name': 'No Work Order Creation Without Materials',
-    'summary': "Hides 'Create Work Orders' button from MO if raw materials are missing",
+    'summary': "Hides 'Create Work Orders' button from MO \
+        if raw materials are missing",
     'version': '1.0.1',
     'category': 'Manufacturing',
     'website': 'http://www.tawasta.fi',
@@ -42,3 +42,4 @@
     'demo': [
     ],
 }
+

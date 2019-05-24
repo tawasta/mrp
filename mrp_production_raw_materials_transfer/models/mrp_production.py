@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 from odoo import api, fields, models, _
 from odoo.exceptions import RedirectWarning, UserError
 
@@ -10,32 +9,42 @@ class MrpProduction(models.Model):
     def _get_picking_type_for_transfer(self):
         if not self.company_id.raw_materials_picking_type_id:
             action = self.env.ref('mrp.action_mrp_configuration')
-            msg = _('Internal transfer picking type unconfigured. \nPlease go to MRP Configuration.')
+            msg = _('Internal transfer picking type unconfigured. \n \
+                    Please go to MRP Configuration.')
             # TODO: why doesn't the warning show the link to MRP configuration?
-            raise RedirectWarning(msg, action.id, _('Go to the configuration panel'))
+            raise RedirectWarning(
+                msg,
+                action.id,
+                _('Go to the configuration panel'))
         else:
             return self.company_id.raw_materials_picking_type_id.id
 
     def _get_source_location_for_transfer(self):
         if not self.company_id.raw_materials_src_location_id:
             action = self.env.ref('mrp.action_mrp_configuration')
-            msg = _('Default Source location unconfigured. \nPlease go to MRP Configuration.')
+            msg = _('Default Source location unconfigured. \n\
+                    Please go to MRP Configuration.')
             # TODO: why doesn't the warning show the link to MRP configuration?
-            raise RedirectWarning(msg, action.id, _('Go to the configuration panel'))
+            raise RedirectWarning(
+                msg,
+                action.id,
+                _('Go to the configuration panel'))
         else:
             return self.company_id.raw_materials_src_location_id.id
 
     def check_material(self, material):
         ''' Set conditions when the material should be suggested to
         be included in the transfer.  '''
-        buy_route = self.env.ref('purchase.route_warehouse0_buy', raise_if_not_found=False)
+        buy_route = self.env.ref(
+            'purchase.route_warehouse0_buy',
+            raise_if_not_found=False)
         if not buy_route:
             raise UserError(_("'Buy' route not found in the system."))
 
         # If the core's Buy route is checked for the product and there is
         # not enough qty available, suggest the product to be transferred
         if buy_route.id in [r.id for r in material.product_id.route_ids] \
-            and self._get_material_qty(material) > 0:
+                and self._get_material_qty(material) > 0:
             return True
         else:
             return False
@@ -44,7 +53,6 @@ class MrpProduction(models.Model):
         ''' Set how much of the material should be suggested to
         be transferred '''
         return material.product_uom_qty - material.quantity_available
-
 
     @api.multi
     def create_raw_material_transfer(self):
@@ -92,3 +100,4 @@ class MrpProduction(models.Model):
         inverse_name='material_transfer_production_id',
         string='Raw Material Transfers',
     )
+
