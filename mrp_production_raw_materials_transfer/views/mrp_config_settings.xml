@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-	<record id="mrp_production_raw_materials_transfer_config_form" model="ir.ui.view">
-		<field name="name">mrp.production.raw_materials.transfer.config.form</field>
-		<field name="model">mrp.config.settings</field>
-		<field name="inherit_id" ref="mrp.view_mrp_config"/>
-		<field name="arch" type="xml">
-			<field name="group_mrp_routings" position="after">
-				<field name="raw_materials_picking_type_id"/>
-				<field name="raw_materials_src_location_id"/>
-			</field>
-		</field>
-	</record>
+    <record id="mrp_production_raw_materials_transfer_config_form" model="ir.ui.view">
+        <field name="name">mrp.production.raw_materials.transfer.config.form</field>
+        <field name="model">mrp.config.settings</field>
+        <field name="inherit_id" ref="mrp.view_mrp_config"/>
+        <field name="arch" type="xml">
+            <field name="group_mrp_routings" position="after">
+                <field name="raw_materials_picking_type_id"/>
+                <field name="raw_materials_src_location_id"/>
+            </field>
+        </field>
+    </record>
 </odoo>

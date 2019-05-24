@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding='UTF-8'?>
 <odoo>
-	<record model="ir.cron" id="bom_archived_products_cron">
+    <record model="ir.cron" id="bom_archived_products_cron">
         <field name="name">Compute Archived Products for BOMs</field>
         <field name="interval_number">6</field>
         <field name="interval_type">hours</field>

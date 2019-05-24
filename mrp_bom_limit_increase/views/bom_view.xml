@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-	<record id="mrp.mrp_bom_line_action_from_bom"
+    <record id="mrp.mrp_bom_line_action_from_bom"
         model="ir.actions.act_window">
         <field name="limit">100</field>
     </record>

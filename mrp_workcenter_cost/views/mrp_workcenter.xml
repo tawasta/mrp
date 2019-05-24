@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
 
-	<record id="mrp_workcenter_view" model="ir.ui.view">
-		<field name="name">mrp.workcenter.service.product</field>
-		<field name="model">mrp.workcenter</field>
-		<field name="inherit_id" ref="mrp.mrp_workcenter_view" />
-		<field name="arch" type="xml">
+    <record id="mrp_workcenter_view" model="ir.ui.view">
+        <field name="name">mrp.workcenter.service.product</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_view" />
+        <field name="arch" type="xml">
 
-			<field name="calendar_id" position="after">
-				<field name="service_product_id" />
-			</field>
+            <field name="calendar_id" position="after">
+                <field name="service_product_id" />
+            </field>
 
-		</field>
-	</record>
+        </field>
+    </record>
 
 </odoo>

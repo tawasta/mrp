@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-	<record id="mrp_production_raw_materials_transfer_production_form" model="ir.ui.view">
-		<field name="name">mrp.production.raw_materials.transfer.production.form</field>
-		<field name="model">mrp.production</field>
-		<field name="inherit_id" ref="mrp.mrp_production_form_view"/>
-		<field name="arch" type="xml">
+    <record id="mrp_production_raw_materials_transfer_production_form" model="ir.ui.view">
+        <field name="name">mrp.production.raw_materials.transfer.production.form</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
 
-			<field name="state" position="before">
-				<button name="create_raw_material_transfer"
-						string="Transfer Raw Materials" type="object"
-						attrs="{'invisible': ['|', ('availability', 'in', ('assigned', 'none')), ('state', 'not in', ('confirmed','progress'))]}"/>
-			</field>
+            <field name="state" position="before">
+                <button name="create_raw_material_transfer"
+                        string="Transfer Raw Materials" type="object"
+                        attrs="{'invisible': ['|', ('availability', 'in', ('assigned', 'none')), ('state', 'not in', ('confirmed','progress'))]}"/>
+            </field>
 
-			<notebook position="inside">
-				<page string="Raw Material Transfers">
-					<field name="material_transfer_picking_ids" readonly="1"/>
-				</page>
-			</notebook>
+            <notebook position="inside">
+                <page string="Raw Material Transfers">
+                    <field name="material_transfer_picking_ids" readonly="1"/>
+                </page>
+            </notebook>
 
-		</field>
-	</record>
+        </field>
+    </record>
 </odoo>

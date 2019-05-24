@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo>
-	<record id="mrp_production_no_produce_without_workorders_production_form" model="ir.ui.view">
-		<field name="name">mrp.production.no.produce.without.workorders.production.form</field>
-		<field name="model">mrp.production</field>
-		<field name="inherit_id" ref="mrp.mrp_production_form_view"/>
-		<field name="arch" type="xml">
+    <record id="mrp_production_no_produce_without_workorders_production_form" model="ir.ui.view">
+        <field name="name">mrp.production.no.produce.without.workorders.production.form</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
 
             <button name="button_plan" position="attributes">
-				<attribute name="attrs">{ 'invisible': ['|', '|', 
-				                                        ('state', '!=', 'confirmed'),
-													    ('routing_id', '=', False),
-													    ('materials_warning_visible', '=', True)] }</attribute>
-			</button>
+                <attribute name="attrs">{ 'invisible': ['|', '|', 
+                                                        ('state', '!=', 'confirmed'),
+                                                        ('routing_id', '=', False),
+                                                        ('materials_warning_visible', '=', True)] }</attribute>
+            </button>
 
-		</field>
-	</record>
+        </field>
+    </record>
 </odoo>
