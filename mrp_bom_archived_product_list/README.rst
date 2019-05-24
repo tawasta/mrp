@@ -25,8 +25,8 @@ Known issues / Roadmap
 ======================
 * It would be way more user-friendly if the archived product info was readily available in the BOM form view as an up-to-date computed field. 
 * However in 9.0 iterating the whole BOM structure using core's child_line_ids computed field on the fly while using another computed field causes 
-a KeyError in cache, which is somehow related to this issue/comment: https://github.com/odoo/odoo/issues/7326#issuecomment-160159561.
-Putting the calculation behind a button click solves this but is slightly clunky to use.
+  a KeyError in cache, which is somehow related to this issue/comment: https://github.com/odoo/odoo/issues/7326#issuecomment-160159561.
+  Putting the calculation behind a button click solves this but is slightly clunky to use.
 * This should be tested again in 10.0
 
 Contributors

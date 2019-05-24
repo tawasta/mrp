@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-==============
+=================================
 Manufacturing Order as First View
-==============
+=================================
 
 This module places Manufacturing Orders as the initial view when using the Manufacturing-app
 

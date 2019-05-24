@@ -404,7 +404,7 @@ class TestBom(TransactionCase):
     def test_two_boms(self):
         '''Recordset with two boms'''
 
-        '''A bom with no sub-assemblies'''
+        # '''A bom with no sub-assemblies'''
         # Main assembly
         #  - Component1 x 5
         #  - Component2 x 5
