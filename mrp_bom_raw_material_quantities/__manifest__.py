@@ -22,9 +22,9 @@
     'name': 'BOM Raw Material Quantities',
     'summary': "Helper module for calculating total raw material \
             requirements of a BOM",
-    'version': '1.1.0',
+    'version': '12.0.1.0.0',
     'category': 'Manufacturing',
-    'website': 'http://www.tawasta.fi',
+    'website': 'https://github.com/Tawasta/mrp',
     'author': 'Oy Tawasta Technologies Ltd.',
     'license': 'AGPL-3',
     'application': False,

@@ -21,9 +21,9 @@
 {
     'name': 'Force sale order project stock location to procurement',
     'summary': 'Fetches procurement location from its sale line',
-    'version': '1.4.0',
+    'version': '12.0.1.0.0',
     'category': 'Manufacturing',
-    'website': 'http://www.tawasta.fi',
+    'website': 'https://github.com/Tawasta/mrp',
     'author': 'Oy Tawasta Technologies Ltd.',
     'license': 'AGPL-3',
     'application': False,

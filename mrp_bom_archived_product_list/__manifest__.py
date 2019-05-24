@@ -21,9 +21,9 @@
 {
     'name': 'Archived Product List for BOMs',
     'summary': 'Shows if BOM contains products that have since been archived',
-    'version': '1.0.0',
+    'version': '12.0.1.0.0',
     'category': 'Manufacturing',
-    'website': 'http://www.tawasta.fi',
+    'website': 'https://github.com/Tawasta/mrp',
     'author': 'Oy Tawasta Technologies Ltd.',
     'license': 'AGPL-3',
     'application': False,

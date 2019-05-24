@@ -21,9 +21,9 @@
 {
     'name': 'Sets real (FIFO) price as manufactured products value',
     'summary': 'Manufactured product value depends on used quants',
-    'version': '1.1.1',
+    'version': '12.0.1.0.0',
     'category': 'Manufacturing',
-    'website': 'http://www.tawasta.fi',
+    'website': 'https://github.com/Tawasta/mrp',
     'author': 'Oy Tawasta Technologies Ltd.',
     'license': 'AGPL-3',
     'application': False,

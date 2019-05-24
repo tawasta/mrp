@@ -21,9 +21,9 @@
 {
     'name': 'Add analytic account relation to MO',
     'summary': 'Allows fetching MO stock locations from analytic account',
-    'version': '1.2.0',
+    'version': '12.0.1.0.0',
     'category': 'Manufacturing',
-    'website': 'http://www.tawasta.fi',
+    'website': 'https://github.com/Tawasta/mrp',
     'author': 'Oy Tawasta Technologies Ltd.',
     'license': 'AGPL-3',
     'application': False,

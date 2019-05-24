@@ -21,9 +21,9 @@
 {
     'name': 'Raw Materials Transfer for Manufacturing Order',
     'summary': "Quick Transfer of Raw Materials to MO Location",
-    'version': '2.0.0',
+    'version': '12.0.1.0.0',
     'category': 'Manufacturing',
-    'website': 'http://www.tawasta.fi',
+    'website': 'https://github.com/Tawasta/mrp',
     'author': 'Oy Tawasta Technologies Ltd.',
     'license': 'AGPL-3',
     'application': False,

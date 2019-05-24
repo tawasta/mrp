@@ -21,9 +21,9 @@
 {
     'name': 'Add workcenter cost to FIFO real price manufactured products',
     'summary': 'Add workcenter cost to FIFO real price manufactured products',
-    'version': '1.0.0',
+    'version': '12.0.1.0.0',
     'category': 'Manufacturing',
-    'website': 'http://www.tawasta.fi',
+    'website': 'https://github.com/Tawasta/mrp',
     'author': 'Oy Tawasta Technologies Ltd.',
     'license': 'AGPL-3',
     'application': False,

@@ -21,9 +21,9 @@
 {
     'name': 'Product Primary Vendor Info for BOM lines',
     'summary': "Helper fields for showing primary vendor's info",
-    'version': '1.0.1',
+    'version': '12.0.1.0.0',
     'category': 'Manufacturing',
-    'website': 'http://www.tawasta.fi',
+    'website': 'https://github.com/Tawasta/mrp',
     'author': 'Oy Tawasta Technologies Ltd.',
     'license': 'AGPL-3',
     'application': False,

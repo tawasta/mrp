@@ -21,9 +21,9 @@
 {
     'name': 'Auto-process Work Orders',
     'summary': "Created Work Orders get completed instantly",
-    'version': '1.0.0',
+    'version': '12.0.1.0.0',
     'category': 'Manufacturing',
-    'website': 'http://www.tawasta.fi',
+    'website': 'https://github.com/Tawasta/mrp',
     'author': 'Oy Tawasta Technologies Ltd.',
     'license': 'AGPL-3',
     'application': False,
