@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
@@ -36,7 +35,6 @@
     ],
     'data':
     [
-            'views/sequence_alteration.xml'
+        'views/sequence_alteration.xml'
     ],
 }
-

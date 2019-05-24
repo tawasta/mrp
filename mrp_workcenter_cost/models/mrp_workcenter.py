@@ -11,4 +11,3 @@ class MrpWorkcenter(models.Model):
         domain=[('type', '=', 'service')],
         help='Add a priced service product here to calculate operation costs',
     )
-

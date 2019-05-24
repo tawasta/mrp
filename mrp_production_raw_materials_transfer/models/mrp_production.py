@@ -100,4 +100,3 @@ class MrpProduction(models.Model):
         inverse_name='material_transfer_production_id',
         string='Raw Material Transfers',
     )
-

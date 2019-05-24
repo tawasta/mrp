@@ -13,4 +13,3 @@ class MrpProduction(models.Model):
         for work_order in self.workorder_ids:
             work_order.button_start()
             work_order.record_production()
-

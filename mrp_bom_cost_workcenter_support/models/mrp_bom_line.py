@@ -19,4 +19,3 @@ class MrpBomLine(models.Model):
     op_cost_total = fields.Float(
         compute=_get_op_costs,
         string='Total Operation Cost')
-

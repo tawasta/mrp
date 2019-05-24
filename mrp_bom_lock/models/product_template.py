@@ -9,4 +9,3 @@ class ProductTemplate(models.Model):
         string="Lock BOMs",
         help="Locks all Bills of Materials for this product"
              "so that they cannot be modified.")
-

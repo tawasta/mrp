@@ -35,4 +35,3 @@
         'views/view_types.xml',
     ],
 }
-

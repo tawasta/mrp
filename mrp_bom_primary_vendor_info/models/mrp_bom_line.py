@@ -34,4 +34,3 @@ class MrpBomLine(models.Model):
         related='product_id.primary_supplierinfo_id.product_uom',
         string="Primary Vendor's UoM",
     )
-

@@ -10,4 +10,3 @@ class StockPicking(models.Model):
         comodel_name='mrp.production',
         help='''Manufacturing Order this Raw Material Transfer is related to'''
     )
-

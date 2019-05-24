@@ -20,7 +20,8 @@
 
 {
     'name': 'Raw Materials Warning Field for MOs',
-    'summary': "Helper field indicating if materials are available and assigned",
+    'summary': "Helper field indicating if materials are \
+        available and assigned",
     'version': '1.0.0',
     'category': 'Manufacturing',
     'website': 'http://www.tawasta.fi',
@@ -40,4 +41,3 @@
     'demo': [
     ],
 }
-

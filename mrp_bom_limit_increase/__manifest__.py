@@ -31,7 +31,7 @@
     'depends': [
         'base',
     ],
-    'data': ['views/bom_view.xml'
+    'data': [
+        'views/bom_view.xml'
     ],
 }
-

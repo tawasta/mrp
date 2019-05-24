@@ -12,4 +12,3 @@ class MrpConfigSettings(models.TransientModel):
     raw_materials_src_location_id = fields.Many2one(
         related='company_id.raw_materials_src_location_id',
         string='Raw Materials Default Source Location')
-
