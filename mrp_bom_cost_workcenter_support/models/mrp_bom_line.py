@@ -1,5 +1,5 @@
-from openerp import api, fields, models
-# import openerp.addons.decimal_precision as dp
+from odoo import api, fields, models
+# import odoo.addons.decimal_precision as dp
 
 
 class MrpBomLine(models.Model):
