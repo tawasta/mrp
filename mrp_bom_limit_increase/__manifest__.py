@@ -21,8 +21,8 @@
 
 {
     'name': 'BOM tree view increment',
-    'summary': 'Incrases BOM tree-view limit to 100',
-    'version': '10.0.0.1.0',
+    'summary': 'Incrases BOM tree-view limit to 300',
+    'version': '10.0.1.0.0',
     'category': 'Manufacturing',
     'website': 'https://tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
@@ -30,8 +30,9 @@
     'application': False,
     'installable': True,
     'depends': [
-        'base',
+        'mrp',
     ],
-    'data': ['views/bom_view.xml'
+    'data': [
+        'views/bom_view.xml'
     ],
 }
