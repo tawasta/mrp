@@ -2,11 +2,11 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-==============
+=======================
 BOM tree view increment
-==============
+=======================
 
-This module was written to increase BOM tree view's limit to 100
+This module was written to increase BOM tree view's limit to 300
 
 Configuration
 =============
