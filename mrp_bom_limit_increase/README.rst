@@ -6,7 +6,7 @@
 BOM tree view increment
 =======================
 
-This module was written to increase BOM tree view's limit to 300
+This module was written to increase BOM tree view's limit to 1 000 000
 
 Configuration
 =============
