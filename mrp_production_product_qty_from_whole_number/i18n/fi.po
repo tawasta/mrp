@@ -1,0 +1,28 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mrp_production_product_qty_from_whole_number
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-07-22 13:16+0000\n"
+"PO-Revision-Date: 2019-07-22 16:18+0300\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: en\n"
+"X-Generator: Poedit 2.2.3\n"
+
+#. module: mrp_production_product_qty_from_whole_number
+#: model:ir.model,name:mrp_production_product_qty_from_whole_number.model_mrp_production
+msgid "Manufacturing Order"
+msgstr "Valmistustilaus"
+
+#. module: mrp_production_product_qty_from_whole_number
+#: model:ir.model.fields,field_description:mrp_production_product_qty_from_whole_number.field_mrp_production_qty_multiple
+msgid "Multiple Of Qty"
+msgstr "Määrän monikerta"
