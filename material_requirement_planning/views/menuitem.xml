@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <!-- When declaring a record in XML:
+            1. Place id attribute before model
+            2. In field declaration name attribute is first.
+            3. Group the record by model
+            4. Data tag is only used to set not-updatable data (noupdate=1)
+            5. Do not prefix the xmlid by the current modules name:
+                (Use <record id="view_id" NOT <record id="current_module.view_id") -->
+
+
+    <!-- Use the following record for a nonherited view-->
+    <!--    <record id="view_id" model="ir.ui.view">
+        <field name="name">view.name</field>
+        <field name="model">object_name</field>
+        <field name="priority" eval="16"/>
+        <field name="arch" type="xml">
+
+        </field>
+</record>-->
+
+	<record id="action_material_requirement" model="ir.actions.act_window">
+		<field name="name">Requirements</field>
+		<field name="type">ir.actions.act_window</field>
+		<field name="res_model">material.requirement</field>
+		<field name="view_type">form</field>
+		<field name="view_mode">tree,form</field>
+	</record>
+
+	<menuitem
+		action="action_material_requirement"
+		id="menu_material_requirement"
+		parent="mrp.menu_mrp_root"
+		name="Material Requirement"
+        />
+
+    <!-- Naming xml_ids:
+            Menu: <model_name>_menu
+            View: <model_name>_view_<view_type>, where <view_type> is kanban, tree...
+            Action: For main action <model_name>_action. Others suffixed with _detail
+            Group: <model_name>_group_<group_name>
+            Rule: <model_name>_rule_<concerned_group>
+    -->
+</odoo>
