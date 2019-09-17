@@ -177,22 +177,10 @@ class MaterialRequirement(models.Model):
 
         values = []
 
-#         for value in product_id:
-#             print "VALUE: ", value
-#
-#             result = {
-#                     'product_id': value.id,
-#                     }
-#
-#             values.append(requirement_lines.create(result))
-
         #### USE THIS ONE LATER
 #         if vals.bom_ids:
 #             print "THIS PRODUCT HAS A BOM", vals.bom_ids
 #             print "QTY TO MANUFACTURE", self.calculate_bom_lines(vals.bom_ids.bom_line_ids)
-
-#         bom_id = mrp_bom.search(
-#                 [('product_tmpl_id.id','=',vals.id)])
 
 ############################
         print "VALS: ", vals
@@ -203,7 +191,7 @@ class MaterialRequirement(models.Model):
 #         for line in vals:
         result = {
                 'product_id': vals.product_id.id,
-#                 'product_availability': vals.product_id.qty_available,
+                'product_availability': vals.product_id.qty_available,
 #                 'variant': vals.attribute_value_ids.name,
 #                 'product_availability':vals['product_id'].qty_available,
 #                 'variant':vals['variant'],
@@ -216,18 +204,9 @@ class MaterialRequirement(models.Model):
 
 #         values.append(requirement_lines.new(result))
 
-
 #         print "RES PRODUCT: ", res.product_id
 
-        print "VALUES ", values
-
-#         return values
-
         return result
-
-#         res = requirement_lines.create(result)
-# #
-#         return res
 
 #         new = requirement_lines.new(result)
 # #
@@ -246,7 +225,6 @@ class MaterialRequirement(models.Model):
 
         value_line = []
 
-#         for record in self:
         vals = {
                 'product_id': "",
                 'variant': "",
@@ -276,84 +254,13 @@ class MaterialRequirement(models.Model):
 
         for line in bom_id.bom_line_ids:
             print "Creating a new requirement line..."
-#                 vals['product_id'] = line.product_id
-#                 vals['variant'] = line.attribute_value_ids
-#                 vals['product_id'].append(line.product_id)
-#                 vals['variant'].append(line.attribute_value_ids)
 #             self.material_requirement_line += self.create_requirement_lines(line)
             mate_list.append(material.new(self.create_requirement_lines(line)).id)
 
-#             self.create_requirement_lines(line)
-#
-#         self.material_requirement_line = material
-#         for mat in material:
         self.material_requirement_line = [(6, 0, mate_list)]
-#         line_ids = [(6, 0, material.ids)]
-#
-#         print "MATERIAL ", material
-#         print "MATERIAL IDS", material.ids
-
-#         print "LINE IDS", line_ids
-
-#         for mat in material:
-#         res = self.update({
-#             'material_requirement_line': line_ids
-#             })
 
         print "MATE LIST: ", mate_list
 
-
-
-
-#         return {'value': {'material_requirement_line': mate_list}}
-
-#
-#             for mat in material:
-#                 self.material_requirement_line = [(4, mat.id, 0)]
-#                 print "MAT ID", mat.id
-#                 self.material_requirement_line = mat
-#
-#
-# #             self.material_requirement_line = [(4, self.create_requirement_lines(line).id, 0)]
-#             print "SELF MATERIAL REQUIREMENT LINE ", self.material_requirement_line
-
-#             for mat in material:
-#             self.material_requirement_line += material
-
-#         self.material_requirement_line = self.create_requirement_lines(bom_id.bom_line_ids)
-#             material += mat
-#         self.material_requirement_line = [(6, 0, material)]
-
-
-
-
-#         valu = {'material_requirement_line': [(6, 0, material)]}
-#
-#         print "VALUUUUUU ", valu
-#
-#         return super(MaterialRequirement, self).create(valu)
-
-
-
-#                 record.material_requirement_line += self.create_requirement_lines(line)
-#
-#                 print "RECORD MATERIAL REQUIREMENT LINE ", record.material_requirement_line
-
-
-
-#                 return material
-#                 record.material_requirement_line = self.create_requirement_lines(line)
-#                 new = material.new(self.create_requirement_lines(line))
-#                 print "RECORD LINE: ", record.material_requirement_line
-#                 value_line.append(new)
-#                 return value_line
-
-
-#                 record.material_requirement_line = self.create_requirement_lines(vals)
-#
-#                 material += record.material_requirement_line
-#
-#             record.material_requirement_line = material
 
 ################
 #     @api.onchange('bom')
@@ -416,33 +323,8 @@ class MaterialRequirement(models.Model):
 #             for line in record.bom_lines:
 #                 print "LINE ATTRIBUTES: ", line.attribute_value_ids
 
-
-
-
 #             print "MATERIAL REQUIREMENT LINE PRODUCT: ", record.material_requirement_line._fields
 
-#             vals = {
-#                     'product_id':[],
-#                     }
-#
-#             material = self.env['material.requirement.line']
-#
-#             for line in bom_id.bom_line_ids:
-#                 vals['product_id'].append(line.product_id)
-#                 print "APPENDED VALUES :", vals['product_id']
-#
-#             for value in vals['product_id']:
-#                 record.material_requirement_line = self.create_requirement_lines(value)
-#
-#                 material += record.material_requirement_line
-#
-#             print "MATERIAL", material
-#             for i in material:
-#                 print "MATERIAL LINES HERE"
-#                 print i.product_id
-#                 print i.product_availability
-
-#             record.material_requirement_line = material
 
 #             return {'domain': {'bom': [('product_tmpl_id.id', '=',product.id)]}}
 
