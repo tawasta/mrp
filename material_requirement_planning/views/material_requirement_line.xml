@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+	<record id="material_requirement_line_form_view" model="ir.ui.view">
+		<field name="name">material.requirement.line.form</field>
+		<field name="model">material.requirement.line</field>
+		<field name="arch" type="xml">
+			<tree string="Materials">
+				<field name="product_id" readonly="0"/>
+				<field name="product_availability"/>
+				<field name="qty_to_manufacture"/>
+				<field name="variant"/>
+				<field name="bom" attrs="{'invisible': [('product_id','=',False)]}" widget="selection"
+					domain="[('product_tmpl_id.id','=',product_id),'|',('product_id.id','=',product_variant_id),('product_id','=',False)]"/>
+			</tree>
+		</field>
+	</record>
+</odoo>
