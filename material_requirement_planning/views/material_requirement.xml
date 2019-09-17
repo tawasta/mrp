@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="material_requirement_form_view" model="ir.ui.view">
+		<field name="name">material.requirement.form</field>
+		<field name="model">material.requirement</field>
+		<field name="arch" type="xml">
+			<form string="Calculate requirements">
+				<sheet name="material_sheet">
+					<h1>
+						<field name="name" readonly="1"/>
+					</h1>
+					<group>
+						<group name="group-left">
+							<field name="product">Product</field>
+							<field name="product_variants" attrs="{'invisible': [('product','=',False)]}"
+								widget="selection" domain="[('product_tmpl_id.id','=',product)]"/>
+							<field name="product_variant_id" invisible="1"/>
+							<field name="bom" attrs="{'invisible': [('product','=',False)]}" widget="selection"
+								domain="[('product_tmpl_id.id','=',product),'|',('product_id.id','=',product_variant_id),('product_id','=',False)]"/>
+							<field name="bom_prod" invisible="1"/>
+							<field name="qty_available"/>
+							<field name="requirement">Requirement</field>
+							<field name="qty_to_manufacture"/>
+							<field name="qty_promised"/>
+							<button name="calculate_requirement" type="object" class="oe_highlight" string="Calculate Requirement"/>
+						</group>
+						<group name="group-right">
+							<field name="bom_product" attrs="{'invisible': [('bom_product','=',False)]}"/>
+							<field name="bom_qty_available" attrs="{'invisible': [('bom_product','=',False)]}"/>
+							<field name="bom_qty_to_manufacture" attrs="{'invisible': [('bom_product','=',False)]}"/>
+						</group>
+					</group>
+					<!--<field name="bom_lines" widget="one2many_list">
+						<xpath expr="//field[@name='routing_id']" position="attributes">
+							<attribute name="invisible">1</attribute>
+						</xpath>
+					</field>-->
+					<field name="material_requirement_line"/> <!--widget="one2many_list">-->
+						<!--<field name="product_id"/>-->
+						<!--</field>-->
+
+				</sheet>
+			</form>
+		</field>
+	</record>
+</odoo>
