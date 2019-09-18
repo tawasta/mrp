@@ -19,6 +19,7 @@
 								domain="[('product_tmpl_id.id','=',product),'|',('product_id.id','=',product_variant_id),('product_id','=',False)]"/>
 							<field name="bom_prod" invisible="1"/>
 							<field name="qty_available"/>
+							<field name="product_attribute_name"/>
 							<field name="requirement">Requirement</field>
 							<field name="qty_to_manufacture"/>
 							<field name="qty_promised"/>
