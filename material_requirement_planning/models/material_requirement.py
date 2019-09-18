@@ -25,10 +25,20 @@ class MaterialRequirement(models.Model):
 #             selection='_get_products',
 #             )
 
+    product_attribute_name = fields.Char(
+            string="Product Attributes",
+#             _compute="_calculate_promised",
+            )
+
     product_variant_id = fields.Integer(
             string="Product Variant ID",
             _compute="_get_product_variant_id",
             )
+
+#     product_values = fields.Char(
+#             string="Product Attribute Values",
+#             _compute="_calculate_promised",
+#             )
 
     name = fields.Char(
             )
@@ -123,9 +133,14 @@ class MaterialRequirement(models.Model):
         """This function calculates the promised quantity, meaning that it
         sums Available Quantity and the Quantity to Manyfacture"""
         for record in self:
+            print "PRODUCT VARIANTS ON ONCHANGE IS: ", record.product_variants
             product = self.env['product.product'].search([
                 ('id','=',int(record.product_variants))
             ])
+
+            record.product_attribute_name = record.product_variants.attribute_value_ids
+
+#             print "RECORD ATTRIBUTE VALUE IDS ", record.product_variants.attribute_value_ids.ids
 
             record.qty_promised = product.qty_available + record.qty_to_manufacture
 
@@ -136,8 +151,6 @@ class MaterialRequirement(models.Model):
                 ('id','=',int(record.product_variants))
             ])
 
-            print "PRODUCT TO GET AVAILABILITY: ", product
-            print "PRODUCT TO GET AVAILABILITY 2: ", product.qty_available
 
             record.qty_available = product.qty_available
 
@@ -158,8 +171,8 @@ class MaterialRequirement(models.Model):
                 print "RECORD PRODUCT IS INTEGER OR NOT?", record.product
                 variants = record.product.product_variant_id
                 for variant in variants:
-                    record.product_variants = variant.id
-                    print "VARIANT ID 1 IS ", variants.id
+                    record.product_variants = variant
+#                     print "VARIANT ID 1 IS ", variant
                     record.product_variant_id = variant.id
         self.get_material_requirement_line()
 
@@ -169,7 +182,10 @@ class MaterialRequirement(models.Model):
         """Get product variant id"""
         for record in self:
             record.product_variant_id = record.product_variants.id
-            print "PRODUCT VARIANT ID :", record.product_variant_id
+#             print "PRODUCT VARIANT ID :", record.product_variant_id
+
+
+
 
     def create_requirement_lines(self, vals):
         """Create Requirement Lines using BoM values"""
@@ -183,22 +199,26 @@ class MaterialRequirement(models.Model):
 #             print "QTY TO MANUFACTURE", self.calculate_bom_lines(vals.bom_ids.bom_line_ids)
 
 ############################
-        print "VALS: ", vals
-#         print "VALS PRODUCT: ", vals.product_id
+#         print "VALS: ", vals
 #         print "VALS PRODUCT ATTR: ", vals.product_id.attribute_value_ids
-#         print "VALS ATT: ", vals.attribute_value_ids
 ############################
 #         for line in vals:
+
+        print "ALL ELEMS ARE HERE: ", all(elem in self.product_variants.attribute_value_ids.ids for elem in vals.attribute_value_ids.ids)
+#         if not all(elem in self.product_variants.attribute_value_ids.ids for elem in vals.attribute_value_ids.ids):
+#             return
+
+#         print "SELF VARIAN LIST ", self.product_variants.attribute_value_ids.ids
+
+
         result = {
                 'product_id': vals.product_id.id,
                 'product_availability': vals.product_id.qty_available,
-#                 'variant': vals.attribute_value_ids.name,
-#                 'product_availability':vals['product_id'].qty_available,
-#                 'variant':vals['variant'],
-# #                 'bom':bom_id.id,
-# #                 'bom':vals.bom_ids.id,
-# #                 'qty_to_manufacture':vals
+                'variant': vals.attribute_value_ids,
+                'qty_to_manufacture': vals.product_qty,
                 }
+
+#         print "VARINT FOR REQUIREMENT LINE: ", result['variant'].ids
 
         print "RESULT", result
 
@@ -213,11 +233,9 @@ class MaterialRequirement(models.Model):
 #         return new
 
 #     @api.multi
-    @api.onchange('product')
+    @api.onchange('product_variants')
     def get_material_requirement_line(self):
         """"Get Material requirement line"""
-
-        print "ONCHANGE PRODUCT VARIANTS"
 
         self._get_product_variant_id()
 
@@ -234,7 +252,7 @@ class MaterialRequirement(models.Model):
 
         get_name = self.env['product.product'].search([('id','=', self.product_variant_id)])
 
-        print "PRODUCT VARIANT ID FOR BOM: ", self.product_variants
+#         print "PRODUCT VARIANT ID FOR BOM: ", self.product_variants
 
         bom_id = mrp_bom.search(
             ['&',
@@ -246,16 +264,17 @@ class MaterialRequirement(models.Model):
 
         material = self.env['material.requirement.line']
 
-        print "DOES BOM HAVE PRODUCT ID: ", bom_id.product_id
+#         print "DOES BOM HAVE PRODUCT ID: ", bom_id.product_id
 
-        print "BOM LINESTUFFF", bom_id.bom_line_ids
+#         print "BOM LINESTUFFF", bom_id.bom_line_ids
 
         mate_list = []
 
         for line in bom_id.bom_line_ids:
             print "Creating a new requirement line..."
 #             self.material_requirement_line += self.create_requirement_lines(line)
-            mate_list.append(material.new(self.create_requirement_lines(line)).id)
+            if all(elem in self.product_variants.attribute_value_ids.ids for elem in line.attribute_value_ids.ids):
+                mate_list.append(material.new(self.create_requirement_lines(line)).id)
 
         self.material_requirement_line = [(6, 0, mate_list)]
 
@@ -301,17 +320,16 @@ class MaterialRequirement(models.Model):
             prod = self.env['product.product'].search([('id','=',int(record.product_variants))])
 
             attribute = prod.attribute_value_ids
-            #########################
-#             print "BOM FOR BOM CHANGE: ", bom_id
-#             print "BOM 2 FOR BOM CHANGE: ", bom_id_2
-            #########################
+
+#             print "PRODUCT ID IS HERE: ::::::", product.id
+#             print "PRODUCT TYPE ID IS HERE: ::::::", type(product.id)
 
             record.bom_prod = product.id
+
 
             for bom_record in bom_id_2:
                 for line in bom_record.bom_line_ids:
                     if line.attribute_value_ids == attribute:
-#                         print "BOM: ", bom_record
                         record.bom = bom_record.id
                         record.bom_lines = bom_record.bom_line_ids
                         return
@@ -324,7 +342,6 @@ class MaterialRequirement(models.Model):
 #                 print "LINE ATTRIBUTES: ", line.attribute_value_ids
 
 #             print "MATERIAL REQUIREMENT LINE PRODUCT: ", record.material_requirement_line._fields
-
 
 #             return {'domain': {'bom': [('product_tmpl_id.id', '=',product.id)]}}
 
@@ -346,6 +363,11 @@ class MaterialRequirement(models.Model):
         for record in self:
             if record.bom:
                 record.qty_to_manufacture = self.calculate_bom_lines(self.bom.bom_line_ids)
+#                 record.qty_to_manufacture = self.calculate_bom_lines(self.bom.bom_line_ids)
+
+
+
+
 #                 record.calculate_bom_lines(self.bom.bom_line_ids)
 
 #     @api.model
@@ -363,6 +385,13 @@ class MaterialRequirement(models.Model):
     def calculate_bom_lines(self, bom_lines):
         multiplier = 0
         smallest_multiplier = []
+
+        print "SELF MATERIAL REQUIREMENT LINE: ", self.material_requirement_line
+
+        for i in self.material_requirement_line:
+            print i
+            print "ID FOR THIS LINE", i.id
+
 
         for line in bom_lines:
             line_qty = line.product_qty
