@@ -44,6 +44,7 @@ class MaterialRequirement(models.Model):
             )
 
     requirement = fields.Float(
+            string='Requirement',
             compute='calculate_requirement'
             )
 
@@ -138,7 +139,7 @@ class MaterialRequirement(models.Model):
                 ('id','=',int(record.product_variants))
             ])
 
-            record.product_attribute_name = record.product_variants.attribute_value_ids
+#             record.product_attribute_name = record.product_variants.attribute_value_ids
 
 #             print "RECORD ATTRIBUTE VALUE IDS ", record.product_variants.attribute_value_ids.ids
 
@@ -270,11 +271,26 @@ class MaterialRequirement(models.Model):
 
         mate_list = []
 
+        multiplier = 0
+        smallest_multiplier = []
+
         for line in bom_id.bom_line_ids:
             print "Creating a new requirement line..."
 #             self.material_requirement_line += self.create_requirement_lines(line)
             if all(elem in self.product_variants.attribute_value_ids.ids for elem in line.attribute_value_ids.ids):
                 mate_list.append(material.new(self.create_requirement_lines(line)).id)
+
+                if line.product_id.qty_available <= 0:
+                    multiplier = 0
+                else:
+                    multiplier = int(line.product_id.qty_available / line.product_qty)
+                smallest_multiplier.append(multiplier)
+
+        print "SMALLEST MULTIPLIER", min(smallest_multiplier)
+
+        self.qty_to_manufacture = min(smallest_multiplier)
+
+        self.qty_promised = self.qty_available + self.qty_to_manufacture
 
         self.material_requirement_line = [(6, 0, mate_list)]
 
@@ -346,7 +362,7 @@ class MaterialRequirement(models.Model):
 #             return {'domain': {'bom': [('product_tmpl_id.id', '=',product.id)]}}
 
 
-    @api.onchange('product_variants')
+#     @api.onchange('product_variants')
     def calculate_requirement(self):
         """Calculate requirement for product"""
         product_id = int(self.product)
@@ -362,7 +378,7 @@ class MaterialRequirement(models.Model):
 
         for record in self:
             if record.bom:
-                record.qty_to_manufacture = self.calculate_bom_lines(self.bom.bom_line_ids)
+                record.qty_to_manufacture = self.calculate_bom_lines()
 #                 record.qty_to_manufacture = self.calculate_bom_lines(self.bom.bom_line_ids)
 
 
@@ -382,43 +398,39 @@ class MaterialRequirement(models.Model):
 #                 self.check_bom(line.product_id.id)
 
     #USE THIS FUNCTION TO CALCULATE ALL BOM LINES
-    def calculate_bom_lines(self, bom_lines):
+    def calculate_bom_lines(self):
         multiplier = 0
         smallest_multiplier = []
 
         print "SELF MATERIAL REQUIREMENT LINE: ", self.material_requirement_line
 
-        for i in self.material_requirement_line:
-            print i
-            print "ID FOR THIS LINE", i.id
+        for line in self.material_requirement_line:
+            print line
+            print "ID FOR THIS LINE", line.id
+            print "LINE REQUIMRENT", line.qty_to_manufacture
+            if line.product_availability <= 0:
+                multiplier = 0
+            else:
+                multiplier = int(line.product_availability / line.qty_to_manufacture)
+            smallest_multiplier.append(multiplier)
 
 
-        for line in bom_lines:
-            line_qty = line.product_qty
-            wares = self.env['product.product'].\
-                search([('id','=',line.product_id.id)]).qty_available
+#         for line in bom_lines:
+#             line_qty = line.product_qty
+#             wares = self.env['product.product'].\
+#                 search([('id','=',line.product_id.id)]).qty_available
 
 #             print "CHECK IF BOM LINE PRODUCT HAS BOM: ", self.check_bom(line.product_id.id)
 
-#             print "IN WARES: ", wares
-            multiplier = int(wares / line_qty)
+#             multiplier = int(wares / line_qty)
+#
+#             smallest_multiplier.append(multiplier)
 
-#             print "MULTIPLIER", multiplier
-
-            smallest_multiplier.append(multiplier)
-
-#         print "SMALLEST MULTIPLIER", smallest_multiplier
-
+        print "SMALLEST MULTIPLIER", smallest_multiplier
 
         print "MIN SMALLST MULTIPLIER", min(smallest_multiplier)
 
         return min(smallest_multiplier)
-
-
-#         self.qty_to_manufacture = min(smallest_multiplier)
-
-#         for record in self:
-#             record._calculate_promised()
 
 
 #     @api.onchange('requirement')
