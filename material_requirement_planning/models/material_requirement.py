@@ -36,12 +36,13 @@ class MaterialRequirement(models.Model):
 
     requirement = fields.Float(
             string='Requirement',
-            compute='calculate_requirement'
+#             compute='calculate_requirement'
             )
 
     qty_to_manufacture = fields.Float(
             string="Quantity to Manufacture",
-            compute='calculate_requirement',
+            readonly=True,
+#             compute='calculate_requirement',
             )
 
     qty_available = fields.Float(
@@ -175,18 +176,30 @@ class MaterialRequirement(models.Model):
 #         if not all(elem in self.product_variants.attribute_value_ids.ids for elem in vals.attribute_value_ids.ids):
 #             return
 
+        for i in vals.attribute_value_ids:
+            values.append(i.display_name)
+
+        print "LINE NAMES: ", vals.attribute_value_ids.mapped('name')
+
+        attributes = vals.attribute_value_ids.mapped('display_name')
+
+#         attributes = [(6, 0, values)]
+        if attributes == []:
+            attributes = ""
+        else:
+            attributes = ', '.join(attributes)
+
+        if attributes.startswith("u'"):
+            attributes = attributes.replace("u'", "'", 1)
+
         result = {
                 'product_id': vals.product_id.id,
                 'product_availability': vals.product_id.qty_available,
-                'variant': vals.attribute_value_ids,
+                'variant': attributes,
                 'qty_to_manufacture': vals.product_qty,
                 }
 
         print "RESULT", result
-
-#         values.append(requirement_lines.new(result))
-
-#         print "RES PRODUCT: ", res.product_id
 
         return result
 
@@ -229,7 +242,7 @@ class MaterialRequirement(models.Model):
             print "Creating a new requirement line..."
 #             self.material_requirement_line += self.create_requirement_lines(line)
             if all(elem in self.product_variants.attribute_value_ids.ids for elem in line.attribute_value_ids.ids):
-                product_material_line.append(material.new(self.create_requirement_lines(line)).id)
+                product_material_lines.append(material.new(self.create_requirement_lines(line)).id)
 
                 if line.product_id.qty_available <= 0:
                     multiplier = 0
