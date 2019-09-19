@@ -17,7 +17,7 @@ class MaterialRequirementLine(models.Model):
             readonly=False,
             )
 
-    product_availability = fields.Char(
+    product_availability = fields.Float(
             string='Available quantity',
             readonly=False,
             )
