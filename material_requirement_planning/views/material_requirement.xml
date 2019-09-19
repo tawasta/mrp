@@ -19,11 +19,12 @@
 								domain="[('product_tmpl_id.id','=',product),'|',('product_id.id','=',product_variant_id),('product_id','=',False)]"/>
 							<field name="bom_prod" invisible="1"/>
 							<field name="qty_available"/>
-							<field name="product_attribute_name"/>
-							<field name="requirement">Requirement</field>
-							<field name="qty_to_manufacture"/>
+							<!--<field name="product_attribute_name"/>-->
 							<field name="qty_promised"/>
-							<button name="calculate_requirement" type="object" class="oe_highlight" string="Calculate Requirement"/>
+							<button name="calculate_requirement" type="object" class="oe_highlight oe_read_only" string="Calculate Requirement"/>
+							<br/>
+							<!--<field name="requirement" class="oe_read_only"/>-->
+							<field name="qty_to_manufacture"/>
 						</group>
 						<group name="group-right">
 							<field name="bom_product" attrs="{'invisible': [('bom_product','=',False)]}"/>
