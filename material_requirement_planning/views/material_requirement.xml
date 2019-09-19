@@ -21,8 +21,7 @@
 							<field name="qty_available"/>
 							<!--<field name="product_attribute_name"/>-->
 							<field name="qty_promised"/>
-							<button name="calculate_requirement" type="object" class="oe_highlight oe_read_only" string="Calculate Requirement"/>
-							<br/>
+							<!--<button name="calculate_requirement" type="object" class="oe_highlight oe_read_only" string="Calculate Requirement"/>-->
 							<!--<field name="requirement" class="oe_read_only"/>-->
 							<field name="qty_to_manufacture"/>
 						</group>
