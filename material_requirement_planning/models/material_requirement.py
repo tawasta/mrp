@@ -5,10 +5,43 @@ from __future__ import division
 from odoo import api, fields, models
 
 
+
+
+class MaterialLevel(models.Model):
+
+    _name = 'manufacturing.level'
+
+    name = fields.Char()
+
+
+
 class MaterialRequirement(models.Model):
 
     _name = 'material.requirement'
     _description = 'Material Requirement'
+
+
+    name = fields.Char(
+            )
+
+#     manufacturing_level = fields.Many2one(
+#             'manufacturing.level',
+# #             ('level_one', 'Manufacture first BOM level'),
+# #             ('level_two', 'Manufacture first and second BOM level')],
+#             string='Manufacturing level',
+#             )
+
+
+#     manufacturing_level = fields.Selection([
+#             (True, 'level_one'),
+# #             ('level_one', 'Manufacture first BOM level'),
+#             (False, 'Manufacture first and second BOM level')],
+#             string='Manufacturing level',
+#             )
+
+    manufacturing_level = fields.Boolean(
+            string="Include second level BOM also?",
+            )
 
     product = fields.Many2one(
             comodel_name='product.template',
@@ -31,18 +64,13 @@ class MaterialRequirement(models.Model):
 #             _compute="_calculate_promised",
 #             )
 
-    name = fields.Char(
-            )
-
     requirement = fields.Float(
             string='Requirement',
-#             compute='calculate_requirement'
             )
 
     qty_to_manufacture = fields.Float(
             string="Quantity to Manufacture",
             readonly=True,
-#             compute='calculate_requirement',
             )
 
     qty_available = fields.Float(
@@ -147,18 +175,16 @@ class MaterialRequirement(models.Model):
     @api.onchange('product')
     def get_product_variants(self):
         """Get selected product's variants"""
-
         for record in self:
             if record.product:
                 print "RECORD PRODUCT IS INTEGER OR NOT?", record.product
                 variants = record.product.product_variant_id
                 for variant in variants:
                     record.product_variants = variant
-#                     print "VARIANT ID 1 IS ", variant
                     record.product_variant_id = variant.id
         self.get_material_requirement_line()
 
-#     @api.multi
+
     @api.onchange('product_variants')
     def _get_product_variant_id(self):
         """Get product variant id"""
@@ -179,11 +205,8 @@ class MaterialRequirement(models.Model):
         for i in vals.attribute_value_ids:
             values.append(i.display_name)
 
-        print "LINE NAMES: ", vals.attribute_value_ids.mapped('name')
-
         attributes = vals.attribute_value_ids.mapped('display_name')
 
-#         attributes = [(6, 0, values)]
         if attributes == []:
             attributes = ""
         else:
@@ -192,11 +215,44 @@ class MaterialRequirement(models.Model):
         if attributes.startswith("u'"):
             attributes = attributes.replace("u'", "'", 1)
 
+        multiplier = 0
+        smallest_multiplier = []
+
+        if vals.product_id.bom_ids:
+            print "THIS PRODUCT HAS A BOM"
+            lines = vals.product_id.bom_ids.bom_line_ids
+
+            for line in lines:
+                if line.product_id.qty_available <= 0:
+                    multiplier = 0
+                else:
+                    multiplier = int(line.product_id.qty_available / line.product_qty)
+                smallest_multiplier.append(multiplier)
+
+                if not smallest_multiplier:
+                    multiplier = 0
+                else:
+                    multiplier = min(smallest_multiplier)
+
+                print "SMALLEST MULTIPLIER", multiplier
+
+
+        print "MANUFACTURING LEVEL: ", self.manufacturing_level
+
+#         if self.manufacturing_level == 'level_two':
+#             self.qty_to_manufacture += multiplier
+
+        if not self.manufacturing_level:
+            multiplier = 0
+
         result = {
                 'product_id': vals.product_id.id,
                 'product_availability': vals.product_id.qty_available,
                 'variant': attributes,
                 'qty_to_manufacture': vals.product_qty,
+                'product_uom_id': vals.product_uom_id,
+                'can_be_manufactured': multiplier,
+                'promised_qty_line': multiplier + vals.product_id.qty_available,
                 }
 
         print "RESULT", result
@@ -238,11 +294,23 @@ class MaterialRequirement(models.Model):
         multiplier = 0
         smallest_multiplier = []
 
+        multiplier_line = 0
+        smallest_multiplier_line = []
+
         for line in bom_id.bom_line_ids:
             print "Creating a new requirement line..."
 #             self.material_requirement_line += self.create_requirement_lines(line)
             if all(elem in self.product_variants.attribute_value_ids.ids for elem in line.attribute_value_ids.ids):
                 product_material_lines.append(material.new(self.create_requirement_lines(line)).id)
+
+                if self.manufacturing_level and line.product_id.bom_ids:
+                    for child_bom_line in line.product_id.bom_ids.bom_line_ids:
+
+                        if child_bom_line.product_id.qty_available <= 0:
+                            multiplier_line = 0
+                        else:
+                            multiplier_line = int(child_bom_line.product_id.qty_available / child_bom_line.product_qty)
+                        smallest_multiplier_line.append(multiplier_line)
 
                 if line.product_id.qty_available <= 0:
                     multiplier = 0
@@ -250,9 +318,16 @@ class MaterialRequirement(models.Model):
                     multiplier = int(line.product_id.qty_available / line.product_qty)
                 smallest_multiplier.append(multiplier)
 
+        if not smallest_multiplier_line:
+            multiplier_line = 0
+        else:
+            multiplier_line = min(smallest_multiplier_line)
+
+        print "SMALLEST MULTIPLIER LINE", multiplier_line
+
         print "SMALLEST MULTIPLIER", min(smallest_multiplier)
 
-        self.qty_to_manufacture = min(smallest_multiplier)
+        self.qty_to_manufacture = min(smallest_multiplier) + multiplier_line
         self.qty_promised = self.qty_available + self.qty_to_manufacture
 
         self.material_requirement_line = [(6, 0, product_material_lines)]
