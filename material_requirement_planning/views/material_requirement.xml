@@ -11,7 +11,7 @@
 					</h1>
 					<group>
 						<group name="group-left">
-							<field name="product">Product</field>
+							<field name="product" options="{'no_create': True, 'no_open': True}"/>
 							<field name="product_variants" attrs="{'invisible': [('product','=',False)]}"
 								widget="selection" domain="[('product_tmpl_id.id','=',product)]"/>
 							<field name="product_variant_id" invisible="1"/>
@@ -26,6 +26,12 @@
 							<field name="qty_to_manufacture"/>
 						</group>
 						<group name="group-right">
+							<group name="group-top">
+								<field name="manufacturing_level"/>
+							</group>
+							<group name="group-bottom">
+								<button name="get_material_requirement_line" string="Calculate Requirements" type="object" class="oe_highlight"/>
+							</group>
 							<field name="bom_product" attrs="{'invisible': [('bom_product','=',False)]}"/>
 							<field name="bom_qty_available" attrs="{'invisible': [('bom_product','=',False)]}"/>
 							<field name="bom_qty_to_manufacture" attrs="{'invisible': [('bom_product','=',False)]}"/>
