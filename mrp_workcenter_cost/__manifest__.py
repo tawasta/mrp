@@ -37,7 +37,7 @@
     ],
     'data': [
         'views/mrp_routing_workcenter.xml',
-        'views/mrp_workcenter.xml',
+        #'views/mrp_workcenter.xml',
     ],
     'demo': [
     ],
