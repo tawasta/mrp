@@ -28,7 +28,7 @@ class MaterialRequirementLine(models.Model):
             )
 
     promised_qty_line = fields.Char(
-#             string='Promised Quantity',
+            string='Potential quantity',
             )
 
     variant = fields.Char(
@@ -42,7 +42,7 @@ class MaterialRequirementLine(models.Model):
             )
 
     qty_to_manufacture = fields.Float(
-            string="Product Quantity",
+            string="Component quantity",
             readonly=False,
             )
 
@@ -63,7 +63,7 @@ class MaterialRequirementLine(models.Model):
 #             )
 
     can_be_manufactured = fields.Float(
-            string="Quantity to Manufacture",
+            string="Manufacturable quantity",
             readonly=False,
             )
 
@@ -73,7 +73,10 @@ class MaterialRequirementLine(models.Model):
 #             readonly=False,
 #             )
 
-    bom = fields.Char(string="BoM")
+    bom = fields.Many2one(
+            comodel_name='mrp.bom',
+            string="BoM",
+            )
 
     bom_lines = fields.Many2many(
             comodel_name='mrp.bom.line',
