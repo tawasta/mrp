@@ -12,14 +12,14 @@
 
 				<field name="promised_qty_line" widget="radio" invisible="context.get('manufacturing_level_line') == True"/>
 
-				<field name="manufacturing_level_line"/>
+				<!--<field name="manufacturing_level_line"/>-->
 				<field name="product_availability" style="text-align: right;"/>
 				<field name="qty_to_manufacture" class="pull-right"/>
 				<field name="product_uom_id"/>
 				<field name="variant"/>
 				<field name="can_be_manufactured"/> <!--attrs="{'invisible': [('manufacturing_level','!=','level_two')]}"/>-->
-				<field name="bom" attrs="{'invisible': [('product_id','=',False)]}" widget="selection" class="oe_right"
-					domain="[('product_tmpl_id.id','=',product_id),'|',('product_id.id','=',product_variant_id),('product_id','=',False)]"/>
+				<field name="bom"/>  <!--attrs="{'invisible': [('product_id','=',False)]}" widget="selection" class="oe_right"
+					domain="[('product_tmpl_id.id','=',product_id),'|',('product_id.id','=',product_variant_id),('product_id','=',False)]"/>-->
 			</tree>
 		</field>
 	</record>
