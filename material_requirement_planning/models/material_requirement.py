@@ -5,39 +5,17 @@ from __future__ import division
 from odoo import api, fields, models
 
 
-
-
-class MaterialLevel(models.Model):
-
-    _name = 'manufacturing.level'
-
-    name = fields.Char()
-
-
-
 class MaterialRequirement(models.Model):
 
     _name = 'material.requirement'
     _description = 'Material Requirement'
 
+    note = fields.Text(
+            string="Notes",
+            )
 
     name = fields.Char(
             )
-
-#     manufacturing_level = fields.Many2one(
-#             'manufacturing.level',
-# #             ('level_one', 'Manufacture first BOM level'),
-# #             ('level_two', 'Manufacture first and second BOM level')],
-#             string='Manufacturing level',
-#             )
-
-
-#     manufacturing_level = fields.Selection([
-#             (True, 'level_one'),
-# #             ('level_one', 'Manufacture first BOM level'),
-#             (False, 'Manufacture first and second BOM level')],
-#             string='Manufacturing level',
-#             )
 
     manufacturing_level = fields.Boolean(
             string="Include second level BOM also?",
@@ -59,28 +37,26 @@ class MaterialRequirement(models.Model):
             _compute="_get_product_variant_id",
             )
 
-#     product_values = fields.Char(
-#             string="Product Attribute Values",
-#             _compute="_calculate_promised",
-#             )
-
     requirement = fields.Float(
             string='Requirement',
             )
 
     qty_to_manufacture = fields.Float(
-            string="Quantity to Manufacture",
+            string="Manufacturable quantity",
+            compute='get_material_requirement_line',
             readonly=True,
             )
 
     qty_available = fields.Float(
-            string="Available quantity",
-            compute='_calculate_availability',
+            string="Current stock",
+            readonly=True,
+            compute='get_material_requirement_line',
             )
 
     qty_promised = fields.Float(
-            string="Promised Quantity",
-            compute='_calculate_promised',
+            string="Potential availability",
+            readonly=True,
+            compute='get_material_requirement_line',
             )
 
     bom = fields.Many2one(
@@ -107,7 +83,7 @@ class MaterialRequirement(models.Model):
 
     bom_qty_available = fields.Float(
             string="Available quantity",
-            compute='_calculate_availability',
+#             compute='_calculate_availability',
             )
 
     material_requirement_line = fields.One2many(
@@ -138,31 +114,26 @@ class MaterialRequirement(models.Model):
         res = super(MaterialRequirement, self).create(vals)
         return res
 
-    @api.onchange('product_variants')
-    def _calculate_promised(self):
-        """This function calculates the promised quantity, meaning that it
-        sums Available Quantity and the Quantity to Manyfacture"""
-        for record in self:
-            print "PRODUCT VARIANTS ON ONCHANGE IS: ", record.product_variants
-            product = self.env['product.product'].search([
-                ('id','=',int(record.product_variants))
-            ])
+#     @api.onchange('product_variants','manufacturing_level', 'material_requirement_line')
+#     def _calculate_promised(self):
+#         """This function calculates the promised quantity, meaning that it
+#         sums Available Quantity and the Quantity to Manyfacture"""
+#         for record in self:
+#             product = self.env['product.product'].search([
+#                 ('id','=',int(record.product_variants))
+#             ])
+#
+#             record.qty_promised = product.qty_available + record.qty_to_manufacture
 
-#             record.product_attribute_name = record.product_variants.attribute_value_ids
-
-#             print "RECORD ATTRIBUTE VALUE IDS ", record.product_variants.attribute_value_ids.ids
-
-            record.qty_promised = product.qty_available + record.qty_to_manufacture
-
-    @api.onchange('product_variants')
-    def _calculate_availability(self):
-        for record in self:
-            product = self.env['product.product'].search([
-                ('id','=',int(record.product_variants))
-            ])
-
-
-            record.qty_available = product.qty_available
+#     @api.onchange('product_variants')
+#     def _calculate_availability(self):
+#         for record in self:
+#             product = self.env['product.product'].search([
+#                 ('id','=',int(record.product_variants))
+#             ])
+#
+#
+#             record.qty_available = product.qty_available
 
             #DELETE STUFF BELOW LATER
 #             quants = self.env['stock.quant'].search([('product_id.id','=',int(record.product_variants))])
@@ -177,30 +148,23 @@ class MaterialRequirement(models.Model):
         """Get selected product's variants"""
         for record in self:
             if record.product:
-                print "RECORD PRODUCT IS INTEGER OR NOT?", record.product
                 variants = record.product.product_variant_id
                 for variant in variants:
                     record.product_variants = variant
                     record.product_variant_id = variant.id
         self.get_material_requirement_line()
 
-
     @api.onchange('product_variants')
     def _get_product_variant_id(self):
         """Get product variant id"""
         for record in self:
             record.product_variant_id = record.product_variants.id
-#             print "PRODUCT VARIANT ID :", record.product_variant_id
 
     def create_requirement_lines(self, vals):
         """Create Requirement Lines using BoM values"""
         requirement_lines = self.env['material.requirement.line']
 
         values = []
-
-        print "ALL ELEMS ARE HERE: ", all(elem in self.product_variants.attribute_value_ids.ids for elem in vals.attribute_value_ids.ids)
-#         if not all(elem in self.product_variants.attribute_value_ids.ids for elem in vals.attribute_value_ids.ids):
-#             return
 
         for i in vals.attribute_value_ids:
             values.append(i.display_name)
@@ -217,10 +181,13 @@ class MaterialRequirement(models.Model):
 
         multiplier = 0
         smallest_multiplier = []
+        product_bom = []
 
         if vals.product_id.bom_ids:
-            print "THIS PRODUCT HAS A BOM"
-            lines = vals.product_id.bom_ids.bom_line_ids
+            for bom in vals.product_id.bom_ids:
+                product_bom.append(bom.id)
+
+            lines = vals.product_id.bom_ids[0].bom_line_ids
 
             for line in lines:
                 if line.product_id.qty_available <= 0:
@@ -233,17 +200,13 @@ class MaterialRequirement(models.Model):
                     multiplier = 0
                 else:
                     multiplier = min(smallest_multiplier)
-
-                print "SMALLEST MULTIPLIER", multiplier
-
-
-        print "MANUFACTURING LEVEL: ", self.manufacturing_level
-
-#         if self.manufacturing_level == 'level_two':
-#             self.qty_to_manufacture += multiplier
+        else:
+            product_bom = ""
 
         if not self.manufacturing_level:
             multiplier = 0
+
+        test_list = [(6, 0, product_bom)]
 
         result = {
                 'product_id': vals.product_id.id,
@@ -253,14 +216,12 @@ class MaterialRequirement(models.Model):
                 'product_uom_id': vals.product_uom_id,
                 'can_be_manufactured': multiplier,
                 'promised_qty_line': multiplier + vals.product_id.qty_available,
+                'bom': product_bom,
                 }
-
-        print "RESULT", result
 
         return result
 
-
-    @api.onchange('product_variants')
+    @api.onchange('product', 'product_variants', 'manufacturing_level', 'material_requirement_line')
     def get_material_requirement_line(self):
         """"Get Material requirement line"""
 
@@ -273,8 +234,6 @@ class MaterialRequirement(models.Model):
         vals = {
                 'product_id': "",
                 'variant': "",
-#                     'product_id':[],
-#                     'variant':[],
                 }
 
         get_name = self.env['product.product'].search([('id','=', self.product_variant_id)])
@@ -291,15 +250,12 @@ class MaterialRequirement(models.Model):
 
         product_material_lines = []
 
-        multiplier = 0
         smallest_multiplier = []
 
-        multiplier_line = 0
         smallest_multiplier_line = []
 
         for line in bom_id.bom_line_ids:
             print "Creating a new requirement line..."
-#             self.material_requirement_line += self.create_requirement_lines(line)
             if all(elem in self.product_variants.attribute_value_ids.ids for elem in line.attribute_value_ids.ids):
                 product_material_lines.append(material.new(self.create_requirement_lines(line)).id)
 
@@ -323,17 +279,20 @@ class MaterialRequirement(models.Model):
         else:
             multiplier_line = min(smallest_multiplier_line)
 
-        print "SMALLEST MULTIPLIER LINE", multiplier_line
+        if smallest_multiplier == []:
+            smallest = 0
+        else:
+            smallest = min(smallest_multiplier)
 
-        print "SMALLEST MULTIPLIER", min(smallest_multiplier)
+        self.qty_to_manufacture = smallest + multiplier_line
 
-        self.qty_to_manufacture = min(smallest_multiplier) + multiplier_line
+        self.qty_available = self.product.qty_available
+
         self.qty_promised = self.qty_available + self.qty_to_manufacture
 
         self.material_requirement_line = [(6, 0, product_material_lines)]
 
-
-    @api.onchange('product_variants','product')
+    @api.onchange('product_variants','product', 'manufacturing_level', 'material_requirement_line')
     def _get_bom(self):
         """When a product is selected, get that product's BoM"""
         mrp_bom = self.env['mrp.bom']
@@ -371,20 +330,7 @@ class MaterialRequirement(models.Model):
                         record.bom = bom_record.id
                         record.bom_lines = bom_record.bom_line_ids
                         return
-#                     print "ATTRITUBUTES: ", line.attribute_value_ids
 
             record.bom = bom_id.id
             record.bom_lines = bom_id.bom_line_ids
-
-#             return {'domain': {'bom': [('product_tmpl_id.id', '=',product.id)]}}
-
-    #USE THIS FUNCTION TO CALCULATE ALL BOM LINES
-
-#     @api.onchange('requirement')
-#     def assign_requirement(self):
-#         """Assign requirement"""
-#         for rec in self:
-#             for product_id in self._fields['requirement']._description_selection(self.env):
-#                 print "PRODUCT ID", product_id
-
 
