@@ -11,6 +11,7 @@
 					</h1>
 					<group>
 						<group name="group-left">
+							<field name="note"/>
 							<field name="product" options="{'no_create': True, 'no_open': True}"/>
 							<field name="product_variants" attrs="{'invisible': [('product','=',False)]}"
 								widget="selection" domain="[('product_tmpl_id.id','=',product)]"/>
@@ -37,11 +38,6 @@
 							<field name="bom_qty_to_manufacture" attrs="{'invisible': [('bom_product','=',False)]}"/>
 						</group>
 					</group>
-					<!--<field name="bom_lines" widget="one2many_list">
-						<xpath expr="//field[@name='routing_id']" position="attributes">
-							<attribute name="invisible">1</attribute>
-						</xpath>
-					</field>-->
 					<field name="material_requirement_line"/> <!--widget="one2many_list">-->
 						<!--<field name="product_id"/>-->
 						<!--</field>-->
