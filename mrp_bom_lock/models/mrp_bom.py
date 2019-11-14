@@ -8,19 +8,21 @@ class MrpBom(models.Model):
     _inherit = "mrp.bom"
 
     locked = fields.Boolean(
-        string='Locked',
+        string='BOM locked',
         related='product_tmpl_id.bom_locked',
-        help='Immediate product is BOM locked',
+        help='This BOM is locked',
     )
 
     parent_locked = fields.Boolean(
-        string='Parent locked',
-        help='Any parent product is BOM locked',
+        string='Parent BOM locked',
+        help='A parent BOM locked',
         compute='compute_parent_locked',
     )
+
     parent_locked_id = fields.Many2one(
         comodel_name='mrp.bom',
-        string='Locked parent',
+        string='Locked parent BOM',
+        readonly=True,
     )
 
     def compute_parent_locked(self):
@@ -47,7 +49,7 @@ class MrpBom(models.Model):
             )
 
             for line in line_ids:
-                # Check if any parent boms are locked
+                # Check if any parent BOMs are locked
                 if line.bom_id.locked:
                     record.parent_locked = True
                     record.parent_locked_id = line.bom_id.id
