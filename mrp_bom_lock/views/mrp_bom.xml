@@ -1,0 +1,13 @@
+<odoo>
+    <record id="mrp_bom_form_view" model="ir.ui.view">
+        <field name="name">mrp.bom.form.locked</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <field name="routing_id" position="after">
+                <field name="locked" readonly="True" attrs="{'invisible': [('locked', '=', False)]}"/>
+                <field name="parent_locked" attrs="{'invisible': [('parent_locked', '=', False)]}"/>
+            </field>
+        </field>
+    </record>
+</odoo>
