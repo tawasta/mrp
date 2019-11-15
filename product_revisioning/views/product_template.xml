@@ -8,7 +8,7 @@
 
 			<header position="inside">
 			<button string="Create New Revision" type="object" name="create_revision"
-					groups="stock.group_stock_manager"
+					groups="stock.group_stock_user"
 					attrs="{ 'invisible': ['|', ('bom_count', '>', 0), 
 					                            ('product_variant_count', '>', 1)] }"/>
 			</header>
