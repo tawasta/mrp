@@ -1,51 +1,76 @@
 # -*- coding: utf-8 -*-
 from odoo import api, fields, models
-from odoo.exceptions import except_orm, Warning, RedirectWarning
+from odoo.exceptions import UserError
 
 
 class MrpBom(models.Model):
 
     _inherit = "mrp.bom"
 
-    def is_locked(self, bom):
+    locked = fields.Boolean(
+        string='BOM locked',
+        related='product_tmpl_id.bom_locked',
+        help='This BOM is locked',
+    )
+
+    parent_locked = fields.Boolean(
+        string='Parent BOM locked',
+        help='A parent BOM locked',
+        compute='compute_parent_locked',
+    )
+
+    parent_locked_id = fields.Many2one(
+        comodel_name='mrp.bom',
+        string='Locked parent BOM',
+        readonly=True,
+    )
+
+    def compute_parent_locked(self):
         """ Checks if given BOM or any of it's parent BOM's have
             their bom locked.
+
             Returns tuple with locked boolean and locked template record.
             This can be called from anywhere with a BOM record
         """
 
-        if bom.product_tmpl_id.bom_locked:
-            return True, bom.product_tmpl_id
+        for record in self:
+            # The BOM itself is locked, no need to continue
+            if record.locked:
+                record.parent_locked
+                record.parent_locked_id = record.id
+                return
 
-        line_obj = self.env["mrp.bom.line"]
-        # gets product ids from current product template
-        product_ids = [x.id for x in bom.product_tmpl_id.product_variant_ids]
-        # searches for any bom lines with product ids.
-        line_ids = line_obj.search([("product_id", "in", product_ids)])
-        # checks all parent boms recursively.
-        parent_boms = [x.bom_id for x in line_ids]
-        if parent_boms:
-            for parent in parent_boms:
-                res = self.is_locked(parent)
-                if res[0]:
-                    return res
+            # Get all variants for current product template
+            product_ids = record.product_tmpl_id.product_variant_ids.ids
 
-        return False, []
+            # Search for any bom lines using current product variants
+            line_ids = record.env["mrp.bom.line"].search(
+                [("product_id", "in", product_ids)]
+            )
 
-    def locked_message(self, template):
-        return "BOM is locked for product: %s" % template.display_name
+            for line in line_ids:
+                # Check if any parent BOMs are locked
+                if line.bom_id.locked:
+                    record.parent_locked = True
+                    record.parent_locked_id = line.bom_id.id
+                elif line.bom_id.parent_locked:
+                    record.parent_locked = True
+                    record.parent_locked_id = line.bom_id.parent_locked_id.id
 
-    def display_locked_message(self, template):
-        message = self.locked_message(template)
-        raise Warning(message)
+    def display_locked_error(self):
+        bom = self.parent_locked_id or self
+
+        message = "BOM is locked for product: %s" % \
+                  bom.product_tmpl_id.display_name
+        raise UserError(message)
 
     @api.multi
     def write(self, values):
-        """ Write triggers is_locked check for current BOM"""
-        if not self.env["res.users"].has_group("bom_lock.bom_lock_allow_write"):
+        """ Write triggers a locked check for current BOM """
+        if not self.env["res.users"].\
+                has_group("bom_lock.bom_lock_allow_write"):
             for bom in self:
-                res = self.is_locked(bom)
-                if res[0]:
-                    self.display_locked_message(res[1])
+                if bom.locked or bom.parent_locked:
+                    self.display_locked_error()
 
         return super(MrpBom, self).write(values)

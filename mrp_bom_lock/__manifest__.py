@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2017 Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
+#    Copyright 2017 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -22,9 +22,9 @@
 {
     'name': 'BOM Locking',
     'summary': 'Prevent product BOMs from being edited',
-    'version': '10.0.1.0.0',
+    'version': '10.0.1.2.0',
     'category': 'Manufacturing',
-    'website': 'http://www.tawasta.fi',
+    'website': 'https://tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
     'license': 'AGPL-3',
     'application': False,
@@ -37,6 +37,7 @@
         'mrp',
     ],
     'data': [
+        'views/mrp_bom.xml',
         'views/product_template.xml',
         'data/res_groups.xml',
     ],
