@@ -33,11 +33,11 @@ class ProductTemplate(models.Model):
         new_product.active = True
 
         self.message_post(
-            _("Created a new revision '%s'" % new_product.display_name)
+            _("Created a new revision '%s'") % new_product.display_name
         )
 
         new_product.message_post(
-            _("Created a new revision from '%s'" % self.display_name)
+            _("Created a new revision from '%s'") % self.display_name
         )
 
         # Archive the current product
@@ -129,9 +129,10 @@ class ProductTemplate(models.Model):
                     new_bom_line.product_id = new_product.product_variant_id.id
 
                     new_bom_line.bom_id.message_post(
-                        _("Updated line '%s' to '%s'" % (
+                        _("Updated line '%s' to '%s'") % (
                         old_product_id.display_name,
-                        new_product.product_variant_id.display_name))
+                        new_product.product_variant_id.display_name
+                        )
                     )
 
         # 4. Create new BoM(s) for new product using the old BoM revision
@@ -155,11 +156,11 @@ class ProductTemplate(models.Model):
         bom.active = False
 
         bom.message_post(
-            _("Created a new revision '%s'" % new_bom.display_name)
+            _("Created a new revision '%s'") % new_bom.display_name
         )
 
         new_bom.message_post(
-            _("Created a new revision from '%s'" % bom.display_name)
+            _("Created a new revision from '%s'") % bom.display_name
         )
 
         return new_bom
