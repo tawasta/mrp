@@ -8,7 +8,19 @@ class ProductTemplate(models.Model):
     _inherit = 'product.template'
 
     def create_revision(self):
+        """
+        Create new revision. Not implemented on products with variants
+
+        1. Try to get new revision number by product suffix
+        2. Duplicate product
+        3. Deactivate old product
+        """
+
         self.ensure_one()
+
+        if self.product_variant_count > 1:
+            msg = _('Revisioning products with variants is not allowed')
+            raise exceptions.UserError(msg)
 
         default_code = self.get_next_revision_number(self.default_code)
 
@@ -39,8 +51,14 @@ class ProductTemplate(models.Model):
         """
         Get next revision number
         Only supports suffix ending in numbers only
-        TODO: make generic purpose
+
+        e.g.
+        - PR-123 becomes PR-124
+        - P456 becomes P457
         """
+        if not code:
+            return False
+
         suffix_re = '[0-9]+$'
 
         if re.search(suffix_re, code):
@@ -52,38 +70,59 @@ class ProductTemplate(models.Model):
         return False
 
     def action_create_revision(self):
-        self.ensure_one()
+        """
+        Create a product revision
 
-        if self.product_variant_count > 1:
-            msg = _('Revisioning products with variants is not allowed')
-            raise exceptions.UserError(msg)
-
+        This is very similiar to default "duplicate/copy"-function, but
+        it will not generate new default code by sequence, and will
+        use the old product name (and won't add (copy) to the end)
+        """
         new_product, view_action = self.create_revision()
-
-        # Find all BOMs that include the current product in the BOM lines
-        matching_boms = self.env['mrp.bom'].search(
-            args=[('bom_line_ids.product_id', '=', self.product_variant_id.id)]
-        )
-
-        # Set all BOMs inactive one by one, and create replacement BOMs.
-        # Go through the BOM lines and replace the old product with the new
-        for bom_to_copy in matching_boms:
-            new_bom = bom_to_copy.copy()
-            bom_to_copy.active = False
-
-            for new_bom_line in new_bom.bom_line_ids:
-                if new_bom_line.product_id == self.product_variant_id:
-                    new_bom_line.product_id = new_product.product_variant_id.id
 
         # Redirect to new product view
         return view_action
 
     @api.multi
     def action_create_full_revision(self):
-        view_action = self.action_create_revision()
+        """
+        Create a product revision and update BoMs
 
+        1. Create a new product revision
+        2. Search BoMs using the old product
+        3. Make new BoM revisions for BoMs using the old product
+        4. Search for old product BoM(s)
+        5. Create new BoM(s) for new product using the old BoM revision
+        """
+
+        old_product_id = self.product_variant_id
+
+        # Create a new product revision
+        new_product, view_action = self.create_revision()
+
+        # 2. Search BoMs using the old product in BoM lines
+        domain = [
+            ('bom_line_ids.product_id', '=', old_product_id.id)
+        ]
+        matching_boms = self.env['mrp.bom'].search(domain)
+
+        # 3. Make new BoM revisions for BoMs using the old product
+        for bom_to_copy in matching_boms:
+            reference = self.get_next_revision_number(bom_to_copy.code)
+            new_bom = bom_to_copy.copy({
+                'code': reference,
+                'product_reference': reference,
+            })
+            bom_to_copy.active = False
+
+            # Replace any BoM lines using the old product, with new product
+            for new_bom_line in new_bom.bom_line_ids:
+                if new_bom_line.product_id == old_product_id:
+                    new_bom_line.product_id = new_product.product_variant_id.id
+
+        # 4. Search for old product BoM(s)
         for bom in self.bom_ids:
-            reference = self.get_next_revision_number(self.default_code)
+            # 5. Create new BoM(s) for new product using the old BoM revision
+            reference = self.get_next_revision_number(bom.code)
             bom.copy({
                 'product_tmpl_id': view_action.get('res_id'),
                 'code': reference,
