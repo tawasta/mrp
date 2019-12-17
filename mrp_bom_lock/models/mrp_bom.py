@@ -58,11 +58,12 @@ class MrpBom(models.Model):
                     record.parent_locked_id = line.bom_id.parent_locked_id.id
 
     def display_locked_error(self):
-        bom = self.parent_locked_id or self
+        for record in self:
+            bom = record.parent_locked_id or record
 
-        message = "BOM is locked for product: %s" % \
-                  bom.product_tmpl_id.display_name
-        raise UserError(message)
+            message = "BOM is locked for product: %s" % \
+                      bom.product_tmpl_id.display_name
+            raise UserError(message)
 
     @api.multi
     def write(self, values):
