@@ -32,6 +32,14 @@ class ProductTemplate(models.Model):
         })
         new_product.active = True
 
+        self.message_post(
+            _("Created a new revision '%s'" % new_product.display_name)
+        )
+
+        new_product.message_post(
+            _("Created a new revision from '%s'" % self.display_name)
+        )
+
         # Archive the current product
         self.active = False
 
@@ -90,8 +98,7 @@ class ProductTemplate(models.Model):
         1. Create a new product revision
         2. Search BoMs using the old product
         3. Make new BoM revisions for BoMs using the old product
-        4. Search for old product BoM(s)
-        5. Create new BoM(s) for new product using the old BoM revision
+        4. Create new BoM(s) for new product using the old BoM revision
         """
 
         old_product_id = self.product_variant_id
@@ -108,10 +115,12 @@ class ProductTemplate(models.Model):
         # 3. Make new BoM revisions for BoMs using the old product
         for bom_to_copy in matching_boms:
             reference = self.get_next_revision_number(bom_to_copy.code)
-            new_bom = bom_to_copy.copy({
+            bom_vals = {
                 'code': reference,
                 'product_reference': reference,
-            })
+            }
+
+            new_bom = self.create_new_bom_revision(bom_to_copy, bom_vals)
             bom_to_copy.active = False
 
             # Replace any BoM lines using the old product, with new product
@@ -119,16 +128,38 @@ class ProductTemplate(models.Model):
                 if new_bom_line.product_id == old_product_id:
                     new_bom_line.product_id = new_product.product_variant_id.id
 
-        # 4. Search for old product BoM(s)
+                    new_bom_line.bom_id.message_post(
+                        _("Updated line '%s' to '%s'" % (
+                        old_product_id.display_name,
+                        new_product.product_variant_id.display_name))
+                    )
+
+        # 4. Create new BoM(s) for new product using the old BoM revision
         for bom in self.bom_ids:
-            # 5. Create new BoM(s) for new product using the old BoM revision
             reference = self.get_next_revision_number(bom.code)
-            bom.copy({
+            bom_vals = {
                 'product_tmpl_id': view_action.get('res_id'),
                 'code': reference,
                 'product_reference': reference,
-            })
-            bom.active = False
+            }
+            self.create_new_bom_revision(bom, bom_vals)
 
         # Redirect to new product view
         return view_action
+
+    def create_new_bom_revision(self, bom, values={}):
+        """
+        Create a new BoM revision
+        """
+        new_bom = bom.copy(values)
+        bom.active = False
+
+        bom.message_post(
+            _("Created a new revision '%s'" % new_bom.display_name)
+        )
+
+        new_bom.message_post(
+            _("Created a new revision from '%s'" % bom.display_name)
+        )
+
+        return new_bom

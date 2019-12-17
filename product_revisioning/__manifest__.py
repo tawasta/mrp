@@ -21,8 +21,8 @@
 
 {
     'name': 'Lightweight Product Revisioning',
-    'summary': "Revision a product and replace it in BOMs",
-    'version': '10.0.1.2.0',
+    'summary': 'Revision a product and replace it in BOMs',
+    'version': '10.0.1.3.0',
     'category': 'Manufacturing',
     'website': 'https://tawasta.fi',
     'author': 'Oy Tawasta Technologies Ltd.',
