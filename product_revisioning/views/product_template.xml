@@ -7,10 +7,19 @@
 		<field name="arch" type="xml">
 
 			<header position="inside">
-			<button string="Create New Revision" type="object" name="create_revision"
-					groups="stock.group_stock_user"
-					attrs="{ 'invisible': ['|', ('bom_count', '>', 0), 
-					                            ('product_variant_count', '>', 1)] }"/>
+				<button string="Create Revision"
+						help="Create a new revision for product only. Don't update product BoM or any BoMs that are using this product as a component"
+						type="object"
+						name="action_create_revision"
+						groups="stock.group_stock_user"
+						attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
+
+				<button string="Create Revision and update BoMs"
+						help="Create a new revision for product and BoM. Update any BoMs that is using this product as a component"
+						type="object"
+						name="action_create_full_revision"
+						groups="stock.group_stock_manager"
+						attrs="{'invisible': [('product_variant_count', '>', 1)] }" />
 			</header>
 
 		</field>
