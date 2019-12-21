@@ -96,16 +96,17 @@ class ProductTemplate(models.Model):
         Create a product revision and update BoMs
 
         1. Create a new product revision
-        2. Search BoMs using the old product
-        3. Make new BoM revisions for BoMs using the old product
+        2. DISABLED: Search BoMs using the old product
+        3. DISABLED: Make new BoM revisions for BoMs using the old product
         4. Create new BoM(s) for new product using the old BoM revision
         """
 
         old_product_id = self.product_variant_id
 
-        # Create a new product revision
+        # 1. Create a new product revision
         new_product, view_action = self.create_revision()
 
+        '''
         # 2. Search BoMs using the old product in BoM lines
         domain = [
             ('bom_line_ids.product_id', '=', old_product_id.id)
@@ -134,6 +135,7 @@ class ProductTemplate(models.Model):
                         new_product.product_variant_id.display_name
                         )
                     )
+        '''
 
         # 4. Create new BoM(s) for new product using the old BoM revision
         for bom in self.bom_ids:
@@ -153,7 +155,7 @@ class ProductTemplate(models.Model):
         Create a new BoM revision
         """
         new_bom = bom.copy(values)
-        bom.active = False
+        # bom.active = False
 
         bom.message_post(
             _("Created a new revision '%s'") % new_bom.display_name
