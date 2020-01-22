@@ -1,4 +1,4 @@
-<openerp>
+<odoo>
     <data>
         <record id="bom_lock_product_form_view_inherit" model="ir.ui.view">
             <field name="name">bom.lock.product.form.view.inherit</field>
@@ -11,4 +11,4 @@
             </field>
         </record>
     </data>
-</openerp>
+</odoo>

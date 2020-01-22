@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<openerp>
-  <data>
+<odoo>
     <record id="mrp_bom_archived_product_list_form" model="ir.ui.view">
-      <field name="name">mrp.bom.archived.product.list.form</field>
-      <field name="model">mrp.bom</field>
-      <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
-      <field name="arch" type="xml">
-        <notebook position="inside">
-          <page string="Archived Products">
-            <group>
-              <field name="archived_info_last_update"/>
-              <button type="object" name="refresh_archive_info" string="Refresh list"/>
-            </group>
-            <field name="archived_product_line_ids">
-              <tree>
-                <field name="product_id"/>
-                <field name="parent_id"/>
-              </tree>
-            </field>
-          </page>
-        </notebook>
-      </field>
+        <field name="name">mrp.bom.archived.product.list.form</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+        <field name="arch" type="xml">
+            <notebook position="inside">
+                <page string="Archived Products">
+                    <group>
+                        <field name="archived_info_last_update"/>
+                        <button type="object" name="refresh_archive_info" string="Refresh list"/>
+                    </group>
+                    <field name="archived_product_line_ids">
+                        <tree>
+                            <field name="product_id"/>
+                            <field name="parent_id"/>
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
+        </field>
     </record>
-  </data>
-</openerp>
+</odoo>

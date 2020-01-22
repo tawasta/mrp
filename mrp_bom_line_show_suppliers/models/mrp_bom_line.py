@@ -1,4 +1,4 @@
-from openerp import models, fields, api, _, exceptions
+from odoo import models, fields, api, _, exceptions
 
 
 class MrpBomLine(models.Model):

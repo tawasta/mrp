@@ -1,5 +1,5 @@
 from odoo import fields, models
-import openerp.addons.decimal_precision as dp
+import odoo.addons.decimal_precision as dp
 
 
 class ProductTemplate(models.Model):
