@@ -101,8 +101,8 @@ class ProductTemplate(models.Model):
         Create a product revision and update BoMs
 
         1. Create a new product revision
-        2. DISABLED: Search BoMs using the old product
-        3. DISABLED: Make new BoM revisions for BoMs using the old product
+        2. Search BoMs using the old product
+        3. Make new BoM revisions for BoMs using the old product
         4. Create new BoM(s) for new product using the old BoM revision
         """
 
@@ -111,7 +111,6 @@ class ProductTemplate(models.Model):
         # 1. Create a new product revision
         new_product, view_action = self.create_revision()
 
-        '''
         # 2. Search BoMs using the old product in BoM lines
         domain = [
             ('bom_line_ids.product_id', '=', old_product_id.id)
@@ -120,14 +119,16 @@ class ProductTemplate(models.Model):
 
         # 3. Make new BoM revisions for BoMs using the old product
         for bom_to_copy in matching_boms:
-            reference = self.get_next_revision_number(bom_to_copy.code)
-            bom_vals = {
-                'code': reference,
-                'product_reference': reference,
-            }
+            bom_vals = {}
+            if bom_to_copy.code:
+                reference = self.get_next_revision_number(bom_to_copy.code)
+                bom_vals = {
+                    'code': reference,
+                    'product_reference': reference,
+                }
 
             new_bom = self.create_new_bom_revision(bom_to_copy, bom_vals)
-            bom_to_copy.active = False
+            # bom_to_copy.active = False
 
             # Replace any BoM lines using the old product, with new product
             for new_bom_line in new_bom.bom_line_ids:
@@ -140,7 +141,6 @@ class ProductTemplate(models.Model):
                         new_product.product_variant_id.display_name
                         )
                     )
-        '''
 
         # 4. Create new BoM(s) for new product using the old BoM revision
         for bom in self.bom_ids:
