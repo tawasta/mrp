@@ -31,6 +31,11 @@ class ProductTemplate(models.Model):
             'default_code': default_code,
         })
         new_product.active = True
+        
+        if new_product.default_code != default_code:
+            # Default code can get ignored/overridden (?)
+            new_product.default_code = default_code  
+         
 
         self.message_post(
             _("Created a new revision '%s'") % new_product.display_name
