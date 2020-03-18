@@ -33,15 +33,9 @@
 							<group name="group-bottom">
 								<button name="get_material_requirement_line" string="Calculate Requirements" type="object" class="oe_highlight"/>
 							</group>
-							<field name="bom_product" attrs="{'invisible': [('bom_product','=',False)]}"/>
-							<field name="bom_qty_available" attrs="{'invisible': [('bom_product','=',False)]}"/>
-							<field name="bom_qty_to_manufacture" attrs="{'invisible': [('bom_product','=',False)]}"/>
 						</group>
 					</group>
-					<field name="material_requirement_line"/> <!--widget="one2many_list">-->
-						<!--<field name="product_id"/>-->
-						<!--</field>-->
-
+					<field name="material_requirement_line"/>
 				</sheet>
 			</form>
 		</field>
