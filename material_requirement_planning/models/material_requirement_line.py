@@ -46,32 +46,10 @@ class MaterialRequirementLine(models.Model):
             readonly=False,
             )
 
-#     manufacturing_level_line = fields.Char(
-# #             _compute='_get_manufacturing_level',
-#             related='material_requirement_id.manufacturing_level.name'
-#             )
-
-
-    manufacturing_level_line = fields.Boolean(
-#             _compute='_get_manufacturing_level',
-            related='material_requirement_id.manufacturing_level'
-            )
-
-#     manufacturing_level_line = fields.Selection(
-# #             _compute='_get_manufacturing_level',
-#             related='material_requirement_id.manufacturing_level'
-#             )
-
     can_be_manufactured = fields.Float(
             string="Manufacturable quantity",
             readonly=False,
             )
-
-#     bom = fields.Many2one(
-#             'mrp.bom',
-#             string='BoM',
-#             readonly=False,
-#             )
 
     bom = fields.Many2one(
             comodel_name='mrp.bom',
@@ -83,9 +61,3 @@ class MaterialRequirementLine(models.Model):
             string='BoM lines',
             readonly=False,
             )
-
-#     @api.multi
-#     def _get_manufacturing_level(self):
-#         print "SELF MANUFACTUGIN LEVEL: ", self.manufacturing_level
-#         self.manufacturing_level = self.material_requirement_id.manufacturing_level
-#
