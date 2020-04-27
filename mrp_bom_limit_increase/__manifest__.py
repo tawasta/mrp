@@ -19,19 +19,15 @@
 ##############################################################################
 
 {
-    'name': 'BOM tree view increment',
-    'summary': 'Incrases BOM tree-view limit to 100',
-    'version': '12.0.1.0.0',
-    'category': 'Manufacturing',
-    'website': 'https://github.com/Tawasta/mrp',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'depends': [
-        'base',
-    ],
-    'data': [
-        'views/bom_view.xml'
-    ],
+    "name": "BOM tree view increment",
+    "summary": "Incrases BOM tree-view limit to 100",
+    "version": "12.0.1.0.1",
+    "category": "Manufacturing",
+    "website": "https://github.com/Tawasta/mrp",
+    "author": "Tawasta",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "depends": ["mrp"],
+    "data": ["views/bom_view.xml"],
 }

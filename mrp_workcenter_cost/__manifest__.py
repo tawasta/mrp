@@ -19,26 +19,26 @@
 ##############################################################################
 
 {
-    'name': 'MRP Workcenter cost',
-    'summary': 'Adds a service product to work center for calculating costs',
-    'version': '12.0.1.0.0',
-    'category': 'Manufacturing',
-    'website': 'https://github.com/Tawasta/mrp',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'external_dependencies': {
-        'python': [],
-        'bin': [],
+    "name": "MRP Workcenter cost",
+    "summary": "Adds a service product to work center for calculating costs",
+    "version": "12.0.1.0.0",
+    "category": "Manufacturing",
+    "website": "https://github.com/Tawasta/mrp",
+    "author": "Tawasta",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {
+        "python": [],
+        "bin": [],
     },
-    'depends': [
-        'mrp',
+    "depends": [
+        "mrp",
     ],
-    'data': [
-        'views/mrp_routing_workcenter.xml',
-        #'views/mrp_workcenter.xml',
+    "data": [
+        "views/mrp_routing_workcenter.xml",
+        # "views/mrp_workcenter.xml",
     ],
-    'demo': [
+    "demo": [
     ],
 }
