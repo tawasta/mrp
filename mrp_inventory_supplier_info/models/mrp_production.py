@@ -11,3 +11,7 @@ class MrpInventory(models.Model):
         store=True,
         readonly=True,
     )
+
+    supplier_info = fields.Many2one(
+        string="Supplier info", related="product_mrp_area_id.main_supplierinfo_id",
+    )
