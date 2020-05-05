@@ -11,6 +11,11 @@ class MrpBom(models.Model):
         compute="_compute_bom_rel_count"
     )
 
+    bom_rel_available_count = fields.Integer(
+        string="On Hand",
+        compute="_compute_bom_rel_count"
+    )
+
     def _compute_bom_rel_count(self):
         product_id = self._context.get('active_id')
         product_model = self._context.get('active_model')
@@ -22,3 +27,4 @@ class MrpBom(models.Model):
             )
             for line in bom_lines:
                 line.bom_id.bom_rel_count = line.product_qty
+                line.bom_id.bom_rel_available_count = line.product_id.qty_available

@@ -8,7 +8,7 @@ Purchased and Sold Product Quantities in BOM tree view
 
 * In BOM tree view: Shows purchase and sold quantities of active_id's product.
 * Both product.product and product.template models work when counting quantities.
-* Select a product and go tree view from "Used in"-button to see quantities.
+* Select a product and go to tree view from "Used in"-button to see quantities.
 
 Configuration
 =============
