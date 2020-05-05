@@ -6,9 +6,10 @@
 Used Product Quantities in BOM tree view
 ========================================
 
-In BOM tree view: Shows the quantity of product that is used on BOM line.
-Both product.product and product.template models work when counting quantities.
-Select a product and go tree view from "Used in"-button to see product quantities.
+In BOM tree view: Shows the quantity of product that is used on BOM line and
+product's available quantity. Both product.product and product.template models
+work when counting quantities. Select a product and go to tree view from
+"Used in"-button to see product quantities.
 
 Configuration
 =============
