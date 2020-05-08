@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <record id="action_material_requirement" model="ir.actions.act_window">
+        <field name="name">Requirements</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">material.requirement</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        action="action_material_requirement"
+        id="menu_material_requirement"
+        parent="mrp.menu_mrp_root"
+        name="Material Requirement"
+    />
+</odoo>

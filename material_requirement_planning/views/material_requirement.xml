@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<record id="material_requirement_form_view" model="ir.ui.view">
+		<field name="name">material.requirement.form</field>
+		<field name="model">material.requirement</field>
+		<field name="arch" type="xml">
+			<form string="Calculate requirements">
+				<sheet name="material_sheet">
+					<h1>
+						<field name="name" readonly="1"/>
+					</h1>
+					<group>
+						<group name="group-left">
+							<field name="note"/>
+							<field name="product" options="{'no_create': True, 'no_open': True}"/>
+							<field name="product_variants" attrs="{'invisible': [('product','=',False)]}"
+								widget="selection" domain="[('product_tmpl_id.id','=',product)]"/>
+							<field name="product_variant_id" invisible="1"/>
+							<field name="bom" attrs="{'invisible': [('product','=',False)]}" widget="selection"
+								domain="[('product_tmpl_id.id','=',product),'|',('product_id.id','=',product_variant_id),('product_id','=',False)]"/>
+							<field name="bom_prod" invisible="1"/>
+							<field name="qty_available"/>
+							<!--<field name="product_attribute_name"/>-->
+							<field name="qty_promised"/>
+							<!--<button name="calculate_requirement" type="object" class="oe_highlight oe_read_only" string="Calculate Requirement"/>-->
+							<!--<field name="requirement" class="oe_read_only"/>-->
+							<field name="qty_to_manufacture"/>
+						</group>
+						<group name="group-right">
+							<group name="group-top">
+								<field name="manufacturing_level"/>
+							</group>
+							<group name="group-bottom">
+								<button name="get_material_requirement_line" string="Calculate Requirements" type="object" class="oe_highlight"/>
+							</group>
+						</group>
+					</group>
+					<field name="material_requirement_line"/>
+				</sheet>
+			</form>
+		</field>
+	</record>
+</odoo>
