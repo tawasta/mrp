@@ -35,7 +35,7 @@ class MaterialRequirement(models.Model):
 
     product_variant_id = fields.Integer(
         string="Product Variant ID",
-        _compute="_get_product_variant_id",
+        compute="_compute_product_variant_id",
     )
 
     requirement = fields.Float(
@@ -44,20 +44,20 @@ class MaterialRequirement(models.Model):
 
     qty_to_manufacture = fields.Float(
         string="Manufacturable quantity",
-        compute='get_material_requirement_line',
+        compute='_compute_material_requirement_line',
         readonly=True,
     )
 
     qty_available = fields.Float(
         string="On Hand",
         readonly=True,
-        compute='get_material_requirement_line',
+        compute='_compute_material_requirement_line',
     )
 
     qty_promised = fields.Float(
         string="Potential quantity",
         readonly=True,
-        compute='get_material_requirement_line',
+        compute='_compute_material_requirement_line',
     )
 
     bom = fields.Many2one(
@@ -112,10 +112,10 @@ class MaterialRequirement(models.Model):
                 for variant in variants:
                     record.product_variants = variant
                     record.product_variant_id = variant.id
-        self.get_material_requirement_line()
+        self._compute_material_requirement_line()
 
     @api.onchange('product_variants')
-    def _get_product_variant_id(self):
+    def _compute_product_variant_id(self):
         """Get product variant id"""
         for record in self:
             record.product_variant_id = record.product_variants.id
@@ -202,10 +202,10 @@ class MaterialRequirement(models.Model):
 
     @api.onchange('product', 'product_variants', 'manufacturing_level',
                   'material_requirement_line')
-    def get_material_requirement_line(self):
+    def _compute_material_requirement_line(self):
         """"Get Material requirement line"""
 
-        self._get_product_variant_id()
+#         self._compute_product_variant_id()
         mrp_bom = self.env['mrp.bom']
 
         bom_id = mrp_bom.search(
