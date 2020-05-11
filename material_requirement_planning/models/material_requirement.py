@@ -90,10 +90,6 @@ class MaterialRequirement(models.Model):
         string='Product Variant',
     )
 
-    def _get_bom_ids(self, product):
-        """Fetch product BoM lines"""
-        return product.bom_ids
-
     @api.model
     def create(self, vals):
         """Assign next sequence"""
@@ -204,85 +200,83 @@ class MaterialRequirement(models.Model):
                   'material_requirement_line')
     def _compute_material_requirement_line(self):
         """"Get Material requirement line"""
-
-#         self._compute_product_variant_id()
         mrp_bom = self.env['mrp.bom']
+        for rec in self:
+            bom_id = mrp_bom.search(
+                ['&',
+                 ('product_tmpl_id.id', '=', rec.product.id),
+                 '|',
+                 ('product_id', '=', rec.product_variant_id),
+                 ('product_id', '=', False)], limit=1
+            )
 
-        bom_id = mrp_bom.search(
-            ['&',
-             ('product_tmpl_id.id', '=', self.product.id),
-             '|',
-             ('product_id', '=', self.product_variant_id),
-             ('product_id', '=', False)], limit=1
-        )
+            material = self.env['material.requirement.line']
+            product_material_lines = []
+            smallest_multiplier = []
+            ch_multiplier_line = []
+            ch_smallest = 0
 
-        material = self.env['material.requirement.line']
-        product_material_lines = []
-        smallest_multiplier = []
-        ch_multiplier_line = []
-        ch_smallest = 0
+            for line in bom_id.bom_line_ids:
+                smallest_multiplier_line = []
+                if all(elem in rec.product_variants.attribute_value_ids.ids for
+                       elem in line.attribute_value_ids.ids):
+                    product_material_lines.append(
+                        material.new(rec.create_requirement_lines(line)).id)
+                    if rec.manufacturing_level in ['level_one',
+                                                    'level_two'] and \
+                            line.product_id.bom_ids:
+                        for child_bom_line in line.product_id.bom_ids[0].bom_line_ids:
+                            if rec.manufacturing_level == 'level_two' and \
+                                    child_bom_line.product_id.bom_ids:
+                                for ch_child_bom_line in \
+                                        child_bom_line.product_id.bom_ids[0].bom_line_ids:
+                                    if ch_child_bom_line.product_id.qty_available <= 0:
+                                        ch_line = 0
+                                    else:
+                                        ch_line = int(
+                                            ch_child_bom_line.product_id.qty_available /
+                                            ch_child_bom_line.product_qty)
+                                    ch_multiplier_line.append(ch_line)
 
-        for line in bom_id.bom_line_ids:
-            smallest_multiplier_line = []
-            if all(elem in self.product_variants.attribute_value_ids.ids for
-                   elem in line.attribute_value_ids.ids):
-                product_material_lines.append(
-                    material.new(self.create_requirement_lines(line)).id)
-                if self.manufacturing_level in ['level_one',
-                                                'level_two'] and \
-                        line.product_id.bom_ids:
-                    for child_bom_line in line.product_id.bom_ids[0].bom_line_ids:
-                        if self.manufacturing_level == 'level_two' and \
-                                child_bom_line.product_id.bom_ids:
-                            for ch_child_bom_line in \
-                                    child_bom_line.product_id.bom_ids[0].bom_line_ids:
-                                if ch_child_bom_line.product_id.qty_available <= 0:
-                                    ch_line = 0
+                                if not ch_multiplier_line:
+                                    ch_smallest = 0
                                 else:
-                                    ch_line = int(
-                                        ch_child_bom_line.product_id.qty_available /
-                                        ch_child_bom_line.product_qty)
-                                ch_multiplier_line.append(ch_line)
+                                    ch_smallest = min(ch_multiplier_line)
 
-                            if not ch_multiplier_line:
-                                ch_smallest = 0
+                            if (child_bom_line.product_id.qty_available +
+                                    ch_smallest) <= 0:
+                                multiplier_line = 0
                             else:
-                                ch_smallest = min(ch_multiplier_line)
+                                multiplier_line = \
+                                    int((child_bom_line.product_id.qty_available +
+                                         ch_smallest) / child_bom_line.product_qty)
+                            smallest_multiplier_line.append(multiplier_line)
 
-                        if (child_bom_line.product_id.qty_available +
-                            ch_smallest) <= 0:
-                            multiplier_line = 0
-                        else:
-                            multiplier_line = \
-                                int((child_bom_line.product_id.qty_available +
-                                     ch_smallest) / child_bom_line.product_qty)
-                        smallest_multiplier_line.append(multiplier_line)
+                    if not smallest_multiplier_line:
+                        multiplier_line = 0
+                    else:
+                        multiplier_line = min(smallest_multiplier_line)
 
-                if not smallest_multiplier_line:
-                    multiplier_line = 0
-                else:
-                    multiplier_line = min(smallest_multiplier_line)
+                    if line.product_id.qty_available <= 0:
+                        multiplier = 0
+                    else:
+                        multiplier = int((line.product_id.qty_available +
+                                          multiplier_line) / line.product_qty)
+                    smallest_multiplier.append(multiplier)
 
-                if line.product_id.qty_available <= 0:
-                    multiplier = 0
-                else:
-                    multiplier = int((line.product_id.qty_available +
-                                      multiplier_line) / line.product_qty)
-                smallest_multiplier.append(multiplier)
+            if not smallest_multiplier:
+                smallest = 0
+            else:
+                smallest = min(smallest_multiplier)
 
-        if not smallest_multiplier:
-            smallest = 0
-        else:
-            smallest = min(smallest_multiplier)
-
-        self.qty_to_manufacture = smallest
-        self.qty_available = self.product.qty_available
-        self.qty_promised = self.qty_available + self.qty_to_manufacture
-        self.material_requirement_line = [(6, 0, product_material_lines)]
+            rec.qty_to_manufacture = smallest
+            rec.qty_available = rec.product.qty_available
+            rec.qty_promised = rec.qty_available + rec.qty_to_manufacture
+            rec.material_requirement_line = [(6, 0, product_material_lines)]
 
     @api.onchange('product_variants', 'product', 'manufacturing_level',
                   'material_requirement_line')
-    def _get_bom(self):
+    def get_bom(self):
         """When a product is selected, get that product's BoM"""
         mrp_bom = self.env['mrp.bom']
         for record in self:
