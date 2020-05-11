@@ -74,6 +74,16 @@ class MaterialRequirementLine(models.Model):
         string="Variant",
     )
 
+    vendor = fields.Char(
+        string="Preferred supplier",
+        compute="_compute_preferred_supplier",
+    )
+
+    def _compute_preferred_supplier(self):
+        for line in self:
+            if line.product_id.seller_ids:
+                line.vendor = line.product_id.seller_ids[0].name.name
+
     def _compute_transfer_counts(self):
         for line in self:
             stock_moves = self.env['stock.move'].search([
