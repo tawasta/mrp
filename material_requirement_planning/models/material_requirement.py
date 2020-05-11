@@ -222,14 +222,13 @@ class MaterialRequirement(models.Model):
                        elem in line.attribute_value_ids.ids):
                     product_material_lines.append(
                         material.new(rec.create_requirement_lines(line)).id)
-                    if rec.manufacturing_level in ['level_one',
-                                                    'level_two'] and \
-                            line.product_id.bom_ids:
+                    if rec.manufacturing_level in ['level_one', 'level_two'] \
+                            and line.product_id.bom_ids:
                         for child_bom_line in line.product_id.bom_ids[0].bom_line_ids:
                             if rec.manufacturing_level == 'level_two' and \
                                     child_bom_line.product_id.bom_ids:
-                                for ch_child_bom_line in \
-                                        child_bom_line.product_id.bom_ids[0].bom_line_ids:
+                                for ch_child_bom_line in child_bom_line. \
+                                        product_id.bom_ids[0].bom_line_ids:
                                     if ch_child_bom_line.product_id.qty_available <= 0:
                                         ch_line = 0
                                     else:
