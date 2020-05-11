@@ -150,7 +150,6 @@ class MaterialRequirement(models.Model):
             lines = vals.product_id.bom_ids[0].bom_line_ids
 
             for line in lines:
-                # if all(elem in vals.attribute_value_ids.ids for elem in line.attribute_value_ids.ids) \
                 if self.manufacturing_level == 'level_two' and \
                         line.product_id.bom_ids:
                     for ch_child_bom_line in \
@@ -233,7 +232,6 @@ class MaterialRequirement(models.Model):
                                                 'level_two'] and \
                         line.product_id.bom_ids:
                     for child_bom_line in line.product_id.bom_ids[0].bom_line_ids:
-                        # if all(elem in line.attribute_value_ids.ids for elem in child_bom_line.attribute_value_ids.ids) \
                         if self.manufacturing_level == 'level_two' and \
                                 child_bom_line.product_id.bom_ids:
                             for ch_child_bom_line in \
