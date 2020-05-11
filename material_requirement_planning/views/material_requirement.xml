@@ -44,7 +44,6 @@
                             <field name="bom"/>
                         </tree>
                     </field>
-                    <button name="get_material_requirement_line" string="Calculate Requirements" type="object" class="oe_highlight"/>
                 </sheet>
             </form>
         </field>
