@@ -80,11 +80,11 @@ class MaterialRequirementLine(models.Model):
                 ('product_id', '=', line.product_id.id),
                 ('picking_id.state', 'in', ['confirmed', 'assigned'])
             ])
-            line.incoming= sum(
+            line.incoming = sum(
                 [x.reserved_availability for x in stock_moves
                  if x.purchase_line_id]
             )
-            line.outgoing= sum(
+            line.outgoing = sum(
                 [x.reserved_availability for x in stock_moves
                  if x.sale_line_id]
             )
