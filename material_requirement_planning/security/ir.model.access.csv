@@ -1,0 +1,4 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+"material_requirement_manager","material_requirement_manager","model_material_requirement","mrp.group_mrp_manager",1,1,1,1
+"material_requirement_line_manager","material_requirement_line_manager","model_material_requirement_line","mrp.group_mrp_manager",1,1,1,1
+
