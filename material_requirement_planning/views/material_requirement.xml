@@ -41,7 +41,6 @@
                             <field name="cost"/>
                             <field name="variant"/>
                             <field name="can_be_manufactured"/>
-                            <field name="bom"/>
                         </tree>
                     </field>
                 </sheet>
