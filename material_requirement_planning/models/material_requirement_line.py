@@ -11,18 +11,18 @@ class MaterialRequirementLine(models.Model):
     bom = fields.Many2one(
         comodel_name="mrp.bom",
         string="BoM",
-        readonly=True,
+        readonly=False,
     )
 
     bom_lines = fields.Many2many(
         comodel_name="mrp.bom.line",
         string="BoM lines",
-        readonly=True,
+        readonly=False,
     )
 
     can_be_manufactured = fields.Float(
         string="Manufacturable quantity",
-        readonly=True,
+        readonly=False,
     )
 
     cost = fields.Float(
@@ -42,19 +42,19 @@ class MaterialRequirementLine(models.Model):
     material_requirement_id = fields.Many2one(
         "material.requirement",
         string="Material Requirement",
-        readonly=True,
+        readonly=False,
     )
 
     product_id = fields.Many2one(
         "product.product",
         string="Product",
         store=True,
-        readonly=True,
+        readonly=False,
     )
 
     product_availability = fields.Float(
         string="On Hand",
-        readonly=True,
+        readonly=False,
     )
 
     product_uom_id = fields.Char(
@@ -64,17 +64,17 @@ class MaterialRequirementLine(models.Model):
 
     promised_qty_line = fields.Char(
         string="Potential quantity",
-        readonly=True,
+        readonly=False,
     )
 
     qty_to_manufacture = fields.Float(
         string="Qty used in BOM",
-        readonly=True,
+        readonly=False,
     )
 
     variant = fields.Char(
         string="Variant",
-        readonly=True,
+        readonly=False,
     )
 
     vendor = fields.Char(
