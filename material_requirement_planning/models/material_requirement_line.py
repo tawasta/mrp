@@ -1,6 +1,6 @@
 
 from __future__ import division
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class MaterialRequirementLine(models.Model):
