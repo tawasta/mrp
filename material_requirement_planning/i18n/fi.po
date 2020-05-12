@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-12 06:29+0000\n"
-"PO-Revision-Date: 2020-05-12 09:30+0300\n"
+"POT-Creation-Date: 2020-05-12 12:44+0000\n"
+"PO-Revision-Date: 2020-05-12 15:46+0300\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,11 @@ msgstr "BOM"
 #: model:ir.model.fields,field_description:material_requirement_planning.field_material_requirement__bom_prod
 msgid "BOM Prod"
 msgstr "BOM tuote"
+
+#. module: material_requirement_planning
+#: model:ir.model,name:material_requirement_planning.model_mrp_bom_line
+msgid "Bill of Material Line"
+msgstr "Osaluettelon rivi"
 
 #. module: material_requirement_planning
 #: model:ir.model.fields,field_description:material_requirement_planning.field_material_requirement_line__bom
@@ -91,6 +96,12 @@ msgstr "Tunniste (ID)"
 #: model:ir.model.fields,field_description:material_requirement_planning.field_material_requirement_line__incoming
 msgid "Incoming Qty"
 msgstr "Saapuva määrä"
+
+#. module: material_requirement_planning
+#: model:ir.model.fields,field_description:material_requirement_planning.field_material_requirement_line__product_internal_reference
+#: model:ir.model.fields,field_description:material_requirement_planning.field_mrp_bom_line__product_reference
+msgid "Internal Reference"
+msgstr "Sisäinen viite"
 
 #. module: material_requirement_planning
 #: model:ir.model.fields,field_description:material_requirement_planning.field_material_requirement____last_update

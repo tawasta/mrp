@@ -14,10 +14,10 @@ class MaterialRequirementLine(models.Model):
         readonly=False,
     )
 
-    bom_lines = fields.Many2many(
+    bom_lines = fields.One2many(
         comodel_name="mrp.bom.line",
         string="BoM lines",
-        readonly=False,
+        compute="_compute_bom_info",
     )
 
     can_be_manufactured = fields.Float(
@@ -50,6 +50,10 @@ class MaterialRequirementLine(models.Model):
         string="Product",
         store=True,
         readonly=False,
+    )
+
+    product_internal_reference = fields.Char(
+        related="product_id.default_code"
     )
 
     product_availability = fields.Float(
@@ -101,3 +105,9 @@ class MaterialRequirementLine(models.Model):
                 [x.reserved_availability for x in stock_moves
                  if x.sale_line_id]
             )
+
+    def _compute_bom_info(self):
+        for line in self:
+            bom = line.product_id.bom_ids and line.product_id.bom_ids[0] or False
+            if bom:
+                line.bom_lines = bom.bom_line_ids
