@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <record id="material_requirement_form_view" model="ir.ui.view">
+        <field name="name">material.requirement.form</field>
+        <field name="model">material.requirement</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Calculate requirements">
+                <sheet name="material_sheet">
+                    <h1>
+                        <field name="name" readonly="1"/>
+                    </h1>
+                    <group>
+                        <group name="group-left">
+                            <field name="product" options="{'no_create': True, 'no_open': True}"/>
+                            <field name="product_variants" attrs="{'invisible': [('product','=',False)]}"
+                                    widget="selection" domain="[('product_tmpl_id.id','=',product)]"/>
+                            <field name="product_variant_id" invisible="1"/>
+                            <field name="bom" attrs="{'invisible': [('product','=',False)]}" widget="selection"
+                                    domain="[('product_tmpl_id.id','=',product),'|',('product_id.id','=',product_variant_id),('product_id','=',False)]"/>
+                            <field name="bom_prod" invisible="1"/>
+                            <field name="qty_available"/>
+                            <field name="qty_to_manufacture"/>
+                            <field name="qty_promised"/>
+                        </group>
+                        <group name="group-right">
+                            <field name="manufacturing_level"/>
+                            <field name="note" string="Notes"/>
+                        </group>
+                    </group>
+                    <field name="material_requirement_line">
+                        <form>
+                            <group>
+                                <field name="product_id" readonly="1"/>
+                                <field name="promised_qty_line" readonly="1"/>
+                                <field name="product_availability" readonly="1"/>
+                                <field name="qty_to_manufacture" readonly="1"/>
+                                <field name="product_uom_id"/>
+                                <field name="incoming"/>
+                                <field name="outgoing"/>
+                                <field name="vendor"/>
+                                <field name="cost"/>
+                                <field name="variant" readonly="1"/>
+                                <field name="can_be_manufactured" readonly="1"/>
+                            </group>
+                        </form>
+                        <tree edit="false" delete="false" create="false">
+                            <field name="product_id"/>
+                            <field name="promised_qty_line"/>
+                            <field name="product_availability"/>
+                            <field name="qty_to_manufacture"/>
+                            <field name="product_uom_id"/>
+                            <field name="incoming"/>
+                            <field name="outgoing"/>
+                            <field name="vendor"/>
+                            <field name="cost"/>
+                            <field name="variant"/>
+                            <field name="can_be_manufactured"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
