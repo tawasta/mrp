@@ -141,7 +141,7 @@ class MaterialRequirement(models.Model):
 
         if vals.product_id.bom_ids:
             for bom in vals.product_id.bom_ids:
-                product_bom.append(bom.id)
+                product_bom.append(bom)
 
             lines = vals.product_id.bom_ids[0].bom_line_ids
 
@@ -182,6 +182,8 @@ class MaterialRequirement(models.Model):
 
         if not self.manufacturing_level:
             multiplier = 0
+
+        product_bom = product_bom and product_bom[0] or False
 
         result = {
             'product_id': vals.product_id.id,
