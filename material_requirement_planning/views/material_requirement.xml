@@ -30,7 +30,22 @@
                         </group>
                     </group>
                     <field name="material_requirement_line">
-                        <tree>
+                        <form>
+                            <group>
+                                <field name="product_id"/>
+                                <field name="promised_qty_line"/>
+                                <field name="product_availability"/>
+                                <field name="qty_to_manufacture"/>
+                                <field name="product_uom_id"/>
+                                <field name="incoming"/>
+                                <field name="outgoing"/>
+                                <field name="vendor"/>
+                                <field name="cost"/>
+                                <field name="variant"/>
+                                <field name="can_be_manufactured"/>
+                            </group>
+                        </form>
+                        <tree edit="false" delete="false" create="false">
                             <field name="product_id"/>
                             <field name="promised_qty_line"/>
                             <field name="product_availability"/>
@@ -38,6 +53,7 @@
                             <field name="product_uom_id"/>
                             <field name="incoming"/>
                             <field name="outgoing"/>
+                            <field name="vendor"/>
                             <field name="cost"/>
                             <field name="variant"/>
                             <field name="can_be_manufactured"/>
