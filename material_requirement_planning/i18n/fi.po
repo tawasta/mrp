@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-11 10:16+0000\n"
-"PO-Revision-Date: 2020-05-11 13:23+0300\n"
+"POT-Creation-Date: 2020-05-12 06:29+0000\n"
+"PO-Revision-Date: 2020-05-12 09:30+0300\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -42,11 +42,6 @@ msgstr "BoM tuote"
 #: model:ir.model.fields,field_description:material_requirement_planning.field_material_requirement_line__bom_lines
 msgid "BoM lines"
 msgstr "BoM rivit"
-
-#. module: material_requirement_planning
-#: model_terms:ir.ui.view,arch_db:material_requirement_planning.material_requirement_form_view
-msgid "Calculate Requirements"
-msgstr "Laske materiaalitarpeet"
 
 #. module: material_requirement_planning
 #: model_terms:ir.ui.view,arch_db:material_requirement_planning.material_requirement_form_view
@@ -180,6 +175,11 @@ msgstr "Lähtevä määrä"
 #: model:ir.model.fields,field_description:material_requirement_planning.field_material_requirement_line__promised_qty_line
 msgid "Potential quantity"
 msgstr "Mahdollinen määrä"
+
+#. module: material_requirement_planning
+#: model:ir.model.fields,field_description:material_requirement_planning.field_material_requirement_line__vendor
+msgid "Preferred supplier"
+msgstr "Ensisijainen toimittaja"
 
 #. module: material_requirement_planning
 #: model:ir.model.fields,field_description:material_requirement_planning.field_material_requirement__product
