@@ -7,4 +7,3 @@ class MrpBomLine(models.Model):
 
     _inherit = "mrp.bom.line"
     _order = "sequence, id"
-
