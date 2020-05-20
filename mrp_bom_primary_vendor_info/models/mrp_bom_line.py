@@ -30,7 +30,7 @@ class MrpBomLine(models.Model):
     )
 
     primary_vendor_uom_id = fields.Many2one(
-        comodel_name='product.uom',
+        comodel_name='uom.uom',
         related='product_id.primary_supplierinfo_id.product_uom',
         string="Primary Vendor's UoM",
     )
