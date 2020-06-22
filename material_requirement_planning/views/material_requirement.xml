@@ -29,6 +29,10 @@
                             <field name="note" string="Notes"/>
                         </group>
                     </group>
+                    <button name="compute_lines"
+                        string="Compute lines"
+                        type="object"
+                        class="oe_highlight"/>
                     <field name="material_requirement_line">
                         <form edit="false" create="false" delete="false">
                             <group>
