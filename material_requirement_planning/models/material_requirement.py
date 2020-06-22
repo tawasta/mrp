@@ -275,6 +275,9 @@ class MaterialRequirement(models.Model):
             rec.qty_promised = rec.qty_available + rec.qty_to_manufacture
             rec.material_requirement_line = [(6, 0, product_material_lines)]
 
+    def compute_lines(self):
+        self._compute_material_requirement_line()
+
     @api.onchange('product_variants', 'product', 'manufacturing_level',
                   'material_requirement_line')
     def get_bom(self):
