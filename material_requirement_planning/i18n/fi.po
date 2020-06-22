@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-12 12:44+0000\n"
-"PO-Revision-Date: 2020-05-12 15:46+0300\n"
+"POT-Creation-Date: 2020-06-22 10:48+0000\n"
+"PO-Revision-Date: 2020-06-22 13:51+0300\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -57,6 +57,11 @@ msgstr "Laske materiaalitarpeet"
 #: model:ir.model.fields,field_description:material_requirement_planning.field_material_requirement__manufacturing_level
 msgid "Choose BOM level"
 msgstr "Valitse BOM taso"
+
+#. module: material_requirement_planning
+#: model_terms:ir.ui.view,arch_db:material_requirement_planning.material_requirement_form_view
+msgid "Compute lines"
+msgstr "Laske rivit"
 
 #. module: material_requirement_planning
 #: model:ir.model.fields,field_description:material_requirement_planning.field_material_requirement_line__cost
