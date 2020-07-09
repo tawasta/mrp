@@ -1,9 +1,8 @@
-
 from odoo import models
 
 
 class ProcurementOrder(models.Model):
-    _inherit = 'procurement.order'
+    _inherit = "procurement.order"
 
     def _get_stock_move_values(self):
         # Override the procurement rule location with
@@ -17,7 +16,7 @@ class ProcurementOrder(models.Model):
             location = self._get_procurement_location(sale_order)
 
             if location:
-                res['location_id'] = location.id
+                res["location_id"] = location.id
 
         return res
 
@@ -28,17 +27,17 @@ class ProcurementOrder(models.Model):
         result = super(ProcurementOrder, self)._prepare_mo_vals(bom=bom)
 
         if self.group_id:
-            sale_order = self.env['sale.order'].search([
-                ('name', '=', self.group_id.name),
-            ])
+            sale_order = self.env["sale.order"].search(
+                [("name", "=", self.group_id.name),]
+            )
 
             location = self._get_procurement_location(sale_order)
             project = sale_order.project_id
 
             if location and project:
-                result['analytic_account_id'] = project.id
-                result['location_src_id'] = location.id
-                result['location_dest_id'] = location.id
+                result["analytic_account_id"] = project.id
+                result["location_src_id"] = location.id
+                result["location_dest_id"] = location.id
 
         return result
 
@@ -48,8 +47,7 @@ class ProcurementOrder(models.Model):
 
         # The module sale_order_project_location_in_header adds the
         # field stock_location_id to sale order
-        if hasattr(sale_order, 'stock_location_id') and \
-                sale_order.stock_location_id:
+        if hasattr(sale_order, "stock_location_id") and sale_order.stock_location_id:
             # If SO has a specific location, use it
             location = sale_order.stock_location_id
         elif project:

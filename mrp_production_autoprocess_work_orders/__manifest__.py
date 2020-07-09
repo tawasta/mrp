@@ -19,25 +19,17 @@
 ##############################################################################
 
 {
-    'name': 'Auto-process Work Orders',
-    'summary': "Created Work Orders get completed instantly",
-    'version': '12.0.1.0.0',
-    'category': 'Manufacturing',
-    'website': 'https://github.com/Tawasta/mrp',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'external_dependencies': {
-        'python': [],
-        'bin': [],
-    },
-    'depends': [
-        'mrp',
-    ],
-    'data': [
-        'views/mrp_production.xml',
-    ],
-    'demo': [
-    ],
+    "name": "Auto-process Work Orders",
+    "summary": "Created Work Orders get completed instantly",
+    "version": "12.0.1.0.0",
+    "category": "Manufacturing",
+    "website": "https://github.com/Tawasta/mrp",
+    "author": "Oy Tawasta Technologies Ltd.",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {"python": [], "bin": [],},
+    "depends": ["mrp",],
+    "data": ["views/mrp_production.xml",],
+    "demo": [],
 }

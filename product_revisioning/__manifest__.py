@@ -19,25 +19,17 @@
 ##############################################################################
 
 {
-    'name': 'Lightweight Product Revisioning',
-    'summary': "Revision a product and replace it in BOMs",
-    'version': '12.0.1.0.0',
-    'category': 'Manufacturing',
-    'website': 'https://github.com/Tawasta/mrp',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'external_dependencies': {
-        'python': [],
-        'bin': [],
-    },
-    'depends': [
-        'mrp',
-    ],
-    'data': [
-        'views/product_template.xml',
-    ],
-    'demo': [
-    ],
+    "name": "Lightweight Product Revisioning",
+    "summary": "Revision a product and replace it in BOMs",
+    "version": "12.0.1.0.0",
+    "category": "Manufacturing",
+    "website": "https://github.com/Tawasta/mrp",
+    "author": "Oy Tawasta Technologies Ltd.",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {"python": [], "bin": [],},
+    "depends": ["mrp",],
+    "data": ["views/product_template.xml",],
+    "demo": [],
 }

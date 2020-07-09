@@ -19,25 +19,17 @@
 ##############################################################################
 
 {
-    'name': 'BOM Subassembly highlight',
-    'summary': "Indicate in treeview if BOM contains subassemblies",
-    'version': '12.0.1.0.0',
-    'category': 'Manufacturing',
-    'website': 'https://github.com/Tawasta/mrp',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'external_dependencies': {
-        'python': [],
-        'bin': [],
-    },
-    'depends': [
-        'mrp',
-    ],
-    'data': [
-        'views/mrp_bom.xml',
-    ],
-    'demo': [
-    ]
+    "name": "BOM Subassembly highlight",
+    "summary": "Indicate in treeview if BOM contains subassemblies",
+    "version": "12.0.1.0.0",
+    "category": "Manufacturing",
+    "website": "https://github.com/Tawasta/mrp",
+    "author": "Oy Tawasta Technologies Ltd.",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {"python": [], "bin": [],},
+    "depends": ["mrp",],
+    "data": ["views/mrp_bom.xml",],
+    "demo": [],
 }

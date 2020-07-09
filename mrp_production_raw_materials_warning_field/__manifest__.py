@@ -19,25 +19,18 @@
 ##############################################################################
 
 {
-    'name': 'Raw Materials Warning Field for MOs',
-    'summary': "Helper field indicating if materials are \
+    "name": "Raw Materials Warning Field for MOs",
+    "summary": "Helper field indicating if materials are \
         available and assigned",
-    'version': '12.0.1.0.0',
-    'category': 'Manufacturing',
-    'website': 'https://github.com/Tawasta/mrp',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'external_dependencies': {
-        'python': [],
-        'bin': [],
-    },
-    'depends': [
-        'mrp',
-    ],
-    'data': [
-    ],
-    'demo': [
-    ],
+    "version": "12.0.1.0.0",
+    "category": "Manufacturing",
+    "website": "https://github.com/Tawasta/mrp",
+    "author": "Oy Tawasta Technologies Ltd.",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {"python": [], "bin": [],},
+    "depends": ["mrp",],
+    "data": [],
+    "demo": [],
 }

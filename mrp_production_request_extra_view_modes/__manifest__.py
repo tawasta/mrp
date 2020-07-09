@@ -19,19 +19,15 @@
 ##############################################################################
 
 {
-    'name': 'MRP production request extra view modes',
-    'summary': 'Adds view types for MRP production request',
-    'version': '12.0.1.0.0',
-    'category': 'Manufacturing',
-    'website': 'https://github.com/Tawasta/mrp',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'depends': [
-        "mrp_production_request",
-    ],
-    'data': [
-        'views/view_types.xml',
-    ],
+    "name": "MRP production request extra view modes",
+    "summary": "Adds view types for MRP production request",
+    "version": "12.0.1.0.0",
+    "category": "Manufacturing",
+    "website": "https://github.com/Tawasta/mrp",
+    "author": "Oy Tawasta Technologies Ltd.",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "depends": ["mrp_production_request",],
+    "data": ["views/view_types.xml",],
 }

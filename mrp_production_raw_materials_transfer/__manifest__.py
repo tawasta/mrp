@@ -19,26 +19,17 @@
 ##############################################################################
 
 {
-    'name': 'Raw Materials Transfer for Manufacturing Order',
-    'summary': "Quick Transfer of Raw Materials to MO Location",
-    'version': '12.0.1.0.0',
-    'category': 'Manufacturing',
-    'website': 'https://github.com/Tawasta/mrp',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'external_dependencies': {
-        'python': [],
-        'bin': [],
-    },
-    'depends': [
-        'mrp',
-    ],
-    'data': [
-        'views/mrp_production.xml',
-        'views/mrp_config_settings.xml',
-    ],
-    'demo': [
-    ],
+    "name": "Raw Materials Transfer for Manufacturing Order",
+    "summary": "Quick Transfer of Raw Materials to MO Location",
+    "version": "12.0.1.0.0",
+    "category": "Manufacturing",
+    "website": "https://github.com/Tawasta/mrp",
+    "author": "Oy Tawasta Technologies Ltd.",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {"python": [], "bin": [],},
+    "depends": ["mrp",],
+    "data": ["views/mrp_production.xml", "views/mrp_config_settings.xml",],
+    "demo": [],
 }

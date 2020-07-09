@@ -19,26 +19,17 @@
 ##############################################################################
 
 {
-    'name': 'MO Raw Materials to Purchase Request',
-    'summary': "Purchase request creation from manufacturing order",
-    'version': '12.0.1.0.0',
-    'category': 'Manufacturing',
-    'website': 'https://github.com/Tawasta/mrp',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'external_dependencies': {
-        'python': [],
-        'bin': [],
-    },
-    'depends': [
-        'mrp_production_raw_materials_warning_field',
-        'purchase_request',
-    ],
-    'data': [
-        'views/mrp_production.xml',
-    ],
-    'demo': [
-    ],
+    "name": "MO Raw Materials to Purchase Request",
+    "summary": "Purchase request creation from manufacturing order",
+    "version": "12.0.1.0.0",
+    "category": "Manufacturing",
+    "website": "https://github.com/Tawasta/mrp",
+    "author": "Oy Tawasta Technologies Ltd.",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {"python": [], "bin": [],},
+    "depends": ["mrp_production_raw_materials_warning_field", "purchase_request",],
+    "data": ["views/mrp_production.xml",],
+    "demo": [],
 }

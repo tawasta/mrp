@@ -4,16 +4,16 @@ import odoo.addons.decimal_precision as dp
 
 class MrpRoutingWorkcenter(models.Model):
 
-    _inherit = 'mrp.routing.workcenter'
+    _inherit = "mrp.routing.workcenter"
 
     operation_cost = fields.Float(
-        string='Operation cost',
-        digits=dp.get_precision('Product Price'),
-        compute='_compute_operation_cost',
-        group_operator='sum',
+        string="Operation cost",
+        digits=dp.get_precision("Product Price"),
+        compute="_compute_operation_cost",
+        group_operator="sum",
     )
     currency_id = fields.Many2one(
-        comodel_name='res.currency',
+        comodel_name="res.currency",
         default=lambda self: self.env.user.company_id.currency_id.id,
     )
 

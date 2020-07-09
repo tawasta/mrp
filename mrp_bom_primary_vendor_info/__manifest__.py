@@ -19,26 +19,17 @@
 ##############################################################################
 
 {
-    'name': 'Product Primary Vendor Info for BOM lines',
-    'summary': "Helper fields for showing primary vendor's info",
-    'version': '12.0.1.0.0',
-    'category': 'Manufacturing',
-    'website': 'https://github.com/Tawasta/mrp',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'external_dependencies': {
-        'python': [],
-        'bin': [],
-    },
-    'depends': [
-        'mrp',
-        'product_primary_vendor_info',
-    ],
-    'data': [
-        'views/mrp_bom.xml',
-    ],
-    'demo': [
-    ]
+    "name": "Product Primary Vendor Info for BOM lines",
+    "summary": "Helper fields for showing primary vendor's info",
+    "version": "12.0.1.0.0",
+    "category": "Manufacturing",
+    "website": "https://github.com/Tawasta/mrp",
+    "author": "Oy Tawasta Technologies Ltd.",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {"python": [], "bin": [],},
+    "depends": ["mrp", "product_primary_vendor_info",],
+    "data": ["views/mrp_bom.xml",],
+    "demo": [],
 }
