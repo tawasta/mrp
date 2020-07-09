@@ -28,8 +28,8 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "external_dependencies": {"python": [], "bin": [],},
-    "depends": ["mrp",],
-    "data": ["views/mrp_routing_workcenter.xml",],
+    "external_dependencies": {"python": [], "bin": []},
+    "depends": ["mrp"],
+    "data": ["views/mrp_routing_workcenter.xml"],
     "demo": [],
 }
