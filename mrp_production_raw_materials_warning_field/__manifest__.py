@@ -25,7 +25,7 @@
     "version": "12.0.1.0.0",
     "category": "Manufacturing",
     "website": "https://github.com/Tawasta/mrp",
-    "author": "Oy Tawasta Technologies Ltd.",
+    "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
