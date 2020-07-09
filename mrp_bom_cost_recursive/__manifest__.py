@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2017 Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
+#    Copyright 2020 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,21 +19,17 @@
 ##############################################################################
 
 {
-    "name": "Add analytic account relation to MO",
-    "summary": "Allows fetching MO stock locations from analytic account",
+    "name": "MRP BoM Cost - recursive",
+    "summary": "Recompute BoM component cost when computing BoM cost",
     "version": "12.0.1.0.0",
     "category": "Manufacturing",
     "website": "https://github.com/Tawasta/mrp",
-    "author": "Oy Tawasta Technologies Ltd.",
+    "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "external_dependencies": {"python": [], "bin": [],},
-    "depends": ["mrp", "project", "stock_location_analytic_account",],
-    "data": [
-        "views/mrp_production_form.xml",
-        "views/mrp_production_search.xml",
-        "views/mrp_production_tree.xml",
-    ],
+    "external_dependencies": {"python": [], "bin": []},
+    "depends": ["mrp_bom_cost"],
+    "data": [],
     "demo": [],
 }
