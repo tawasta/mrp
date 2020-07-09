@@ -19,26 +19,18 @@
 ##############################################################################
 
 {
-    'name': 'No Work Order Creation Without Materials',
-    'summary': "Hides 'Create Work Orders' button from MO \
+    "name": "No Work Order Creation Without Materials",
+    "summary": "Hides 'Create Work Orders' button from MO \
         if raw materials are missing",
-    'version': '12.0.1.0.0',
-    'category': 'Manufacturing',
-    'website': 'https://github.com/Tawasta/mrp',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'external_dependencies': {
-        'python': [],
-        'bin': [],
-    },
-    'depends': [
-        'mrp_production_raw_materials_warning_field',
-    ],
-    'data': [
-        'views/mrp_production.xml',
-    ],
-    'demo': [
-    ],
+    "version": "12.0.1.0.0",
+    "category": "Manufacturing",
+    "website": "https://github.com/Tawasta/mrp",
+    "author": "Tawasta",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {"python": [], "bin": []},
+    "depends": ["mrp_production_raw_materials_warning_field"],
+    "data": ["views/mrp_production.xml"],
+    "demo": [],
 }

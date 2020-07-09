@@ -3,20 +3,22 @@ from odoo import api, fields, models
 
 class MrpProduction(models.Model):
 
-    _inherit = 'mrp.production'
+    _inherit = "mrp.production"
 
     analytic_account_id = fields.Many2one(
-        comodel_name='account.analytic.account',
-        string='Project',
+        comodel_name="account.analytic.account",
+        string="Project",
         readonly=True,
-        states={'confirmed': [('readonly', False)]}
+        states={"confirmed": [("readonly", False)]},
     )
 
-    @api.onchange('analytic_account_id')
+    @api.onchange("analytic_account_id")
     def onchange_project_id_update_locations(self):
         for record in self:
-            if record.analytic_account_id and \
-                    record.analytic_account_id.default_location_id:
+            if (
+                record.analytic_account_id
+                and record.analytic_account_id.default_location_id
+            ):
                 location = record.analytic_account_id.default_location_id
 
                 record.location_dest_id = location.id

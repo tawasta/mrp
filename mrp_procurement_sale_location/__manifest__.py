@@ -19,27 +19,17 @@
 ##############################################################################
 
 {
-    'name': 'Force sale order project stock location to procurement',
-    'summary': 'Fetches procurement location from its sale line',
-    'version': '12.0.1.0.0',
-    'category': 'Manufacturing',
-    'website': 'https://github.com/Tawasta/mrp',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': False,
-    'external_dependencies': {
-        'python': [
-        ],
-        'bin': [],
-    },
-    'depends': [
-        'mrp',
-        'sale',
-        'stock_location_analytic_account',
-    ],
-    'data': [
-    ],
-    'demo': [
-    ],
+    "name": "Force sale order project stock location to procurement",
+    "summary": "Fetches procurement location from its sale line",
+    "version": "12.0.1.0.0",
+    "category": "Manufacturing",
+    "website": "https://github.com/Tawasta/mrp",
+    "author": "Tawasta",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": False,
+    "external_dependencies": {"python": [], "bin": [],},
+    "depends": ["mrp", "sale", "stock_location_analytic_account",],
+    "data": [],
+    "demo": [],
 }

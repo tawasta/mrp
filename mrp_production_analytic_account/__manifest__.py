@@ -19,30 +19,21 @@
 ##############################################################################
 
 {
-    'name': 'Add analytic account relation to MO',
-    'summary': 'Allows fetching MO stock locations from analytic account',
-    'version': '12.0.1.0.0',
-    'category': 'Manufacturing',
-    'website': 'https://github.com/Tawasta/mrp',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'external_dependencies': {
-        'python': [
-        ],
-        'bin': [],
-    },
-    'depends': [
-        'mrp',
-        'project',
-        'stock_location_analytic_account',
+    "name": "Add analytic account relation to MO",
+    "summary": "Allows fetching MO stock locations from analytic account",
+    "version": "12.0.1.0.0",
+    "category": "Manufacturing",
+    "website": "https://github.com/Tawasta/mrp",
+    "author": "Tawasta",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {"python": [], "bin": []},
+    "depends": ["mrp", "project", "stock_location_analytic_account"],
+    "data": [
+        "views/mrp_production_form.xml",
+        "views/mrp_production_search.xml",
+        "views/mrp_production_tree.xml",
     ],
-    'data': [
-        'views/mrp_production_form.xml',
-        'views/mrp_production_search.xml',
-        'views/mrp_production_tree.xml',
-    ],
-    'demo': [
-    ],
+    "demo": [],
 }

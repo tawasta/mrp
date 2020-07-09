@@ -19,26 +19,18 @@
 ##############################################################################
 
 {
-    'name': 'BOM Raw Material Quantities',
-    'summary': "Helper module for calculating total raw material \
+    "name": "BOM Raw Material Quantities",
+    "summary": "Helper module for calculating total raw material \
             requirements of a BOM",
-    'version': '12.0.1.0.0',
-    'category': 'Manufacturing',
-    'website': 'https://github.com/Tawasta/mrp',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'external_dependencies': {
-        'python': [],
-        'bin': [],
-    },
-    'depends': [
-        'mrp',
-        'purchase',  # TODO this can be removed
-    ],
-    'data': [
-    ],
-    'demo': [
-    ],
+    "version": "12.0.1.0.0",
+    "category": "Manufacturing",
+    "website": "https://github.com/Tawasta/mrp",
+    "author": "Tawasta",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {"python": [], "bin": []},
+    "depends": ["mrp", "purchase"],  # TODO this can be removed
+    "data": [],
+    "demo": [],
 }

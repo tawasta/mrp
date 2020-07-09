@@ -19,25 +19,17 @@
 ##############################################################################
 
 {
-    'name': 'Sets real (FIFO) price as manufactured products value',
-    'summary': 'Manufactured product value depends on used quants',
-    'version': '12.0.1.0.0',
-    'category': 'Manufacturing',
-    'website': 'https://github.com/Tawasta/mrp',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'external_dependencies': {
-        'python': [
-        ],
-        'bin': [],
-    },
-    'depends': [
-        'mrp',
-    ],
-    'data': [
-    ],
-    'demo': [
-    ],
+    "name": "Sets real (FIFO) price as manufactured products value",
+    "summary": "Manufactured product value depends on used quants",
+    "version": "12.0.1.0.0",
+    "category": "Manufacturing",
+    "website": "https://github.com/Tawasta/mrp",
+    "author": "Tawasta",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {"python": [], "bin": []},
+    "depends": ["mrp"],
+    "data": [],
+    "demo": [],
 }

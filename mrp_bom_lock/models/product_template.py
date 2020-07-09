@@ -8,4 +8,5 @@ class ProductTemplate(models.Model):
     bom_locked = fields.Boolean(
         string="Lock BOMs",
         help="Locks all Bills of Materials for this product"
-             "so that they cannot be modified.")
+        "so that they cannot be modified.",
+    )

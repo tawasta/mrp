@@ -1,4 +1,3 @@
-
 from odoo import api, models
 from odoo import _
 from odoo.exceptions import ValidationError
@@ -6,7 +5,7 @@ from odoo.exceptions import ValidationError
 
 class MrpProduction(models.Model):
 
-    _inherit = 'mrp.production'
+    _inherit = "mrp.production"
 
     @api.multi
     def post_inventory(self):
@@ -17,10 +16,11 @@ class MrpProduction(models.Model):
 
         for order in self:
             moves_to_do = order.move_raw_ids.filtered(
-                lambda x: x.state not in ('done', 'cancel'))
+                lambda x: x.state not in ("done", "cancel")
+            )
 
             moves_to_finish = order.move_finished_ids.filtered(
-                lambda x: x.state not in ('done', 'cancel')
+                lambda x: x.state not in ("done", "cancel")
             )
 
             raw_material_moves[order.id] = moves_to_do
@@ -31,21 +31,21 @@ class MrpProduction(models.Model):
         # Fix the quant prices to match the used raw materials
         for order in self:
             if order.id not in raw_material_moves:
-                msg = _('Could not find raw material moves.')
+                msg = _("Could not find raw material moves.")
                 raise ValidationError(msg)
 
             if order.id not in finished_product_moves:
-                msg = _('Could not find finished product moves.')
+                msg = _("Could not find finished product moves.")
                 raise ValidationError(msg)
 
             raw_material_move_ids = raw_material_moves[order.id]
             finished_product_move_id = finished_product_moves[order.id]
 
             if len(finished_product_move_id) > 1:
-                msg = _('Multiple finished products not supported.')
+                msg = _("Multiple finished products not supported.")
                 raise ValidationError(msg)
 
-            if finished_product_move_id.product_id.cost_method == 'real':
+            if finished_product_move_id.product_id.cost_method == "real":
                 # Calculate the real cost
                 real_cost = self._compute_finished_product_move_cost(
                     raw_material_move_ids,

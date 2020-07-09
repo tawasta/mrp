@@ -19,28 +19,22 @@
 ##############################################################################
 
 {
-    'name': 'Archived Product List for BOMs',
-    'summary': 'Shows if BOM contains products that have since been archived',
-    'version': '12.0.1.0.0',
-    'category': 'Manufacturing',
-    'website': 'https://github.com/Tawasta/mrp',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'external_dependencies': {
-        'python': [],
-        'bin': [],
-    },
-    'depends': [
-        'mrp',
+    "name": "Archived Product List for BOMs",
+    "summary": "Shows if BOM contains products that have since been archived",
+    "version": "12.0.1.0.0",
+    "category": "Manufacturing",
+    "website": "https://github.com/Tawasta/mrp",
+    "author": "Tawasta",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {"python": [], "bin": []},
+    "depends": ["mrp"],
+    "data": [
+        "data/ir_cron.xml",
+        "views/mrp_bom.xml",
+        "wizard/bom_archived_product_wizard.xml",
+        "security/ir.model.access.csv",
     ],
-    'data': [
-        'data/ir_cron.xml',
-        'views/mrp_bom.xml',
-        'wizard/bom_archived_product_wizard.xml',
-        'security/ir.model.access.csv',
-    ],
-    'demo': [
-    ],
+    "demo": [],
 }

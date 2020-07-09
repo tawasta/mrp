@@ -19,26 +19,17 @@
 ##############################################################################
 
 {
-    'name': 'Add workcenter cost to FIFO real price manufactured products',
-    'summary': 'Add workcenter cost to FIFO real price manufactured products',
-    'version': '12.0.1.0.0',
-    'category': 'Manufacturing',
-    'website': 'https://github.com/Tawasta/mrp',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'external_dependencies': {
-        'python': [
-        ],
-        'bin': [],
-    },
-    'depends': [
-        'mrp_production_real_price',
-        'mrp_workcenter_cost',
-    ],
-    'data': [
-    ],
-    'demo': [
-    ],
+    "name": "Add workcenter cost to FIFO real price manufactured products",
+    "summary": "Add workcenter cost to FIFO real price manufactured products",
+    "version": "12.0.1.0.0",
+    "category": "Manufacturing",
+    "website": "https://github.com/Tawasta/mrp",
+    "author": "Tawasta",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "external_dependencies": {"python": [], "bin": []},
+    "depends": ["mrp_production_real_price", "mrp_workcenter_cost"],
+    "data": [],
+    "demo": [],
 }

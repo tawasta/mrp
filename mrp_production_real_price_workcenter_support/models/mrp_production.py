@@ -1,10 +1,9 @@
-
 from odoo import models
 
 
 class MrpProduction(models.Model):
 
-    _inherit = 'mrp.production'
+    _inherit = "mrp.production"
 
     def _compute_finished_product_move_cost(self, raw_material_move_ids):
         res = super(MrpProduction, self)._compute_finished_product_move_cost(

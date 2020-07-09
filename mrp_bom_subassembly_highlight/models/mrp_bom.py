@@ -3,9 +3,9 @@ from odoo import models, fields, api
 
 class MrpBom(models.Model):
 
-    _inherit = 'mrp.bom'
+    _inherit = "mrp.bom"
 
-    @api.depends('bom_line_ids')
+    @api.depends("bom_line_ids")
     def _compute_has_subassemblies(self):
         for bom in self:
             if any([l.child_bom_id for l in bom.bom_line_ids]):
@@ -14,7 +14,5 @@ class MrpBom(models.Model):
                 bom.has_subassemblies = False
 
     has_subassemblies = fields.Boolean(
-        compute=_compute_has_subassemblies,
-        string='Contains subassemblies',
-        store=True,
+        compute=_compute_has_subassemblies, string="Contains subassemblies", store=True,
     )

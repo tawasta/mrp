@@ -19,25 +19,17 @@
 ##############################################################################
 
 {
-    'name': 'Show Vendor info on BOM Lines',
-    'summary': 'Shows vendors, their codes and prices on BOM Lines',
-    'version': '12.0.1.0.0',
-    'category': 'Manufacturing',
-    'website': 'https://github.com/Tawasta/mrp',
-    'author': 'Oy Tawasta Technologies Ltd.',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': False,
-    'external_dependencies': {
-        'python': [],
-        'bin': [],
-    },
-    'depends': [
-        'mrp',
-    ],
-    'data': [
-        'views/mrp_bom.xml',
-    ],
-    'demo': [
-    ],
+    "name": "Show Vendor info on BOM Lines",
+    "summary": "Shows vendors, their codes and prices on BOM Lines",
+    "version": "12.0.1.0.0",
+    "category": "Manufacturing",
+    "website": "https://github.com/Tawasta/mrp",
+    "author": "Tawasta",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": False,
+    "external_dependencies": {"python": [], "bin": [],},
+    "depends": ["mrp",],
+    "data": ["views/mrp_bom.xml",],
+    "demo": [],
 }
