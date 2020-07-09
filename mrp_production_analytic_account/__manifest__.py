@@ -28,8 +28,8 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "external_dependencies": {"python": [], "bin": [],},
-    "depends": ["mrp", "project", "stock_location_analytic_account",],
+    "external_dependencies": {"python": [], "bin": []},
+    "depends": ["mrp", "project", "stock_location_analytic_account"],
     "data": [
         "views/mrp_production_form.xml",
         "views/mrp_production_search.xml",

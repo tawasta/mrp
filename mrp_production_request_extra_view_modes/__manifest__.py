@@ -28,6 +28,6 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["mrp_production_request",],
-    "data": ["views/view_types.xml",],
+    "depends": ["mrp_production_request"],
+    "data": ["views/view_types.xml"],
 }

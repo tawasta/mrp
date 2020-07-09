@@ -28,8 +28,8 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "external_dependencies": {"python": [], "bin": [],},
-    "depends": ["mrp_production_real_price", "mrp_workcenter_cost",],
+    "external_dependencies": {"python": [], "bin": []},
+    "depends": ["mrp_production_real_price", "mrp_workcenter_cost"],
     "data": [],
     "demo": [],
 }

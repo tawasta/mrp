@@ -28,8 +28,8 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "external_dependencies": {"python": [], "bin": [],},
-    "depends": ["mrp", "product_primary_vendor_info",],
-    "data": ["views/mrp_bom.xml",],
+    "external_dependencies": {"python": [], "bin": []},
+    "depends": ["mrp", "product_primary_vendor_info"],
+    "data": ["views/mrp_bom.xml"],
     "demo": [],
 }
