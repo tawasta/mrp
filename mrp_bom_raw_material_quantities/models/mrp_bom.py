@@ -48,7 +48,7 @@ class MrpBom(models.Model):
 
                     if product_index is None:
                         raw_mats_needed.append(
-                            {"product": product, "quantity": qty_in_uom * multiplier,}
+                            {"product": product, "quantity": qty_in_uom * multiplier}
                         )
                     else:
                         raw_mats_needed[product_index]["quantity"] += (
