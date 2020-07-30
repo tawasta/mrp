@@ -1,0 +1,27 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mrp_production_autoprocess_work_orders
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-30 06:01+0000\n"
+"PO-Revision-Date: 2020-07-30 09:05+0300\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi_FI\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: mrp_production_autoprocess_work_orders
+#: model_terms:ir.ui.view,arch_db:mrp_production_autoprocess_work_orders.mrp_production_autoprocess_workorders_production_form
+msgid "Create and Process Work Orders"
+msgstr "Luo ja prosessoi työtilaukset"
+
+#. module: mrp_production_autoprocess_work_orders
+#: model:ir.model,name:mrp_production_autoprocess_work_orders.model_mrp_production
+msgid "Production Order"
+msgstr "Valmistustilaus"
