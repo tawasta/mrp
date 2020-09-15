@@ -35,18 +35,16 @@ class MultiLevelMrp(models.TransientModel):
     @job(default_channel="root.ir_cron")
     def _mrp_initialisation_queued(self, mrp_areas):
         res = super(MultiLevelMrp, self)._mrp_initialisation(mrp_areas)
-        mrp_lowest_llc = self._low_level_code_calculation()
 
         job_desc = _("MRP Multi-level: MRP Calculation")
-        self.with_delay(description=job_desc)._mrp_calculation_queued(
-            mrp_lowest_llc, self.mrp_area_ids
-        )
+        self.with_delay(description=job_desc)._mrp_calculation_queued(self.mrp_area_ids)
 
         return res
 
     @api.model
     @job(default_channel="root.ir_cron")
-    def _mrp_calculation_queued(self, mrp_lowest_llc, mrp_areas):
+    def _mrp_calculation_queued(self, mrp_areas):
+        mrp_lowest_llc = self._low_level_code_calculation()
         res = super(MultiLevelMrp, self)._mrp_calculation(mrp_lowest_llc, mrp_areas)
 
         job_desc = _("MRP Multi-level: MRP Final Process")
