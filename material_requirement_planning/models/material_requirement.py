@@ -51,8 +51,6 @@ class MaterialRequirement(models.Model):
 
     bom_lines = fields.Many2many(comodel_name="mrp.bom.line", string="BoM lines",)
 
-    bom_prod = fields.Integer(string="BOM Prod",)
-
     bom_product = fields.Char(string="BoM Product",)
 
     material_requirement_line = fields.One2many(
@@ -314,7 +312,6 @@ class MaterialRequirement(models.Model):
             )
 
             attribute = prod.attribute_value_ids
-            record.bom_prod = product.id
 
             for bom_record in bom_id_2:
                 for line in bom_record.bom_line_ids:
