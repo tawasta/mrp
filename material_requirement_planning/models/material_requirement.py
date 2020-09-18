@@ -23,8 +23,6 @@ class MaterialRequirement(models.Model):
         domain=[("bom_ids", "!=", False)],
     )
 
-    product_attribute_name = fields.Char(string="Product Attributes",)
-
     product_variant_id = fields.Integer(
         string="Product Variant ID", compute="_compute_product_variant_id",
     )
