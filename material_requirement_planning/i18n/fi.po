@@ -199,11 +199,6 @@ msgid "Product"
 msgstr "Tuote"
 
 #. module: material_requirement_planning
-#: model:ir.model.fields,field_description:material_requirement_planning.field_material_requirement__product_attribute_name
-msgid "Product Attributes"
-msgstr "Tuotteen attribuutit"
-
-#. module: material_requirement_planning
 #: model:ir.model.fields,field_description:material_requirement_planning.field_material_requirement_line__product_uom_id
 msgid "Product Unit of Measure"
 msgstr "Tuotteen yksikkö"
