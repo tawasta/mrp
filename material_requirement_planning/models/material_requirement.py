@@ -29,8 +29,6 @@ class MaterialRequirement(models.Model):
         string="Product Variant ID", compute="_compute_product_variant_id",
     )
 
-    requirement = fields.Float(string="Requirement",)
-
     qty_to_manufacture = fields.Float(
         string="Manufacturable quantity",
         compute="_compute_material_requirement_line",
@@ -50,8 +48,6 @@ class MaterialRequirement(models.Model):
     bom = fields.Many2one(comodel_name="mrp.bom", string="BOM")
 
     bom_lines = fields.Many2many(comodel_name="mrp.bom.line", string="BoM lines",)
-
-    bom_product = fields.Char(string="BoM Product",)
 
     material_requirement_line = fields.One2many(
         "material.requirement.line",
@@ -282,22 +278,7 @@ class MaterialRequirement(models.Model):
         """When a product is selected, get that product's BoM"""
         mrp_bom = self.env["mrp.bom"]
         for record in self:
-            product = self.env["product.template"].search(
-                [("id", "=", int(record.product))]
-            )
-
             bom_id = mrp_bom.search(
-                [
-                    "&",
-                    ("product_tmpl_id.id", "=", record.product.id),
-                    "|",
-                    ("product_id", "=", record.product_variant_id),
-                    ("product_id", "=", False),
-                ],
-                limit=1,
-            )
-
-            bom_id_2 = mrp_bom.search(
                 [
                     "&",
                     ("product_tmpl_id.id", "=", record.product.id),
@@ -307,18 +288,14 @@ class MaterialRequirement(models.Model):
                 ]
             )
 
-            prod = self.env["product.product"].search(
-                [("id", "=", int(record.product_variants))]
-            )
+            attribute = record.product_variants.attribute_value_ids
 
-            attribute = prod.attribute_value_ids
-
-            for bom_record in bom_id_2:
+            for bom_record in bom_id:
                 for line in bom_record.bom_line_ids:
                     if line.attribute_value_ids == attribute:
                         record.bom = bom_record.id
                         record.bom_lines = bom_record.bom_line_ids
                         return
 
-            record.bom = bom_id.id
-            record.bom_lines = bom_id.bom_line_ids
+            record.bom = bom_id[0].id
+            record.bom_lines = bom_id[0].bom_line_ids
