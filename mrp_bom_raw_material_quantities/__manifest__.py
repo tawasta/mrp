@@ -30,7 +30,7 @@
     "application": False,
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
-    "depends": ["mrp", "purchase"],  # TODO this can be removed
+    "depends": ["mrp", "purchase_stock"],
     "data": [],
     "demo": [],
 }
