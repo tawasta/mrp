@@ -38,11 +38,6 @@ msgid "BoM"
 msgstr "BoM"
 
 #. module: material_requirement_planning
-#: model:ir.model.fields,field_description:material_requirement_planning.field_material_requirement__bom_product
-msgid "BoM Product"
-msgstr "BoM tuote"
-
-#. module: material_requirement_planning
 #: model:ir.model.fields,field_description:material_requirement_planning.field_material_requirement__bom_lines
 #: model:ir.model.fields,field_description:material_requirement_planning.field_material_requirement_line__bom_lines
 msgid "BoM lines"
@@ -204,11 +199,6 @@ msgid "Product"
 msgstr "Tuote"
 
 #. module: material_requirement_planning
-#: model:ir.model.fields,field_description:material_requirement_planning.field_material_requirement__product_attribute_name
-msgid "Product Attributes"
-msgstr "Tuotteen attribuutit"
-
-#. module: material_requirement_planning
 #: model:ir.model.fields,field_description:material_requirement_planning.field_material_requirement_line__product_uom_id
 msgid "Product Unit of Measure"
 msgstr "Tuotteen yksikkö"
@@ -227,11 +217,6 @@ msgstr "Tuotevariaatio ID"
 #: model:ir.model.fields,field_description:material_requirement_planning.field_material_requirement_line__qty_to_manufacture
 msgid "Qty used in BOM"
 msgstr "BOM:ssa käytettävä määrä"
-
-#. module: material_requirement_planning
-#: model:ir.model.fields,field_description:material_requirement_planning.field_material_requirement__requirement
-msgid "Requirement"
-msgstr "Vaatimus"
 
 #. module: material_requirement_planning
 #: model:ir.actions.act_window,name:material_requirement_planning.action_material_requirement

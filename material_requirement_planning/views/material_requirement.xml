@@ -19,7 +19,6 @@
                             <field name="product_variant_id" invisible="1"/>
                             <field name="bom" attrs="{'invisible': [('product','=',False)]}" widget="selection"
                                     domain="[('product_tmpl_id.id','=',product),'|',('product_id.id','=',product_variant_id),('product_id','=',False)]"/>
-                            <field name="bom_prod" invisible="1"/>
                             <field name="qty_available"/>
                             <field name="qty_to_manufacture"/>
                             <field name="qty_promised"/>
