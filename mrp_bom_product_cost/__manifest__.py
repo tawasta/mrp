@@ -19,9 +19,8 @@
 ##############################################################################
 
 {
-    "name": "BOM Raw Material Quantities",
-    "summary": "Helper module for calculating total raw material \
-            requirements of a BOM",
+    "name": "BOM Component Cost Calculation",
+    "summary": "Shows the cost of a BOM based on its components' prices",
     "version": "12.0.1.0.0",
     "category": "Manufacturing",
     "website": "https://github.com/Tawasta/mrp",
@@ -29,8 +28,19 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "external_dependencies": {"python": [], "bin": []},
-    "depends": ["mrp", "purchase_stock"],
-    "data": [],
-    "demo": [],
+    "external_dependencies": {
+        "python": [],
+        "bin": [],
+    },
+    "depends": [
+        "mrp",
+    ],
+    "data": [
+        "data/ir_cron.xml",
+        "views/mrp_bom.xml",
+        "views/mrp_config_settings.xml",
+        "views/product_template.xml",
+    ],
+    "demo": [
+    ],
 }

@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2018 Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
+#    Copyright 2020 Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,9 +19,8 @@
 ##############################################################################
 
 {
-    "name": "BOM Raw Material Quantities",
-    "summary": "Helper module for calculating total raw material \
-            requirements of a BOM",
+    "name": "MRP BOM Structure XLSX Cost",
+    "summary": "Add cost to MRP BOM Structure XLSX",
     "version": "12.0.1.0.0",
     "category": "Manufacturing",
     "website": "https://github.com/Tawasta/mrp",
@@ -30,7 +29,7 @@
     "application": False,
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
-    "depends": ["mrp", "purchase_stock"],
+    "depends": ["mrp_bom_structure_xlsx", "mrp_bom_cost"],
     "data": [],
     "demo": [],
 }

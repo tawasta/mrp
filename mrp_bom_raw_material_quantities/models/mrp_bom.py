@@ -28,7 +28,7 @@ class MrpBom(models.Model):
                 )
 
                 buy_route = self.env.ref(
-                    "purchase.route_warehouse0_buy", raise_if_not_found=False
+                    "purchase_stock.route_warehouse0_buy", raise_if_not_found=True
                 )
 
                 if not line.child_bom_id or buy_route in line.product_id.route_ids:
