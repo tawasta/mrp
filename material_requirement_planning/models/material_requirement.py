@@ -290,10 +290,8 @@ class MaterialRequirement(models.Model):
 
             for bom_record in bom_id:
                 for line in bom_record.bom_line_ids:
-                    if line.attribute_value_ids == attribute:
+                    if not line.attribute_value_ids or \
+                            line.attribute_value_ids == attribute:
                         record.bom = bom_record.id
                         record.bom_lines = bom_record.bom_line_ids
                         return
-
-            record.bom = bom_id[0].id
-            record.bom_lines = bom_id[0].bom_line_ids
