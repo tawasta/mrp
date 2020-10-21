@@ -10,7 +10,7 @@ class MrpProduction(models.Model):
         """ Set conditions when the material should be suggested to
         be included in the purchase request.  """
         buy_route = self.env.ref(
-            "purchase.route_warehouse0_buy", raise_if_not_found=False
+            "purchase_stock.route_warehouse0_buy", raise_if_not_found=False
         )
         if not buy_route:
             raise UserError(_("'Buy' route not found in the system."))
@@ -20,7 +20,7 @@ class MrpProduction(models.Model):
         # request the product to be purchased
         if (
             buy_route.id in [r.id for r in material.product_id.route_ids]
-            and self._get_material_qty(material) > 0
+            and self._get_material_qty_for_request(material) > 0
             and material.product_id.type == "product"
         ):
             return True
@@ -30,7 +30,7 @@ class MrpProduction(models.Model):
     def _get_material_qty_for_request(self, material):
         """ Set how much of the material should be requested to
         be purchased """
-        return material.product_uom_qty - material.quantity_available
+        return material.product_uom_qty - material.availability
 
     @api.multi
     def create_purchase_request(self):
@@ -73,7 +73,7 @@ class MrpProduction(models.Model):
         return {
             "name": u"%s / Purchase Request" % self.name,
             "view_type": "form",
-            "view_mode": "form, tree",
+            "view_mode": "form,tree",
             "res_model": "purchase.request",
             "type": "ir.actions.act_window",
             "target": "current",

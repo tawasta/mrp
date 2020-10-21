@@ -29,7 +29,11 @@
     "application": False,
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
-    "depends": ["mrp_production_raw_materials_warning_field", "purchase_request"],
+    "depends": [
+        "mrp_production_raw_materials_warning_field",
+        "purchase_request",
+        "purchase_stock",
+    ],
     "data": ["views/mrp_production.xml"],
     "demo": [],
 }
