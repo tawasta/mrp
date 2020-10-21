@@ -34,7 +34,7 @@ class MrpProduction(models.Model):
         """ Set conditions when the material should be suggested to
         be included in the transfer.  """
         buy_route = self.env.ref(
-            "purchase.route_warehouse0_buy", raise_if_not_found=False
+            "purchase_stock.route_warehouse0_buy", raise_if_not_found=False
         )
         if not buy_route:
             raise UserError(_("'Buy' route not found in the system."))
@@ -52,7 +52,7 @@ class MrpProduction(models.Model):
     def _get_material_qty(self, material):
         """ Set how much of the material should be suggested to
         be transferred """
-        return material.product_uom_qty - material.quantity_available
+        return material.product_uom_qty - material.availability
 
     @api.multi
     def create_raw_material_transfer(self):
@@ -90,7 +90,7 @@ class MrpProduction(models.Model):
         return {
             "name": u"%s / Raw Materials" % self.name,
             "view_type": "form",
-            "view_mode": "form, tree",
+            "view_mode": "form,tree",
             "res_model": "stock.picking",
             "type": "ir.actions.act_window",
             "target": "current",

@@ -29,7 +29,7 @@
     "application": False,
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
-    "depends": ["mrp"],
-    "data": ["views/mrp_production.xml", "views/mrp_config_settings.xml"],
+    "depends": ["mrp", "purchase_stock"],
+    "data": ["views/mrp_production.xml", "views/config_settings.xml"],
     "demo": [],
 }
