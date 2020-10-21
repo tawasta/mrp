@@ -73,7 +73,7 @@ class MrpProduction(models.Model):
         return {
             "name": u"%s / Purchase Request" % self.name,
             "view_type": "form",
-            "view_mode": "form, tree",
+            "view_mode": "form,tree",
             "res_model": "purchase.request",
             "type": "ir.actions.act_window",
             "target": "current",
