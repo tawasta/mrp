@@ -1,14 +1,14 @@
 from odoo import models
 
 
-class ProcurementOrder(models.Model):
-    _inherit = "procurement.order"
+class StockRule(models.Model):
+    _inherit = "stock.rule"
 
     def _get_stock_move_values(self):
         # Override the procurement rule location with
         # sale order analytic account location
 
-        res = super(ProcurementOrder, self)._get_stock_move_values()
+        res = super(StockRule, self)._get_stock_move_values()
 
         if self.sale_line_id:
             sale_order = self.sale_line_id.order_id
@@ -24,11 +24,11 @@ class ProcurementOrder(models.Model):
         # Override the MO source and destination location with
         # sale order analytic account location
 
-        result = super(ProcurementOrder, self)._prepare_mo_vals(bom=bom)
+        result = super(StockRule, self)._prepare_mo_vals(bom=bom)
 
         if self.group_id:
             sale_order = self.env["sale.order"].search(
-                [("name", "=", self.group_id.name),]
+                [("name", "=", self.group_id.name)]
             )
 
             location = self._get_procurement_location(sale_order)

@@ -27,9 +27,9 @@
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
-    "installable": False,
-    "external_dependencies": {"python": [], "bin": [],},
-    "depends": ["mrp", "sale", "stock_location_analytic_account",],
+    "installable": True,
+    "external_dependencies": {"python": [], "bin": []},
+    "depends": ["mrp", "sale", "stock_location_analytic_account"],
     "data": [],
     "demo": [],
 }
