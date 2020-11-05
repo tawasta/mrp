@@ -39,7 +39,7 @@ class MrpBom(models.Model):
             else:
                 # If the product does not have a BOM,
                 # add the cost price of the product to the BOM costs
-                component_cost = line.calculate_component_cost()[0]
+                component_cost = line.calculate_component_cost()
 
             # Update cost shown on the line
             line.component_cost = component_cost
