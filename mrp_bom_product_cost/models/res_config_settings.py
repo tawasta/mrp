@@ -10,7 +10,8 @@ class ResConfigSettings(models.TransientModel):
                 ('vendor_price', "Primary Vendor's Price")]
 
     bom_cost_calculation_method = fields.Selection(
-        selection=_get_bom_cost_calc_methods,
-        default='cost_price',
-        string='BOM Cost Calculation Method',
-        help='''What should be used when calculating BOM component costs''')
+        selection=lambda self: self._get_bom_cost_calc_methods(),
+        related="company_id.bom_cost_calculation_method",
+        help="What should be used when calculating BOM component costs",
+        readonly=False,
+    )
