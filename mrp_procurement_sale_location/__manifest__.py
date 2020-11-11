@@ -21,7 +21,7 @@
 {
     "name": "Force sale order project stock location to procurement",
     "summary": "Fetches procurement location from its sale line",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "category": "Manufacturing",
     "website": "https://github.com/Tawasta/mrp",
     "author": "Tawasta",
@@ -29,7 +29,12 @@
     "application": False,
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
-    "depends": ["mrp", "sale", "stock_location_analytic_account"],
+    "depends": [
+        "mrp",
+        "sale",
+        "stock_location_analytic_account",
+        "sale_order_project_location_in_header",
+    ],
     "data": [],
     "demo": [],
 }

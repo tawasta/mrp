@@ -38,29 +38,26 @@ class StockRule(models.Model):
 
             if location:
                 res["location_id"] = location.id
-
         return res
 
     def _prepare_mo_vals(self, *args, **kwargs):
         # Override the MO source and destination location with
         # sale order analytic account location
 
-        result = super(StockRule, self)._prepare_mo_vals(*args, **kwargs)
+        res = super(StockRule, self)._prepare_mo_vals(*args, **kwargs)
 
-        if self.group_id:
-            sale_order = self.env["sale.order"].search(
-                [("name", "=", self.group_id.name)]
-            )
+        if res.get("origin"):
+            sale_order = self.env["sale.order"].search([("name", "=", res["origin"])])
 
             location = self._get_procurement_location(sale_order)
-            project = sale_order.project_id
+            project = sale_order.analytic_account_id
 
             if location and project:
-                result["analytic_account_id"] = project.id
-                result["location_src_id"] = location.id
-                result["location_dest_id"] = location.id
+                res["analytic_account_id"] = project.id
+                res["location_src_id"] = location.id
+                res["location_dest_id"] = location.id
 
-        return result
+        return res
 
     def _get_procurement_location(self, sale_order):
         aa = sale_order.analytic_account_id
