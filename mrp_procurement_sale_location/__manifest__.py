@@ -21,7 +21,7 @@
 {
     "name": "Force sale order project stock location to procurement",
     "summary": "Fetches procurement location from its sale line",
-    "version": "12.0.1.0.1",
+    "version": "12.0.1.0.2",
     "category": "Manufacturing",
     "website": "https://github.com/Tawasta/mrp",
     "author": "Tawasta",
