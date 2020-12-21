@@ -14,12 +14,12 @@
 						groups="stock.group_stock_user"
 						attrs="{'invisible': [('product_variant_count', '>', 1)]}"/>
 
-				<button string="Create Revision and update BoMs"
-						help="Create a new revision for product and BoM. Update any BoMs that is using this product as a component"
-						type="object"
-						name="action_create_full_revision"
-						groups="stock.group_stock_user"
-						attrs="{'invisible': [('product_variant_count', '>', 1)] }" />
+<!-- 				<button string="Create Revision and update BoMs" -->
+<!-- 						help="Create a new revision for product and BoM. Update any BoMs that is using this product as a component" -->
+<!-- 						type="object" -->
+<!-- 						name="action_create_full_revision" -->
+<!-- 						groups="stock.group_stock_user" -->
+<!-- 						attrs="{'invisible': [('product_variant_count', '>', 1)] }" /> -->
 			</header>
 
 		</field>
