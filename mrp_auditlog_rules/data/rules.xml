@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <odoo noupdate="0">
 
-    <record model="auditlog.rule" id="auditlog-rule-mrp-2">
+    <record model="auditlog.rule" id="auditlog-rule-mrp-1">
         <field name="name">MRP BoM</field>
         <field name="model_id" ref="mrp.model_mrp_bom"></field>
         <field name="state">subscribed</field>
