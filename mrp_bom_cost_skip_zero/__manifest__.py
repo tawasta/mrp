@@ -21,7 +21,7 @@
 {
     "name": "MRP BoM Cost - Skip updating prices to zero",
     "summary": "Never update product price to zero",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "category": "Manufacturing",
     "website": "https://github.com/Tawasta/mrp",
     "author": "Tawasta",
