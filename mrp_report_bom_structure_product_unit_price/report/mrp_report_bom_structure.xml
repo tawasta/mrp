@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <template id="report_mrp_bom_line" inherit_id="mrp.report_mrp_bom_line">
+        <xpath expr="//td[@class='o_mrp_prod_cost text-right']/span" position="attributes">
+            <attribute name="t-if">1 == 0</attribute>
+        </xpath>
+
+        <xpath expr="//td[@class='o_mrp_prod_cost text-right']/span" position="after">
+            <span t-esc="l['unit_price']" t-options='{"widget": "monetary", "display_currency": currency}'/>
+        </xpath>
+    </template>
+</odoo>
