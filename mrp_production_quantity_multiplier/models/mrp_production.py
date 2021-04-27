@@ -19,12 +19,12 @@
 ##############################################################################
 
 # 1. Standard library imports:
+import math
 
 # 2. Known third party imports:
 
 # 3. Odoo imports (openerp):
 from odoo import fields, models, api
-from odoo.addons import decimal_precision as dp
 
 # 4. Imports from Odoo modules:
 
@@ -39,52 +39,27 @@ class MrpProduction(models.Model):
     _inherit = 'mrp.production'
 
     # 2. Fields declaration
-    product_qty = fields.Float(
-        'Quantity To Produce',
-        default=1.0, digits=dp.get_precision('Product Unit of Measure'),
-        readonly=True, required=True, track_visibility='onchange',
-        states={'confirmed': [('readonly', False)]},
-        compute='_compute_qty_multiplied'
-
-    )
-
-    product_qty_multiplier = fields.Float(
+    product_qty_multiplier = fields.Integer(
         'Multiplier for Quantity',
-        default=1.0, digits=dp.get_precision('Product Unit of Measure'),
-        readonly=True, required=True, track_visibility='onchange',
-        states={'confiurmed': [('readonly', False)]},
-
+        default=1,
     )
 
     # 3. Default methods
 
     # 4. Compute and search fields, in the same order that fields declaration
-    @api.depends('product_qty_multiplier')
-    def _compute_qty_multiplied(self):
-        for production in self:
-            print("COMPUTE")
-            print(production.product_qty_multiplier)
-            print(production.product_qty)
-            if production.product_qty_multiplier >= 1:
-                production.product_qty = production.product_qty * production.product_qty_multiplier
 
     # 5. Constraints and onchanges
-    # @api.onchange('product_qty', 'product_qty_multiplier')
-    # def onchange_product_qty_multiplied(self):
-    #     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-    #     print("00000000000000000000000000000000000000000000000000000000000000000")
-    #     if self.product_qty_multiplier >= 1:
-    #         self.product_qty = self.product_qty * self.product_qty_multiplier
+    @api.onchange('bom_id', 'product_qty_multiplier')
+    def onchange_product_qty_multiplied(self):
+        self.product_qty = self.bom_id.product_qty * (self.product_qty_multiplier or 1)
 
     # 6. CRUD methods
-    # @api.model
-    # def create(self, values):
-    #     production = super(MrpProduction, self).create(values)
-    #     print("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
-    #     print(production['product_qty'])
-    #     print(production['product_qty_multiplied'])
-    #     production['product_qty'] = production['product_qty'] * production['product_qty_multiplier']
-    #     return production
+    @api.model
+    def create(self, values):
+        bom = self.env['mrp.bom'].search([('id', '=', values.get('bom_id'))])
+        multiply_by = math.ceil(values.get('product_qty') / bom.product_qty)
+        values['product_qty'] = multiply_by * bom.product_qty
+        return super(MrpProduction, self).create(values)
 
     # 7. Action methods
 
