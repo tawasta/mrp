@@ -19,17 +19,21 @@
 ##############################################################################
 
 {
-    "name": "MRP BoM Cost - Skip updating prices to zero",
-    "summary": "Never update product price to zero",
-    "version": "12.0.1.0.1",
-    "category": "Manufacturing",
-    "website": "https://github.com/Tawasta/mrp",
-    "author": "Tawasta",
-    "license": "AGPL-3",
-    "application": False,
-    "installable": True,
-    "external_dependencies": {"python": [], "bin": []},
-    "depends": ["mrp_bom_cost"],
-    "data": [],
-    "demo": [],
+    'name': "Audit Log Rules - MRP",
+    'summary': "Adds audit log rules for mrp.bom",
+    'author': 'Tawasta',
+    'license': 'AGPL-3',
+    'website': "https://gitlab.com/tawasta/odoo/mrp",
+    'category': 'Logging',
+    'application': False,
+    'installable': True,
+    'version': '12.0.1.0.0',
+    'depends': [
+        'mrp',
+        'auditlog',
+    ],
+    'data': [
+        'data/rules.xml'
+    ],
+    'demo': [],
 }

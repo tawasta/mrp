@@ -19,17 +19,15 @@
 ##############################################################################
 
 {
-    "name": "MRP BoM Cost - Skip updating prices to zero",
-    "summary": "Never update product price to zero",
-    "version": "12.0.1.0.1",
-    "category": "Manufacturing",
-    "website": "https://github.com/Tawasta/mrp",
+    "name": "MRP multi level optimization",
+    "summary": "MRP multi level optimization",
+    "version": "12.0.1.0.0",
+    "category": "MRP",
+    "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "external_dependencies": {"python": [], "bin": []},
-    "depends": ["mrp_bom_cost"],
+    "depends": ["mrp_multi_level"],
     "data": [],
-    "demo": [],
 }
