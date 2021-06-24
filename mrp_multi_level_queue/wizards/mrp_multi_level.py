@@ -16,7 +16,7 @@ class MultiLevelMrp(models.TransientModel):
             "MRP Multi-level: MRP Applicable for areas {}".format(mrp_areas.ids)
         )
         self.with_delay(description=job_desc)._calculate_mrp_applicable_queued(
-            self.mrp_area_ids
+            mrp_areas
         )
 
         return res
@@ -29,9 +29,7 @@ class MultiLevelMrp(models.TransientModel):
         job_desc = _(
             "MRP Multi-level: MRP Initialisation for areas {}".format(mrp_areas.ids)
         )
-        self.with_delay(description=job_desc)._mrp_initialisation_queued(
-            self.mrp_area_ids
-        )
+        self.with_delay(description=job_desc)._mrp_initialisation_queued(mrp_areas)
 
         return res
 
@@ -43,7 +41,7 @@ class MultiLevelMrp(models.TransientModel):
         job_desc = _(
             "MRP Multi-level: MRP Calculation for areas {}".format(mrp_areas.ids)
         )
-        self.with_delay(description=job_desc)._mrp_calculation_queued(self.mrp_area_ids)
+        self.with_delay(description=job_desc)._mrp_calculation_queued(mrp_areas)
 
         return res
 
@@ -56,9 +54,7 @@ class MultiLevelMrp(models.TransientModel):
         job_desc = _(
             "MRP Multi-level: MRP Final Process for areas {}".format(mrp_areas.ids)
         )
-        self.with_delay(description=job_desc)._mrp_final_process_queued(
-            self.mrp_area_ids
-        )
+        self.with_delay(description=job_desc)._mrp_final_process_queued(mrp_areas)
 
         return res
 
