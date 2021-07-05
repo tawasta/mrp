@@ -21,7 +21,7 @@
 {
     "name": "MRP Multi Level - Queued",
     "summary": "MRP Multi Level with queue jobs",
-    "version": "12.0.1.1.2",
+    "version": "12.0.1.1.3",
     "category": "Manufacturing",
     "website": "https://github.com/Tawasta/mrp",
     "author": "Tawasta",
