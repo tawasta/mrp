@@ -19,12 +19,11 @@
 ##############################################################################
 
 # 1. Standard library imports:
-import math
 
 # 2. Known third party imports:
 
 # 3. Odoo imports (openerp):
-from odoo import fields, models, api
+from odoo import models, fields, api
 
 # 4. Imports from Odoo modules:
 
@@ -33,36 +32,53 @@ from odoo import fields, models, api
 # 6. Unknown third party imports:
 
 
-class MrpProduction(models.Model):
-
+class ChangeProductionQty(models.TransientModel):
     # 1. Private attributes
-    _inherit = "mrp.production"
+    _inherit = "change.production.qty"
 
     # 2. Fields declaration
     product_qty_multiplier = fields.Integer(
         "Multiplier for Quantity",
         help="Multiply product quantity from BoM.",
-        default=1,
-        track_visibility="onchange",
+        required=True,
     )
 
     # 3. Default methods
+    @api.model
+    def default_get(self, fields):
+        res = super(ChangeProductionQty, self).default_get(fields)
+        if (
+            "product_qty_multiplier" in fields
+            and not res.get("product_qty_multiplier")
+            and res.get("mo_id")
+        ):
+            res["product_qty_multiplier"] = (
+                self.env["mrp.production"].browse(res["mo_id"]).product_qty_multiplier
+            )
+        return res
 
     # 4. Compute and search fields, in the same order that fields declaration
 
     # 5. Constraints and onchanges
-    @api.onchange("bom_id", "product_qty_multiplier")
+    @api.onchange("product_qty_multiplier")
     def onchange_product_qty_multiplied(self):
-        self.product_qty = self.bom_id.product_qty * (self.product_qty_multiplier or 1)
+        self.product_qty = self.mo_id.bom_id.product_qty * (
+            self.product_qty_multiplier or 1
+        )
+        self.mo_id.product_qty_multiplier = (
+            self.product_qty_multiplier or self.mo_id.product_qty_multiplier
+        )
 
     # 6. CRUD methods
-    @api.model
-    def create(self, values):
-        bom = self.env["mrp.bom"].search([("id", "=", values.get("bom_id"))])
-        multiply_by = math.ceil(values.get("product_qty") / bom.product_qty)
-        values["product_qty"] = multiply_by * bom.product_qty
-        return super(MrpProduction, self).create(values)
 
     # 7. Action methods
+    @api.multi
+    def change_prod_qty(self):
+        res = super(ChangeProductionQty, self).change_prod_qty()
+        for wizard in self:
+            wizard.mo_id.product_qty_multiplier = (
+                self.product_qty_multiplier or wizard.mo_id.product_qty_multiplier
+            )
+        return res
 
     # 8. Business methods

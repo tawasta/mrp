@@ -5,7 +5,7 @@
 ==================================
 MRP Production Quantity Multiplier
 ==================================
-* Multiplier for production quantity. Eg. 5 batches of 40 items.
+* Multiplier for production quantity from BoM.
 
 Configuration
 =============
