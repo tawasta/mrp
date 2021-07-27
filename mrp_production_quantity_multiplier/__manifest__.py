@@ -20,18 +20,17 @@
 
 {
     "name": "MRP Production Quantity Multiplier",
-    "summary": "Multiplier for MRP production quantity",
-    "version": "12.0.1.0.0",
+    "summary": "Multiplier for MRP production quantity from BoM",
+    "version": "12.0.1.0.1",
     "category": "Manufacturing",
     "website": "https://gitlab.com/tawasta/odoo",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": [
-        "mrp",
-    ],
+    "depends": ["mrp"],
     "data": [
         "views/mrp_production_views.xml",
+        "wizard/change_production_qty_views.xml",
     ],
 }
