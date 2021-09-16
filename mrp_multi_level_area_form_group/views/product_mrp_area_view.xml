@@ -7,11 +7,11 @@
         <field name="inherit_id" ref="mrp_multi_level.product_mrp_area_form" />
         <field name="arch" type="xml">
             <page name="mrp_moves" position="attributes">
-                <attribute name="groups">base.group_no_one,mrp.group_mrp_manager</attribute>
+                <attribute name="groups">base.group_no_one,mrp.group_mrp_user</attribute>
             </page>
 
             <page name="planned_orders" position="attributes">
-                <attribute name="groups">base.group_no_one,mrp.group_mrp_manager</attribute>
+                <attribute name="groups">base.group_no_one,mrp.group_mrp_user</attribute>
             </page>
         </field>
     </record>
