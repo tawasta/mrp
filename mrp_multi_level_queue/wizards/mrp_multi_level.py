@@ -124,7 +124,12 @@ class MultiLevelMrp(models.TransientModel):
              ('mrp_area_id', '=', mrp_area.id)])
         llc += 1
 
+        area_count = len(product_mrp_areas)
+        area_number = 0
+        _logger.info("Area count: {}".format(area_count))
         for product_mrp_area in product_mrp_areas:
+            area_number += 1
+            _logger.info("Area {}/{}: {}".format(area_number, area_count, product_mrp_area.product_id.display_name))
             nbr_create = 0
             onhand = product_mrp_area.qty_available
             if product_mrp_area.mrp_nbr_days == 0:
