@@ -14,6 +14,7 @@ class MrpBom(models.Model):
         for bom in self:
             if any(line for line in bom.bom_line_ids if
                    line.primary_vendor_price == 0 and
+                   line.primary_vendor_uom_id or not
                    line.primary_vendor_uom_id):
                 bom.bom_line_vendor_price_is_zero = True
             else:
