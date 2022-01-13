@@ -21,7 +21,7 @@
 {
     "name": "MRP multi level optimization",
     "summary": "MRP multi level optimization",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "category": "MRP",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
