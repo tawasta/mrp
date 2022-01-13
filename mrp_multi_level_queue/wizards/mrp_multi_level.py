@@ -16,7 +16,7 @@ class MultiLevelMrp(models.TransientModel):
     _inherit = "mrp.multi.level"
 
     @api.model
-    @job()
+    @job(default_channel="root.ir_cron")
     def _mrp_cleanup_queued(self, mrp_areas):
         res = super(MultiLevelMrp, self)._mrp_cleanup(mrp_areas)
         area_names = ','.join([str(a.name) for a in mrp_areas]).lstrip(",")
@@ -36,7 +36,7 @@ class MultiLevelMrp(models.TransientModel):
         return msg
 
     @api.model
-    @job()
+    @job(default_channel="root.ir_cron")
     def _calculate_mrp_applicable_queued(self, mrp_areas):
         res = super(MultiLevelMrp, self)._calculate_mrp_applicable(mrp_areas)
         area_names = ','.join([str(a.name) for a in mrp_areas]).lstrip(",")
@@ -54,7 +54,7 @@ class MultiLevelMrp(models.TransientModel):
         return msg
 
     @api.model
-    @job()
+    @job(default_channel="root.ir_cron")
     def _mrp_initialisation_queued(self, mrp_areas):
         res = super(MultiLevelMrp, self)._mrp_initialisation(mrp_areas)
         area_names = ','.join([str(a.name) for a in mrp_areas]).lstrip(",")
@@ -70,7 +70,7 @@ class MultiLevelMrp(models.TransientModel):
         return msg
 
     @api.model
-    @job()
+    @job(default_channel="root.ir_cron")
     def _mrp_calculation_queued(self, mrp_areas):
         mrp_lowest_llc = self._low_level_code_calculation()
         # Use _mrp_calculation from this module to allow splitting LLC:s into standalone jobs
@@ -84,7 +84,7 @@ class MultiLevelMrp(models.TransientModel):
         return msg
 
     @api.model
-    @job()
+    @job(default_channel="root.ir_cron")
     def _mrp_final_process_queued(self, mrp_areas):
         for area in mrp_areas:
             if area.current_llc_calculation >= 0:
@@ -98,7 +98,7 @@ class MultiLevelMrp(models.TransientModel):
         return msg
 
     @api.multi
-    @job()
+    @job(default_channel="root.ir_cron")
     def run_mrp_multi_level_queued(self):
         for area in self.env["mrp.area"].search([]):
             job_desc = _("MRP Multi-level: MRP Cleanup for '{}'".format(area.name))
