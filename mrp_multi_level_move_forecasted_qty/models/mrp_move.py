@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2020 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Copyright 2022- Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,18 +18,35 @@
 #
 ##############################################################################
 
-{
-    "name": "MRP Multi Level - Queued",
-    "summary": "MRP Multi Level with queue jobs",
-    "version": "12.0.1.3.2",
-    "category": "Manufacturing",
-    "website": "https://github.com/Tawasta/mrp",
-    "author": "Tawasta",
-    "license": "AGPL-3",
-    "application": False,
-    "installable": True,
-    "external_dependencies": {"python": [], "bin": []},
-    "depends": ["mrp_multi_level", "queue_job"],
-    "data": ["data/mrp_multi_level_cron.xml"],
-    "demo": [],
-}
+# 1. Standard library imports:
+
+# 2. Known third party imports:
+
+# 3. Odoo imports (openerp):
+from odoo import fields, models
+
+# 4. Imports from Odoo modules:
+
+# 5. Local imports in the relative form:
+
+# 6. Unknown third party imports:
+
+
+class MrpMove(models.Model):
+    # 1. Private attributes
+    _inherit = "mrp.move"
+
+    # 2. Fields declaration
+    forecasted_qty = fields.Float(string="Forecasted Qty")
+
+    # 3. Default methods
+
+    # 4. Compute and search fields, in the same order that fields declaration
+
+    # 5. Constraints and onchanges
+
+    # 6. CRUD methods
+
+    # 7. Action methods
+
+    # 8. Business methods
