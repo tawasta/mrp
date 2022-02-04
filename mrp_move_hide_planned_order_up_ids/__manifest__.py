@@ -19,9 +19,9 @@
 ##############################################################################
 
 {
-    "name": "MRP Multi Level Move Forecasted Qty",
-    "summary": "Forecasted quantity for mrp.move",
-    "version": "12.0.1.0.1",
+    "name": "MRP Move Hide Planned Orders UP",
+    "summary": "Hide planned_order_up_ids on Mrp Move",
+    "version": "12.0.1.0.0",
     "category": "Manufacturing",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
