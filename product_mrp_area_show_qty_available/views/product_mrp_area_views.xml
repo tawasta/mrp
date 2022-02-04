@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model="ir.ui.view" id="product_mrp_area_form_qty_available">
+        <field name="name">product.mrp.area.form</field>
+        <field name="model">product.mrp.area</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="mrp_multi_level.product_mrp_area_form"/>
+        <field name="arch" type="xml">
+            <field name="mrp_minimum_stock" position="before">
+                <field name="qty_available"/>
+            </field>
+        </field>
+    </record>
+</odoo>

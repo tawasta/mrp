@@ -19,9 +19,9 @@
 ##############################################################################
 
 {
-    "name": "MRP Multi Level Move Forecasted Qty",
-    "summary": "Forecasted quantity for mrp.move",
-    "version": "12.0.1.0.1",
+    "name": "Product Mrp Area Show Qty Available",
+    "summary": "Show qty_available on Product Mrp Area",
+    "version": "12.0.1.0.0",
     "category": "Manufacturing",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
