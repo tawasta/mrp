@@ -244,7 +244,8 @@ class MaterialRequirement(models.Model):
                     else:
                         multiplier_line = min(smallest_multiplier_line)
 
-                    if line.product_id.qty_available <= 0:
+                    if (line.product_id.qty_available <= 0 or
+                            not line.product_qty):
                         multiplier = 0
                     else:
                         multiplier = int(
