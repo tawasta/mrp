@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<odoo>
+    <record id="mrp_production_form_view" model="ir.ui.view">
+        <field name="name">mrp.production.autoprocess.workorders.production.form.two.steps</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+        <field name="arch" type="xml">
+            <button name="button_plan" position="after">
+                <button name="button_plan_start_work_orders" type="object" string="Create and start Work Orders" attrs="{'invisible': ['|', '|', ('state', '!=', 'confirmed'), ('routing_id', '=', False), ('is_locked', '=', False)]}" class="oe_highlight"/>
+
+                <button name="button_plan_process_work_orders" type="object" string="Process Work Orders" attrs="{'invisible': ['|', '|', '|', ('state', '!=', 'progress'), ('routing_id', '=', False), ('is_locked', '=', False), ('work_orders_processed', '=', True)]}" class="oe_highlight"/>
+            </button>
+
+            <button name="button_plan" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+
+            <field name="unreserve_visible" position="after">
+                <field name="work_orders_processed" invisible="1"/>
+            </field>
+        </field>
+    </record>
+</odoo>
