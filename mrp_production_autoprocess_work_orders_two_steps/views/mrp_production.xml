@@ -8,13 +8,23 @@
         <field name="arch" type="xml">
             <button name="button_plan" position="after">
                 <button name="button_plan_start_work_orders" type="object" string="Create and start Work Orders" attrs="{'invisible': ['|', '|', ('state', '!=', 'confirmed'), ('routing_id', '=', False), ('is_locked', '=', False)]}" class="oe_highlight"/>
-
-                <button name="button_plan_process_work_orders" type="object" string="Process Work Orders" attrs="{'invisible': ['|', '|', '|', ('state', '!=', 'progress'), ('routing_id', '=', False), ('is_locked', '=', False), ('work_orders_processed', '=', True)]}" class="oe_highlight"/>
             </button>
 
             <button name="button_plan" position="attributes">
                 <attribute name="invisible">1</attribute>
             </button>
+
+            <xpath expr="//button[@name='button_mark_done'][1]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', '|', '|', '|', ('consumed_less_than_planned', '=', True), ('state', '!=', 'progress'), ('routing_id', '=', False), ('is_locked', '=', False), ('work_orders_processed', '=', True)]}</attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='button_mark_done'][2]" position="attributes">
+                <attribute name="confirm"></attribute>
+            </xpath>
+
+            <xpath expr="//button[@name='button_mark_done'][2]" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', '|', '|', '|', ('consumed_less_than_planned', '=', False), ('state', '!=', 'progress'), ('routing_id', '=', False), ('is_locked', '=', False), ('work_orders_processed', '=', True)]}</attribute>
+            </xpath>
 
             <field name="unreserve_visible" position="after">
                 <field name="work_orders_processed" invisible="1"/>
