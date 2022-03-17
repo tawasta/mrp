@@ -10,7 +10,7 @@ This is a modified version of module mrp_production_autoprocess_work_orders.
 Work orders are created and marked as done with two different functions. This
 allows a cancellation of a manufacturing order after the first button has been
 pressed. Cancelling a manufacturing order also now would cancel all its related
-work orders.
+work orders. Mark as Done button will complete work orders.
 
 Configuration
 =============
