@@ -21,7 +21,7 @@
 {
     "name": "Auto-process Work Orders in two steps",
     "summary": "Created Work Orders get completed in two steps",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "category": "Manufacturing",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
