@@ -23,7 +23,7 @@
     "summary": "Shows the cost of a BOM based on its components' prices",
     "version": "12.0.1.0.0",
     "category": "Manufacturing",
-    "website": "https://github.com/Tawasta/mrp",
+    "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
