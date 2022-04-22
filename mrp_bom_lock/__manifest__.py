@@ -21,7 +21,7 @@
 {
     "name": "BOM Locking",
     "summary": "Prevent product BOMs from being edited",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "category": "Manufacturing",
     "website": "https://github.com/Tawasta/mrp",
     "author": "Tawasta",
