@@ -37,10 +37,13 @@ class MrpBom(models.Model):
         message = self.locked_message(template)
         raise Warning(message)
 
+    def bom_lock_rules(self):
+        return self.env.user.has_group("mrp_bom_lock.bom_lock_allow_write")
+
     @api.multi
     def write(self, values):
         """ Write triggers is_locked check for current BOM"""
-        if not self.env["res.users"].has_group("bom_lock.bom_lock_allow_write"):
+        if not self.bom_lock_rules():
             for bom in self:
                 res = self.is_locked(bom)
                 if res[0]:
