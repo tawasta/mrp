@@ -1,18 +1,42 @@
-from odoo import api, fields, models
+from odoo import _, api, fields, models
 import odoo.addons.decimal_precision as dp
 from datetime import datetime
+from odoo.addons.queue_job.job import job
+import logging
+
+_logger = logging.getLogger(__name__)
 
 
 class MrpBom(models.Model):
 
     _inherit = "mrp.bom"
 
-    @api.model
-    def cron_compute_bom_cost(self):
-        """ Triggered by a scheduled action to calculate all BOMs' costs """
-        for bom in self.search([]):
+    @api.multi
+    @job
+    def _cron_compute_bom_cost(self, boms):
+        for bom in boms:
             bom.component_cost = self.calculate_component_cost(bom)
             bom.cost_updated = datetime.now()
+
+    @api.multi
+    @job
+    def cron_compute_bom_cost(self):
+        """ Triggered by a scheduled action to calculate all BOMs' costs """
+        boms = self.search([])
+
+        batch_boms = list()
+        interval = 50
+        for x in range(0, len(boms), interval):
+            batch_boms.append(boms[x:x+interval])
+
+        for batch in batch_boms:
+            job_desc = _(
+                "Assign values to BoMs: {}".format(batch)
+            )
+            self.with_delay(
+                description=job_desc)._cron_compute_bom_cost(batch)
+
+        _logger.info("Cron for Compute BoM cost completed")
 
     @api.multi
     def action_compute_bom_cost(self):
