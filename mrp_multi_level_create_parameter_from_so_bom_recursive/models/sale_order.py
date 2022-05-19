@@ -1,0 +1,53 @@
+
+from odoo import models
+
+
+class SaleOrder(models.Model):
+
+    _inherit = 'sale.order'
+
+    def get_searchable_products(self, line):
+        """ Overrides the original function """
+
+        bom_model = self.env['mrp.bom']
+
+        def get_sub_lines(current_bom, product_variant=False):
+            """ Returns a recordset of products of all the possible components
+            from all the BoMs, listed recursively, based on the product on sale
+            order line. The product's variant and its attributes are taken into
+            account when listing the components. No duplicate records are
+            returned because of the union set operator '|'. """
+
+            products = self.env['product.product']
+            # BoM's product is also added to the list
+            products |= current_bom.product_id
+
+            for bom_line in current_bom.bom_line_ids:
+                product_id = bom_line.product_id
+
+                # Check if BoM line's attributes match with the product's
+                # attributes, or if there are any attributes.
+                if (bom_line.attribute_value_ids.ids and
+                        not all(attr in product_variant.attribute_value_ids.ids
+                        for attr in bom_line.attribute_value_ids.ids)):
+                    continue
+
+                if not bom_line.child_bom_id:
+                    products |= product_id
+
+                else:
+                    # Go through the child BoM also
+                    child_bom = product_id.bom_ids and product_id.bom_ids[0]
+                    products |= get_sub_lines(child_bom, product_id)
+
+            return products
+
+        # This will get only one BoM, so singleton error is avoided
+        bom = bom_model._bom_find(product_tmpl=line.product_id.product_tmpl_id,
+                                  product=line.product_id)
+
+        if bom:
+            products = get_sub_lines(bom, line.product_id)
+        else:
+            products = line.product_id
+        return products

@@ -13,11 +13,11 @@ class SaleOrder(models.Model):
             "product_id": product.id,
         }
 
-    def mrp_area_search_domain(self, products):
+    def mrp_area_search_domain(self, product):
         """ Search domain of Product Mrp Area records """
 
         # Search also archived records to avoid unique error
-        return [('product_id', 'in', products.ids), '|',
+        return [('product_id', '=', product.id), '|',
                 ('active', '=', True), ('active', '=', False)]
 
     def get_searchable_products(self, line):
@@ -36,11 +36,10 @@ class SaleOrder(models.Model):
         for line in self.order_line:
             products = self.get_searchable_products(line)
 
-            domain = self.mrp_area_search_domain(products)
-            parameters = product_mrp_area_model.sudo().search(domain)
-
             # Looping in case more products are used
             for prod in products:
+                domain = self.mrp_area_search_domain(prod)
+                parameters = product_mrp_area_model.sudo().search(domain)
                 if not parameters and \
                         prod.type in ['consu', 'product']:
                     values = self.prepare_product_mrp_area_vals(prod)
