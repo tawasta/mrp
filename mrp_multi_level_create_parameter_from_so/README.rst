@@ -10,13 +10,16 @@ Creates Product Area parameter from Sale Order
   sale order's lines does not have Product Area parameter, then it will
   be created with appropriate values.
 
+* Contains functions that are intended to be inherited with an another module.
+
 Configuration
 =============
 \-
 
 Usage
 =====
-* Go to Apps and install this module.
+* Go to Apps and install this module. It works immediately after the installation
+  is complete.
 
 Known issues / Roadmap
 ======================
