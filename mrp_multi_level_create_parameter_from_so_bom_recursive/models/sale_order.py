@@ -54,6 +54,34 @@ class SaleOrder(models.Model):
 
         return products
 
+    def prepare_product_mrp_area_vals(self, product):
+        """ Default Product Mrp Area values """
+        return {
+            "mrp_area_id": 1,
+            "product_id": product.id,
+        }
+
+    def mrp_area_search_domain(self, product):
+        """ Search domain of Product Mrp Area records """
+
+        # Search also archived records to avoid unique error
+        return [('product_id', '=', product.id), '|',
+                ('active', '=', True), ('active', '=', False)]
+
+    def product_mrp_area_create_multi(self, products):
+
+        product_mrp_area_model = self.env['product.mrp.area']
+
+        for prod in products:
+            domain = self.mrp_area_search_domain(prod)
+            parameters = product_mrp_area_model.sudo().search(domain)
+
+            if not parameters and prod.type in ['consu', 'product']:
+                values = self.prepare_product_mrp_area_vals(prod)
+
+                # Creates Product Mrp Area record
+                product_mrp_area_model.sudo().create(values)
+
     @api.multi
     def action_confirm(self):
         res = super().action_confirm()
