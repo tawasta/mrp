@@ -83,16 +83,6 @@ class SaleOrder(models.Model):
                 product_mrp_area_model.sudo().create(values)
 
     @api.multi
-    def action_confirm(self):
-        res = super().action_confirm()
-        for line in self.order_line:
-            job_desc = "Create MRP Area Parameters from Sale Order line: {}"\
-                        .format(line.name)
-            self.with_delay(description=job_desc)\
-                        .product_mrp_area_create_multi_queued(line)
-
-        return res
-
     @job
     def product_mrp_area_create_multi_queued(self, line):
         products = self.get_searchable_products(line)
@@ -100,3 +90,21 @@ class SaleOrder(models.Model):
         return_text = "Tried to create MRP Area Parameters from Sale Order line {}"\
                       " and Order {}".format(line.name, line.order_id.name)
         return return_text
+
+    @api.multi
+    @job
+    def _product_mrp_area_create_multi_queued(self, lines):
+        for line in lines:
+            job_desc = "Create MRP Area Parameters from Sale Order line: {}"\
+                        .format(line.name)
+            self.with_delay(description=job_desc)\
+                        .product_mrp_area_create_multi_queued(line)
+
+    @api.multi
+    def action_confirm(self):
+        res = super().action_confirm()
+        job_desc = "Begin MRP Area Parameters creation"
+        self.with_delay(description=job_desc)\
+                    ._product_mrp_area_create_multi_queued(self.order_line)
+
+        return res
