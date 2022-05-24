@@ -24,12 +24,25 @@ class SaleOrder(models.Model):
         """ Inherit this function to search other products """
         return line.product_id
 
+    def product_mrp_area_create_multi(self, products):
+
+        product_mrp_area_model = self.env['product.mrp.area']
+
+        for prod in products:
+            domain = self.mrp_area_search_domain(prod)
+            parameters = product_mrp_area_model.sudo().search(domain)
+
+            if not parameters and prod.type in ['consu', 'product']:
+                values = self.prepare_product_mrp_area_vals(prod)
+
+                # Creates Product Mrp Area record
+                product_mrp_area_model.sudo().create(values)
+
     @api.multi
     def action_confirm(self):
         """ Creates a new Product Mrp Area record if a product does not
         have it """
         res = super().action_confirm()
-        product_mrp_area_model = self.env['product.mrp.area']
 
         # Goes through sale order lines to check if a product does not
         # have Product Mrp Area record attached to it
@@ -37,13 +50,6 @@ class SaleOrder(models.Model):
             products = self.get_searchable_products(line)
 
             # Looping in case more products are used
-            for prod in products:
-                domain = self.mrp_area_search_domain(prod)
-                parameters = product_mrp_area_model.sudo().search(domain)
-                if not parameters and \
-                        prod.type in ['consu', 'product']:
-                    values = self.prepare_product_mrp_area_vals(prod)
-                    # Creates Product Mrp Area record
-                    product_mrp_area_model.sudo().create(values)
+            self.product_mrp_area_create_multi(products)
 
         return res

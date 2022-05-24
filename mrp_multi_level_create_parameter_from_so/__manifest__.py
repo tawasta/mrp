@@ -21,7 +21,7 @@
 {
     "name": "Creates Product Area parameter from Sale Order",
     "summary": "Product Area parameter is created after SO confirmation",
-    "version": "12.0.1.0.1",
+    "version": "12.0.1.0.2",
     "category": "Sale Workflow",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
