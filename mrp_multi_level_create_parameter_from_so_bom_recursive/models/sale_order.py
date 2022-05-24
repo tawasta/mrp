@@ -8,7 +8,6 @@ class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
     def get_searchable_products(self, line):
-        """ Overrides the original function """
 
         bom_model = self.env['mrp.bom']
         products = self.env['product.product']
