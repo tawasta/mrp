@@ -1,5 +1,6 @@
 
-from odoo import models
+from odoo import api, models
+from odoo.addons.queue_job.job import job
 
 
 class SaleOrder(models.Model):
@@ -10,6 +11,8 @@ class SaleOrder(models.Model):
         """ Overrides the original function """
 
         bom_model = self.env['mrp.bom']
+        products = self.env['product.product']
+        products |= line.product_id
 
         def get_sub_lines(current_bom, product_variant=False):
             """ Returns a recordset of products of all the possible components
@@ -47,7 +50,25 @@ class SaleOrder(models.Model):
                                   product=line.product_id)
 
         if bom:
-            products = get_sub_lines(bom, line.product_id)
-        else:
-            products = line.product_id
+            products |= get_sub_lines(bom, line.product_id)
+
         return products
+
+    @api.multi
+    def action_confirm(self):
+        res = super().action_confirm()
+        for line in self.order_line:
+            job_desc = "Create MRP Area Parameters from Sale Order line: {}"\
+                        .format(line.name)
+            self.with_delay(description=job_desc)\
+                        .product_mrp_area_create_multi_queued(line)
+
+        return res
+
+    @job
+    def product_mrp_area_create_multi_queued(self, line):
+        products = self.get_searchable_products(line)
+        self.product_mrp_area_create_multi(products)
+        return_text = "Tried to create MRP Area Parameters from Sale Order line {}"\
+                      " and Order {}".format(line.name, line.order_id.name)
+        return return_text
