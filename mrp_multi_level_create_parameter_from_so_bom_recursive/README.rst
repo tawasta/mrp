@@ -2,15 +2,12 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-==============================================
-Creates Product Area parameter from Sale Order
-==============================================
+=============================================
+Create MRP parametrs through Recursive search
+=============================================
 
-* Confirming a sale order triggers a checkup. If some product in the
-  sale order's lines does not have Product Area parameter, then it will
-  be created with appropriate values.
-
-* Contains functions that are intended to be inherited with an another module.
+Sale order line product BoM is run through recursively and
+MRP parameters are created after sale order confirmation.
 
 Configuration
 =============
@@ -18,8 +15,7 @@ Configuration
 
 Usage
 =====
-* Go to Apps and install this module. It works immediately after the installation
-  is complete.
+\-
 
 Known issues / Roadmap
 ======================

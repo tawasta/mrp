@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2021 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Copyright 2022 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,15 +19,15 @@
 ##############################################################################
 
 {
-    "name": "Creates Product Area parameter from Sale Order",
-    "summary": "Product Area parameter is created after SO confirmation",
-    "version": "12.0.1.0.2",
-    "category": "Sale Workflow",
+    "name": "Create MRP parametrs through Recursive search",
+    "summary": "Sale order line product BoM is run through recursively",
+    "version": "12.0.1.0.3",
+    "category": "MRP",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["mrp_multi_level", "sale"],
+    "depends": ["mrp_multi_level", "sale", "queue_job"],
     "data": [],
 }
