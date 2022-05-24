@@ -21,7 +21,7 @@
 {
     "name": "Create MRP parametrs through Recursive search",
     "summary": "Sale order line product BoM is run through recursively",
-    "version": "12.0.1.0.2",
+    "version": "12.0.1.0.3",
     "category": "MRP",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
