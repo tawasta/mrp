@@ -7,6 +7,6 @@ class MrpArea(models.Model):
     current_llc_calculation = fields.Integer(
         string="Current LLC calculation",
         help="Technical field to help with asynchronous LLC calculation. "
-             "Set to -1 to allow running MRP calculation again",
-        default=-1
+        "Set to -1 to allow running MRP calculation again",
+        default=-1,
     )
