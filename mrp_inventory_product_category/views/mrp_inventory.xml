@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="mrp_inventory_tree_product_category" model="ir.ui.view">
+        <field name="name">mrp.inventory.tree.product.category</field>
+        <field name="model">mrp.inventory</field>
+        <field name="type">tree</field>
+        <field name="inherit_id" ref="mrp_multi_level.mrp_inventory_tree"/>
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="product_category" optional="show"/>
+            </field>
+        </field>
+    </record>
+    <record id="mrp_inventory_search_inherit" model="ir.ui.view">
+        <field name="name">mrp.inventory.search.inherit</field>
+        <field name="model">mrp.inventory</field>
+        <field name="type">search</field>
+        <field name="inherit_id" ref="mrp_multi_level.mrp_inventory_search"/>
+        <field name="arch" type="xml">
+            <search string="MRP Inventory">
+                <group expand="0" string="Group By...">
+                    <filter name="group_product_category" string="Product Category" context="{'group_by':'product_category'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+</odoo>
