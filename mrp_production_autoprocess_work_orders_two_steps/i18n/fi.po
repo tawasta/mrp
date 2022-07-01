@@ -1,0 +1,37 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mrp_production_autoprocess_work_orders_two_steps
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-03 12:43+0000\n"
+"PO-Revision-Date: 2022-03-03 14:45+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fi_FI\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: mrp_production_autoprocess_work_orders_two_steps
+#: model_terms:ir.ui.view,arch_db:mrp_production_autoprocess_work_orders_two_steps.mrp_production_form_view
+msgid "Create and start Work Orders"
+msgstr "Luo ja aloita työtilaukset"
+
+#. module: mrp_production_autoprocess_work_orders_two_steps
+#: model_terms:ir.ui.view,arch_db:mrp_production_autoprocess_work_orders_two_steps.mrp_production_form_view
+msgid "Process Work Orders"
+msgstr "Prosessoi työtilaukset"
+
+#. module: mrp_production_autoprocess_work_orders_two_steps
+#: model:ir.model,name:mrp_production_autoprocess_work_orders_two_steps.model_mrp_production
+msgid "Production Order"
+msgstr "Valmistustilaus"
+
+#. module: mrp_production_autoprocess_work_orders_two_steps
+#: model:ir.model.fields,field_description:mrp_production_autoprocess_work_orders_two_steps.field_mrp_production__work_orders_processed
+msgid "Work Orders Processed"
+msgstr "Työtilaukset prosessoitu"

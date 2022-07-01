@@ -24,7 +24,7 @@ class MrpMultiLevel(models.TransientModel):
             llc
         )
 
-        self.env.cr.execute(select_query)
+        self.env.cr.execute(select_query)  # pylint: disable=E8103
 
         products = self.env["product.product"].search([])
         if products:
@@ -64,7 +64,7 @@ class MrpMultiLevel(models.TransientModel):
                     llc_val, ",".join(str(i) for i in diff.ids)
                 )
                 logger.info("LLC: {}, counter: {}".format(llc_val, len(diff)))
-                self.env.cr.execute(update_query)
+                self.env.cr.execute(update_query)  # pylint: disable=E8103
                 handled_products |= diff
 
         mrp_lowest_llc = llc

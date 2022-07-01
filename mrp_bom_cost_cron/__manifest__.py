@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2020- Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
+#    Copyright 2022 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,15 +19,15 @@
 ##############################################################################
 
 {
-    "name": "MRP Inventory Responsible ID",
-    "summary": "Shows product template responsible id in mrp.inventory list view",
+    "name": "Cron for MRP Compute Cost",
+    "summary": "Cron for MRP compute cost",
     "version": "14.0.1.0.0",
-    "category": "Manufacturing",
+    "category": "MRP",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["mrp", "mrp_multi_level", "product"],
-    "data": ["views/mrp_inventory.xml"],
+    "depends": ["mrp_account"],
+    "data": ["data/ir_cron.xml"],
 }

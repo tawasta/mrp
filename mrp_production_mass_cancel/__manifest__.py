@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2020- Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
+#    Copyright 2021 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,8 +19,8 @@
 ##############################################################################
 
 {
-    "name": "MRP Inventory Responsible ID",
-    "summary": "Shows product template responsible id in mrp.inventory list view",
+    "name": "Production Order Mass Cancel",
+    "summary": "Allow cancellation of production orders en masse",
     "version": "14.0.1.0.0",
     "category": "Manufacturing",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
@@ -28,6 +28,6 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["mrp", "mrp_multi_level", "product"],
-    "data": ["views/mrp_inventory.xml"],
+    "depends": ["mrp"],
+    "data": ["wizard/mrp_production_mass_cancel.xml", "security/ir.model.access.csv"],
 }
