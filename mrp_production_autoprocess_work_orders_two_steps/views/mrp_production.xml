@@ -21,26 +21,17 @@
                 <attribute name="invisible">1</attribute>
             </button>
 
-            <xpath
-                expr="//button[@name='button_mark_done'][1]"
-                position="attributes"
-            >
+            <xpath expr="//button[@name='button_mark_done'][1]" position="attributes">
                 <attribute
                     name="attrs"
                 >{'invisible': ['|', '|', ('state', '!=', 'progress'), ('is_locked', '=', False), ('work_orders_processed', '=', True)]}</attribute>
             </xpath>
 
-            <xpath
-                expr="//button[@name='button_mark_done'][2]"
-                position="attributes"
-            >
+            <xpath expr="//button[@name='button_mark_done'][2]" position="attributes">
                 <attribute name="confirm" />
             </xpath>
 
-            <xpath
-                expr="//button[@name='button_mark_done'][2]"
-                position="attributes"
-            >
+            <xpath expr="//button[@name='button_mark_done'][2]" position="attributes">
                 <attribute
                     name="attrs"
                 >{'invisible': ['|', '|', ('state', '!=', 'progress'), ('is_locked', '=', False), ('work_orders_processed', '=', True)]}</attribute>

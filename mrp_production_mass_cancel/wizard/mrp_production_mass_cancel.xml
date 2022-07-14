@@ -19,10 +19,7 @@
         </field>
     </record>
 
-    <record
-        model="ir.actions.act_window"
-        id="action_mrp_production_mass_cancel"
-    >
+    <record model="ir.actions.act_window" id="action_mrp_production_mass_cancel">
         <field name="name">Cancel Production Orders</field>
         <field name="res_model">mrp.production.mass.cancel</field>
         <field name="binding_model_id" ref="mrp.model_mrp_production" />
