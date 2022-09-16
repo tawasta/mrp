@@ -17,7 +17,8 @@ class MrpProduction(models.Model):
             # Set WO's Quantity To Be Produced to be
             # the same as MO's Quantity Producing. This
             # is needed if less products were produced.
-            work_order.qty_remaining = self.qty_producing
+            if self.qty_producing:
+                work_order.qty_remaining = self.qty_producing
 
             work_order.button_start()
             work_order.button_finish()
@@ -25,5 +26,6 @@ class MrpProduction(models.Model):
         # Set Quantity To Produce to be the same as Quantity Producing.
         # This means that if less products were produced, then a
         # manufacturing order is set to Done.
-        self.product_qty = self.qty_producing
+        if self.qty_producing:
+            self.product_qty = self.qty_producing
         super(MrpProduction, self).button_mark_done()
