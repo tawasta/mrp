@@ -22,7 +22,7 @@
     "version": "14.0.1.0.0",
     "category": "MRP",
     "summary": "Sets default focus fields for MRP",
-    "website": "https://gitlab.com/tawasta/odoo",
+    "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
