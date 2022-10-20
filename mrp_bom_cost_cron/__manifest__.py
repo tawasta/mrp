@@ -28,6 +28,6 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["mrp_bom_cost"],
+    "depends": ["mrp_bom_cost", "mrp_multi_level"],
     "data": ["data/ir_cron.xml"],
 }
