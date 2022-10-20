@@ -5,14 +5,14 @@ import logging
 _logger = logging.getLogger(__name__)
 
 
-class ProductTemplate(models.Model):
+class ProductProduct(models.Model):
 
-    _inherit = 'product.template'
+    _inherit = 'product.product'
 
     @api.multi
     @job
     def _cron_button_bom_cost(self, batch):
-        prods = self.env['product.template'].search([('id', 'in', batch)])
+        prods = self.env['product.product'].search([('id', 'in', batch)])
         for prod in prods:
             prod.button_bom_cost()
         return batch, 'Success'
@@ -21,8 +21,10 @@ class ProductTemplate(models.Model):
     @job
     def cron_button_bom_cost(self):
         """ Computes compute cost for each product """
-        products = self.env['product.template'].search(
-            [('bom_ids', '!=', False)]).ids
+        products = self.env['product.product'].search(
+            [('bom_ids', '!=', False)]).sorted(
+                    key=lambda p: p.llc, reverse=True).ids
+
         batch_products = list()
         interval = 50
         for x in range(0, len(products), interval):
