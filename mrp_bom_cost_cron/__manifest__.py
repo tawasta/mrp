@@ -19,9 +19,9 @@
 ##############################################################################
 
 {
-    "name": "Cron for Compute cost",
-    "summary": "Cron for Compute cost",
-    "version": "12.0.1.0.0",
+    "name": "Cron to compute product cost price",
+    "summary": "Scheduled action to calculate product's cost price from BoM",
+    "version": "12.0.1.0.1",
     "category": "MRP",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",

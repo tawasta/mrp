@@ -2,15 +2,17 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-=====================
-Cron for Compute cost
-=====================
+===========================================================
+Scheduled action to calculate product's cost price from BoM
+===========================================================
 
-Cron for Compute cost
+Updates product's Cost price with a scheduled action. Cost price
+is calculated based on product's bom cost price.
 
 Configuration
 =============
-\-
+This module requires mrp_multi_level module to be installed,
+because it uses its llc-values.
 
 Usage
 =====
