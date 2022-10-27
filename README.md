@@ -28,6 +28,7 @@ addon | version | maintainers | summary
 [mrp_production_autoprocess_work_orders](mrp_production_autoprocess_work_orders/) | 14.0.1.0.2 |  | Created Work Orders get completed instantly
 [mrp_production_autoprocess_work_orders_two_steps](mrp_production_autoprocess_work_orders_two_steps/) | 14.0.1.0.0 |  | Created Work Orders get completed in two steps
 [mrp_production_mass_cancel](mrp_production_mass_cancel/) | 14.0.1.0.0 |  | Allow cancellation of production orders en masse
+[mrp_production_set_bom_regardless_of_operation_type](mrp_production_set_bom_regardless_of_operation_type/) | 14.0.1.0.0 |  | Set BoM that is not based on Operation Type
 [mrp_production_tree_date_planned_start_as_date](mrp_production_tree_date_planned_start_as_date/) | 14.0.1.0.0 |  | Show date planned start as date in mrp production tree
 
 [//]: # (end addons)
