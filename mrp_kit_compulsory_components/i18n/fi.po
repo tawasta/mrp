@@ -1,0 +1,43 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mrp_kit_compulsory_components
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0-20221025\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-10-27 14:58+0000\n"
+"PO-Revision-Date: 2022-10-27 14:58+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mrp_kit_compulsory_components
+#: model:ir.model,name:mrp_kit_compulsory_components.model_mrp_bom
+msgid "Bill of Material"
+msgstr "Osaluettelo"
+
+#. module: mrp_kit_compulsory_components
+#: model:ir.model.fields,field_description:mrp_kit_compulsory_components.field_mrp_bom__display_name
+msgid "Display Name"
+msgstr "Näyttönimi"
+
+#. module: mrp_kit_compulsory_components
+#: model:ir.model.fields,field_description:mrp_kit_compulsory_components.field_mrp_bom__id
+msgid "ID"
+msgstr "Tunniste (ID)"
+
+#. module: mrp_kit_compulsory_components
+#: code:addons/mrp_kit_compulsory_components/models/mrp_bom.py:0
+#: code:addons/mrp_kit_compulsory_components/models/mrp_bom.py:0
+#, python-format
+msgid "Kit has to contain at least one product."
+msgstr "Kitin täytyy sisältää ainakin yksi tuote."
+
+#. module: mrp_kit_compulsory_components
+#: model:ir.model.fields,field_description:mrp_kit_compulsory_components.field_mrp_bom____last_update
+msgid "Last Modified on"
+msgstr "Viimeksi muokattu"
