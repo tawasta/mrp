@@ -13,14 +13,22 @@ addon | version | maintainers | summary
 --- | --- | --- | ---
 [mrp_auditlog_rules](mrp_auditlog_rules/) | 14.0.1.0.0 |  | Adds audit log rules for mrp.bom
 [mrp_bom_cost_cron](mrp_bom_cost_cron/) | 14.0.1.0.0 |  | Cron for MRP compute cost
+[mrp_bom_structure_xlsx_cost](mrp_bom_structure_xlsx_cost/) | 14.0.1.0.0 |  | Add cost to MRP BOM Structure XLSX
 [mrp_default_focus](mrp_default_focus/) | 14.0.1.0.0 |  | Sets default focus fields for MRP
 [mrp_inventory_hide_forecasted_inventory](mrp_inventory_hide_forecasted_inventory/) | 14.0.1.0.0 |  | Hide Forecasted Inventory in MRP Inventory tree view
+[mrp_inventory_hide_mrp_area](mrp_inventory_hide_mrp_area/) | 14.0.1.0.0 |  | Hide MRP Area in MRP Inventory tree view
 [mrp_inventory_product_category](mrp_inventory_product_category/) | 14.0.1.0.0 |  | Shows product category in mrp.inventory list view
 [mrp_inventory_responsible_id](mrp_inventory_responsible_id/) | 14.0.1.0.0 |  | Shows product template responsible id in mrp.inventory list view
 [mrp_inventory_sh_product_tags_filter](mrp_inventory_sh_product_tags_filter/) | 14.0.1.0.0 |  | MRP Inventory - Group and Filter by SH product tags
 [mrp_inventory_tree_reorder_running_availability](mrp_inventory_tree_reorder_running_availability/) | 14.0.1.0.0 |  | Reorder Running Availability in MRP Inventory tree
+[mrp_kit_compulsory_components](mrp_kit_compulsory_components/) | 14.0.1.0.0 |  | Components are compulsory if created BOM is a kit
+[mrp_move_hide_current_qty](mrp_move_hide_current_qty/) | 14.0.1.0.0 |  | Hide current_qty on Mrp Move
+[mrp_move_hide_parent_product_id](mrp_move_hide_parent_product_id/) | 14.0.1.0.0 |  | Hide parent_product_id on Mrp Move
+[mrp_move_hide_planned_order_up_ids](mrp_move_hide_planned_order_up_ids/) | 14.0.1.0.0 |  | Hide planned_order_up_ids on Mrp Move
+[mrp_move_vendor](mrp_move_vendor/) | 14.0.1.0.0 |  | Show Vendor on MRP Moves
 [mrp_multi_level_area_form_group](mrp_multi_level_area_form_group/) | 14.0.1.0.0 |  | Manufacture / User group enables to see MRP Moves
 [mrp_multi_level_create_parameter_from_so](mrp_multi_level_create_parameter_from_so/) | 14.0.1.0.0 |  | Product Area parameter is created after SO confirmation
+[mrp_multi_level_create_parameter_from_so_bom_recursive](mrp_multi_level_create_parameter_from_so_bom_recursive/) | 14.0.1.0.0 |  | Sale order line product BoM is run through recursively
 [mrp_multi_level_move_forecasted_qty](mrp_multi_level_move_forecasted_qty/) | 14.0.1.0.0 |  | Forecasted quantity for mrp.move
 [mrp_multi_level_optimization](mrp_multi_level_optimization/) | 14.0.1.0.0 |  | MRP multi level optimization
 [mrp_multi_level_queue](mrp_multi_level_queue/) | 14.0.1.0.0 |  | MRP Multi Level with queue jobs
@@ -30,5 +38,6 @@ addon | version | maintainers | summary
 [mrp_production_mass_cancel](mrp_production_mass_cancel/) | 14.0.1.0.0 |  | Allow cancellation of production orders en masse
 [mrp_production_set_bom_regardless_of_operation_type](mrp_production_set_bom_regardless_of_operation_type/) | 14.0.1.0.0 |  | Set BoM that is not based on Operation Type
 [mrp_production_tree_date_planned_start_as_date](mrp_production_tree_date_planned_start_as_date/) | 14.0.1.0.0 |  | Show date planned start as date in mrp production tree
+[mrp_report_bom_structure_product_unit_price](mrp_report_bom_structure_product_unit_price/) | 14.0.1.0.0 |  | Use product Unit price instead of its multiple on report
 
 [//]: # (end addons)

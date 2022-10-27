@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="mrp_inventory_tree_hide_mrp_area_id" model="ir.ui.view">
+        <field name="name">mrp.inventory.tree.hide.mrp.area.id</field>
+        <field name="model">mrp.inventory</field>
+        <field name="inherit_id" ref="mrp_multi_level.mrp_inventory_tree" />
+        <field name="arch" type="xml">
+            <field name="mrp_area_id" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>
