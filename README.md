@@ -22,6 +22,7 @@ addon | version | maintainers | summary
 [mrp_inventory_sh_product_tags_filter](mrp_inventory_sh_product_tags_filter/) | 14.0.1.0.0 |  | MRP Inventory - Group and Filter by SH product tags
 [mrp_inventory_tree_reorder_running_availability](mrp_inventory_tree_reorder_running_availability/) | 14.0.1.0.0 |  | Reorder Running Availability in MRP Inventory tree
 [mrp_kit_compulsory_components](mrp_kit_compulsory_components/) | 14.0.1.0.0 |  | Components are compulsory if created BOM is a kit
+[mrp_move_hide_current_qty](mrp_move_hide_current_qty/) | 14.0.1.0.0 |  | Hide current_qty on Mrp Move
 [mrp_multi_level_area_form_group](mrp_multi_level_area_form_group/) | 14.0.1.0.0 |  | Manufacture / User group enables to see MRP Moves
 [mrp_multi_level_create_parameter_from_so](mrp_multi_level_create_parameter_from_so/) | 14.0.1.0.0 |  | Product Area parameter is created after SO confirmation
 [mrp_multi_level_move_forecasted_qty](mrp_multi_level_move_forecasted_qty/) | 14.0.1.0.0 |  | Forecasted quantity for mrp.move
