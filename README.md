@@ -20,6 +20,7 @@ addon | version | maintainers | summary
 [mrp_inventory_product_category](mrp_inventory_product_category/) | 14.0.1.0.0 |  | Shows product category in mrp.inventory list view
 [mrp_inventory_responsible_id](mrp_inventory_responsible_id/) | 14.0.1.0.0 |  | Shows product template responsible id in mrp.inventory list view
 [mrp_inventory_sh_product_tags_filter](mrp_inventory_sh_product_tags_filter/) | 14.0.1.0.0 |  | MRP Inventory - Group and Filter by SH product tags
+[mrp_inventory_supplier_info](mrp_inventory_supplier_info/) | 14.0.1.0.0 |  | Shows supplier info from mrp area in mrp inventory views
 [mrp_inventory_tree_reorder_running_availability](mrp_inventory_tree_reorder_running_availability/) | 14.0.1.0.0 |  | Reorder Running Availability in MRP Inventory tree
 [mrp_kit_compulsory_components](mrp_kit_compulsory_components/) | 14.0.1.0.0 |  | Components are compulsory if created BOM is a kit
 [mrp_move_hide_current_qty](mrp_move_hide_current_qty/) | 14.0.1.0.0 |  | Hide current_qty on Mrp Move
