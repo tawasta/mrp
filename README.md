@@ -38,5 +38,6 @@ addon | version | maintainers | summary
 [mrp_production_mass_cancel](mrp_production_mass_cancel/) | 14.0.1.0.0 |  | Allow cancellation of production orders en masse
 [mrp_production_set_bom_regardless_of_operation_type](mrp_production_set_bom_regardless_of_operation_type/) | 14.0.1.0.0 |  | Set BoM that is not based on Operation Type
 [mrp_production_tree_date_planned_start_as_date](mrp_production_tree_date_planned_start_as_date/) | 14.0.1.0.0 |  | Show date planned start as date in mrp production tree
+[mrp_report_bom_structure_product_unit_price](mrp_report_bom_structure_product_unit_price/) | 14.0.1.0.0 |  | Use product Unit price instead of its multiple on report
 
 [//]: # (end addons)
