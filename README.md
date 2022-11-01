@@ -44,5 +44,6 @@ addon | version | maintainers | summary
 [product_bom_relation_purchased_and_sold_info](product_bom_relation_purchased_and_sold_info/) | 14.0.1.0.0 |  | Purchased and Sold Product Quantities in BOM tree view
 [product_bom_relation_quantity_count](product_bom_relation_quantity_count/) | 14.0.1.0.0 |  | Used Product Quantities in BOM tree view
 [product_mrp_area_mrp_profile_header](product_mrp_area_mrp_profile_header/) | 14.0.1.0.0 |  | Adds header "MRP Profile" to MRP Area form
+[product_mrp_area_show_qty_available](product_mrp_area_show_qty_available/) | 14.0.1.0.0 |  | Show qty_available on Product Mrp Area
 
 [//]: # (end addons)
