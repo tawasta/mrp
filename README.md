@@ -43,5 +43,6 @@ addon | version | maintainers | summary
 [mrp_unbuild_note_for_mo](mrp_unbuild_note_for_mo/) | 14.0.1.0.0 |  | Unbuild note to Manufacturing order
 [product_bom_relation_purchased_and_sold_info](product_bom_relation_purchased_and_sold_info/) | 14.0.1.0.0 |  | Purchased and Sold Product Quantities in BOM tree view
 [product_bom_relation_quantity_count](product_bom_relation_quantity_count/) | 14.0.1.0.0 |  | Used Product Quantities in BOM tree view
+[product_mrp_area_mrp_profile_header](product_mrp_area_mrp_profile_header/) | 14.0.1.0.0 |  | Adds header "MRP Profile" to MRP Area form
 
 [//]: # (end addons)
