@@ -1,0 +1,361 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* bsm_importer
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0-20221025\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-01 19:14+0000\n"
+"PO-Revision-Date: 2022-11-01 19:14+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: bsm_importer
+#: model_terms:ir.ui.view,arch_db:bsm_importer.bsm_data_view
+msgid "Add BSM line"
+msgstr "Lisää BSM-rivi"
+
+#. module: bsm_importer
+#: code:addons/bsm_importer/models/bsm_importer.py:0
+#, python-format
+msgid "Adding ids {} to production log {}"
+msgstr "Lisätään id:eitä {} tuotantolokiin {}"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: bsm_importer
+#: model_terms:ir.ui.view,arch_db:bsm_importer.view_bsm_importer
+msgid "BSM"
+msgstr "BSM"
+
+#. module: bsm_importer
+#: model:ir.actions.act_window,name:bsm_importer.action_bsm_form
+#: model:ir.model,name:bsm_importer.model_bsm_data
+#: model:ir.ui.menu,name:bsm_importer.bsm_data_menuitem
+#: model_terms:ir.ui.view,arch_db:bsm_importer.view_bsm_data_search
+#: model_terms:ir.ui.view,arch_db:bsm_importer.view_bsm_data_tree
+msgid "BSM Data"
+msgstr "BSM-data"
+
+#. module: bsm_importer
+#: model:ir.model,name:bsm_importer.model_bsm_importer
+msgid "BSM Data Importer"
+msgstr "BSM datojen tuoja"
+
+#. module: bsm_importer
+#: code:addons/bsm_importer/models/bsm_importer.py:0
+#, python-format
+msgid "BSM Filepath missing. Please set it first in the Stock Settings view."
+msgstr "BSM-tiedostopolku puuttuu. Aseta se ensin varaston asetusnäkymässä."
+
+#. module: bsm_importer
+#: model:ir.actions.act_window,name:bsm_importer.action_bsm_import
+#: model:ir.ui.menu,name:bsm_importer.bsm_importer_menuitem
+#: model_terms:ir.ui.view,arch_db:bsm_importer.res_config_settings_view_form
+#: model_terms:ir.ui.view,arch_db:bsm_importer.view_bsm_importer
+msgid "BSM Importer"
+msgstr "BSM-tuonti"
+
+#. module: bsm_importer
+#: model_terms:ir.ui.view,arch_db:bsm_importer.prod_lot_extension
+msgid "BSM Information"
+msgstr "BSM-tiedot"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_res_company__bsm_path
+#: model:ir.model.fields,field_description:bsm_importer.field_res_config_settings__bsm_path
+#: model_terms:ir.ui.view,arch_db:bsm_importer.res_config_settings_view_form
+msgid "BSM Path"
+msgstr "BSM-tiedostopolku"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__name
+msgid "BSM Serial"
+msgstr "BSM-sarjanumero"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_stock_production_lot__bsm_ids
+msgid "BSM Serials"
+msgstr "BSM-sarjanumerot"
+
+#. module: bsm_importer
+#: model_terms:ir.actions.act_window,help:bsm_importer.action_bsm_form
+msgid "Click to add a BSM data."
+msgstr "Klikkaa lisätäksesi BSM-dataa."
+
+#. module: bsm_importer
+#: model:ir.model,name:bsm_importer.model_res_company
+msgid "Companies"
+msgstr "Yritykset"
+
+#. module: bsm_importer
+#: model:ir.model,name:bsm_importer.model_res_config_settings
+msgid "Config Settings"
+msgstr "Konfiguraatioasetukset"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__create_uid
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_importer__create_uid
+msgid "Created by"
+msgstr "Luonut"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__create_date
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_importer__create_date
+msgid "Created on"
+msgstr "Luotu"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__bsm_delivery_number
+msgid "Delivery Number"
+msgstr "Toimitusnumero"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__display_name
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_importer__display_name
+#: model:ir.model.fields,field_description:bsm_importer.field_res_company__display_name
+#: model:ir.model.fields,field_description:bsm_importer.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:bsm_importer.field_stock_production_lot__display_name
+msgid "Display Name"
+msgstr "Näyttönimi"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__bsm_fw_version
+msgid "FW Version"
+msgstr "FW-versio"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__message_channel_ids
+msgid "Followers (Channels)"
+msgstr ""
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__bsm_gps_version
+msgid "GPS Version"
+msgstr "GPS-versio"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__bsm_gsm_version
+msgid "GSM Version"
+msgstr "GSM-versio"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__bsm_hw_version
+msgid "HW Version"
+msgstr "HW-versio"
+
+#. module: bsm_importer
+#: code:addons/bsm_importer/models/bsm_importer.py:0
+#, python-format
+msgid "I/O error({}): {}"
+msgstr "I/O virhe({}): {}"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__id
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_importer__id
+#: model:ir.model.fields,field_description:bsm_importer.field_res_company__id
+#: model:ir.model.fields,field_description:bsm_importer.field_res_config_settings__id
+#: model:ir.model.fields,field_description:bsm_importer.field_stock_production_lot__id
+msgid "ID"
+msgstr "Tunniste (ID)"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__bsm_imei_code
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_importer__imei_selection
+msgid "IMEI Code"
+msgstr "IMEI-koodi"
+
+#. module: bsm_importer
+#: model:ir.model.fields,help:bsm_importer.field_bsm_data__message_needaction
+#: model:ir.model.fields,help:bsm_importer.field_bsm_data__message_unread
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: bsm_importer
+#: model:ir.model.fields,help:bsm_importer.field_bsm_data__message_has_error
+#: model:ir.model.fields,help:bsm_importer.field_bsm_data__message_has_sms_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: bsm_importer
+#: model_terms:ir.ui.view,arch_db:bsm_importer.bsm_data_view
+msgid "Information"
+msgstr "Tiedot"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data____last_update
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_importer____last_update
+#: model:ir.model.fields,field_description:bsm_importer.field_res_company____last_update
+#: model:ir.model.fields,field_description:bsm_importer.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:bsm_importer.field_stock_production_lot____last_update
+msgid "Last Modified on"
+msgstr "Viimeksi muokattu"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__write_uid
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_importer__write_uid
+msgid "Last Updated by"
+msgstr "Viimeksi päivttänyt"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__write_date
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_importer__write_date
+msgid "Last Updated on"
+msgstr "Viimeksi päivitetty"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__bsm_prodlot_id
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_importer__prodlot_id
+msgid "Lot"
+msgstr "Erä"
+
+#. module: bsm_importer
+#: model:ir.model,name:bsm_importer.model_stock_production_lot
+msgid "Lot/Serial"
+msgstr "Erä/sarja"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__message_main_attachment_id
+msgid "Main Attachment"
+msgstr ""
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: bsm_importer
+#: model:ir.model.fields,help:bsm_importer.field_bsm_data__message_needaction_counter
+msgid "Number of messages which requires an action"
+msgstr ""
+
+#. module: bsm_importer
+#: model:ir.model.fields,help:bsm_importer.field_bsm_data__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: bsm_importer
+#: model:ir.model.fields,help:bsm_importer.field_bsm_data__message_unread_counter
+msgid "Number of unread messages"
+msgstr ""
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__bsm_product_code
+msgid "Product Code"
+msgstr "Tuotekoodi"
+
+#. module: bsm_importer
+#: model_terms:ir.ui.view,arch_db:bsm_importer.view_bsm_importer
+msgid "Read Serials"
+msgstr "Lue sarjanumeroita"
+
+#. module: bsm_importer
+#: code:addons/bsm_importer/models/bsm_importer.py:0
+#, python-format
+msgid "Renaming {} to {}r"
+msgstr "Uudelleennimetään {} nimellä {}r"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__message_has_sms_error
+msgid "SMS Delivery error"
+msgstr ""
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__message_unread
+msgid "Unread Messages"
+msgstr ""
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__message_unread_counter
+msgid "Unread Messages Counter"
+msgstr ""
+
+#. module: bsm_importer
+#: model_terms:ir.ui.view,arch_db:bsm_importer.view_bsm_data_search
+msgid "Unused"
+msgstr "Käyttämättömät"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_importer__imeis_name
+msgid "Unused IMEI Codes"
+msgstr "Käyttämättömät IMEI-koodit"
+
+#. module: bsm_importer
+#: model_terms:ir.ui.view,arch_db:bsm_importer.view_bsm_data_search
+msgid "Unused data"
+msgstr "Käyttämätön data"
+
+#. module: bsm_importer
+#: code:addons/bsm_importer/models/bsm_importer.py:0
+#, python-format
+msgid "Updating BSM for IMEI: {}"
+msgstr "Päivitetään BSM IMEI-koodille: {}"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__bsm_used
+#: model_terms:ir.ui.view,arch_db:bsm_importer.view_bsm_data_search
+msgid "Used"
+msgstr "Käytetyt"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__bsm_warranty_time
+msgid "Warranty"
+msgstr "Takuu"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__bsm_warranty_code
+msgid "Warranty Code"
+msgstr "Takuukoodi"
+
+#. module: bsm_importer
+#: model:ir.model.fields,field_description:bsm_importer.field_bsm_data__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: bsm_importer
+#: model:ir.model.fields,help:bsm_importer.field_bsm_data__website_message_ids
+msgid "Website communication history"
+msgstr ""
