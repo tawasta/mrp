@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+"access_bsm_data","access_bsm_data","model_bsm_data","stock.group_stock_manager",1,0,0,0
+"create_bsm_data","create_bsm_data","model_bsm_data","base.group_system",1,1,1,0
+"access_bsm_importer","access_bsm_importer","model_bsm_importer","stock.group_stock_manager",1,1,1,0

@@ -1,0 +1,145 @@
+<?xml version="1.0" ?>
+<odoo>
+    <!-- Inherited stock.production.lot form with bsm data -->
+    <record model="ir.ui.view" id="prod_lot_extension">
+        <field name="name">stock.production.lot.extension</field>
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form" />
+        <field name="arch" type="xml">
+            <group name="main_group" position="after">
+                <group string="BSM Information">
+                    <field name="bsm_ids" />
+                </group>
+            </group>
+        </field>
+    </record>
+
+    <!-- View to synchronize BSM data -->
+    <record model="ir.ui.view" id="view_bsm_importer">
+        <field name="name">bsm.importer.form</field>
+        <field name="model">bsm.importer</field>
+        <field name="arch" type="xml">
+            <form string="BSM Importer" create="false" edit="false">
+                <sheet>
+                    <group string="BSM" colspan="2">
+                        <field name="prodlot_id" />
+                        <button
+                            name="getSerials"
+                            type="object"
+                            string="Read Serials"
+                            class="oe_highlight"
+                        />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_bsm_import" model="ir.actions.act_window">
+        <field name="name">BSM Importer</field>
+        <field name="res_model">bsm.importer</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_id" ref="view_bsm_importer" />
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record model="ir.ui.view" id="bsm_data_view">
+        <field name="name">bsm.data.form</field>
+        <field name="model">bsm.data</field>
+        <field name="arch" type="xml">
+            <form string="Add BSM line">
+                <sheet>
+                    <group string="Information">
+                        <field name="name" />
+                        <field name="bsm_imei_code" />
+                        <field name="bsm_product_code" />
+                        <field name="bsm_delivery_number" />
+                        <field name="bsm_gsm_version" />
+                        <field name="bsm_fw_version" />
+                        <field name="bsm_gps_version" />
+                        <field name="bsm_hw_version" />
+                        <field name="bsm_warranty_code" />
+                        <field name="bsm_prodlot_id" />
+                        <field name="bsm_used" />
+                    </group>
+                </sheet>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" />
+                    <field name="message_ids" widget="mail_thread" />
+                </div>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_bsm_data_tree">
+        <field name="name">bsm.data.view</field>
+        <field name="model">bsm.data</field>
+        <field name="arch" type="xml">
+            <tree string="BSM Data">
+                <field name="name" />
+                <field name="bsm_imei_code" />
+                <field name="bsm_product_code" />
+                <field name="bsm_delivery_number" />
+                <field name="bsm_gsm_version" />
+                <field name="bsm_fw_version" />
+                <field name="bsm_gps_version" />
+                <field name="bsm_hw_version" />
+                <field name="bsm_warranty_code" />
+                <field name="bsm_prodlot_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_bsm_data_search" model="ir.ui.view">
+        <field name="name">bsm.data.search</field>
+        <field name="model">bsm.data</field>
+        <field name="arch" type="xml">
+            <search string="BSM Data">
+                <field name="bsm_used" string="Unused data" />
+                <filter
+                    icon="terp-go-home"
+                    name="bsm_unused"
+                    string="Unused"
+                    domain="[('bsm_used', '=', False)]"
+                />
+                <filter
+                    icon="terp-go-home"
+                    name="bsm_used"
+                    string="Used"
+                    domain="[('bsm_used', '=', True)]"
+                />
+            </search>
+        </field>
+    </record>
+
+    <record id="action_bsm_form" model="ir.actions.act_window">
+        <field name="name">BSM Data</field>
+        <field name="res_model">bsm.data</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_id" ref="view_bsm_data_tree" />
+        <field name="search_view_id" ref="view_bsm_data_search" />
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Click to add a BSM data.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="bsm_data_menuitem"
+        name="BSM Data"
+        sequence="30"
+        parent="stock.menu_stock_inventory_control"
+        action="action_bsm_form"
+    />
+    <menuitem
+        id="bsm_importer_menuitem"
+        name="BSM Importer"
+        sequence="31"
+        parent="stock.menu_stock_inventory_control"
+        action="action_bsm_import"
+    />
+
+</odoo>
