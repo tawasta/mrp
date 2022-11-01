@@ -31,6 +31,7 @@ from odoo import fields, models
 
 # 6. Unknown third party imports:
 
+
 _logger = logging.getLogger(__name__)
 
 
@@ -39,44 +40,41 @@ class MrpBom(models.Model):
     _inherit = "mrp.bom"
 
     # 2. Fields declaration
-    bom_rel_purchase_count = fields.Integer(
-        string="Reserved Purchase Quantity",
-        compute="_compute_bom_rel_purchase_and_sold_count",
+    bom_rel_count = fields.Integer(
+        string="Total Product Count", compute="_compute_bom_rel_count"
     )
 
-    bom_rel_sold_count = fields.Integer(
-        string="Reserved Sale Quantity",
-        compute="_compute_bom_rel_purchase_and_sold_count",
+    bom_rel_available_count = fields.Integer(
+        string="On Hand", compute="_compute_bom_rel_count"
     )
 
     # 3. Default methods
 
     # 4. Compute and search fields, in the same order that fields declaration
-    def _compute_bom_rel_purchase_and_sold_count(self):
+    def _compute_bom_rel_count(self):
         for bom in self:
             product_id = self._context.get("active_id")
             product_model = self._context.get("active_model")
             if product_model in ["product.product", "product.template"]:
                 product = self.env[product_model].search([("id", "=", product_id)])
                 product = product.product_variant_id or product
-                stock_moves = self.env["stock.move"].search(
-                    [
-                        ("product_id", "=", product.id),
-                        ("picking_id.state", "in", ["confirmed", "assigned"]),
-                    ]
+                bom_lines = bom.bom_line_ids.filtered(
+                    lambda l: l.product_id.id == product.id
                 )
                 _logger.debug(
-                    "Searching BoM rel counts for %s from %s." % (product, stock_moves)
+                    "Searching BoM rel counts for %s from %s." % (product, bom_lines)
                 )
-                bom.bom_rel_purchase_count = sum(
-                    x.reserved_availability for x in stock_moves if x.purchase_line_id
-                )
-                bom.bom_rel_sold_count = sum(
-                    x.reserved_availability for x in stock_moves if x.sale_line_id
+                rel_count = 0
+                for line in bom_lines:
+                    rel_count += line.product_qty
+                bom.bom_rel_count = rel_count
+                bom.bom_rel_available_count = (
+                    bom.product_id.qty_available
+                    or bom.product_tmpl_id.product_variant_id.qty_available
                 )
             else:
-                bom.bom_rel_purchase_count = 0
-                bom.bom_rel_sold_count = 0
+                bom.bom_rel_count = 0
+                bom.bom_rel_available_count = 0
 
     # 5. Constraints and onchanges
 
