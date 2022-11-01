@@ -41,5 +41,9 @@ addon | version | maintainers | summary
 [mrp_production_tree_date_planned_start_as_date](mrp_production_tree_date_planned_start_as_date/) | 14.0.1.0.0 |  | Show date planned start as date in mrp production tree
 [mrp_report_bom_structure_product_unit_price](mrp_report_bom_structure_product_unit_price/) | 14.0.1.0.0 |  | Use product Unit price instead of its multiple on report
 [mrp_unbuild_note_for_mo](mrp_unbuild_note_for_mo/) | 14.0.1.0.0 |  | Unbuild note to Manufacturing order
+[product_bom_relation_purchased_and_sold_info](product_bom_relation_purchased_and_sold_info/) | 14.0.1.0.0 |  | Purchased and Sold Product Quantities in BOM tree view
+[product_bom_relation_quantity_count](product_bom_relation_quantity_count/) | 14.0.1.0.0 |  | Used Product Quantities in BOM tree view
+[product_mrp_area_mrp_profile_header](product_mrp_area_mrp_profile_header/) | 14.0.1.0.0 |  | Adds header "MRP Profile" to MRP Area form
+[product_mrp_area_show_qty_available](product_mrp_area_show_qty_available/) | 14.0.1.0.0 |  | Show qty_available on Product Mrp Area
 
 [//]: # (end addons)
