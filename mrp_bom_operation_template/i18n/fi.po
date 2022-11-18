@@ -1,0 +1,173 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mrp_bom_operation_template
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-11-18 12:08+0000\n"
+"PO-Revision-Date: 2022-11-18 14:15+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: fi\n"
+"X-Generator: Poedit 2.0.6\n"
+
+#. module: mrp_bom_operation_template
+#: model:ir.model.fields,field_description:mrp_bom_operation_template.field_mrp_routing_workcenter_template__time_mode_batch
+msgid "Based on"
+msgstr "Perustuu"
+
+#. module: mrp_bom_operation_template
+#: model:ir.model.fields,field_description:mrp_bom_operation_template.field_mrp_routing_workcenter_template__company_id
+msgid "Company"
+msgstr "Yritys"
+
+#. module: mrp_bom_operation_template
+#: model:ir.model.fields.selection,name:mrp_bom_operation_template.selection__mrp_routing_workcenter_template__time_mode__auto
+msgid "Compute based on tracked time"
+msgstr "Laske perustuen seurattuun aikaan"
+
+#. module: mrp_bom_operation_template
+#: model:ir.model.fields,field_description:mrp_bom_operation_template.field_mrp_routing_workcenter_template__create_uid
+msgid "Created by"
+msgstr "Luonut"
+
+#. module: mrp_bom_operation_template
+#: model:ir.model.fields,field_description:mrp_bom_operation_template.field_mrp_routing_workcenter_template__create_date
+msgid "Created on"
+msgstr "Luotu"
+
+#. module: mrp_bom_operation_template
+#: model_terms:ir.ui.view,arch_db:mrp_bom_operation_template.mrp_routing_workcenter_template_form
+msgid "Default Duration"
+msgstr "Vakiokesto"
+
+#. module: mrp_bom_operation_template
+#: model:ir.model.fields,field_description:mrp_bom_operation_template.field_mrp_routing_workcenter__display_name
+#: model:ir.model.fields,field_description:mrp_bom_operation_template.field_mrp_routing_workcenter_template__display_name
+msgid "Display Name"
+msgstr "Näyttönimi"
+
+#. module: mrp_bom_operation_template
+#: model:ir.model.fields,field_description:mrp_bom_operation_template.field_mrp_routing_workcenter_template__time_mode
+msgid "Duration Computation"
+msgstr "Keston laskeminen"
+
+#. module: mrp_bom_operation_template
+#: model:ir.model.fields,help:mrp_bom_operation_template.field_mrp_routing_workcenter_template__sequence
+msgid ""
+"Gives the sequence order when displaying a list of routing Work Centers."
+msgstr "Antaa järjestyksen, kun näytetään luettelo vaiheistustyöpisteistä."
+
+#. module: mrp_bom_operation_template
+#: model:ir.model.fields,field_description:mrp_bom_operation_template.field_mrp_routing_workcenter__id
+#: model:ir.model.fields,field_description:mrp_bom_operation_template.field_mrp_routing_workcenter_template__id
+msgid "ID"
+msgstr "Tunniste (ID)"
+
+#. module: mrp_bom_operation_template
+#: model:ir.model.fields,field_description:mrp_bom_operation_template.field_mrp_routing_workcenter____last_update
+#: model:ir.model.fields,field_description:mrp_bom_operation_template.field_mrp_routing_workcenter_template____last_update
+msgid "Last Modified on"
+msgstr "Viimeksi muokattu"
+
+#. module: mrp_bom_operation_template
+#: model:ir.model.fields,field_description:mrp_bom_operation_template.field_mrp_routing_workcenter_template__write_uid
+msgid "Last Updated by"
+msgstr "Viimeksi päivitetty"
+
+#. module: mrp_bom_operation_template
+#: model:ir.model.fields,field_description:mrp_bom_operation_template.field_mrp_routing_workcenter_template__write_date
+msgid "Last Updated on"
+msgstr "Viimeksi päivitetty"
+
+#. module: mrp_bom_operation_template
+#: model:ir.model.fields,field_description:mrp_bom_operation_template.field_mrp_routing_workcenter_template__time_cycle_manual
+msgid "Manual Duration"
+msgstr "Manuaalinen kesto"
+
+#. module: mrp_bom_operation_template
+#: model:ir.model,name:mrp_bom_operation_template.model_mrp_routing_workcenter_template
+msgid "Mrp Routing Workcenter Template"
+msgstr "Mrp Routing Workcenter Template"
+
+#. module: mrp_bom_operation_template
+#: model:ir.model.fields,field_description:mrp_bom_operation_template.field_mrp_routing_workcenter_template__name
+msgid "Operation"
+msgstr "Toiminto"
+
+#. module: mrp_bom_operation_template
+#: model:ir.actions.act_window,name:mrp_bom_operation_template.mrp_routing_template_action
+#: model:ir.ui.menu,name:mrp_bom_operation_template.menu_mrp_routing_template_action
+msgid "Operation template"
+msgstr "Toiminnon malli"
+
+#. module: mrp_bom_operation_template
+#: model_terms:ir.ui.view,arch_db:mrp_bom_operation_template.mrp_routing_workcenter_template_form
+#: model_terms:ir.ui.view,arch_db:mrp_bom_operation_template.mrp_routing_workcenter_template_tree
+msgid "Routing Work Center template"
+msgstr "Malli vaiheille ja työpisteille"
+
+#. module: mrp_bom_operation_template
+#: model:ir.model.fields,field_description:mrp_bom_operation_template.field_mrp_routing_workcenter_template__routing_ids
+msgid "Routing workcenter"
+msgstr "Vaiheet ja työpisteet"
+
+#. module: mrp_bom_operation_template
+#: model:ir.model.fields,field_description:mrp_bom_operation_template.field_mrp_routing_workcenter_template__sequence
+msgid "Sequence"
+msgstr "Järjestys"
+
+#. module: mrp_bom_operation_template
+#: model:ir.model.fields.selection,name:mrp_bom_operation_template.selection__mrp_routing_workcenter_template__time_mode__manual
+msgid "Set duration manually"
+msgstr "Aseta kesto manuaalisesti"
+
+#. module: mrp_bom_operation_template
+#: model_terms:ir.ui.view,arch_db:mrp_bom_operation_template.mrp_routing_workcenter_tree_view
+msgid "Template"
+msgstr "Malli"
+
+#. module: mrp_bom_operation_template
+#: model:ir.model.fields,help:mrp_bom_operation_template.field_mrp_routing_workcenter_template__time_cycle_manual
+msgid ""
+"Time in minutes:- In manual mode, time used- In automatic mode, supposed "
+"first time when there aren't any work orders yet"
+msgstr ""
+"Time in minutes:- In manual mode, time used- In automatic mode, supposed "
+"first time when there aren't any work orders yet"
+
+#. module: mrp_bom_operation_template
+#: model:ir.model.fields,field_description:mrp_bom_operation_template.field_mrp_routing_workcenter__template_id
+msgid "Used template"
+msgstr "Käytetty malli"
+
+#. module: mrp_bom_operation_template
+#: model:ir.model.fields,field_description:mrp_bom_operation_template.field_mrp_routing_workcenter_template__workcenter_id
+msgid "Work Center"
+msgstr "Työpiste"
+
+#. module: mrp_bom_operation_template
+#: model:ir.model,name:mrp_bom_operation_template.model_mrp_routing_workcenter
+msgid "Work Center Usage"
+msgstr "Työpisteen käyttäminen"
+
+#. module: mrp_bom_operation_template
+#: model_terms:ir.ui.view,arch_db:mrp_bom_operation_template.mrp_routing_workcenter_template_form
+msgid "last"
+msgstr "viimeinen"
+
+#. module: mrp_bom_operation_template
+#: model_terms:ir.ui.view,arch_db:mrp_bom_operation_template.mrp_routing_workcenter_template_form
+msgid "minutes"
+msgstr "minuutit"
+
+#. module: mrp_bom_operation_template
+#: model_terms:ir.ui.view,arch_db:mrp_bom_operation_template.mrp_routing_workcenter_template_form
+msgid "work orders"
+msgstr "Työtilaukset"
