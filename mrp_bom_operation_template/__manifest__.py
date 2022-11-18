@@ -21,7 +21,7 @@
 {
     "name": "Operation Template for BoM",
     "summary": "Templates for different operations",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "MRP",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
