@@ -21,13 +21,13 @@
 {
     "name": "Cron to compute product cost price",
     "summary": "Scheduled action to calculate product's cost price from BoM",
-    "version": "12.0.1.0.1",
+    "version": "12.0.1.0.2",
     "category": "MRP",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["mrp_bom_cost", "mrp_multi_level"],
+    "depends": ["mrp_bom_cost", "product"],
     "data": ["data/ir_cron.xml"],
 }
