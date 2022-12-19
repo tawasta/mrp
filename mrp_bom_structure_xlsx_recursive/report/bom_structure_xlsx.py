@@ -2,6 +2,8 @@ from collections import defaultdict
 
 from odoo import _, models
 
+# from odoo.exceptions import UserError
+
 
 class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
@@ -38,6 +40,15 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         for bom_line in current_bom.bom_line_ids:
 
             ident = "{}{}{}".format(identifier, "0000", bom_line.id)
+
+            # TODO: Create a condition to check if parent BoM contains
+            # BoMs that are the same as the parent BoM. The commented
+            # code below does not work.
+            # if current_bom.id == bom_line.child_bom_id.id:
+            #     msg = _("A BoM should not have a child BoM which is the same "
+            #             "as the parent BoM. Excel export was not possible "
+            #             "because of this reason.")
+            #     raise UserError(msg)
 
             product_id = bom_line.product_id
             if bom_line in original_bom_lines:
@@ -88,18 +99,33 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         ident = "{}{}{}".format(identifier, "0000", ch.id)
         level = "{}.{}".format(parent_level, child_number)
 
-        parent_with_code = "[{}] {}".format(parent.default_code, parent.name)
+        parent_with_code = "{}{}".format(
+            parent.default_code and "[" + parent.default_code + "] " or "", parent.name
+        )
 
         sheet.write(i, 0, ch.product_id.default_code)
         sheet.write(i, 1, level)
         sheet.write(i, 2, ch.product_id.name)
         sheet.write(i, 3, parent_with_code)
-        sheet.write(i, 4, ch.product_id.manufacturer.name or "")
-        sheet.write(i, 5, ch.product_id.manufacturer_pref or "")
-        sheet.write(i, 6, quantities[ident][1])
-        sheet.write(i, 7, ch.product_uom_id.name)
-        sheet.write(i, 8, ", ".join([route.name for route in ch.product_id.route_ids]))
-        sheet.write(i, 9, ch.product_id.categ_id.name)
+        sheet.write(
+            i,
+            4,
+            ", ".join(
+                [attr.name for attr in ch.bom_product_template_attribute_value_ids]
+            ),
+        )
+        sheet.write(i, 5, ch.product_id.manufacturer.name or "")
+        sheet.write(i, 6, ch.product_id.manufacturer_pref or "")
+        sheet.write(i, 7, quantities[ident][1])
+        sheet.write(i, 8, ch.product_uom_id.name)
+        sheet.write(
+            i,
+            9,
+            ch.product_id.route_ids
+            and ", ".join([route.name for route in ch.product_id.route_ids])
+            or "",
+        )
+        sheet.write(i, 10, ch.product_id.categ_id.name)
 
         material_info = ""
 
@@ -109,20 +135,20 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             else:
                 material_info += "{}{}".format("\n\n", mater.material_info)
 
-        sheet.write(i, 10, material_info or "")
-        sheet.write(i, 11, ch.product_id.origin_country_id.name or "")
+        sheet.write(i, 11, material_info or "")
+        sheet.write(i, 12, ch.product_id.origin_country_id.name or "")
         sheet.write(
-            i, 12, ", ".join([seller.name.name for seller in ch.product_id.seller_ids])
+            i, 13, ", ".join([seller.name.name for seller in ch.product_id.seller_ids])
         )
         sheet.write(
             i,
-            13,
+            14,
             ch.product_id.seller_ids and ch.product_id.seller_ids[0].product_code or "",
         )
-        sheet.write(i, 14, ch.product_id.weight)
-        sheet.write(i, 15, ch.product_id.weight * quantities[ident][1])
-        sheet.write(i, 16, ch.product_id.gross_weight)
-        sheet.write(i, 17, ch.product_id.gross_weight * quantities[ident][1])
+        sheet.write(i, 15, ch.product_id.weight)
+        sheet.write(i, 16, ch.product_id.weight * quantities[ident][1])
+        sheet.write(i, 17, ch.product_id.gross_weight)
+        sheet.write(i, 18, ch.product_id.gross_weight * quantities[ident][1])
         i += 1
         child_number = 0
         for child in ch.child_line_ids:
@@ -150,7 +176,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         workbook.set_properties(
             {"comments": "Created with Python and XlsxWriter from Odoo 14.0"}
         )
-        sheet = workbook.add_worksheet(_("BOM Structure"))
+        sheet = workbook.add_worksheet(_("BOM Structure recursive"))
         sheet.set_landscape()
         sheet.fit_to_pages(1, 0)
         sheet.set_zoom(80)
@@ -158,22 +184,22 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         # Some column sizes changed to match their title
         sheet.set_column(0, 0, 18)
         sheet.set_column(1, 1, 12)
-        sheet.set_column(2, 2, 56)
-        sheet.set_column(3, 3, 56)
-        sheet.set_column(4, 4, 27)
-        sheet.set_column(5, 5, 29)
-        sheet.set_column(6, 6, 11)
-        sheet.set_column(7, 7, 20)
+        sheet.set_column(2, 3, 56)
+        sheet.set_column(4, 4, 40)
+        sheet.set_column(5, 5, 27)
+        sheet.set_column(6, 6, 29)
+        sheet.set_column(7, 7, 11)
         sheet.set_column(8, 8, 20)
-        sheet.set_column(9, 9, 17)
-        sheet.set_column(10, 10, 42)
-        sheet.set_column(11, 11, 20)
-        sheet.set_column(12, 12, 52)
-        sheet.set_column(13, 13, 22)
-        sheet.set_column(14, 14, 17)
-        sheet.set_column(15, 15, 20)
-        sheet.set_column(16, 16, 16)
-        sheet.set_column(17, 17, 20)
+        sheet.set_column(9, 9, 20)
+        sheet.set_column(10, 10, 17)
+        sheet.set_column(11, 11, 42)
+        sheet.set_column(12, 12, 20)
+        sheet.set_column(13, 13, 52)
+        sheet.set_column(14, 14, 22)
+        sheet.set_column(15, 15, 17)
+        sheet.set_column(16, 16, 20)
+        sheet.set_column(17, 17, 16)
+        sheet.set_column(18, 18, 20)
 
         # Column styles
         bold = workbook.add_format({"bold": True})
@@ -199,6 +225,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             _("Level"),
             _("Name"),
             _("Parent"),
+            _("Apply on Variants"),
         ]
 
         sheet_title = [
@@ -226,9 +253,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
         sheet.set_row(0, None, None, {"collapsed": 1})
         sheet.write_row(1, 0, sheet_title_product_level, title_style_product_level)
-        sheet.write_row(1, 4, sheet_title, title_style)
-        sheet.write_row(1, 12, sheet_title_vendor, title_style_vendor)
-        sheet.write_row(1, 14, sheet_title_weight, title_style_weight)
+        sheet.write_row(1, 5, sheet_title, title_style)
+        sheet.write_row(1, 13, sheet_title_vendor, title_style_vendor)
+        sheet.write_row(1, 15, sheet_title_weight, title_style_weight)
         sheet.freeze_panes(2, 0)
         i = 2
 
@@ -241,14 +268,15 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet.write(i, 1, "1", bold)
             sheet.write(i, 2, o.product_tmpl_id.name, bold)
             sheet.write(i, 3, "N/A")  # No parent, since it's the top level
-            sheet.write(i, 4, o.product_tmpl_id.manufacturer.name or "")
-            sheet.write(i, 5, o.product_tmpl_id.manufacturer_pref or "")
-            sheet.write(i, 6, o.product_qty, bold)
-            sheet.write(i, 7, o.product_uom_id.name, bold)
+            sheet.write(i, 4, "N/A")  # No Apply on Variants, since it's the top level
+            sheet.write(i, 5, o.product_tmpl_id.manufacturer.name or "")
+            sheet.write(i, 6, o.product_tmpl_id.manufacturer_pref or "")
+            sheet.write(i, 7, o.product_qty, bold)
+            sheet.write(i, 8, o.product_uom_id.name, bold)
             sheet.write(
-                i, 8, ", ".join([route.name for route in o.product_tmpl_id.route_ids])
+                i, 9, ", ".join([route.name for route in o.product_tmpl_id.route_ids])
             )
-            sheet.write(i, 9, o.product_tmpl_id.categ_id.name)
+            sheet.write(i, 10, o.product_tmpl_id.categ_id.name)
 
             material_info = ""
 
@@ -258,26 +286,26 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 else:
                     material_info += "{}{}".format("\n\n", mater.material_info)
 
-            sheet.write(i, 10, material_info or "", bold)
-            sheet.write(i, 11, o.product_id.origin_country_id.name or "", bold)
+            sheet.write(i, 11, material_info or "", bold)
+            sheet.write(i, 12, o.product_id.origin_country_id.name or "", bold)
             sheet.write(
                 i,
-                12,
+                13,
                 ", ".join(
                     [seller.name.name for seller in o.product_tmpl_id.seller_ids]
                 ),
             )
             sheet.write(
                 i,
-                13,
+                14,
                 o.product_tmpl_id.seller_ids
                 and o.product_tmpl_id.seller_ids[0].product_code
                 or "",
             )
-            sheet.write(i, 14, o.product_id.weight, bold)
-            sheet.write(i, 15, o.product_id.weight * o.product_qty, bold)
-            sheet.write(i, 16, o.product_id.gross_weight, bold)
-            sheet.write(i, 17, o.product_id.gross_weight * o.product_qty, bold)
+            sheet.write(i, 15, o.product_id.weight, bold)
+            sheet.write(i, 16, o.product_id.weight * o.product_qty, bold)
+            sheet.write(i, 17, o.product_id.gross_weight, bold)
+            sheet.write(i, 18, o.product_id.gross_weight * o.product_qty, bold)
 
             parent_level = i - 1
             i += 1

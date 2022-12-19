@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="bom_structures_recursive" model="ir.actions.report">
-        <field name="name">Export BOM recursively to Excel</field>
+        <field name="name">LCA BOM</field>
         <field name="model">mrp.bom</field>
         <field name="binding_model_id" ref="mrp.model_mrp_bom" />
         <field name="type">ir.actions.report</field>
