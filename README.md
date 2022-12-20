@@ -16,6 +16,7 @@ addon | version | maintainers | summary
 [mrp_bom_cost_cron](mrp_bom_cost_cron/) | 14.0.1.0.0 |  | Cron for MRP compute cost
 [mrp_bom_operation_template](mrp_bom_operation_template/) | 14.0.1.0.1 |  | Templates for different operations
 [mrp_bom_structure_xlsx_cost](mrp_bom_structure_xlsx_cost/) | 14.0.1.0.0 |  | Add cost to MRP BOM Structure XLSX
+[mrp_bom_structure_xlsx_recursive](mrp_bom_structure_xlsx_recursive/) | 14.0.1.0.1 |  | Field additions for the BOM export module
 [mrp_default_focus](mrp_default_focus/) | 14.0.1.0.0 |  | Sets default focus fields for MRP
 [mrp_inventory_hide_forecasted_inventory](mrp_inventory_hide_forecasted_inventory/) | 14.0.1.0.0 |  | Hide Forecasted Inventory in MRP Inventory tree view
 [mrp_inventory_hide_mrp_area](mrp_inventory_hide_mrp_area/) | 14.0.1.0.0 |  | Hide MRP Area in MRP Inventory tree view
