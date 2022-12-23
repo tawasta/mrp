@@ -143,6 +143,7 @@ class MaterialRequirement(models.Model):
                     multiplier = 0
                 else:
                     multiplier = min(smallest_multiplier)
+
         else:
             product_bom = ""
 
@@ -244,8 +245,7 @@ class MaterialRequirement(models.Model):
                     else:
                         multiplier_line = min(smallest_multiplier_line)
 
-                    if (line.product_id.qty_available <= 0 or
-                            not line.product_qty):
+                    if not line.product_qty:
                         multiplier = 0
                     else:
                         multiplier = int(
