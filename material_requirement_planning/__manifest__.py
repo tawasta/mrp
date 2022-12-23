@@ -21,7 +21,7 @@
 {
     "name": "Material Requirement",
     "summary": "Material Requirement",
-    "version": "12.0.1.0.0",
+    "version": "12.0.1.0.1",
     "category": "Manufacturing",
     "website": "https://github.com/Tawasta/mrp",
     "author": "Tawasta",
