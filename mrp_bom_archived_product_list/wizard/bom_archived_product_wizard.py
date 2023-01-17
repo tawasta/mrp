@@ -12,7 +12,8 @@ class BomArchivedProductWizard(models.TransientModel):
         # browsed at the same time
         all_boms = bom_model.search_read([], ["id"])
         for bom in all_boms:
-            bom_model.browse(bom["id"]).refresh_archive_info()
+            job_desc = "Compute archived products for BoM {}".format(bom['id'])
+            bom_model.browse(bom["id"]).with_delay(description=job_desc).refresh_archive_info()
 
     @api.model
     def cron_compute(self):
@@ -20,6 +21,7 @@ class BomArchivedProductWizard(models.TransientModel):
         bom_model = self.env["mrp.bom"]
         all_boms = bom_model.search_read([], ["id"])
         for bom in all_boms:
-            bom_model.browse(bom["id"]).refresh_archive_info()
+            job_desc = "Compute archived products for BoM {}".format(bom['id'])
+            bom_model.browse(bom["id"]).with_delay(description=job_desc).refresh_archive_info()
 
     name = fields.Char("Name")
