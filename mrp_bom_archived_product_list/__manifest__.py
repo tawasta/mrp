@@ -29,7 +29,7 @@
     "application": False,
     "installable": True,
     "external_dependencies": {"python": [], "bin": []},
-    "depends": ["mrp"],
+    "depends": ["mrp", "queue_job"],
     "data": [
         "data/ir_cron.xml",
         "views/mrp_bom.xml",
