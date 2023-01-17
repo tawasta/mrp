@@ -27,7 +27,7 @@ class MrpBom(models.Model):
                 )
 
     @api.multi
-    @api.job(default_channel="root.ir_cron")
+    @job(default_channel="root.ir_cron")
     def refresh_archive_info(self):
         self.ensure_one()
         self.archived_product_line_ids = False
