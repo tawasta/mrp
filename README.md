@@ -12,6 +12,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [bsm_importer](bsm_importer/) | 14.0.1.0.0 |  | Import data from local file system to database
+[material_requirement_planning](material_requirement_planning/) | 14.0.1.0.0 |  | Material Requirement
 [mrp_auditlog_rules](mrp_auditlog_rules/) | 14.0.1.0.0 |  | Adds audit log rules for mrp.bom
 [mrp_bom_cost_cron](mrp_bom_cost_cron/) | 14.0.1.0.0 |  | Cron for MRP compute cost
 [mrp_bom_limit_increase](mrp_bom_limit_increase/) | 14.0.1.0.0 |  | Incrases BOM tree-view limit to 100
