@@ -169,7 +169,7 @@ class MaterialRequirement(models.Model):
             for line in bom_id.bom_line_ids:
                 smallest_multiplier_line = []
                 if all(
-                    elem in rec.product_variants.attribute_value_ids
+                    elem in rec.product_variants.product_template_attribute_value_ids
                     for elem in line.bom_product_template_attribute_value_ids
                 ):
                     line_values = rec.create_requirement_lines(line, rec)

@@ -21,7 +21,7 @@
 {
     "name": "Material Requirement",
     "summary": "Material Requirement",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "Manufacturing",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
