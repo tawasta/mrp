@@ -12,7 +12,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [bsm_importer](bsm_importer/) | 14.0.1.0.0 |  | Import data from local file system to database
-[material_requirement_planning](material_requirement_planning/) | 14.0.1.0.0 |  | Material Requirement
+[material_requirement_planning](material_requirement_planning/) | 14.0.1.0.1 |  | Material Requirement
 [mrp_auditlog_rules](mrp_auditlog_rules/) | 14.0.1.0.0 |  | Adds audit log rules for mrp.bom
 [mrp_bom_cost_cron](mrp_bom_cost_cron/) | 14.0.1.0.0 |  | Cron for MRP compute cost
 [mrp_bom_limit_increase](mrp_bom_limit_increase/) | 14.0.1.0.0 |  | Incrases BOM tree-view limit to 100
@@ -35,7 +35,7 @@ addon | version | maintainers | summary
 [mrp_move_vendor](mrp_move_vendor/) | 14.0.1.0.0 |  | Show Vendor on MRP Moves
 [mrp_multi_level_area_form_group](mrp_multi_level_area_form_group/) | 14.0.1.0.0 |  | Manufacture / User group enables to see MRP Moves
 [mrp_multi_level_create_parameter_from_so](mrp_multi_level_create_parameter_from_so/) | 14.0.1.0.0 |  | Product Area parameter is created after SO confirmation
-[mrp_multi_level_create_parameter_from_so_bom_recursive](mrp_multi_level_create_parameter_from_so_bom_recursive/) | 14.0.1.0.1 |  | Sale order line product BoM is run through recursively
+[mrp_multi_level_create_parameter_from_so_bom_recursive](mrp_multi_level_create_parameter_from_so_bom_recursive/) | 14.0.1.0.2 |  | Sale order line product BoM is run through recursively
 [mrp_multi_level_move_forecasted_qty](mrp_multi_level_move_forecasted_qty/) | 14.0.1.0.0 |  | Forecasted quantity for mrp.move
 [mrp_multi_level_optimization](mrp_multi_level_optimization/) | 14.0.1.0.0 |  | MRP multi level optimization
 [mrp_multi_level_queue](mrp_multi_level_queue/) | 14.0.1.0.0 |  | MRP Multi Level with queue jobs

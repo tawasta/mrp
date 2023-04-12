@@ -28,7 +28,7 @@ class SaleOrder(models.Model):
                 # Check if BoM line's attributes match with the product's
                 # attributes, or if there are any attributes.
                 if bom_line.bom_product_template_attribute_value_ids.ids and not all(
-                    attr in product_variant.attribute_value_ids.ids
+                    attr in product_variant.product_template_attribute_value_ids.ids
                     for attr in bom_line.bom_product_template_attribute_value_ids.ids
                 ):
                     continue
