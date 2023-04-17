@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="mrp_workcenter_view" model="ir.ui.view">
+        <field name="name">mrp.workcenter.form.eco</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//label[@for='time_stop']/.." position="after">
+                <group string="ECO information">
+                    <field name="energy_consumption" />
+                    <field name="bom_consu" />
+                    <field name="category_id" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
