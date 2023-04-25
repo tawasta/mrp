@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2019 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Copyright 2023 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,21 +19,22 @@
 ##############################################################################
 
 {
-    "name": "Material Requirement",
-    "summary": "Material Requirement",
-    "version": "14.0.1.0.1",
+    "name": "ECO analysis modifications",
+    "summary": "ECO analysis modifications",
+    "version": "14.0.1.0.0",
     "category": "Manufacturing",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["mrp"],
+    "depends": [
+        "mrp",
+    ],
     "data": [
-        "data/ir_sequence_data.xml",
-        "views/material_requirement_tree.xml",
-        "views/material_requirement.xml",
-        "views/menuitem.xml",
         "security/ir.model.access.csv",
+        "views/menuitem.xml",
+        "views/mrp_workcenter.xml",
+        "views/mrp_workcenter_category.xml",
     ],
 }
