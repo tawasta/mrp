@@ -5,6 +5,7 @@ from odoo.exceptions import UserError
 class MrpProductionMassCancel(models.TransientModel):
 
     _name = "mrp.production.mass.cancel"
+    _description = "Mrp Production Mass Cancel"
 
     def get_cancellable_states(self):
         return ["confirmed"]

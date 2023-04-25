@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="mrp_bom_form_view" model="ir.ui.view">
+        <field name="name">mrp.bom.form.view.context</field>
+        <field name="model">mrp.bom</field>
+        <field name="inherit_id" ref="mrp.mrp_bom_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='operations']//field" position="attributes">
+                <attribute
+                    name="context"
+                >{'tree_view_ref': 'mrp.mrp_routing_workcenter_tree_view', 'default_company_id': company_id, 'default_product_tmpl_ids': [product_tmpl_id]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

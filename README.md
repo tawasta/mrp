@@ -12,9 +12,14 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [bsm_importer](bsm_importer/) | 14.0.1.0.0 |  | Import data from local file system to database
+[material_requirement_planning](material_requirement_planning/) | 14.0.1.0.1 |  | Material Requirement
 [mrp_auditlog_rules](mrp_auditlog_rules/) | 14.0.1.0.0 |  | Adds audit log rules for mrp.bom
 [mrp_bom_cost_cron](mrp_bom_cost_cron/) | 14.0.1.0.0 |  | Cron for MRP compute cost
+[mrp_bom_eco_analysis](mrp_bom_eco_analysis/) | 14.0.1.0.0 |  | ECO analysis modifications
+[mrp_bom_limit_increase](mrp_bom_limit_increase/) | 14.0.1.0.0 |  | Incrases BOM tree-view limit to 100
+[mrp_bom_operation_template](mrp_bom_operation_template/) | 14.0.1.0.1 |  | Templates for different operations
 [mrp_bom_structure_xlsx_cost](mrp_bom_structure_xlsx_cost/) | 14.0.1.0.0 |  | Add cost to MRP BOM Structure XLSX
+[mrp_bom_structure_xlsx_recursive](mrp_bom_structure_xlsx_recursive/) | 14.0.1.0.1 |  | Field additions for the BOM export module
 [mrp_default_focus](mrp_default_focus/) | 14.0.1.0.0 |  | Sets default focus fields for MRP
 [mrp_inventory_hide_forecasted_inventory](mrp_inventory_hide_forecasted_inventory/) | 14.0.1.0.0 |  | Hide Forecasted Inventory in MRP Inventory tree view
 [mrp_inventory_hide_mrp_area](mrp_inventory_hide_mrp_area/) | 14.0.1.0.0 |  | Hide MRP Area in MRP Inventory tree view
@@ -24,13 +29,14 @@ addon | version | maintainers | summary
 [mrp_inventory_supplier_info](mrp_inventory_supplier_info/) | 14.0.1.0.0 |  | Shows supplier info from mrp area in mrp inventory views
 [mrp_inventory_tree_reorder_running_availability](mrp_inventory_tree_reorder_running_availability/) | 14.0.1.0.0 |  | Reorder Running Availability in MRP Inventory tree
 [mrp_kit_compulsory_components](mrp_kit_compulsory_components/) | 14.0.1.0.0 |  | Components are compulsory if created BOM is a kit
+[mrp_move_current_date_to_scheduled_date](mrp_move_current_date_to_scheduled_date/) | 14.0.1.0.0 |  | MRP Move Current Date To Scheduled Date
 [mrp_move_hide_current_qty](mrp_move_hide_current_qty/) | 14.0.1.0.0 |  | Hide current_qty on Mrp Move
 [mrp_move_hide_parent_product_id](mrp_move_hide_parent_product_id/) | 14.0.1.0.0 |  | Hide parent_product_id on Mrp Move
 [mrp_move_hide_planned_order_up_ids](mrp_move_hide_planned_order_up_ids/) | 14.0.1.0.0 |  | Hide planned_order_up_ids on Mrp Move
 [mrp_move_vendor](mrp_move_vendor/) | 14.0.1.0.0 |  | Show Vendor on MRP Moves
 [mrp_multi_level_area_form_group](mrp_multi_level_area_form_group/) | 14.0.1.0.0 |  | Manufacture / User group enables to see MRP Moves
 [mrp_multi_level_create_parameter_from_so](mrp_multi_level_create_parameter_from_so/) | 14.0.1.0.0 |  | Product Area parameter is created after SO confirmation
-[mrp_multi_level_create_parameter_from_so_bom_recursive](mrp_multi_level_create_parameter_from_so_bom_recursive/) | 14.0.1.0.0 |  | Sale order line product BoM is run through recursively
+[mrp_multi_level_create_parameter_from_so_bom_recursive](mrp_multi_level_create_parameter_from_so_bom_recursive/) | 14.0.1.0.2 |  | Sale order line product BoM is run through recursively
 [mrp_multi_level_move_forecasted_qty](mrp_multi_level_move_forecasted_qty/) | 14.0.1.0.0 |  | Forecasted quantity for mrp.move
 [mrp_multi_level_optimization](mrp_multi_level_optimization/) | 14.0.1.0.0 |  | MRP multi level optimization
 [mrp_multi_level_queue](mrp_multi_level_queue/) | 14.0.1.0.0 |  | MRP Multi Level with queue jobs

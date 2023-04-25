@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_workcenter_category" model="ir.actions.act_window">
+        <field name="name">Work Centers Category</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.workcenter.category</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        name="Work Centers Category"
+        id="menu_workcenter_category"
+        action="action_workcenter_category"
+        parent="mrp.menu_mrp_configuration"
+        sequence="95"
+    />
+</odoo>

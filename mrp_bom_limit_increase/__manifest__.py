@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2022 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Copyright 2019 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,15 +19,15 @@
 ##############################################################################
 
 {
-    "name": "Create MRP Parametrs Through Recursive Search",
-    "summary": "Sale order line product BoM is run through recursively",
-    "version": "14.0.1.0.2",
-    "category": "MRP",
+    "name": "BOM tree view increment",
+    "summary": "Incrases BOM tree-view limit to 100",
+    "version": "14.0.1.0.0",
+    "category": "Manufacturing",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["mrp_multi_level", "sale", "queue_job"],
-    "data": [],
+    "depends": ["mrp"],
+    "data": ["views/bom_view.xml"],
 }

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="mrp_routing_workcenter_template_form" model="ir.ui.view">
+        <field name="name">mrp.routing.workcenter.template.form</field>
+        <field name="model">mrp.routing.workcenter.template</field>
+        <field name="arch" type="xml">
+            <form string="Routing Work Center template">
+                <sheet>
+                    <group>
+                        <group name="description_template">
+                            <field name="name" />
+                            <field
+                                name="workcenter_id"
+                                context="{'default_company_id': company_id}"
+                            />
+                            <field name="sequence" groups="base.group_no_one" />
+                        </group>
+                        <group name="workorder">
+                            <field name="time_mode" widget="radio" />
+                            <label
+                                for="time_mode_batch"
+                                attrs="{'invisible': [('time_mode', '=', 'manual')]}"
+                            />
+                            <div attrs="{'invisible': [('time_mode', '=', 'manual')]}">
+                                last
+                                <field name="time_mode_batch" class="oe_inline" />
+                                work orders
+                            </div>
+                            <label
+                                for="time_cycle_manual"
+                                attrs="{'invisible': [('time_mode', '=', 'auto')]}"
+                                string="Default Duration"
+                            />
+                            <div attrs="{'invisible':  [('time_mode', '=', 'auto')]}">
+                                <field
+                                    name="time_cycle_manual"
+                                    widget="float_time"
+                                    class="oe_inline"
+                                /> minutes
+                            </div>
+                            <field
+                                name="company_id"
+                                groups="base.group_multi_company"
+                            />
+                        </group>
+                    </group>
+                    <group name="routings">
+                        <field name="routing_ids" readonly="1">
+                            <tree>
+                                <field name="name" />
+                                <field name="workcenter_id" />
+                                <field name="bom_id" />
+                                <field name="company_id" invisible="1" />
+                            </tree>
+                            <form>
+                                <field name="name" />
+                                <field name="workcenter_id" />
+                                <field name="template_id" />
+                                <field name="time_cycle" />
+                                <field name="company_id" invisible="1" />
+                            </form>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="mrp_routing_workcenter_template_tree" model="ir.ui.view">
+        <field name="name">mrp.routing.workcenter.template.tree</field>
+        <field name="model">mrp.routing.workcenter.template</field>
+        <field name="arch" type="xml">
+            <tree string="Routing Work Center template">
+                <field name="sequence" widget="handle" />
+                <field name="name" />
+                <field name="workcenter_id" />
+            </tree>
+        </field>
+    </record>
+
+    <record id="mrp_routing_template_action" model="ir.actions.act_window">
+        <field name="name">Operation template</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.routing.workcenter.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="mrp_routing_workcenter_template_tree" />
+        <field name="context">{}</field>
+    </record>
+
+    <menuitem
+        id="menu_mrp_routing_template_action"
+        action="mrp_routing_template_action"
+        parent="mrp.menu_mrp_configuration"
+        groups="mrp.group_mrp_routings"
+        sequence="120"
+    />
+</odoo>

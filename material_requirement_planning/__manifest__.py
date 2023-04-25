@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2022 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Copyright 2019 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,15 +19,21 @@
 ##############################################################################
 
 {
-    "name": "Create MRP Parametrs Through Recursive Search",
-    "summary": "Sale order line product BoM is run through recursively",
-    "version": "14.0.1.0.2",
-    "category": "MRP",
+    "name": "Material Requirement",
+    "summary": "Material Requirement",
+    "version": "14.0.1.0.1",
+    "category": "Manufacturing",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["mrp_multi_level", "sale", "queue_job"],
-    "data": [],
+    "depends": ["mrp"],
+    "data": [
+        "data/ir_sequence_data.xml",
+        "views/material_requirement_tree.xml",
+        "views/material_requirement.xml",
+        "views/menuitem.xml",
+        "security/ir.model.access.csv",
+    ],
 }

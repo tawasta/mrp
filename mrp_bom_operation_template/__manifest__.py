@@ -19,15 +19,22 @@
 ##############################################################################
 
 {
-    "name": "Create MRP Parametrs Through Recursive Search",
-    "summary": "Sale order line product BoM is run through recursively",
-    "version": "14.0.1.0.2",
+    "name": "Operation Template for BoM",
+    "summary": "Templates for different operations",
+    "version": "14.0.1.0.1",
     "category": "MRP",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["mrp_multi_level", "sale", "queue_job"],
-    "data": [],
+    "depends": [
+        "mrp",
+    ],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/mrp_bom.xml",
+        "views/mrp_routing_workcenter.xml",
+        "views/mrp_routing_workcenter_template.xml",
+    ],
 }
