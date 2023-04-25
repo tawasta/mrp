@@ -13,7 +13,7 @@ class MultiLevelMrp(models.TransientModel):
 
     @api.model
     def _mrp_cleanup_queued(self, mrp_areas):
-        res = super(MultiLevelMrp, self)._mrp_cleanup(mrp_areas)
+        res = super()._mrp_cleanup(mrp_areas)
         area_names = ",".join([str(a.name) for a in mrp_areas]).lstrip(",")
 
         job_desc = _("MRP Multi-level: MRP Applicable for {}").format(area_names)
@@ -30,7 +30,7 @@ class MultiLevelMrp(models.TransientModel):
 
     @api.model
     def _calculate_mrp_applicable_queued(self, mrp_areas):
-        res = super(MultiLevelMrp, self)._calculate_mrp_applicable(mrp_areas)
+        res = super()._calculate_mrp_applicable(mrp_areas)
         area_names = ",".join([str(a.name) for a in mrp_areas]).lstrip(",")
 
         job_desc = _("MRP Multi-level: MRP Initialisation for {}").format(area_names)
@@ -45,7 +45,7 @@ class MultiLevelMrp(models.TransientModel):
 
     @api.model
     def _mrp_initialisation_queued(self, mrp_areas):
-        super(MultiLevelMrp, self)._mrp_initialisation(mrp_areas)
+        super()._mrp_initialisation(mrp_areas)
         area_names = ",".join([str(a.name) for a in mrp_areas]).lstrip(",")
 
         job_desc = _("MRP Multi-level: MRP Calculation for {}").format(area_names)
@@ -75,7 +75,7 @@ class MultiLevelMrp(models.TransientModel):
             if area.current_llc_calculation >= 0:
                 raise RetryableJobError(_("Previous MRP calculation is not finished"))
 
-        super(MultiLevelMrp, self)._mrp_final_process(mrp_areas)
+        super()._mrp_final_process(mrp_areas)
 
         # res is empty on success, so no check here
         msg = _("MRP Final process done")
@@ -199,7 +199,8 @@ class MultiLevelMrp(models.TransientModel):
                         product_mrp_area_id=product_mrp_area,
                         mrp_date=move.mrp_date,
                         mrp_qty=qtytoorder,
-                        name=move.name,
+                        name=move.name or "",
+                        values=dict(origin=move.origin or ""),
                     )
                     qty_ordered = cm["qty_ordered"]
                     onhand += move.mrp_qty + qty_ordered
@@ -213,11 +214,13 @@ class MultiLevelMrp(models.TransientModel):
 
         if onhand < product_mrp_area.mrp_minimum_stock and nbr_create == 0:
             qtytoorder = product_mrp_area.mrp_minimum_stock - onhand
+            name = _("Safety Stock")
             cm = self.create_action(
                 product_mrp_area_id=product_mrp_area,
                 mrp_date=date.today(),
                 mrp_qty=qtytoorder,
-                name="Minimum Stock",
+                name=name,
+                values=dict(origin=name),
             )
             qty_ordered = cm["qty_ordered"]
             onhand += qty_ordered
