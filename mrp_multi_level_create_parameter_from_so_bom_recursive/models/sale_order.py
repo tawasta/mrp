@@ -9,7 +9,6 @@ class SaleOrder(models.Model):
 
         bom_model = self.env["mrp.bom"]
         products = self.env["product.product"]
-        products |= line.product_id
 
         def get_sub_lines(current_bom, product_variant=False):
             """Returns a recordset of products of all the possible components
@@ -19,8 +18,9 @@ class SaleOrder(models.Model):
             returned because of the union set operator '|'."""
 
             products = self.env["product.product"]
-            # BoM's product is also added to the list
-            products |= current_bom.product_id
+            # BoM's product is also added to the list if the BoM is not a kit
+            if current_bom.type != "phantom":
+                products |= product_variant
 
             for bom_line in current_bom.bom_line_ids:
                 product_id = bom_line.product_id
@@ -50,6 +50,8 @@ class SaleOrder(models.Model):
 
         if bom:
             products |= get_sub_lines(bom, line.product_id)
+        else:
+            products |= line.product_id
 
         return products
 

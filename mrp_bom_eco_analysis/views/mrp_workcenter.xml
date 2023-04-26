@@ -9,9 +9,17 @@
                 <group string="ECO information">
                     <field name="energy_consumption" />
                     <field name="bom_consu" />
-                    <field name="category_id" />
                 </group>
             </xpath>
+
+            <field name="code" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+
+            <field name="alternative_workcenter_ids" position="after">
+                <field name="code" />
+                <field name="category_id" />
+            </field>
         </field>
     </record>
 </odoo>

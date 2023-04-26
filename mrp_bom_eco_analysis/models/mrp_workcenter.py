@@ -10,3 +10,6 @@ class MrpWorkcenter(models.Model):
         "mrp.bom", string="Consumable BOM", domain=[("type", "=", "consumption")]
     )
     category_id = fields.Many2one("mrp.workcenter.category", string="Category")
+
+
+#    maintenance_id
