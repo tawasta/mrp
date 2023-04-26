@@ -21,7 +21,7 @@
 {
     "name": "ECO analysis modifications",
     "summary": "ECO analysis modifications",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "Manufacturing",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
@@ -29,11 +29,13 @@
     "application": False,
     "installable": True,
     "depends": [
+        "maintenance",
         "mrp",
     ],
     "data": [
         "security/ir.model.access.csv",
         "views/menuitem.xml",
+        "views/mrp_routing_workcenter.xml",
         "views/mrp_workcenter.xml",
         "views/mrp_workcenter_category.xml",
     ],
