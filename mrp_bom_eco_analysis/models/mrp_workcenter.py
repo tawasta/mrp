@@ -10,6 +10,11 @@ class MrpWorkcenter(models.Model):
         "mrp.bom", string="Consumable BOM", domain=[("type", "=", "consumption")]
     )
     category_id = fields.Many2one("mrp.workcenter.category", string="Category")
-
-
-#    maintenance_id
+    maintenance_id = fields.Many2one(
+        "maintenance.equipment", string="Machine", copy=False
+    )
+    checked = fields.Boolean(
+        string="Measured",
+        copy=False,
+        help="If the enery consumption has been measured.",
+    )

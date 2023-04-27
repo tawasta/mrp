@@ -9,6 +9,8 @@
                 <group string="ECO information">
                     <field name="energy_consumption" />
                     <field name="bom_consu" />
+                    <field name="maintenance_id" />
+                    <field name="checked" />
                 </group>
             </xpath>
 
