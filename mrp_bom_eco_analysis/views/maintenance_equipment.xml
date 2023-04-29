@@ -7,6 +7,7 @@
         <field name="arch" type="xml">
             <field name="model" position="after">
                 <field name="brand" />
+                <field name="model_year" />
             </field>
         </field>
     </record>
