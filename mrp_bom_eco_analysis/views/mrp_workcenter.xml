@@ -9,6 +9,8 @@
                 <group string="ECO information">
                     <field name="energy_consumption" />
                     <field name="bom_consu" />
+                    <field name="maintenance_id" />
+                    <field name="checked" />
                 </group>
             </xpath>
 
@@ -20,6 +22,10 @@
                 <field name="code" />
                 <field name="category_id" />
             </field>
+
+            <sheet position="after">
+                <div class="oe_chatter" />
+            </sheet>
         </field>
     </record>
 </odoo>
