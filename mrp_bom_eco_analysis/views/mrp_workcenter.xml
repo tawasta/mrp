@@ -8,6 +8,7 @@
             <xpath expr="//label[@for='time_stop']/.." position="after">
                 <group string="ECO information">
                     <field name="energy_consumption" />
+                    <field name="energy_consumption_passive" />
                     <field name="bom_consu" />
                     <field name="maintenance_id" />
                     <field name="checked" />
