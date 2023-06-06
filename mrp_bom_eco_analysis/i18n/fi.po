@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0-20230329\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-24 10:42+0000\n"
-"PO-Revision-Date: 2023-05-24 14:11+0300\n"
+"POT-Creation-Date: 2023-06-06 12:41+0000\n"
+"PO-Revision-Date: 2023-06-06 15:43+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fi\n"
@@ -39,11 +39,17 @@ msgid "Brand"
 msgstr "Merkki"
 
 #. module: mrp_bom_eco_analysis
-#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__category_id
-msgid "Category"
-msgstr "Kategoria"
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__code
+msgid "Code"
+msgstr "Koodi"
 
 #. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__compressed_air
+msgid "Compressed Air"
+msgstr "Paineilma"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_routing_workcenter__bom_consu
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__bom_consu
 #: model:ir.model.fields.selection,name:mrp_bom_eco_analysis.selection__mrp_bom__type__consumption
 msgid "Consumable BOM"
@@ -69,9 +75,19 @@ msgid "Display Name"
 msgstr "Näyttönimi"
 
 #. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__dust_removal
+msgid "Dust removal"
+msgstr "Purunpoisto"
+
+#. module: mrp_bom_eco_analysis
 #: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_workcenter_view
 msgid "ECO information"
 msgstr "ECO tieto"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__electric_consumption
+msgid "Electric consumption"
+msgstr "Sähkökustannus"
 
 #. module: mrp_bom_eco_analysis
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__energy_consumption
@@ -93,11 +109,6 @@ msgid "ID"
 msgstr "Tunniste (ID)"
 
 #. module: mrp_bom_eco_analysis
-#: model:ir.model.fields,help:mrp_bom_eco_analysis.field_mrp_workcenter__checked
-msgid "If the enery consumption has been measured."
-msgstr "Jos energiankulutus on mitattu"
-
-#. module: mrp_bom_eco_analysis
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment____last_update
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_bom____last_update
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_routing_workcenter____last_update
@@ -115,6 +126,11 @@ msgstr "Viimeksi päivittänyt"
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter_category__write_date
 msgid "Last Updated on"
 msgstr "Viimeksi päivitetty"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__category_id
+msgid "Location"
+msgstr "Sijainti"
 
 #. module: mrp_bom_eco_analysis
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__maintenance_id
@@ -148,13 +164,24 @@ msgid "Passive Duration"
 msgstr "Passiivikesto"
 
 #. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__machine_purpose
+msgid "The purpose of the machine"
+msgstr "Laitteen tarkoitus"
+
+#. module: mrp_bom_eco_analysis
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_routing_workcenter__duration_total
 #: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_routing_workcenter_form_view
 msgid "Total Duration"
 msgstr "Kokonaiskesto"
 
 #. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,help:mrp_bom_eco_analysis.field_mrp_workcenter__checked
+msgid "When the energy consumption has been measured."
+msgstr "Kun energiankulutus on mitattu"
+
+#. module: mrp_bom_eco_analysis
 #: model:ir.model,name:mrp_bom_eco_analysis.model_mrp_workcenter
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__workcenter_id
 msgid "Work Center"
 msgstr "Työpiste"
 
@@ -170,9 +197,24 @@ msgid "Work Centers Category"
 msgstr "Työpisteen kategoria"
 
 #. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__work_type
+msgid "Work type"
+msgstr "Työtyyppi"
+
+#. module: mrp_bom_eco_analysis
 #: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_workcenter_category_view
 msgid "Workcenter Category"
 msgstr "Työpisteen kategoria"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__workcenter_lower_id
+msgid "Workcenter lower"
+msgstr "Alempi työpiste"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__workcenter_upper_id
+msgid "Workcenter upper"
+msgstr "Ylempi työpiste"
 
 #. module: mrp_bom_eco_analysis
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__model_year

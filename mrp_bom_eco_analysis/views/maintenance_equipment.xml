@@ -9,6 +9,17 @@
                 <field name="brand" />
                 <field name="model_year" />
             </field>
+
+            <field name="location" position="after">
+                <field name="workcenter_id" invisible="1" />
+                <field name="code" />
+            </field>
+
+            <field name="warranty_date" position="after">
+                <field name="dust_removal" />
+                <field name="compressed_air" />
+                <field name="machine_purpose" />
+            </field>
         </field>
     </record>
 </odoo>

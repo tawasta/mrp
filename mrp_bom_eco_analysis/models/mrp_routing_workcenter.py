@@ -5,6 +5,7 @@ class MrpRoutingWorkcenter(models.Model):
 
     _inherit = "mrp.routing.workcenter"
 
+    bom_consu = fields.Many2one(related="workcenter_id.bom_consu")
     duration_passive = fields.Float(string="Passive Duration")
     duration_active = fields.Float(string="Active Duration")
     duration_total = fields.Float(

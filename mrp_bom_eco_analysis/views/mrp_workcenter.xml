@@ -12,6 +12,8 @@
                     <field name="bom_consu" />
                     <field name="maintenance_id" />
                     <field name="checked" />
+                    <field name="work_type" />
+                    <field name="electric_consumption" />
                 </group>
             </xpath>
 
@@ -22,6 +24,8 @@
             <field name="alternative_workcenter_ids" position="after">
                 <field name="code" />
                 <field name="category_id" />
+                <field name="workcenter_lower_id" invisible="1" />
+                <field name="workcenter_upper_id" />
             </field>
 
             <sheet position="after">
