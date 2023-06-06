@@ -2,11 +2,19 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-==========================
-ECO analysis modifications
-==========================
+======================================
+ECO analysis: fields and other changes
+======================================
 
 ECO analysis modifications
+
+Adds a bunch of fields to these models:
+    - maintenance.equipment
+    - mrp.bom
+    - mrp.routing.workcenter
+    - mrp.workcenter
+
+maintenance.equipment model's name_get() method is altered.
 
 Configuration
 =============

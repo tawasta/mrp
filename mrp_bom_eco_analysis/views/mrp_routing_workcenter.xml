@@ -31,6 +31,10 @@
                     /> minutes
                 </div>
             </xpath>
+
+            <field name="bom_id" position="after">
+                <field name="bom_consu" />
+            </field>
         </field>
     </record>
 </odoo>
