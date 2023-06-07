@@ -130,10 +130,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         material_info = ""
 
         for mater in ch.product_id.material:
-            if not material_info:
-                material_info += mater.material_info
-            else:
-                material_info += "{}{}".format("\n\n", mater.material_info)
+            if mater.material_info:
+                if not material_info:
+                    material_info += mater.material_info
+                else:
+                    material_info += "{}{}".format("\n\n", mater.material_info)
 
         sheet.write(i, 11, material_info or "")
         sheet.write(i, 12, ch.product_id.origin_country_id.name or "")
@@ -281,10 +282,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             material_info = ""
 
             for mater in o.product_id.material:
-                if not material_info:
-                    material_info += mater.material_info
-                else:
-                    material_info += "{}{}".format("\n\n", mater.material_info)
+                if mater.material_info:
+                    if not material_info:
+                        material_info += mater.material_info
+                    else:
+                        material_info += "{}{}".format("\n\n", mater.material_info)
 
             sheet.write(i, 11, material_info or "", bold)
             sheet.write(i, 12, o.product_id.origin_country_id.name or "", bold)
