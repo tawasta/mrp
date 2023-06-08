@@ -26,4 +26,8 @@ class MrpWorkcenter(models.Model):
     workcenter_lower_id = fields.One2many(
         "mrp.workcenter", "workcenter_upper_id", string="Workcenter lower"
     )
-    workcenter_upper_id = fields.Many2one("mrp.workcenter", string="Workcenter upper")
+    workcenter_upper_id = fields.Many2one(
+        "mrp.workcenter",
+        string="Workcenter upper",
+        domain="[('id', '!=', id), ('id', 'not in', workcenter_lower_id)]",
+    )
