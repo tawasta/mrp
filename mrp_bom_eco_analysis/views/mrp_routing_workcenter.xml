@@ -33,7 +33,8 @@
             </xpath>
 
             <field name="bom_id" position="after">
-                <field name="bom_consu" />
+                <field name="bom_consu" invisible="1" />
+                <field name="person_count" />
             </field>
         </field>
     </record>
