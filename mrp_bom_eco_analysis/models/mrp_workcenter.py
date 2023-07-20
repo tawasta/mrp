@@ -5,6 +5,7 @@ class MrpWorkcenter(models.Model):
 
     _inherit = "mrp.workcenter"
 
+    code = fields.Char(string="Work Center number")
     energy_consumption = fields.Float(string="Energy per hour (active)")
     energy_consumption_passive = fields.Float(string="Energy per hour (passive)")
     bom_consu = fields.Many2one(
@@ -22,12 +23,22 @@ class MrpWorkcenter(models.Model):
 
     work_type = fields.Char(string="Work type", copy=False)
     electric_consumption = fields.Float(string="Electric consumption", copy=False)
-
-    workcenter_lower_id = fields.One2many(
-        "mrp.workcenter", "workcenter_upper_id", string="Workcenter lower"
+    workcenter_lower_exist = fields.Boolean(
+        compute=lambda self: self._compute_workcenter_lower_id()
     )
+
     workcenter_upper_id = fields.Many2one(
         "mrp.workcenter",
         string="Workcenter upper",
         domain="[('id', '!=', id), ('id', 'not in', workcenter_lower_id)]",
     )
+    workcenter_lower_id = fields.One2many(
+        "mrp.workcenter", "workcenter_upper_id", string="Workcenter lower"
+    )
+
+    def _compute_workcenter_lower_id(self):
+        for center in self:
+            if center.workcenter_lower_id:
+                center.workcenter_lower_exist = True
+            else:
+                center.workcenter_lower_exist = False

@@ -11,7 +11,7 @@ class MaintenanceEquipment(models.Model):
     workcenter_id = fields.One2many(
         "mrp.workcenter", "maintenance_id", string="Work Center"
     )
-    code = fields.Char(string="Code")
+    code = fields.Char(string="Machine number")
 
     dust_removal = fields.Boolean(string="Dust removal")
     compressed_air = fields.Boolean(string="Compressed Air")

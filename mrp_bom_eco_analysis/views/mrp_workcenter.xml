@@ -24,8 +24,17 @@
             <field name="alternative_workcenter_ids" position="after">
                 <field name="code" />
                 <field name="category_id" />
-                <field name="workcenter_lower_id" invisible="1" />
                 <field name="workcenter_upper_id" />
+                <field name="workcenter_lower_exist" invisible="1" />
+                <field
+                    name="workcenter_lower_id"
+                    attrs="{'invisible': [('workcenter_lower_exist', '=', False)]}"
+                >
+                    <tree>
+                        <field name="code" />
+                        <field name="name" />
+                    </tree>
+                </field>
             </field>
 
             <sheet position="after">
