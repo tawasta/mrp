@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-06-08 13:17+0000\n"
-"PO-Revision-Date: 2023-06-08 16:19+0300\n"
+"POT-Creation-Date: 2023-07-21 13:53+0000\n"
+"PO-Revision-Date: 2023-07-21 16:59+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fi\n"
@@ -21,7 +21,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_routing_workcenter__duration_active
 #: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_routing_workcenter_form_view
 msgid "Active Duration"
-msgstr "Aktiivikesto"
+msgstr "Aktiivinen koneaika"
 
 #. module: mrp_bom_eco_analysis
 #: model:ir.model,name:mrp_bom_eco_analysis.model_mrp_bom
@@ -37,11 +37,6 @@ msgstr "Osalistan tyyppi"
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__brand
 msgid "Brand"
 msgstr "Merkki"
-
-#. module: mrp_bom_eco_analysis
-#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__code
-msgid "Code"
-msgstr "Koodi"
 
 #. module: mrp_bom_eco_analysis
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__compressed_air
@@ -92,12 +87,12 @@ msgstr "Sähkökustannus"
 #. module: mrp_bom_eco_analysis
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__energy_consumption
 msgid "Energy per hour (active)"
-msgstr "Energian kulutus (aktiivinen)"
+msgstr "Energia tunnissa (aktiivinen)"
 
 #. module: mrp_bom_eco_analysis
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__energy_consumption_passive
 msgid "Energy per hour (passive)"
-msgstr "Energian kulutus (passiivinen)"
+msgstr "Energia tunnissa (passiivinen)"
 
 #. module: mrp_bom_eco_analysis
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__id
@@ -138,6 +133,11 @@ msgid "Machine"
 msgstr "Kone"
 
 #. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__code
+msgid "Machine number"
+msgstr "Kone numero"
+
+#. module: mrp_bom_eco_analysis
 #: model:ir.model,name:mrp_bom_eco_analysis.model_maintenance_equipment
 msgid "Maintenance Equipment"
 msgstr "Huoltovälineet"
@@ -166,7 +166,7 @@ msgstr "Henkilömäärä"
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_routing_workcenter__duration_passive
 #: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_routing_workcenter_form_view
 msgid "Passive Duration"
-msgstr "Passiivikesto"
+msgstr "Koneaika levossa"
 
 #. module: mrp_bom_eco_analysis
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__machine_purpose
@@ -177,7 +177,7 @@ msgstr "Laitteen tarkoitus"
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_routing_workcenter__duration_total
 #: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_routing_workcenter_form_view
 msgid "Total Duration"
-msgstr "Kokonaiskesto"
+msgstr "Kokonaiskoneaika"
 
 #. module: mrp_bom_eco_analysis
 #: model:ir.model.fields,help:mrp_bom_eco_analysis.field_mrp_workcenter__checked
@@ -196,6 +196,11 @@ msgid "Work Center Usage"
 msgstr "Työpisteen käyttäminen"
 
 #. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__code
+msgid "Work Center number"
+msgstr "Työpistenumero"
+
+#. module: mrp_bom_eco_analysis
 #: model:ir.actions.act_window,name:mrp_bom_eco_analysis.action_workcenter_category
 #: model:ir.ui.menu,name:mrp_bom_eco_analysis.menu_workcenter_category
 msgid "Work Centers Category"
@@ -210,6 +215,11 @@ msgstr "Työtyyppi"
 #: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_workcenter_category_view
 msgid "Workcenter Category"
 msgstr "Työpisteen kategoria"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__workcenter_lower_exist
+msgid "Workcenter Lower Exist"
+msgstr ""
 
 #. module: mrp_bom_eco_analysis
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__workcenter_lower_id
