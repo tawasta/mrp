@@ -12,7 +12,6 @@ class MrpRoutingWorkcenter(models.Model):
     duration_total = fields.Float(
         string="Total Duration", compute=lambda self: self._compute_duration_total()
     )
-    time_cycle_manual = fields.Float(string="Manual Duration")
 
     @api.depends("duration_passive", "duration_active")
     def _compute_duration_total(self):
