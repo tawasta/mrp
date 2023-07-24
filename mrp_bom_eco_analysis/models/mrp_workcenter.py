@@ -5,7 +5,6 @@ class MrpWorkcenter(models.Model):
 
     _inherit = "mrp.workcenter"
 
-    code = fields.Char(string="Work Center number")
     energy_consumption = fields.Float(string="Energy per hour (active)")
     energy_consumption_passive = fields.Float(string="Energy per hour (passive)")
     bom_consu = fields.Many2one(

@@ -196,11 +196,6 @@ msgid "Work Center Usage"
 msgstr "Työpisteen käyttäminen"
 
 #. module: mrp_bom_eco_analysis
-#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__code
-msgid "Work Center number"
-msgstr "Työpistenumero"
-
-#. module: mrp_bom_eco_analysis
 #: model:ir.actions.act_window,name:mrp_bom_eco_analysis.action_workcenter_category
 #: model:ir.ui.menu,name:mrp_bom_eco_analysis.menu_workcenter_category
 msgid "Work Centers Category"
@@ -244,4 +239,14 @@ msgstr "minuuttia"
 #. module: mrp_bom_eco_analysis
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_routing_workcenter__time_cycle_manual
 msgid "Manual Duration"
+msgstr "Kokonaistyöaika"
+
+#. module: mrp_bom_eco_analysis
+#: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_workcenter_view
+msgid "Work Center number"
+msgstr "Työpistenumero"
+
+#. module: mrp_bom_eco_analysis
+#: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_routing_workcenter_form_view
+msgid "Default Duration"
 msgstr "Kokonaistyöaika"

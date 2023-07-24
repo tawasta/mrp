@@ -22,7 +22,7 @@
             </field>
 
             <field name="alternative_workcenter_ids" position="after">
-                <field name="code" />
+                <field name="code" string="Work Center number" />
                 <field name="category_id" />
                 <field name="workcenter_upper_id" />
                 <field name="workcenter_lower_exist" invisible="1" />
@@ -31,7 +31,7 @@
                     attrs="{'invisible': [('workcenter_lower_exist', '=', False)]}"
                 >
                     <tree>
-                        <field name="code" />
+                        <field name="code" string="Work Center number" />
                         <field name="name" />
                     </tree>
                 </field>
