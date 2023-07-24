@@ -15,7 +15,7 @@ addon | version | maintainers | summary
 [material_requirement_planning](material_requirement_planning/) | 14.0.1.0.1 |  | Material Requirement
 [mrp_auditlog_rules](mrp_auditlog_rules/) | 14.0.1.0.0 |  | Adds audit log rules for mrp.bom
 [mrp_bom_cost_cron](mrp_bom_cost_cron/) | 14.0.1.0.0 |  | Cron for MRP compute cost
-[mrp_bom_eco_analysis](mrp_bom_eco_analysis/) | 14.0.1.1.4 |  | ECO analysis modifications
+[mrp_bom_eco_analysis](mrp_bom_eco_analysis/) | 14.0.1.1.5 |  | ECO analysis modifications
 [mrp_bom_limit_increase](mrp_bom_limit_increase/) | 14.0.1.0.0 |  | Incrases BOM tree-view limit to 100
 [mrp_bom_operation_template](mrp_bom_operation_template/) | 14.0.1.0.1 |  | Templates for different operations
 [mrp_bom_structure_xlsx_cost](mrp_bom_structure_xlsx_cost/) | 14.0.1.0.0 |  | Add cost to MRP BOM Structure XLSX
