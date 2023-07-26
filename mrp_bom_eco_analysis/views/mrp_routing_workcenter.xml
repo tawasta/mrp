@@ -30,6 +30,14 @@
                         class="oe_inline"
                     /> minutes
                 </div>
+                <label for="duration_person" string="Personnel working time" />
+                <div>
+                    <field
+                        name="duration_person"
+                        widget="float_time"
+                        class="oe_inline"
+                    /> minutes
+                </div>
             </xpath>
 
             <field name="bom_id" position="after">
