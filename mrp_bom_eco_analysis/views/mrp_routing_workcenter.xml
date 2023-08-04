@@ -30,12 +30,24 @@
                         class="oe_inline"
                     /> minutes
                 </div>
+                <label for="duration_person" string="Personnel working time" />
+                <div>
+                    <field
+                        name="duration_person"
+                        widget="float_time"
+                        class="oe_inline"
+                    /> minutes
+                </div>
             </xpath>
 
             <field name="bom_id" position="after">
                 <field name="bom_consu" invisible="1" />
                 <field name="person_count" />
             </field>
+
+            <label for="time_cycle_manual" position="attributes">
+                <attribute name="string">Default Duration</attribute>
+            </label>
         </field>
     </record>
 </odoo>
