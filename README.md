@@ -41,7 +41,7 @@ addon | version | maintainers | summary
 [mrp_multi_level_optimization](mrp_multi_level_optimization/) | 14.0.1.0.0 |  | MRP multi level optimization
 [mrp_multi_level_queue](mrp_multi_level_queue/) | 14.0.1.0.0 |  | MRP Multi Level with queue jobs
 [mrp_product_only_select](mrp_product_only_select/) | 14.0.1.0.0 |  | Disable creating and editing of products from the MO product field
-[mrp_production_autoprocess_work_orders](mrp_production_autoprocess_work_orders/) | 14.0.1.0.2 |  | Created Work Orders get completed instantly
+[mrp_production_autoprocess_work_orders](mrp_production_autoprocess_work_orders/) | 14.0.1.0.3 |  | Created Work Orders get completed instantly
 [mrp_production_autoprocess_work_orders_two_steps](mrp_production_autoprocess_work_orders_two_steps/) | 14.0.1.0.0 |  | Created Work Orders get completed in two steps
 [mrp_production_mass_cancel](mrp_production_mass_cancel/) | 14.0.1.0.0 |  | Allow cancellation of production orders en masse
 [mrp_production_set_bom_regardless_of_operation_type](mrp_production_set_bom_regardless_of_operation_type/) | 14.0.1.0.0 |  | Set BoM that is not based on Operation Type
