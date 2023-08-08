@@ -28,4 +28,11 @@ class MrpProduction(models.Model):
         # manufacturing order is set to Done.
         if self.qty_producing:
             self.product_qty = self.qty_producing
+
+        # Note that nothing is returned here
         super(MrpProduction, self).button_mark_done()
+
+    def _get_consumption_issues(self):
+        """Returns False to avoid 'To Close' status. This also prevents
+        opening the consumption wizard."""
+        return False
