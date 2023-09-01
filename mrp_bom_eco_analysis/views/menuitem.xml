@@ -20,7 +20,7 @@
         name="Equipments"
         parent="mrp.menu_mrp_configuration"
         action="maintenance.hr_equipment_action"
-        groups="group_equipment_manager,base.group_user"
+        groups="maintenance.group_equipment_manager,base.group_user"
         sequence="140"
     />
 
