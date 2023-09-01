@@ -26,5 +26,6 @@
 
     <record id="maintenance.hr_equipment_action" model="ir.actions.act_window">
         <field name="view_mode">tree,kanban,form</field>
+        <field name="view_id" ref="maintenance.hr_equipment_view_tree" />
     </record>
 </odoo>
