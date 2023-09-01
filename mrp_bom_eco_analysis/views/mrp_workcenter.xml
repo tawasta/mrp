@@ -21,6 +21,14 @@
                 <attribute name="invisible">1</attribute>
             </field>
 
+            <field name="time_start" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </field>
+
+            <field name="time_stop" position="attributes">
+                <attribute name="readonly">1</attribute>
+            </field>
+
             <field name="alternative_workcenter_ids" position="after">
                 <field name="code" string="Work Center number" />
                 <field name="category_id" />

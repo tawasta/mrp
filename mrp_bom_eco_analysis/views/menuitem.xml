@@ -14,4 +14,17 @@
         parent="mrp.menu_mrp_configuration"
         sequence="95"
     />
+
+    <menuitem
+        id="menu_equipment_form_eco"
+        name="Equipments"
+        parent="mrp.menu_mrp_configuration"
+        action="maintenance.hr_equipment_action"
+        groups="group_equipment_manager,base.group_user"
+        sequence="140"
+    />
+
+    <record id="maintenance.hr_equipment_action" model="ir.actions.act_window">
+        <field name="view_mode">tree,kanban,form</field>
+    </record>
 </odoo>
