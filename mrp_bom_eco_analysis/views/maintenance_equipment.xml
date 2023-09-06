@@ -22,4 +22,46 @@
             </field>
         </field>
     </record>
+
+    <record id="hr_equipment_view_tree" model="ir.ui.view">
+        <field name="name">equipment.tree.hide.columns</field>
+        <field name="model">maintenance.equipment</field>
+        <field name="inherit_id" ref="maintenance.hr_equipment_view_tree" />
+        <field name="arch" type="xml">
+            <field name="assign_date" position="after">
+                <field name="code" />
+                <field name="location" />
+            </field>
+
+            <field name="assign_date" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+
+            <field name="technician_user_id" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+
+            <field name="category_id" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+
+            <field name="company_id" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+        </field>
+    </record>
+
+    <record id="maintenance_equipment_view_tree_inherit_hr" model="ir.ui.view">
+        <field name="name">equipment.tree.hide.columns.employee</field>
+        <field name="model">maintenance.equipment</field>
+        <field
+            name="inherit_id"
+            ref="hr_maintenance.maintenance_equipment_view_tree_inherit_hr"
+        />
+        <field name="arch" type="xml">
+            <field name="employee_id" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </field>
+        </field>
+    </record>
 </odoo>
