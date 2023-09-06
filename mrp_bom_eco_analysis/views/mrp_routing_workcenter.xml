@@ -30,8 +30,12 @@
                         class="oe_inline"
                     /> minutes
                 </div>
-                <label for="duration_person" string="Personnel working time" />
-                <div>
+                <label
+                    for="duration_person"
+                    string="Personnel working time"
+                    invisible="1"
+                />
+                <div invisible="1">
                     <field
                         name="duration_person"
                         widget="float_time"
