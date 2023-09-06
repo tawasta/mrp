@@ -21,7 +21,7 @@
 {
     "name": "ECO analysis: fields and other changes",
     "summary": "ECO analysis modifications",
-    "version": "14.0.1.1.9",
+    "version": "14.0.1.1.10",
     "category": "Manufacturing",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
@@ -29,6 +29,7 @@
     "application": False,
     "installable": True,
     "depends": [
+        "hr_maintenance",
         "maintenance",
         "mrp",
     ],
