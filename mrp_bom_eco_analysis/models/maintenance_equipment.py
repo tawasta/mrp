@@ -19,7 +19,12 @@ class MaintenanceEquipment(models.Model):
     # location is only an informational field. It works the same in Odoo 16 version.
     # So changing its type is not dangerous. Though changing a field type is not
     # advisable.
-    location = fields.Many2one("mrp.workcenter.category")
+    location = fields.Many2one(
+        "mrp.workcenter.category", deprecated=True, string="Old location field"
+    )
+    location_category_id = fields.Many2one(
+        "mrp.workcenter.category", string="Location", copy=False, store=True
+    )
 
     def name_get(self):
         res = []

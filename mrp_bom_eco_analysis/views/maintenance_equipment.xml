@@ -11,8 +11,13 @@
             </field>
 
             <field name="location" position="after">
+                <field name="location_category_id" />
                 <field name="workcenter_id" invisible="1" />
                 <field name="code" />
+            </field>
+
+            <field name="location" position="attributes">
+                <attribute name="invisible">1</attribute>
             </field>
 
             <field name="warranty_date" position="after">
@@ -30,7 +35,8 @@
         <field name="arch" type="xml">
             <field name="assign_date" position="after">
                 <field name="code" />
-                <field name="location" />
+                <field name="location" invisible="1" />
+                <field name="location_category_id" />
             </field>
 
             <field name="assign_date" position="attributes">

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-09-08 07:48+0000\n"
-"PO-Revision-Date: 2023-09-08 10:53+0300\n"
+"POT-Creation-Date: 2023-11-03 09:55+0000\n"
+"PO-Revision-Date: 2023-11-03 12:01+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fi\n"
@@ -144,7 +144,7 @@ msgid "Last Updated on"
 msgstr "Viimeksi päivitetty"
 
 #. module: mrp_bom_eco_analysis
-#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__location
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__location_category_id
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__category_id
 msgid "Location"
 msgstr "Sijainti"
@@ -183,6 +183,11 @@ msgstr "Nimi"
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_routing_workcenter__person_count
 msgid "Number of persons"
 msgstr "Henkilömäärä"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__location
+msgid "Old location field"
+msgstr "Vanha sijainti"
 
 #. module: mrp_bom_eco_analysis
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_routing_workcenter__duration_passive
@@ -266,5 +271,5 @@ msgstr "Vuosimalli"
 
 #. module: mrp_bom_eco_analysis
 #: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_routing_workcenter_form_view
-msgid "minutes"
-msgstr "minuuttia"
+msgid "mm:ss"
+msgstr "mm:ss"
