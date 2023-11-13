@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2022 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Copyright 2023 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,9 +19,9 @@
 ##############################################################################
 
 {
-    "name": "Operation Template for BoM",
-    "summary": "Templates for different operations",
-    "version": "14.0.1.0.2",
+    "name": "MRP - Disable dragging of operations",
+    "summary": "Hides sequence column in operations tree view",
+    "version": "14.0.1.0.0",
     "category": "MRP",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
@@ -32,9 +32,6 @@
         "mrp",
     ],
     "data": [
-        "security/ir.model.access.csv",
-        "views/mrp_bom.xml",
         "views/mrp_routing_workcenter.xml",
-        "views/mrp_routing_workcenter_template.xml",
     ],
 }
