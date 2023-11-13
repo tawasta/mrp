@@ -17,7 +17,7 @@ addon | version | maintainers | summary
 [mrp_bom_cost_cron](mrp_bom_cost_cron/) | 14.0.1.0.0 |  | Cron for MRP compute cost
 [mrp_bom_eco_analysis](mrp_bom_eco_analysis/) | 14.0.1.1.14 |  | ECO analysis modifications
 [mrp_bom_limit_increase](mrp_bom_limit_increase/) | 14.0.1.0.0 |  | Incrases BOM tree-view limit to 100
-[mrp_bom_operation_template](mrp_bom_operation_template/) | 14.0.1.0.1 |  | Templates for different operations
+[mrp_bom_operation_template](mrp_bom_operation_template/) | 14.0.1.0.2 |  | Templates for different operations
 [mrp_bom_structure_xlsx_cost](mrp_bom_structure_xlsx_cost/) | 14.0.1.0.0 |  | Add cost to MRP BOM Structure XLSX
 [mrp_bom_structure_xlsx_recursive](mrp_bom_structure_xlsx_recursive/) | 14.0.1.0.2 |  | Field additions for the BOM export module
 [mrp_default_focus](mrp_default_focus/) | 14.0.1.0.0 |  | Sets default focus fields for MRP
@@ -40,6 +40,7 @@ addon | version | maintainers | summary
 [mrp_multi_level_move_forecasted_qty](mrp_multi_level_move_forecasted_qty/) | 14.0.1.0.0 |  | Forecasted quantity for mrp.move
 [mrp_multi_level_optimization](mrp_multi_level_optimization/) | 14.0.1.0.0 |  | MRP multi level optimization
 [mrp_multi_level_queue](mrp_multi_level_queue/) | 14.0.1.0.0 |  | MRP Multi Level with queue jobs
+[mrp_operations_disable_sequence_dragging](mrp_operations_disable_sequence_dragging/) | 14.0.1.0.0 |  | Hides sequence column in operations tree view
 [mrp_product_only_select](mrp_product_only_select/) | 14.0.1.0.0 |  | Disable creating and editing of products from the MO product field
 [mrp_production_autoprocess_work_orders](mrp_production_autoprocess_work_orders/) | 14.0.1.0.3 |  | Created Work Orders get completed instantly
 [mrp_production_autoprocess_work_orders_two_steps](mrp_production_autoprocess_work_orders_two_steps/) | 14.0.1.0.0 |  | Created Work Orders get completed in two steps

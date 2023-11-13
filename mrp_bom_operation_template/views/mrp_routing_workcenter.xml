@@ -20,7 +20,7 @@
         <field name="model">mrp.routing.workcenter</field>
         <field name="arch" type="xml">
             <tree string="Routing Work Centers">
-                <field name="sequence" widget="handle" />
+                <field name="sequence" invisible="1" />
                 <field name="name" />
                 <field name="workcenter_id" />
                 <field
