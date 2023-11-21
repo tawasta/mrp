@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_order_product_pivot" model="ir.ui.view">
+         <field name="name">product.report.pivot</field>
+         <field name="model">product.report</field>
+         <field name="arch" type="xml">
+             <pivot string="Product circulation">
+                 <field name="product_id" type="row" />
+                 <field name="cost_total" type="measure" />
+                 <field name="move_sum" type="col" />
+             </pivot>
+         </field>
+    </record>
+
+    <record id="action_product_report_all" model="ir.actions.act_window">
+        <field name="name">Product circulation report</field>
+        <field name="res_model">product.report</field>
+        <field name="view_mode">pivot,tree</field>
+        <field name="view_id" />
+        <field name="context">{}</field>
+    </record>
+</odoo>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem
+        id="menu_report_product_all"
+        name="Product Circulation"
+        action="action_product_report_all"
+        parent="mrp.menu_mrp_bom"
+        sequence="50"
+    />
+</odoo>
