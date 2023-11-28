@@ -17,7 +17,24 @@ class ProductTemplate(models.Model):
 
     def cron_button_bom_cost(self):
         """Computes compute cost for each product"""
-        products = self.env["product.template"].search([("bom_ids", "!=", False)]).ids
+
+        multi_level_installed = self.env["ir.module.module"].search(
+            [("name", "=", "mrp_multi_level")]
+        )
+        multi_level_installed = (
+            multi_level_installed and multi_level_installed.state == "installed"
+        )
+
+        products = self.env["product.template"].search([("bom_ids", "!=", False)])
+
+        # Use llc-field if it exists in the installation
+        if multi_level_installed and "llc" in self.env["product.product"]._fields:
+            products = products.sorted(
+                key=lambda p: p.product_variant_id.llc, reverse=True
+            )
+
+        products = products.ids
+
         batch_products = list()
         interval = 50
         for x in range(0, len(products), interval):
