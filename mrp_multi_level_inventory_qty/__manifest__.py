@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2018 Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
+#    Copyright 2023 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,25 +19,26 @@
 ##############################################################################
 
 {
-    "name": "BOM Excel Export",
-    "summary": "Field additions for the BOM export module",
-    "version": "14.0.1.0.5",
-    "category": "Manufacturing",
+    "name": "Inventory product circulation report",
+    "summary": "Inventory product circulation report",
+    "version": "14.0.1.0.0",
+    "category": "Reporting",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
+    "external_dependencies": {
+        "python": [],
+        "bin": [],
+    },
     "depends": [
-        "mrp_bom_structure_xlsx",
-        #         "mrp_bom_primary_vendor_info",
-        "product_compliant",
-        "product_harmonized_system",
-        "product_manufacturer",
-        "product_materials",
-        "product_materials_compliant",
+        "mrp",
+        "mrp_multi_level",
     ],
     "data": [
-        "report/bom_structure_xlsx.xml",
+        "security/ir.model.access.csv",
+        "report/product_report.xml",
+        "views/report_view.xml",
     ],
 }
