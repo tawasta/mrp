@@ -21,13 +21,13 @@
 {
     "name": "Cron for MRP Compute Cost",
     "summary": "Cron for MRP compute cost",
-    "version": "14.0.1.0.1",
+    "version": "14.0.1.0.2",
     "category": "MRP",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["mrp_account"],
+    "depends": ["mrp_account", "mrp_multi_level"],
     "data": ["data/ir_cron.xml"],
 }
