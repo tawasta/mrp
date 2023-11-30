@@ -21,7 +21,7 @@
 {
     "name": "BOM Excel Export",
     "summary": "Field additions for the BOM export module",
-    "version": "14.0.1.0.5",
+    "version": "14.0.1.0.6",
     "category": "Manufacturing",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
@@ -39,5 +39,6 @@
     ],
     "data": [
         "report/bom_structure_xlsx.xml",
+        "views/res_config_settings.xml",
     ],
 }
