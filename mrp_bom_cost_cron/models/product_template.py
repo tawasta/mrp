@@ -1,4 +1,5 @@
 import logging
+from itertools import groupby
 
 from odoo import _, models
 
@@ -29,19 +30,35 @@ class ProductTemplate(models.Model):
 
         # Use llc-field if it exists in the installation
         if multi_level_installed and "llc" in self.env["product.product"]._fields:
+            _logger.info("Just checking: mrp_multi_level module is installed.")
             products = products.sorted(
                 key=lambda p: p.product_variant_id.llc, reverse=True
             )
 
-        products = products.ids
+        products_and_llc = [(p.product_variant_id.llc, p.id) for p in products]
+        products_and_llc.sort(key=lambda x: x[0], reverse=True)
+
+        def key_func(x):
+            return x[0]
+
+        products_and_llc = groupby(products_and_llc, key_func)
 
         batch_products = list()
         interval = 50
-        for x in range(0, len(products), interval):
-            batch_products.append(products[x : x + interval])
 
-        for batch in batch_products:
-            job_desc = _("Update component cost for products: {}").format(batch)
-            self.with_delay(description=job_desc)._cron_button_bom_cost(batch)
+        for llc, prod in products_and_llc:
+            prods = [p[1] for p in list(prod)]
+            for x in range(0, len(prods), interval):
+                batch_products.append((prods[x : x + interval], llc))
+
+        priority = 0
+        for batch, llc in batch_products:
+            job_desc = _("Update component cost for products {} with llc {}").format(
+                batch, llc
+            )
+            self.with_delay(
+                description=job_desc, priority=priority
+            )._cron_button_bom_cost(batch)
+            priority += 1
 
         _logger.info("Cron Compute component cost completed")
