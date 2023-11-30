@@ -5,7 +5,9 @@
 =========================
 Cron for MRP Compute Cost
 =========================
+
 * Cron for Compute cost
+* Group by llc-values
 
 Configuration
 =============
