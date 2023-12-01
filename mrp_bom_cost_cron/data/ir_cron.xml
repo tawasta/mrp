@@ -3,7 +3,7 @@
     <data noupdate="1">
         <record id="ir_cron_button_bom_cost" model="ir.cron">
             <field name="name">Update Component Costs Daily</field>
-            <field name="model_id" ref="model_product_template" />
+            <field name="model_id" ref="model_product_product" />
             <field name="state">code</field>
             <field name="code">model.cron_button_bom_cost()</field>
             <field name="user_id" ref="base.user_root" />
