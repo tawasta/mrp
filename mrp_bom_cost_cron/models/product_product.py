@@ -6,12 +6,12 @@ from odoo import _, models
 _logger = logging.getLogger(__name__)
 
 
-class ProductTemplate(models.Model):
+class ProductProduct(models.Model):
 
-    _inherit = "product.template"
+    _inherit = "product.product"
 
     def _cron_button_bom_cost(self, batch):
-        prods = self.env["product.template"].search([("id", "in", batch)])
+        prods = self.env["product.product"].search([("id", "in", batch)])
         for prod in prods:
             prod.button_bom_cost()
         return batch, "Success"
@@ -26,16 +26,14 @@ class ProductTemplate(models.Model):
             multi_level_installed and multi_level_installed.state == "installed"
         )
 
-        products = self.env["product.template"].search([("bom_ids", "!=", False)])
+        products = self.env["product.product"].search([("bom_ids", "!=", False)])
 
         # Use llc-field if it exists in the installation
         if multi_level_installed and "llc" in self.env["product.product"]._fields:
             _logger.info("Just checking: mrp_multi_level module is installed.")
-            products = products.sorted(
-                key=lambda p: p.product_variant_id.llc, reverse=True
-            )
+            products = products.sorted(key=lambda p: p.llc, reverse=True)
 
-        products_and_llc = [(p.product_variant_id.llc, p.id) for p in products]
+        products_and_llc = [(p.llc, p.id) for p in products]
         products_and_llc.sort(key=lambda x: x[0], reverse=True)
 
         def key_func(x):
