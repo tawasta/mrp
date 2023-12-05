@@ -1,8 +1,6 @@
 from collections import defaultdict
 
-from odoo import _, models
-
-# from odoo.exceptions import UserError
+from odoo import _, fields, models
 
 
 class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
@@ -10,6 +8,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
     _name = "report.mrp_bom_structure_xlsx.recursive_structure"
     _description = "BOM Structure XLSX Report recursive"
     _inherit = "report.mrp_bom_structure_xlsx.bom_structure_xlsx"
+
+    product_id = fields.Many2one("product.product", string="Product Variant")
+    product_tmpl_id = fields.Many2one("product.template", "Product")
+    multi_print = fields.Boolean("Multi print")
 
     def get_sub_lines(self, current_bom, bom_factor, original_bom_lines, identifier):
         """ The purpose of this function is to gather quantities from BoM lines
@@ -194,8 +196,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         a += 1
         child_number = 0
         for child in ch.child_line_ids:
-            child_number += 1
+            if child._skip_bom_line(ch.product_id):
+                continue
 
+            child_number += 1
             child_bom = ch.product_id.bom_ids and ch.product_id.bom_ids[0]
             ident = "{}{}{}".format(identifier, "0000", child_bom.id)
 
@@ -292,8 +296,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         b += 1
         child_number = 0
         for child in ch.child_line_ids:
-            child_number += 1
+            if child._skip_bom_line(ch.product_id):
+                continue
 
+            child_number += 1
             child_bom = ch.product_id.bom_ids and ch.product_id.bom_ids[0]
             ident = "{}{}{}".format(identifier, "0000", child_bom.id)
 
@@ -373,8 +379,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         c += 1
         child_number = 0
         for child in ch.child_line_ids:
-            child_number += 1
+            if child._skip_bom_line(ch.product_id):
+                continue
 
+            child_number += 1
             child_bom = ch.product_id.bom_ids and ch.product_id.bom_ids[0]
             ident = "{}{}{}".format(identifier, "0000", child_bom.id)
 
@@ -538,8 +546,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         d += 1
         child_number = 0
         for child in ch.child_line_ids:
-            child_number += 1
+            if child._skip_bom_line(ch.product_id):
+                continue
 
+            child_number += 1
             child_bom = ch.product_id.bom_ids and ch.product_id.bom_ids[0]
             ident = "{}{}{}".format(identifier, "0000", child_bom.id)
 
@@ -799,6 +809,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         ######################################################################
 
         for o in objects:
+            product_variant = o._context.get("product_id")
+            product_variant = product_variant and self.env["product.product"].browse(
+                product_variant
+            )
+
             ident = "{}".format(o.id)
 
             quantities = self.get_bom_quantities(o)
@@ -1148,6 +1163,8 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             child_number = 0
             for ch in o.bom_line_ids:
+                if product_variant and ch._skip_bom_line(product_variant):
+                    continue
                 child_number += 1
                 a = self.print_bom_children_2(
                     ch,
