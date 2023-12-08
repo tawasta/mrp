@@ -632,7 +632,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet2.set_row(0, None, None, {"collapsed": 1})
 
         for title in enumerate(sheet_title_2):
-            sheet2.write(1, title[0], title[1] or "", title_style_product_level)
+            sheet2.write(0, title[0], title[1] or "", title_style_product_level)
 
         #        sheet2.write_row(1, 17, sheet_title_product_level, title_style_product_level)
         sheet2.freeze_panes(2, 0)
@@ -664,7 +664,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         bold = workbook.add_format({"bold": True})
 
         title_style_product_level = workbook.add_format(
-            {"bold": True, "bg_color": "#C6FF8D", "bottom": 1}
+            {"bold": True, "bg_color": "#C9C0FF", "bottom": 1}
         )
 
         sheet_title_3 = [
@@ -683,7 +683,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet3.set_row(0, None, None, {"collapsed": 1})
 
         for title in enumerate(sheet_title_3):
-            sheet3.write(1, title[0], title[1] or "", title_style_product_level)
+            sheet3.write(0, title[0], title[1] or "", title_style_product_level)
 
         sheet3.freeze_panes(2, 0)
 
@@ -712,7 +712,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         bold = workbook.add_format({"bold": True})
 
         title_style_product_level = workbook.add_format(
-            {"bold": True, "bg_color": "#C6FF8D", "bottom": 1}
+            {"bold": True, "bg_color": "#ECB18F", "bottom": 1}
         )
 
         sheet_title_4 = [
@@ -730,7 +730,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet4.set_row(0, None, None, {"collapsed": 1})
 
         for title in enumerate(sheet_title_4):
-            sheet4.write(1, title[0], title[1] or "", title_style_product_level)
+            sheet4.write(0, title[0], title[1] or "", title_style_product_level)
 
         sheet4.freeze_panes(2, 0)
 
@@ -769,7 +769,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         bold = workbook.add_format({"bold": True})
 
         title_style_product_level = workbook.add_format(
-            {"bold": True, "bg_color": "#C6FF8D", "bottom": 1}
+            {"bold": True, "bg_color": "#6AD25F", "bottom": 1}
         )
 
         sheet_title_5 = [
@@ -797,14 +797,14 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet5.set_row(0, None, None, {"collapsed": 1})
 
         for title in enumerate(sheet_title_5):
-            sheet5.write(1, title[0], title[1] or "", title_style_product_level)
+            sheet5.write(0, title[0], title[1] or "", title_style_product_level)
 
         sheet5.freeze_panes(2, 0)
 
-        a = 2
-        b = 2
-        c = 2
-        d = 2
+        a = 1
+        b = 1
+        c = 1
+        d = 1
 
         ######################################################################
 
@@ -912,58 +912,80 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 a, 16, o.product_id.origin_country_id.name or "", bold
             )  # Country of origin
 
-            # ---------------------------- -#
-            # ---------- Sheet 3 --------- -#
-            # ---------------------------- -#
-
-            ident = "{}".format(o.id)
-
-            quantities = self.get_bom_quantities(o)
-
-            sheet3.write(b, 0, "N/A")  # Internal category/display name
-            sheet3.write(b, 1, "1")  # Level
-            sheet3.write(
-                b, 2, o.product_tmpl_id.name, bold
-            )  # Product to which operation is done
-            sheet3.write(
-                b, 3, o.product_id.default_code or "", bold
-            )  # Product internal reference
-
-            operations = self.env["mrp.routing.workcenter"]
-
-            for oper in o.operation_ids:
-                operations |= oper
-
-            operation_ids = str(o.id for o in o.operation_ids)
-            operation_ids = "\n".join(filter(None, operation_ids))
-
-            sheet3.write(b, 4, "", bold)  # Operation ID
-
-            operation_names = str(o.name for o in o.operation_ids)
-            operation_names = "\n".join(filter(None, operation_names))
-
-            sheet3.write(b, 5, "", bold)  # Operation name
-
-            sheet3.write(
-                b, 6, "", bold
-            )  # Energy consumption during an operation / Total/(kWh)
-
-            materials = self.env["product.material.composition"]
-
-            for mater in o.product_id.product_material_composition_ids:
-                materials |= mater
-
-            sheet3.write(b, 7, waste_component, bold)  # Waste product name
-            sheet3.write(b, 8, "N/A", bold)  # Waste amount
-            sheet3.write(b, 9, "N/A", bold)  # Waste unit
-
             # Sheet 4
 
             ident = "{}".format(o.id)
 
             quantities = self.get_bom_quantities(o)
 
+            for by_product in o.byproduct_ids:
+
+                # ---------------------------- -#
+                # ---------- Sheet 3 --------- -#
+                # ---------------------------- -#
+
+                ident = "{}".format(o.id)
+
+                quantities = self.get_bom_quantities(o)
+
+                sheet3.write(
+                    b, 0, o.product_tmpl_id.name, bold
+                )  # Internal category/display name
+                sheet3.write(b, 1, "1")  # Level
+                sheet3.write(
+                    b, 2, by_product.product_id.product_tmpl_id.name, bold
+                )  # Product to which operation is done
+                sheet3.write(
+                    b, 3, by_product.product_id.default_code or "", bold
+                )  # Product internal reference
+
+                sheet3.write(b, 4, by_product.operation_id.id, bold)  # Operation ID
+                sheet3.write(b, 5, by_product.operation_id.name, bold)  # Operation name
+
+                workcenter = by_product.operation_id.workcenter_id
+
+                total_energy = (
+                    workcenter.energy_consumption
+                    + workcenter.energy_consumption_passive
+                )
+
+                sheet3.write(
+                    b, 6, total_energy, bold
+                )  # Energy consumption during an operation / Total/(kWh)
+
+                sheet3.write(
+                    b, 7, by_product.product_id.product_tmpl_id.name, bold
+                )  # Waste product name
+                sheet3.write(b, 8, by_product.product_qty or 0, bold)  # Waste amount
+                sheet3.write(b, 9, by_product.product_uom_id.name, bold)  # Waste unit
+
+                b += 1
+            #                parent_level_3 = b - 1
+            #                j = 0
+            #
+            #                child_number = 0
+            #                for ch in o.bom_line_ids:
+            #                    if product_variant and ch._skip_bom_line(product_variant):
+            #                        continue
+            #                    child_number += 1
+            #                    b = self.print_bom_children_3(
+            #                        ch,
+            #                        sheet3,
+            #                        b,
+            #                        j,
+            #                        parent=o.product_tmpl_id,
+            #                        parent_level=parent_level_3,
+            #                        child_number=child_number,
+            #                        quantities=quantities,
+            #                        identifier=ident,
+            #                    )
+
+            # ---------------------------- -#
+            # ---------- Sheet 4 --------- -#
+            # ---------------------------- -#
+
             for oper in o.operation_ids:
+
                 bom = oper.workcenter_id.bom_consu
 
                 sheet4.write(
@@ -972,7 +994,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 sheet4.write(
                     c, 1, bom.product_id.default_code or "", bold
                 )  # Product internal reference
-                sheet4.write(c, 2, bom.product_tmpl_id.name, bold)  # Name
+                sheet4.write(c, 2, bom.product_tmpl_id.name or "", bold)  # Name
                 sheet4.write(c, 3, oper.id or "", bold)  # Operation ID
                 sheet4.write(c, 4, oper.name or "", bold)  # Operation name
 
@@ -1009,6 +1031,8 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
                 child_number = 0
                 for ch in bom.bom_line_ids:
+                    if product_variant and ch._skip_bom_line(product_variant):
+                        continue
                     child_number += 1
                     c = self.print_bom_children_4(
                         ch,
@@ -1151,12 +1175,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )  # Waste endpoint
 
             parent_level_2 = a - 1
-            parent_level_3 = b - 1
-            #            parent_level_4 = c - 1
             parent_level_5 = d - 1
 
             a += 1
-            b += 1
             d += 1
 
             j = 0
@@ -1177,17 +1198,17 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     quantities=quantities,
                     identifier=ident,
                 )
-                b = self.print_bom_children_3(
-                    ch,
-                    sheet3,
-                    b,
-                    j,
-                    parent=o.product_tmpl_id,
-                    parent_level=parent_level_3,
-                    child_number=child_number,
-                    quantities=quantities,
-                    identifier=ident,
-                )
+                #                b = self.print_bom_children_3(
+                #                    ch,
+                #                    sheet3,
+                #                    b,
+                #                    j,
+                #                    parent=o.product_tmpl_id,
+                #                    parent_level=parent_level_3,
+                #                    child_number=child_number,
+                #                    quantities=quantities,
+                #                    identifier=ident,
+                #                )
                 d = self.print_bom_children_5(
                     ch,
                     sheet5,
