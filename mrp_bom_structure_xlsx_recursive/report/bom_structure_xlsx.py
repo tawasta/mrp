@@ -945,8 +945,12 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 workcenter = by_product.operation_id.workcenter_id
 
                 total_energy = (
-                    workcenter.energy_consumption
-                    + workcenter.energy_consumption_passive
+                    (
+                        workcenter.energy_consumption
+                        + workcenter.energy_consumption_passive
+                    )
+                    * workcenter.electric_consumption
+                    * workcenter.costs_hour
                 )
 
                 sheet3.write(
