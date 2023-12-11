@@ -8,25 +8,32 @@ class ProductReport(models.Model):
     _auto = False
 
     name = fields.Char("Name", readonly=True)
+    date = fields.Datetime("MRP Move Date", readonly=True)
     product_id = fields.Many2one("product.product", "Product", readonly=True)
+    #    qty_available = fields.Float("Qty available", readonly=True)
     cost = fields.Float("Cost", readonly=True)
     cost_total = fields.Float("Total cost", readonly=True)
     move_sum = fields.Float("Move sum", readonly=True)
+    mrp_move_id = fields.Many2one("mrp.move", "MRP Move", readonly=True)
 
     def _select_product(self, fields=None):
         if not fields:
             fields = {}
+        # row_number() OVER () AS id, p.id, p.name
+        #     CASE WHEN mrm IS NOT NULL THEN sum(mrm.mrp_qty) ELSE 0 END as move_sum,
+        #     mra.qty_available AS qty_available,
 
-        #            row_number() OVER () AS id, p.id, p.name
-        #                CASE WHEN mrm IS NOT NULL THEN sum(mrm.mrp_qty) ELSE 0 END as move_sum,
         select_ = """
-                p.id as id,
-                p.id as product_id,
-                prop.value_float as cost,
-                sum(mrm.mrp_qty) as move_sum,
-                sum(mrm.mrp_qty) * prop.value_float as cost_total,
-                t.name as name
+                p.id AS id,
+                p.id AS product_id,
+                prop.value_float AS cost,
+                mrm.id AS mrp_move_id,
+                sum(mrm.mrp_qty) AS move_sum,
+                sum(mrm.mrp_qty) * prop.value_float AS cost_total,
+                mrm.mrp_date as date,
+                t.name AS name
         """
+        # (sum(mrm.mrp_qty) + mra.qty_available) * prop.value_float as cost_total,
 
         for field in fields.values():
             select_ += field
@@ -36,29 +43,31 @@ class ProductReport(models.Model):
         from_ = (
             """
                 product_product p
-                    left join product_template t on (p.product_tmpl_id=t.id)
-                    left join ir_property prop on (prop.res_id='product.product,' || p.id)
-                    left join product_mrp_area mra on (mra.product_id=p.id)
-                    left join mrp_move mrm on (mrm.product_mrp_area_id=mra.id)
+                    LEFT JOIN product_template t ON (p.product_tmpl_id=t.id)
+                    LEFT JOIN ir_property prop ON (prop.res_id='product.product,' || p.id)
+                    LEFT JOIN product_mrp_area mra ON (mra.product_id=p.id)
+                    LEFT JOIN mrp_move mrm ON (mrm.product_mrp_area_id=mra.id)
                 %s
         """
             % from_clause
         )
         return from_
 
-    #                    JOIN (SELECT SUM(mrp_qty) as move_sum FROM mrm) all_mrm_qty
+    # JOIN (SELECT SUM(mrp_qty) as move_sum FROM mrm) all_mrm_qty
 
     def _group_by_product(self, groupby=""):
         groupby_ = """
             t.name,
-            mrm.mrp_qty,
+            mrp_move_id,
+            date,
             prop.value_float,
-            mrm,
             p.id %s
         """ % (
             groupby
         )
         return groupby_
+
+    #            qty_available,
 
     def _query(self, with_clause="", fields=None, groupby="", from_clause=""):
         if not fields:
