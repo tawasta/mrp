@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-03 09:55+0000\n"
-"PO-Revision-Date: 2023-11-03 12:01+0200\n"
+"POT-Creation-Date: 2023-12-11 13:57+0000\n"
+"PO-Revision-Date: 2023-12-11 15:58+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fi\n"
@@ -91,24 +91,24 @@ msgid "Dust removal"
 msgstr "Purunpoisto"
 
 #. module: mrp_bom_eco_analysis
-#: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_workcenter_view
-msgid "ECO information"
-msgstr "ECO tieto"
-
-#. module: mrp_bom_eco_analysis
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__electric_consumption
 msgid "Electric consumption"
 msgstr "Sähkökustannus"
 
 #. module: mrp_bom_eco_analysis
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__energy_consumption
-msgid "Energy per hour (active)"
-msgstr "Energia tunnissa (aktiivinen)"
+msgid "Energy active (kWh)"
+msgstr "Energia aktiivinen (kWh)"
+
+#. module: mrp_bom_eco_analysis
+#: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_workcenter_view
+msgid "Energy and Machines"
+msgstr "Energia ja koneet"
 
 #. module: mrp_bom_eco_analysis
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__energy_consumption_passive
-msgid "Energy per hour (passive)"
-msgstr "Energia tunnissa (passiivinen)"
+msgid "Energy passive (kWh)"
+msgstr "Energia passivinen (kWh)"
 
 #. module: mrp_bom_eco_analysis
 #: model:ir.ui.menu,name:mrp_bom_eco_analysis.menu_equipment_form_eco
@@ -187,7 +187,7 @@ msgstr "Henkilömäärä"
 #. module: mrp_bom_eco_analysis
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__location
 msgid "Old location field"
-msgstr "Vanha sijainti"
+msgstr ""
 
 #. module: mrp_bom_eco_analysis
 #: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_routing_workcenter__duration_passive
@@ -272,4 +272,4 @@ msgstr "Vuosimalli"
 #. module: mrp_bom_eco_analysis
 #: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_routing_workcenter_form_view
 msgid "mm:ss"
-msgstr "mm:ss"
+msgstr ""
