@@ -40,12 +40,13 @@ class ProductReport(models.Model):
                     left join ir_property prop on (prop.res_id='product.product,' || p.id)
                     left join product_mrp_area mra on (mra.product_id=p.id)
                     left join mrp_move mrm on (mrm.product_mrp_area_id=mra.id)
-                    JOIN (SELECT SUM(mrp_qty) as move_sum FROM mrm) all_mrm_qty
                 %s
         """
             % from_clause
         )
         return from_
+
+    #                    JOIN (SELECT SUM(mrp_qty) as move_sum FROM mrm) all_mrm_qty
 
     def _group_by_product(self, groupby=""):
         groupby_ = """
@@ -64,7 +65,7 @@ class ProductReport(models.Model):
             fields = {}
         with_ = ("WITH %s" % with_clause) if with_clause else ""
 
-        return "%s (SELECT %s FROM %s GROUP BY %s)" % (
+        return "%s SELECT %s FROM %s GROUP BY %s" % (
             with_,
             self._select_product(fields),
             self._from_product(from_clause),
@@ -76,5 +77,5 @@ class ProductReport(models.Model):
         tools.drop_view_if_exists(self._cr, self._table)
         #        tools.drop_view_if_exists(self.env.cr, self._table)
         self.env.cr.execute(
-            """CREATE or REPLACE VIEW %s as (%s)""" % (self._table, self._query())
+            """CREATE or REPLACE VIEW %s as (%s);""" % (self._table, self._query())
         )

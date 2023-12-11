@@ -7,7 +7,7 @@
              <pivot string="Product circulation">
                  <field name="product_id" type="row" />
                  <field name="cost_total" type="measure" />
-                 <field name="move_sum" type="col" />
+                 <field name="move_sum" />
              </pivot>
          </field>
     </record>
