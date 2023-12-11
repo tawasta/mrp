@@ -5,8 +5,8 @@ class MrpWorkcenter(models.Model):
 
     _inherit = "mrp.workcenter"
 
-    energy_consumption = fields.Float(string="Energy per hour (active)")
-    energy_consumption_passive = fields.Float(string="Energy per hour (passive)")
+    energy_consumption = fields.Float(string="Energy active (kWh)")
+    energy_consumption_passive = fields.Float(string="Energy passive (kWh)")
     bom_consu = fields.Many2one(
         "mrp.bom", string="Consumable BOM", domain=[("type", "=", "consumption")]
     )
