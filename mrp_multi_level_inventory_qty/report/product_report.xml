@@ -1,15 +1,58 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <record id="view_order_product_pivot" model="ir.ui.view">
+    <record id="view_product_report_pivot" model="ir.ui.view">
          <field name="name">product.report.pivot</field>
          <field name="model">product.report</field>
          <field name="arch" type="xml">
              <pivot string="Product circulation">
-                 <field name="product_id" type="row" />
+<!--                  <field name="product_id" type="row" /> -->
+                 <field name="date" interval="month" type="row" />
                  <field name="cost_total" type="measure" />
                  <field name="move_sum" />
              </pivot>
          </field>
+    </record>
+
+    <record id="view_product_report_search" model="ir.ui.view">
+        <field name="name">product.report.search</field>
+        <field name="model">product.report</field>
+        <field name="arch" type="xml">
+            <search string="Inventory circulation">
+                <field name="date" />
+                <filter
+                    string="Date"
+                    name="year"
+                    invisible="1"
+                    date="date"
+                    default_period="this_year"
+                />
+                <separator />
+                <filter name="filter_date" date="date" default_period="this_month" />
+                <filter
+                    name="filter_mrp_move_date_next_90"
+                    string="MRP Moves: Next 90 Days"
+                    domain="[('date', '&gt;=', (
+                        datetime.datetime.combine(context_today() + relativedelta(days=90), datetime.time(0,0,0))
+                    ).strftime('%Y-%m-%d %H:%M:%S'))]"
+                />
+                <filter
+                    name="filter_mrp_move_date_past_90"
+                    string="MRP Moves: Past 90 Days"
+                    domain="[('date', '&gt;=', (
+                        datetime.datetime.combine(context_today() + relativedelta(days=-90), datetime.time(0,0,0))
+                    ).strftime('%Y-%m-%d %H:%M:%S'))]"
+                />
+                <separator />
+                <field name="product_id" />
+                <group expand="1" string="Group By">
+                    <filter
+                        string="MRP Move Date"
+                        name="date"
+                        context="{'group_by':'date'}"
+                    />
+                </group>
+            </search>
+        </field>
     </record>
 
     <record id="action_product_report_all" model="ir.actions.act_window">
@@ -17,6 +60,7 @@
         <field name="res_model">product.report</field>
         <field name="view_mode">pivot,tree</field>
         <field name="view_id" />
-        <field name="context">{}</field>
+        <field name="search_view_id" ref="view_product_report_search" />
+        <field name="context">{'search_default_filter_mrp_move_date_next_90': 1}</field>
     </record>
 </odoo>
