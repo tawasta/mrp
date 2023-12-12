@@ -37,6 +37,8 @@
     ],
     "data": [
         "data/ir_cron.xml",
+        "data/job_channel.xml",
+        "data/job_function.xml",
         "views/mrp_bom.xml",
         "views/mrp_config_settings.xml",
         "views/product_template.xml",

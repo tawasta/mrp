@@ -12,14 +12,12 @@ class MrpBom(models.Model):
     _inherit = "mrp.bom"
 
     @api.multi
-    @job
     def _cron_compute_bom_cost(self, boms):
         for bom in boms:
             bom.component_cost = self.calculate_component_cost(bom)
             bom.cost_updated = datetime.now()
 
     @api.multi
-    @job
     def cron_compute_bom_cost(self):
         """ Triggered by a scheduled action to calculate all BOMs' costs """
         boms = self.search([])
