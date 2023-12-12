@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.addons.queue_job.job import job
 
 
 class MrpBom(models.Model):
@@ -26,6 +27,7 @@ class MrpBom(models.Model):
                 )
 
     @api.multi
+    @job(default_channel="root.ir_cron")
     def refresh_archive_info(self):
         self.ensure_one()
         self.archived_product_line_ids = False
