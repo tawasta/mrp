@@ -5,11 +5,12 @@
          <field name="model">product.report</field>
          <field name="arch" type="xml">
              <pivot string="Product circulation">
-                 <field name="product_id" type="row" />
+                 <field name="abc_profile_id" type="row" />
                  <field name="cost_total" type="measure" />
                  <field name="quant_sum" type="measure" />
                  <field name="move_sum" />
                  <field name="move_quant_sum" type="measure" />
+                 <field name="value" type="measure" />
              </pivot>
          </field>
     </record>

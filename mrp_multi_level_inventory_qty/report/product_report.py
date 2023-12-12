@@ -16,17 +16,23 @@ class ProductReport(models.Model):
     stock_quant = fields.Many2one("stock.quant", "Stock Quant", readonly=True)
     quant_sum = fields.Float("Available Quantity", readonly=True)
     move_quant_sum = fields.Float("Expected Quantity", readonly=True)
+    abc_profile_id = fields.Many2one(
+        "abc.classification.profile", "ABC Classification Profile", readonly=True
+    )
+    value = fields.Float("Value", readonly=True)
 
     def _select_product(self, fields=None):
         if not fields:
             fields = {}
         # row_number() OVER () AS id, p.id, p.name
-        #     CASE WHEN mrm IS NOT NULL THEN sum(mrm.mrp_qty) ELSE 0 END as move_sum,
-        #     mra.qty_available AS qty_available,
 
         select_ = """
                 p.id AS id,
                 p.id AS product_id,
+                ((sum(
+                    svl.value * currency_table.rate) / sum(
+                        NULLIF(svl.quantity, 0.0))) * stq.quantity) AS value,
+                abc_p.id AS abc_profile_id,
                 prop.value_float AS cost,
                 stq.id AS stock_quant,
                 (stq.quantity - stq.reserved_quantity) AS quant_sum,
@@ -43,10 +49,11 @@ class ProductReport(models.Model):
         return select_
 
     def _from_product(self, from_clause=""):
-        from_ = (
-            """
+        from_ = """
                 product_product p
                     LEFT JOIN product_template t ON (p.product_tmpl_id=t.id)
+                    LEFT JOIN abc_classification_profile abc_p ON (
+                        abc_p.id=p.abc_classification_profile_id)
                     LEFT JOIN ir_property prop ON (prop.res_id='product.product,' || p.id)
                     LEFT JOIN product_mrp_area mra ON (mra.product_id=p.id)
                     LEFT JOIN mrp_move mrm ON (
@@ -54,15 +61,21 @@ class ProductReport(models.Model):
                     LEFT JOIN mrp_area m_area ON (m_area.id=mra.mrp_area_id)
                     LEFT JOIN stock_quant stq ON (
                         stq.product_id=p.id AND stq.location_id=m_area.location_id)
-                %s
-        """
-            % from_clause
+                    LEFT JOIN stock_valuation_layer svl ON (svl.product_id=p.id)
+                    JOIN {currency_table} ON currency_table.company_id=svl.company_id
+                {from_clause}
+        """.format(
+            currency_table=self.env["res.currency"]._get_query_currency_table(
+                {"multi_company": True, "date": {"date_to": fields.Date.today()}}
+            ),
+            from_clause=from_clause,
         )
         return from_
 
     def _group_by_product(self, groupby=""):
         groupby_ = """
             t.name,
+            abc_profile_id,
             stock_quant,
             date,
             prop.value_float,
@@ -71,8 +84,6 @@ class ProductReport(models.Model):
             groupby
         )
         return groupby_
-
-    #            qty_available,
 
     def _query(self, with_clause="", fields=None, groupby="", from_clause=""):
         if not fields:
