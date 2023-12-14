@@ -11,6 +11,7 @@
                  <field name="move_sum" />
                  <field name="move_quant_sum" type="measure" />
                  <field name="value" type="measure" />
+                 <field name="sufficiency" type="measure" />
              </pivot>
          </field>
     </record>
@@ -21,6 +22,9 @@
         <field name="arch" type="xml">
             <search string="Inventory circulation">
                 <field name="date" />
+
+                <filter string="Number of days" name="number_of_days" />
+
                 <filter
                     string="Date"
                     name="year"
@@ -46,6 +50,7 @@
                 />
                 <separator />
                 <field name="product_id" />
+                <field name="number_of_days" />
                 <group expand="1" string="Group By">
                     <filter
                         string="MRP Move Date"
@@ -60,7 +65,7 @@
     <record id="action_product_report_all" model="ir.actions.act_window">
         <field name="name">Product circulation report</field>
         <field name="res_model">product.report</field>
-        <field name="view_mode">pivot,tree</field>
+        <field name="view_mode">pivot</field>
         <field name="view_id" />
         <field name="search_view_id" ref="view_product_report_search" />
         <field name="context">{'search_default_filter_mrp_move_date_next_90': 1}</field>

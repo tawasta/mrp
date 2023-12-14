@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+<!--         action="action_product_report_all" -->
     <menuitem
         id="menu_report_product_all"
         name="Product Circulation"
-        action="action_product_report_all"
+        action="mrp_multi_level_inventory_qty.action_open_product_report"
         parent="mrp.menu_mrp_bom"
         sequence="50"
     />

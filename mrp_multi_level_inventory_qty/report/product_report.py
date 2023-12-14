@@ -10,6 +10,7 @@ class ProductReport(models.Model):
     name = fields.Char("Name", readonly=True)
     date = fields.Datetime("MRP Move Date", readonly=True)
     product_id = fields.Many2one("product.product", "Product", readonly=True)
+    product_report = fields.Many2one("product.report", readonly=True)
     cost = fields.Float("Cost", readonly=True)
     cost_total = fields.Float("Total cost", readonly=True)
     move_sum = fields.Float("MRP Move Quantity", readonly=True)
@@ -20,8 +21,10 @@ class ProductReport(models.Model):
         "abc.classification.profile", "ABC Classification Profile", readonly=True
     )
     value = fields.Float("Value", readonly=True)
+    number_of_days = fields.Integer("Number of days", readonly=True)
+    sufficiency = fields.Float("Sufficiency", readonly=True)
 
-    def _select_product(self, fields=None):
+    def _select_product(self, fields=None, days=1):
         if not fields:
             fields = {}
         # row_number() OVER () AS id, p.id, p.name
@@ -38,11 +41,22 @@ class ProductReport(models.Model):
                 (stq.quantity - stq.reserved_quantity) AS quant_sum,
                 sum(mrm.mrp_qty) AS move_sum,
                 ((stq.quantity - stq.reserved_quantity) + sum(mrm.mrp_qty)) AS move_quant_sum,
+
+                (
+                    ((stq.quantity - stq.reserved_quantity) + sum(mrm.mrp_qty))
+                        * prop.value_float /
+                            NULLIF(((sum(
+                                    svl.value * currency_table.rate) / sum(
+                                        NULLIF(svl.quantity, 0.0))) * stq.quantity), 0.0)
+                )
+                    * {} AS sufficiency,
+
                 sum(mrm.mrp_qty) * prop.value_float AS cost_total,
                 mrm.mrp_date as date,
                 t.name AS name
-        """
-        #                mrm.id AS mrp_move_id,
+        """.format(
+            days
+        )
 
         for field in fields.values():
             select_ += field
@@ -85,22 +99,25 @@ class ProductReport(models.Model):
         )
         return groupby_
 
-    def _query(self, with_clause="", fields=None, groupby="", from_clause=""):
+    def _query(self, with_clause="", fields=None, groupby="", from_clause="", days=1):
         if not fields:
             fields = {}
+
         with_ = ("WITH %s" % with_clause) if with_clause else ""
 
         return "%s SELECT %s FROM %s GROUP BY %s" % (
             with_,
-            self._select_product(fields),
+            self._select_product(fields, days),
             self._from_product(from_clause),
             self._group_by_product(groupby),
         )
 
     def init(self):
+        days = self.env.context.get("number_of_days", 1)
         # self._table = product_report
         tools.drop_view_if_exists(self._cr, self._table)
         #        tools.drop_view_if_exists(self.env.cr, self._table)
         self.env.cr.execute(
-            """CREATE or REPLACE VIEW %s as (%s);""" % (self._table, self._query())
+            """CREATE or REPLACE VIEW %s as (%s);"""
+            % (self._table, self._query(days=days))
         )
