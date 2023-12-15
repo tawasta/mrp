@@ -36,8 +36,8 @@ class ProductReport(models.Model):
                 p.id AS id,
                 p.id AS product_id,
                 ((sum(
-                    svl.value * currency_table.rate) / sum(
-                        NULLIF(svl.quantity, 0.0))) * stq.quantity) AS value,
+                    svl.value * currency_table.rate) / NULLIF(sum(
+                        svl.quantity), 0.0)) * stq.quantity) AS value,
                 abc_p.id AS abc_profile_id,
                 prop.value_float AS cost,
                 stq.id AS stock_quant,
@@ -47,8 +47,8 @@ class ProductReport(models.Model):
 
                 (
                     (
-                        (sum(svl.value * currency_table.rate) / sum(
-                        NULLIF(svl.quantity, 0.0))) * stq.quantity
+                        (sum(svl.value * currency_table.rate) / NULLIF(sum(
+                        svl.quantity), 0.0)) * stq.quantity
                     )
                         /
                     (
