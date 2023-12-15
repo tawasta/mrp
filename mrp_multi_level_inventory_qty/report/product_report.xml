@@ -22,9 +22,6 @@
         <field name="arch" type="xml">
             <search string="Inventory circulation">
                 <field name="date" />
-
-                <filter string="Number of days" name="number_of_days" />
-
                 <filter
                     string="Date"
                     name="year"
@@ -50,7 +47,6 @@
                 />
                 <separator />
                 <field name="product_id" />
-                <field name="number_of_days" />
                 <group expand="1" string="Group By">
                     <filter
                         string="MRP Move Date"

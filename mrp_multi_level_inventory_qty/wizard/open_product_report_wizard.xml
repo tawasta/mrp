@@ -6,6 +6,17 @@
             <form string="Open a circulation report">
                 <p>Choose the number of days</p>
                 <field name="number_of_days" />
+                <p>Product (optional)</p>
+                <field name="product_id" />
+                <p>Product category (optional)</p>
+                <field name="product_category_id" />
+                <p>ABC profile (optional)</p>
+                <field name="abc_profile_id" />
+                <p>ABC level (optional)</p>
+                <field
+                    name="abc_level_id"
+                    domain="[('profile_id', '=', abc_profile_id)]"
+                />
                 <footer>
                     <button
                         string="Confirm"
