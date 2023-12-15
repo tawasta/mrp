@@ -21,7 +21,7 @@
 {
     "name": "Inventory product circulation report",
     "summary": "Inventory product circulation report",
-    "version": "14.0.1.0.5",
+    "version": "14.0.1.0.6",
     "category": "Reporting",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
