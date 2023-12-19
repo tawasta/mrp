@@ -36,6 +36,7 @@ Contributors
 
 * Timo Kekäläinen <timo.kekalainen@tawasta.fi>
 * Jouni Minkkinen <jouni.minkkinen@tawasta.fi>
+* Timo Talvitie <timo.talvitie@tawasta.fi>
 
 Maintainer
 ----------
