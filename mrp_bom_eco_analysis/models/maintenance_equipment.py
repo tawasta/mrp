@@ -1,4 +1,5 @@
-from odoo import fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 
 class MaintenanceEquipment(models.Model):
@@ -32,3 +33,32 @@ class MaintenanceEquipment(models.Model):
             name = "{} - {}".format(maintenance.name, maintenance.code)
             res.append((maintenance.id, name))
         return res
+
+    @api.constrains("location_category_id")
+    def _check_location_category_id(self):
+        """
+        Check if there exists a work center that is connected to this equipment.
+        If yes, prevent setting a different Location for this equipment than what
+        the connected work center has.
+        """
+        for record in self:
+            if record.location_category_id:
+                work_centers_with_mismatching_location = self.env[
+                    "mrp.workcenter"
+                ].search(
+                    [
+                        ("maintenance_id", "=", record.id),
+                        ("category_id", "!=", record.location_category_id.id),
+                    ]
+                )
+
+                if work_centers_with_mismatching_location:
+                    msg = _(
+                        "According to Work Center {}, this Equipment's location "
+                        "should be {}."
+                    ).format(
+                        work_centers_with_mismatching_location[0].name,
+                        work_centers_with_mismatching_location[0].category_id.name,
+                    )
+
+                    raise ValidationError(msg)
