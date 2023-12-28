@@ -115,7 +115,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet2.write(a, 2, ch.product_id.default_code or "")  # Internal reference
         sheet2.write(a, 3, ch.product_tmpl_id.name)  # Name
         sheet2.write(a, 4, ch.product_id.uom_id.name)  # Unit
-        sheet2.write(a, 5, ch.product_qty)  # Quantity in products
+        sheet2.write(a, 5, quantities[ident][1])  # Quantity in products
 
         classes = (
             str(m.product_material_class_id.name)
@@ -217,103 +217,68 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         j -= 1
         return a
 
-    def print_bom_children_3(
-        self,
-        ch,
-        sheet3,
-        row,
-        level,
-        parent,
-        parent_level,
-        child_number,
-        quantities,
-        identifier,
-    ):
+    def print_by_products(self, sheet3, row, level, bom, product_variant, style):
         b, j = row, level
         j += 1
+        bold = style
 
-        ident = "{}{}{}".format(identifier, "0000", ch.id)
-        level = "{}.{}".format(parent_level, child_number)
+        for by_product in bom.byproduct_ids:
 
-        materials = self.env["product.material.composition"]
+            # ---------------------------- -#
+            # ---------- Sheet 3 --------- -#
+            # ---------------------------- -#
 
-        for mater in ch.product_id.product_material_composition_ids:
-            materials |= mater
+            "{}".format(bom.id)
 
-        parent_with_code = "{}{}".format(
-            parent.default_code and "[" + parent.default_code + "] " or "", parent.name
-        )
+            self.get_bom_quantities(bom)
 
-        sheet3.write(b, 0, parent_with_code)  # Internal category/display name
-        sheet3.write(b, 1, level)  # Level
-        sheet3.write(b, 2, ch.product_id.name)  # Name
-        sheet3.write(b, 3, ch.product_id.default_code or "")  # Internal reference
+            sheet3.write(
+                b, 0, bom.product_tmpl_id.name, bold
+            )  # Internal category/display name
+            sheet3.write(b, 1, "1")  # Level
+            sheet3.write(
+                b, 2, by_product.product_id.product_tmpl_id.name, bold
+            )  # Product to which operation is done
+            sheet3.write(
+                b, 3, bom.product_tmpl_id.default_code or "", bold
+            )  # Product internal reference
 
-        child_bom = ch.product_id.bom_ids and ch.product_id.bom_ids[0]
+            sheet3.write(b, 4, by_product.operation_id.sequence, bold)  # Operation ID
+            sheet3.write(b, 5, by_product.operation_id.name, bold)  # Operation name
 
-        sheet3.write(b, 4, ch.operation_id.id or "")  # Operation ID
+            workcenter = by_product.operation_id.workcenter_id
 
-        sheet3.write(b, 5, ch.operation_id.name or "")  # Quantity in products
-
-        electric_consumption = (
-            ch.operation_id and ch.operation_id.workcenter_id.electric_consumption or 0
-        )
-
-        sheet3.write(
-            b, 6, electric_consumption
-        )  # Energy consumption during an operation / Total/(kWh)
-
-        materials = self.env["product.material.composition"]
-
-        for mater in ch.product_id.product_material_composition_ids:
-            materials |= mater
-
-        waste_component = (
-            str(m.product_material_waste_component_id.name)
-            for m in materials
-            if m.product_material_waste_component_id
-        )
-        waste_component = "\n".join(filter(None, waste_component))
-
-        sheet3.write(b, 7, waste_component)  # Waste product name
-
-        waste_amount = (
-            str(m.net_weight * m.recycled_percentage)
-            for m in materials
-            if m.net_weight and m.recycled_percentage
-        )
-        waste_amount = "\n".join(filter(None, waste_amount))
-
-        sheet3.write(b, 8, waste_amount)  # Waste amount
-
-        waste_unit = (
-            str(m.net_weight_uom_id.name) for m in materials if m.net_weight_uom_id
-        )
-        waste_unit = "\n".join(filter(None, waste_unit))
-
-        sheet3.write(b, 9, waste_unit)  # Waste unit
-
-        b += 1
-        child_number = 0
-        for child in ch.child_line_ids:
-            if child._skip_bom_line(ch.product_id):
-                continue
-
-            child_number += 1
-            child_bom = ch.product_id.bom_ids and ch.product_id.bom_ids[0]
-            ident = "{}{}{}".format(identifier, "0000", child_bom.id)
-
-            b = self.print_bom_children_3(
-                child,
-                sheet3,
-                b,
-                j,
-                parent=ch.product_id,
-                parent_level=level,
-                child_number=child_number,
-                quantities=quantities,
-                identifier=ident,
+            total_energy = (
+                (workcenter.energy_consumption + workcenter.energy_consumption_passive)
+                * workcenter.electric_consumption
+                * workcenter.costs_hour
             )
+
+            sheet3.write(
+                b, 6, total_energy, bold
+            )  # Energy consumption during an operation / Total/(kWh)
+
+            sheet3.write(
+                b, 7, by_product.product_id.product_tmpl_id.name, bold
+            )  # Waste product name
+            sheet3.write(b, 8, by_product.product_qty or 0, bold)  # Waste amount
+            sheet3.write(b, 9, by_product.product_uom_id.name, bold)  # Waste unit
+
+            b += 1
+
+        for ch in bom.bom_line_ids:
+            if product_variant and ch._skip_bom_line(product_variant):
+                continue
+            if ch.child_bom_id:
+                b = self.print_by_products(
+                    sheet3,
+                    row=b,
+                    level=j,
+                    product_variant=product_variant,
+                    style=None,
+                    bom=ch.child_bom_id,
+                )
+
         j -= 1
         return b
 
@@ -336,18 +301,13 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         ident = "{}{}{}".format(identifier, "0000", ch.id)
         level = "{}.{}".format(parent_level, child_number)
 
-        materials = self.env["product.material.composition"]
-
         child_bom = ch.product_id.bom_ids and ch.product_id.bom_ids[0]
-
-        for mater in ch.product_id.product_material_composition_ids:
-            materials |= mater
 
         parent_with_code = "{}{}".format(
             parent.default_code and "[" + parent.default_code + "] " or "", parent.name
         )
 
-        sheet4.write(c, 0, ch.product_id.categ_id.name or "")  # Internal reference
+        sheet4.write(c, 0, ch.product_id.name or "")  # Internal reference
         sheet4.write(c, 1, parent.default_code or "")  # Name
         sheet4.write(c, 2, parent_with_code)  # Internal category/display name
         sheet4.write(c, 3, operation.id or "")  # Operation ID
@@ -365,7 +325,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             minutes_in_year
             and (
                 (quantities[ident][1] * ch.product_id.weight / minutes_in_year)
-                * ch.operation_id.time_cycle_manual
+                * operation.time_cycle_manual
             )
             or 0
         )
@@ -567,6 +527,111 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         j -= 1
         return d
 
+    def operation_bom_consus(
+        self, bom, product_variant, sheet4, row, level, parent_level, identifier, style
+    ):
+
+        parent_bom = bom
+
+        bold = style
+        c, j = row, level
+
+        for oper in parent_bom.operation_ids:
+            c, j = row, level
+            j += 1
+
+            bom = oper.workcenter_id.bom_consu
+
+            ident = "{}".format(bom.id)
+            quantities = self.get_bom_quantities(bom)
+
+            sheet4.write(
+                c, 0, bom.product_tmpl_id.name or ""
+            )  # Internal category/display name
+            sheet4.write(
+                c, 1, bom.product_id.default_code or "", bold
+            )  # Product internal reference
+            sheet4.write(c, 2, bom.product_tmpl_id.name or "", bold)  # Name
+            sheet4.write(c, 3, oper.id or "", bold)  # Operation ID
+            sheet4.write(c, 4, oper.name or "", bold)  # Operation name
+
+            sheet4.write(c, 5, "N/A", bold)  # Operation consumptions product ID
+
+            sheet4.write(
+                c, 6, "N/A", bold
+            )  # Name of the product consumed in an operation
+
+            minutes_in_year = bom.company_id.minutes_in_year
+
+            weight = (
+                bom.product_id
+                and bom.product_id.weight
+                or bom.product_tmpl_id
+                and bom.product_tmpl_id.weight
+                or 0
+            )
+
+            #  Check that minutes_in_year is not zero
+            consumed_weight = (
+                minutes_in_year
+                and (
+                    (bom.product_qty * weight / minutes_in_year)
+                    * oper.time_cycle_manual
+                )
+                or 0
+            )
+
+            sheet4.write(
+                c, 7, consumed_weight, bold
+            )  # Consumed amount / produced 1 product
+
+            sheet4.write(c, 8, bom.product_uom_id.name or "", bold)  # Unit
+
+            parent_level_4 = c - 1
+            c += 1
+            j = 0
+
+            child_number = 0
+            for ch in bom.bom_line_ids:
+                if product_variant and ch._skip_bom_line(product_variant):
+                    continue
+                child_number += 1
+                c = self.print_bom_children_4(
+                    ch,
+                    sheet4,
+                    c,
+                    j,
+                    parent=bom.product_tmpl_id,
+                    parent_level=parent_level_4,
+                    child_number=child_number,
+                    quantities=quantities,
+                    identifier=ident,
+                    operation=oper,
+                )
+
+        parent_level_4 = c - 1
+        j = 0
+
+        child_number = 0
+
+        for ch in parent_bom.bom_line_ids:
+            if product_variant and ch._skip_bom_line(product_variant):
+                continue
+            child_number += 1
+            if ch.child_bom_id:
+                c = self.operation_bom_consus(
+                    bom=ch.child_bom_id,
+                    product_variant=product_variant,
+                    sheet4=sheet4,
+                    row=c,
+                    level=j,
+                    parent_level=parent_level_4,
+                    identifier=ident,
+                    style=None,
+                )
+        j -= 1
+        return c
+
     def generate_xlsx_report(self, workbook, data, objects):
 
         workbook.set_properties(
@@ -634,7 +699,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         for title in enumerate(sheet_title_2):
             sheet2.write(0, title[0], title[1] or "", title_style_product_level)
 
-        #        sheet2.write_row(1, 17, sheet_title_product_level, title_style_product_level)
         sheet2.freeze_panes(2, 0)
 
         # ---------------------------- -#
@@ -806,8 +870,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         c = 1
         d = 1
 
-        ######################################################################
-
         for o in objects:
             product_variant = o._context.get("product_id")
             product_variant = product_variant and self.env["product.product"].browse(
@@ -912,146 +974,43 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 a, 16, o.product_id.origin_country_id.name or "", bold
             )  # Country of origin
 
-            # Sheet 4
+            # ---------------------------- -#
+            # ---------- Sheet 3 --------- -#
+            # ---------------------------- -#
 
-            ident = "{}".format(o.id)
+            j = 0
 
-            quantities = self.get_bom_quantities(o)
-
-            for by_product in o.byproduct_ids:
-
-                # ---------------------------- -#
-                # ---------- Sheet 3 --------- -#
-                # ---------------------------- -#
-
-                ident = "{}".format(o.id)
-
-                quantities = self.get_bom_quantities(o)
-
-                sheet3.write(
-                    b, 0, o.product_tmpl_id.name, bold
-                )  # Internal category/display name
-                sheet3.write(b, 1, "1")  # Level
-                sheet3.write(
-                    b, 2, by_product.product_id.product_tmpl_id.name, bold
-                )  # Product to which operation is done
-                sheet3.write(
-                    b, 3, by_product.product_id.default_code or "", bold
-                )  # Product internal reference
-
-                sheet3.write(b, 4, by_product.operation_id.id, bold)  # Operation ID
-                sheet3.write(b, 5, by_product.operation_id.name, bold)  # Operation name
-
-                workcenter = by_product.operation_id.workcenter_id
-
-                total_energy = (
-                    (
-                        workcenter.energy_consumption
-                        + workcenter.energy_consumption_passive
-                    )
-                    * workcenter.electric_consumption
-                    * workcenter.costs_hour
-                )
-
-                sheet3.write(
-                    b, 6, total_energy, bold
-                )  # Energy consumption during an operation / Total/(kWh)
-
-                sheet3.write(
-                    b, 7, by_product.product_id.product_tmpl_id.name, bold
-                )  # Waste product name
-                sheet3.write(b, 8, by_product.product_qty or 0, bold)  # Waste amount
-                sheet3.write(b, 9, by_product.product_uom_id.name, bold)  # Waste unit
-
-                b += 1
-            #                parent_level_3 = b - 1
-            #                j = 0
-            #
-            #                child_number = 0
-            #                for ch in o.bom_line_ids:
-            #                    if product_variant and ch._skip_bom_line(product_variant):
-            #                        continue
-            #                    child_number += 1
-            #                    b = self.print_bom_children_3(
-            #                        ch,
-            #                        sheet3,
-            #                        b,
-            #                        j,
-            #                        parent=o.product_tmpl_id,
-            #                        parent_level=parent_level_3,
-            #                        child_number=child_number,
-            #                        quantities=quantities,
-            #                        identifier=ident,
-            #                    )
+            self.print_by_products(
+                sheet3,
+                row=b,
+                level=j,
+                bom=o,
+                product_variant=product_variant,
+                style=bold,
+            )
 
             # ---------------------------- -#
             # ---------- Sheet 4 --------- -#
             # ---------------------------- -#
 
-            for oper in o.operation_ids:
+            ident = "{}".format(o.id)
 
-                bom = oper.workcenter_id.bom_consu
+            quantities = self.get_bom_quantities(o)
 
-                sheet4.write(
-                    c, 0, bom.product_tmpl_id.categ_id.name or ""
-                )  # Internal category/display name
-                sheet4.write(
-                    c, 1, bom.product_id.default_code or "", bold
-                )  # Product internal reference
-                sheet4.write(c, 2, bom.product_tmpl_id.name or "", bold)  # Name
-                sheet4.write(c, 3, oper.id or "", bold)  # Operation ID
-                sheet4.write(c, 4, oper.name or "", bold)  # Operation name
+            self.operation_bom_consus(
+                bom=o,
+                product_variant=product_variant,
+                sheet4=sheet4,
+                row=c,
+                level=j,
+                parent_level=c,
+                identifier=ident,
+                style=bold,
+            )
 
-                sheet4.write(c, 5, "N/A", bold)  # Operation consumptions product ID
-
-                sheet4.write(
-                    c, 6, "N/A", bold
-                )  # Name of the product consumed in an operation
-
-                minutes_in_year = bom.company_id.minutes_in_year
-
-                #  Check that minutes_in_year is not zero
-                consumed_weight = (
-                    minutes_in_year
-                    and (
-                        (bom.product_qty * bom.product_id.weight / minutes_in_year)
-                        * oper.time_cycle_manual
-                    )
-                    or 0
-                )
-
-                # Operaatiossa kuluva määrä vuodessa
-                # Teknisissä asetuksissa voi vaihtaa minuuttimäärää
-
-                sheet4.write(
-                    c, 7, consumed_weight, bold
-                )  # Consumed amount / produced 1 product
-
-                sheet4.write(c, 8, bom.product_uom_id.name or "", bold)  # Unit
-
-                parent_level_4 = c - 1
-                c += 1
-                j = 0
-
-                child_number = 0
-                for ch in bom.bom_line_ids:
-                    if product_variant and ch._skip_bom_line(product_variant):
-                        continue
-                    child_number += 1
-                    c = self.print_bom_children_4(
-                        ch,
-                        sheet4,
-                        c,
-                        j,
-                        parent=bom.product_tmpl_id,
-                        parent_level=parent_level_4,
-                        child_number=child_number,
-                        quantities=quantities,
-                        identifier=ident,
-                        operation=oper,
-                    )
-
-            # Sheet 5
+            # ---------------------------- -#
+            # ---------- Sheet 5 --------- -#
+            # ---------------------------- -#
 
             ident = "{}".format(o.id)
 
@@ -1186,6 +1145,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             j = 0
 
+            ident = "{}".format(o.id)
+
+            quantities = self.get_bom_quantities(o)
+
             child_number = 0
             for ch in o.bom_line_ids:
                 if product_variant and ch._skip_bom_line(product_variant):
@@ -1202,17 +1165,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     quantities=quantities,
                     identifier=ident,
                 )
-                #                b = self.print_bom_children_3(
-                #                    ch,
-                #                    sheet3,
-                #                    b,
-                #                    j,
-                #                    parent=o.product_tmpl_id,
-                #                    parent_level=parent_level_3,
-                #                    child_number=child_number,
-                #                    quantities=quantities,
-                #                    identifier=ident,
-                #                )
+
                 d = self.print_bom_children_5(
                     ch,
                     sheet5,
@@ -1224,6 +1177,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     quantities=quantities,
                     identifier=ident,
                 )
+
+    # ------------------------------------#
+    # ------ Code below is not used ------#
+    # ------------------------------------#
 
     def print_bom_children(
         self,
