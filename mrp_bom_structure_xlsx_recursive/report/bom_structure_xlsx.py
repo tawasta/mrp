@@ -83,6 +83,86 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             quantities[line] = quantity
         return quantities
 
+    def print_materials(
+        self,
+        product_id,
+        sheet2,
+        row,
+        level,
+        quantity,
+    ):
+        a = row
+
+        for mater in product_id.product_material_composition_ids:
+
+            sheet2.write(a, 7, mater.product_material_class_id.name)  # Material class
+            sheet2.write(a, 7, mater.name)  # Material
+            sheet2.write(a, 8, mater.net_weight)  # Material weight / per unit
+            sheet2.write(
+                a, 9, mater.net_weight * quantity
+            )  # Material total weight in product
+            sheet2.write(a, 10, mater.net_weight_uom_id.name)  # Net weight UoM
+            sheet2.write(a, 11, mater.recycled_percentage)  # Recycled material %
+            sheet2.write(
+                a, 12, mater.product_material_waste_component_id.name
+            )  # Waste procuts
+            sheet2.write(
+                a, 13, mater.product_material_waste_endpoint_id.name
+            )  # Waste endpoint
+            a += 1
+
+        return a
+
+    def print_material_requirements(
+        self, product_id, sheet5, row, level, quantity, style
+    ):
+        d = row
+        sheet5_style = style
+
+        for mater in product_id.product_material_composition_ids:
+
+            sheet5.write(
+                d, 5, mater.product_material_class_id.name, sheet5_style
+            )  # Material class
+            sheet5.write(d, 6, mater.name, sheet5_style)  # Material
+            sheet5.write(
+                d, 7, mater.net_weight, sheet5_style
+            )  # Net weight in a product
+            sheet5.write(
+                d, 8, mater.net_weight_uom_id.name or "", sheet5_style
+            )  # Net weight Unit
+            sheet5.write(
+                d, 9, mater.chemicals_compliant.name or "", sheet5_style
+            )  # Dangerous materials / Chemicals Compliant
+            sheet5.write(d, 10, mater.rohs_compliant.name or "", sheet5_style)  # RoHS
+            sheet5.write(d, 11, mater.reach_compliant.name or "", sheet5_style)  # REACH
+            sheet5.write(d, 12, mater.scip_compliant.name or "", sheet5_style)  # SCIP
+            sheet5.write(
+                d, 13, mater.pop_compliant.name or "", sheet5_style
+            )  # POP (Persistant Organic Pollutants)
+            sheet5.write(
+                d, 14, mater.halogen_compliant.name or "", sheet5_style
+            )  # Halogens
+            sheet5.write(
+                d, 15, mater.conflict_area_minerals_compliant.name or "", sheet5_style
+            )  # Conflict Area Minerals
+            sheet5.write(
+                d, 16, mater.recycled_percentage or "", sheet5_style
+            )  # Recycle material %
+            sheet5.write(
+                d,
+                17,
+                mater.product_material_waste_component_id.name or "",
+                sheet5_style,
+            )  # Waste product
+            sheet5.write(
+                d, 18, mater.product_material_waste_endpoint_id.name or "", sheet5_style
+            )  # Waste endpoint
+
+            d += 1
+
+        return d
+
     def print_bom_children_2(
         self,
         ch,
@@ -104,7 +184,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         materials = self.env["product.material.composition"]
 
         for mater in ch.product_id.product_material_composition_ids:
-            materials |= mater
+            materials += mater
 
         parent_with_code = "{}{}".format(
             parent.default_code and "[" + parent.default_code + "] " or "", parent.name
@@ -116,58 +196,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet2.write(a, 3, ch.product_tmpl_id.name)  # Name
         sheet2.write(a, 4, ch.product_id.uom_id.name)  # Unit
         sheet2.write(a, 5, quantities[ident][1])  # Quantity in products
-
-        classes = (
-            str(m.product_material_class_id.name)
-            for m in materials
-            if m.product_material_class_id
-        )
-        classes = "\n".join(filter(None, classes))
-
-        sheet2.write(a, 6, classes)  # Material class
-
-        names = (str(m.name) for m in materials if m.name)
-        names = "\n".join(filter(None, names))
-
-        sheet2.write(a, 7, names)  # Material
-
-        net_weights = (str(m.net_weight) for m in materials if m.net_weight)
-        net_weights = "\n".join(filter(None, net_weights))
-
-        sheet2.write(a, 8, net_weights)  # Material weight / per unit
-        sheet2.write(a, 9, net_weights)  # Material total weight in product
-
-        net_weight_uom = (
-            str(m.net_weight_uom_id.name) for m in materials if m.net_weight_uom_id
-        )
-        net_weight_uom = "\n".join(filter(None, net_weight_uom))
-
-        sheet2.write(a, 10, net_weight_uom)  # Net weight UoM
-
-        recycled_percentage = (
-            str(m.recycled_percentage) for m in materials if m.recycled_percentage
-        )
-        recycled_percentage = "\n".join(filter(None, recycled_percentage))
-
-        sheet2.write(a, 11, recycled_percentage)  # Recycled material %
-
-        waste_component = (
-            str(m.product_material_waste_component_id.name)
-            for m in materials
-            if m.product_material_waste_component_id
-        )
-        waste_component = "\n".join(filter(None, waste_component))
-
-        sheet2.write(a, 12, waste_component)  # Waste procuts
-
-        waste_endpoint = (
-            str(m.product_material_waste_endpoint_id.name)
-            for m in materials
-            if m.product_material_waste_endpoint_id
-        )
-        waste_endpoint = "\n".join(filter(None, waste_endpoint))
-
-        sheet2.write(a, 13, waste_endpoint)  # Waste endpoint
 
         vendor = ch.product_id.seller_ids and ch.product_id.seller_ids.filtered(
             lambda r: r.name.type == "other"
@@ -193,11 +221,20 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             a, 16, ch.product_id.origin_country_id.name or ""
         )  # Country of origin
 
-        a += 1
+        a = self.print_materials(
+            product_id=ch.product_id,
+            sheet2=sheet2,
+            row=a,
+            level=j,
+            quantity=quantities[ident][1],
+        )
+
         child_number = 0
         for child in ch.child_line_ids:
             if child._skip_bom_line(ch.product_id):
                 continue
+
+            a += 1
 
             child_number += 1
             child_bom = ch.product_id.bom_ids and ch.product_id.bom_ids[0]
@@ -224,9 +261,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
         for by_product in bom.byproduct_ids:
 
-            # ---------------------------- -#
-            # ---------- Sheet 3 --------- -#
-            # ---------------------------- -#
+            # -------------------------------#
+            # ----------- Sheet 3 -----------#
+            # -------------------------------#
 
             "{}".format(bom.id)
 
@@ -246,23 +283,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet3.write(b, 4, by_product.operation_id.sequence, bold)  # Operation ID
             sheet3.write(b, 5, by_product.operation_id.name, bold)  # Operation name
 
-            workcenter = by_product.operation_id.workcenter_id
-
-            total_energy = (
-                (workcenter.energy_consumption + workcenter.energy_consumption_passive)
-                * workcenter.electric_consumption
-                * workcenter.costs_hour
-            )
-
             sheet3.write(
-                b, 6, total_energy, bold
-            )  # Energy consumption during an operation / Total/(kWh)
-
-            sheet3.write(
-                b, 7, by_product.product_id.product_tmpl_id.name, bold
+                b, 6, by_product.product_id.product_tmpl_id.name, bold
             )  # Waste product name
-            sheet3.write(b, 8, by_product.product_qty or 0, bold)  # Waste amount
-            sheet3.write(b, 9, by_product.product_uom_id.name, bold)  # Waste unit
+            sheet3.write(b, 7, by_product.product_qty or 0, bold)  # Waste amount
+            sheet3.write(b, 8, by_product.product_uom_id.name, bold)  # Waste unit
 
             b += 1
 
@@ -334,7 +359,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             c, 7, consumed_weight
         )  # Energy consumption during an operation / Total/(kWh)
 
-        sheet4.write(c, 8, ch.product_uom_id.name or "")  # Unit
+        sheet4.write(c, 9, ch.product_uom_id.name or "")  # Unit
 
         c += 1
         child_number = 0
@@ -395,119 +420,21 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet5.write(d, 3, ch.product_id.name)  # Name
         sheet5.write(d, 4, ch.product_uom_id.name or "")  # Unit
 
-        materials = self.env["product.material.composition"]
-
-        for mater in ch.product_id.product_material_composition_ids:
-            materials |= mater
-
-        classes = (
-            str(m.product_material_class_id.name)
-            for m in materials
-            if m.product_material_class_id
-        )
-        classes = "\n".join(filter(None, classes))
-
-        sheet5.write(d, 5, classes)  # Material class
-
-        names = (str(m.name) for m in materials if m.name)
-        names = "\n".join(filter(None, names))
-
-        sheet5.write(d, 6, names)  # Material
-        sheet5.write(d, 7, ch.product_id.weight)  # Net weight in a product
-
-        sheet5.write(d, 8, ch.product_id.weight_uom_id.name or "")  # Net weight Unit
-
-        chemicals_compliant = (
-            str(m.chemicals_compliant.name) for m in materials if m.chemicals_compliant
-        )
-        chemicals_compliant = "\n".join(filter(None, chemicals_compliant))
-
-        sheet5.write(
-            d, 9, chemicals_compliant or ""
-        )  # Dangerous materials / Chemicals Compliant
-
-        rohs_compliant = (
-            str(m.rohs_compliant.name) for m in materials if m.rohs_compliant
-        )
-        rohs_compliant = "\n".join(filter(None, rohs_compliant))
-
-        sheet5.write(d, 10, rohs_compliant or "")  # RoHS
-
-        reach_compliant = (
-            str(m.reach_compliant.name) for m in materials if m.reach_compliant
-        )
-        reach_compliant = "\n".join(filter(None, reach_compliant))
-
-        sheet5.write(d, 11, reach_compliant or "")  # REACH
-
-        scip_compliant = (
-            str(m.scip_compliant.name) for m in materials if m.scip_compliant
-        )
-        scip_compliant = "\n".join(filter(None, scip_compliant))
-
-        sheet5.write(d, 12, scip_compliant or "")  # SCIP
-
-        pop_compliant = (
-            str(m.pop_compliant.name) for m in materials if m.pop_compliant
-        )
-        pop_compliant = "\n".join(filter(None, pop_compliant))
-
-        sheet5.write(d, 13, pop_compliant or "")  # POP (Persistant Organic Pollutants)
-
-        halogen_compliant = (
-            str(m.halogen_compliant.name) for m in materials if m.halogen_compliant
-        )
-        halogen_compliant = "\n".join(filter(None, halogen_compliant))
-
-        sheet5.write(d, 14, halogen_compliant or "")  # Halogens
-
-        conflict_area_minerals_compliant = (
-            str(m.conflict_area_minerals_compliant.name)
-            for m in materials
-            if m.conflict_area_minerals_compliant
-        )
-        conflict_area_minerals_compliant = "\n".join(
-            filter(None, conflict_area_minerals_compliant)
+        d = self.print_material_requirements(
+            product_id=ch.product_id,
+            sheet5=sheet5,
+            row=d,
+            level=j,
+            quantity=quantities[ident][1],
+            style=None,
         )
 
-        sheet5.write(
-            d, 15, conflict_area_minerals_compliant or ""
-        )  # Conflict Area Minerals
-
-        recycled_percentage = (
-            str(m.recycled_percentage) for m in materials if m.recycled_percentage
-        )
-        recycled_percentage = "\n".join(filter(None, recycled_percentage))
-
-        sheet5.write(d, 16, recycled_percentage or "")  # Recycle material %
-
-        product_material_waste_component_id = (
-            str(m.product_material_waste_component_id.name)
-            for m in materials
-            if m.product_material_waste_component_id
-        )
-        product_material_waste_component_id = "\n".join(
-            filter(None, product_material_waste_component_id)
-        )
-
-        sheet5.write(d, 17, product_material_waste_component_id or "")  # Waste product
-
-        product_material_waste_endpoint_id = (
-            str(m.product_material_waste_endpoint_id.name)
-            for m in materials
-            if m.product_material_waste_endpoint_id
-        )
-        product_material_waste_endpoint_id = "\n".join(
-            filter(None, product_material_waste_endpoint_id)
-        )
-
-        sheet5.write(d, 18, product_material_waste_endpoint_id or "")  # Waste endpoint
-
-        d += 1
         child_number = 0
         for child in ch.child_line_ids:
             if child._skip_bom_line(ch.product_id):
                 continue
+
+            d += 1
 
             child_number += 1
             child_bom = ch.product_id.bom_ids and ch.product_id.bom_ids[0]
@@ -585,7 +512,19 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 c, 7, consumed_weight, bold
             )  # Consumed amount / produced 1 product
 
-            sheet4.write(c, 8, bom.product_uom_id.name or "", bold)  # Unit
+            workcenter = oper.workcenter_id
+
+            total_energy = (
+                (workcenter.energy_consumption + workcenter.energy_consumption_passive)
+                * workcenter.electric_consumption
+                * workcenter.costs_hour
+            )
+
+            sheet4.write(
+                c, 8, total_energy, bold
+            )  # Energy consumption during an operation / Total/(kWh)
+
+            sheet4.write(c, 9, bom.product_uom_id.name or "", bold)  # Unit
 
             parent_level_4 = c - 1
             c += 1
@@ -638,9 +577,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             {"comments": "Created with Python and XlsxWriter from Odoo 14.0"}
         )
 
-        # ---------------------------- -#
-        # ---------- Sheet 2 --------- -#
-        # ---------------------------- -#
+        # -------------------------------#
+        # ----------- Sheet 2 -----------#
+        # -------------------------------#
 
         sheet2 = workbook.add_worksheet(_("BOM materials"))
 
@@ -701,11 +640,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
         sheet2.freeze_panes(2, 0)
 
-        # ---------------------------- -#
-        # ---------- Sheet 3 --------- -#
-        # ---------------------------- -#
+        # -------------------------------#
+        # ----------- Sheet 3 -----------#
+        # -------------------------------#
 
-        sheet3 = workbook.add_worksheet(_("BOM energy and by-products"))
+        sheet3 = workbook.add_worksheet(_("BOM by-products"))
 
         sheet3.set_landscape()
         sheet3.fit_to_pages(1, 0)
@@ -718,11 +657,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet3.set_column(3, 3, 25)
         sheet3.set_column(4, 4, 20)
         sheet3.set_column(5, 5, 48)
-        sheet3.set_column(6, 6, 35)
-        sheet3.set_column(7, 7, 35)
-        sheet3.set_column(8, 8, 25)
-        sheet3.set_column(9, 9, 28)
-        sheet3.set_column(10, 10, 18)
+        sheet3.set_column(6, 6, 25)
+        sheet3.set_column(7, 7, 28)
+        sheet3.set_column(8, 8, 18)
 
         # Column styles
         bold = workbook.add_format({"bold": True})
@@ -738,7 +675,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             _("Product internal reference"),
             _("Operation ID"),
             _("Operation name"),
-            _("Energy consumption during an operation / Total(kWh)"),
             _("Waste product name"),
             _("Waste amount"),
             _("Waste unit"),
@@ -751,11 +687,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
         sheet3.freeze_panes(2, 0)
 
-        # ---------------------------- -#
-        # ---------- Sheet 4 --------- -#
-        # ---------------------------- -#
+        # -------------------------------#
+        # ----------- Sheet 4 -----------#
+        # -------------------------------#
 
-        sheet4 = workbook.add_worksheet(_("BOM operations and consumptions"))
+        sheet4 = workbook.add_worksheet(_("Operations, energy, consumption"))
 
         sheet4.set_landscape()
         sheet4.fit_to_pages(1, 0)
@@ -768,9 +704,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet4.set_column(3, 3, 18)
         sheet4.set_column(4, 4, 25)
         sheet4.set_column(5, 5, 35)
-        sheet4.set_column(6, 6, 40)
-        sheet4.set_column(7, 7, 30)
-        sheet4.set_column(8, 8, 15)
+        sheet4.set_column(6, 6, 42)
+        sheet4.set_column(7, 7, 35)
+        sheet4.set_column(8, 8, 40)
+        sheet4.set_column(9, 9, 15)
 
         # Column styles
         bold = workbook.add_format({"bold": True})
@@ -788,6 +725,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             _("Operation consumptions product ID"),
             _("Name of the product consumed in an operation"),
             _("Consumed amount / produced 1 product"),
+            _("Energy consumption during an operation / Total(kWh)"),
             _("Unit"),
         ]
 
@@ -798,9 +736,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
         sheet4.freeze_panes(2, 0)
 
-        # ---------------------------- -#
-        # ---------- Sheet 5 --------- -#
-        # ---------------------------- -#
+        # -------------------------------#
+        # ----------- Sheet 5 -----------#
+        # -------------------------------#
 
         sheet5 = workbook.add_worksheet(_("Product requirements"))
 
@@ -871,6 +809,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         d = 1
 
         for o in objects:
+
+            # --------------------------------------------------------------------- #
+            # ------------------------------ Sheet 2 ------------------------------ #
+            # --------------------------------------------------------------------- #
+
             product_variant = o._context.get("product_id")
             product_variant = product_variant and self.env["product.product"].browse(
                 product_variant
@@ -893,60 +836,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet2.write(a, 3, o.product_tmpl_id.name, bold)  # Name
             sheet2.write(a, 4, o.product_id.uom_id.name or "", bold)  # Unit
             sheet2.write(a, 5, o.product_qty, bold)  # Quantity in products
-
-            classes = (
-                str(m.product_material_class_id.name)
-                for m in materials
-                if m.product_material_class_id
-            )
-            classes = "\n".join(filter(None, classes))
-
-            sheet2.write(a, 6, classes, bold)  # Material class
-
-            names = (str(m.name) for m in materials if m.name)
-            names = "\n".join(filter(None, names))
-
-            sheet2.write(a, 7, names, bold)  # Material
-
-            net_weights = (str(m.net_weight) for m in materials if m.net_weight)
-            net_weights = "\n".join(filter(None, net_weights))
-
-            sheet2.write(a, 8, net_weights, bold)  # Material weight / per unit
-            sheet2.write(a, 9, net_weights, bold)  # Material total weight in product
-
-            net_weight_uom = (
-                str(m.net_weight_uom_id.name) for m in materials if m.net_weight_uom_id
-            )
-            net_weight_uom = "\n".join(filter(None, net_weight_uom))
-
-            sheet2.write(
-                a, 10, net_weight_uom, bold
-            )  # Material total weight in product
-
-            recycled_percentage = (
-                str(m.recycled_percentage) for m in materials if m.recycled_percentage
-            )
-            recycled_percentage = "\n".join(filter(None, recycled_percentage))
-
-            sheet2.write(a, 11, recycled_percentage, bold)  # Recycled material %
-
-            waste_component = (
-                str(m.product_material_waste_component_id.name)
-                for m in materials
-                if m.product_material_waste_component_id
-            )
-            waste_component = "\n".join(filter(None, waste_component))
-
-            sheet2.write(a, 12, waste_component, bold)  # Waste procuts
-
-            waste_endpoint = (
-                str(m.product_material_waste_endpoint_id.name)
-                for m in materials
-                if m.product_material_waste_endpoint_id
-            )
-            waste_endpoint = "\n".join(filter(None, waste_endpoint))
-
-            sheet2.write(a, 13, waste_endpoint, bold)  # Waste endpoint
 
             vendor = o.product_id.seller_ids and o.product_id.seller_ids.filtered(
                 lambda r: r.name.type == "other"
@@ -974,11 +863,21 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 a, 16, o.product_id.origin_country_id.name or "", bold
             )  # Country of origin
 
-            # ---------------------------- -#
-            # ---------- Sheet 3 --------- -#
-            # ---------------------------- -#
-
             j = 0
+
+            material_variant = product_variant or o.product_tmpl_id.product_variant_id
+
+            a = self.print_materials(
+                product_id=material_variant,
+                sheet2=sheet2,
+                row=a,
+                level=j,
+                quantity=o.product_qty,
+            )
+
+            # --------------------------------------------------------------------- #
+            # ------------------------------ Sheet 3 ------------------------------ #
+            # --------------------------------------------------------------------- #
 
             self.print_by_products(
                 sheet3,
@@ -986,12 +885,12 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 level=j,
                 bom=o,
                 product_variant=product_variant,
-                style=bold,
+                style=None,
             )
 
-            # ---------------------------- -#
-            # ---------- Sheet 4 --------- -#
-            # ---------------------------- -#
+            # --------------------------------------------------------------------- #
+            # ------------------------------ Sheet 4 ------------------------------ #
+            # --------------------------------------------------------------------- #
 
             ident = "{}".format(o.id)
 
@@ -1005,145 +904,40 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 level=j,
                 parent_level=c,
                 identifier=ident,
-                style=bold,
+                style=None,
             )
 
-            # ---------------------------- -#
-            # ---------- Sheet 5 --------- -#
-            # ---------------------------- -#
+            # --------------------------------------------------------------------- #
+            # ------------------------------ Sheet 5 ------------------------------ #
+            # --------------------------------------------------------------------- #
+
+            sheet5_style = None
 
             ident = "{}".format(o.id)
 
             quantities = self.get_bom_quantities(o)
 
-            sheet5.write(d, 0, "N/A", bold)  # Internal category/display name
-            sheet5.write(d, 1, "1", bold)  # Level
-            sheet5.write(d, 2, "N/A", bold)  # Internal reference
-            sheet5.write(d, 3, "N/A", bold)  # Name
-            sheet5.write(d, 4, o.product_uom_id.name or "", bold)  # Unit
-
-            materials = self.env["product.material.composition"]
-
-            for mater in o.product_id.product_material_composition_ids:
-                materials |= mater
-
-            classes = (
-                str(m.product_material_class_id.name)
-                for m in materials
-                if m.product_material_class_id
-            )
-            classes = "\n".join(filter(None, classes))
-
-            sheet5.write(d, 5, classes, bold)  # Material class
-
-            names = (str(m.name) for m in materials if m.name)
-            names = "\n".join(filter(None, names))
-
-            sheet5.write(d, 6, names, bold)  # Material
-            sheet5.write(d, 7, o.product_id.weight, bold)  # Net weight in a product
-            sheet5.write(
-                d, 8, o.product_id.weight_uom_name or "", bold
-            )  # Net weight Unit
-
-            chemicals_compliant = (
-                str(m.chemicals_compliant) for m in materials if m.chemicals_compliant
-            )
-            chemicals_compliant = "\n".join(filter(None, chemicals_compliant))
-
-            sheet5.write(
-                d, 9, chemicals_compliant or "", bold
-            )  # Dangerous materials / Chemicals Compliant
-
-            rohs_compliant = (
-                str(m.rohs_compliant.name) for m in materials if m.rohs_compliant
-            )
-            rohs_compliant = "\n".join(filter(None, rohs_compliant))
-
-            sheet5.write(d, 10, rohs_compliant or "", bold)  # RoHS
-
-            reach_compliant = (
-                str(m.reach_compliant.name) for m in materials if m.reach_compliant
-            )
-            reach_compliant = "\n".join(filter(None, reach_compliant))
-
-            sheet5.write(d, 11, reach_compliant or "", bold)  # REACH
-
-            scip_compliant = (
-                str(m.scip_compliant.name) for m in materials if m.scip_compliant
-            )
-            scip_compliant = "\n".join(filter(None, scip_compliant))
-
-            sheet5.write(d, 12, scip_compliant or "", bold)  # SCIP
-
-            pop_compliant = (
-                str(m.pop_compliant.name) for m in materials if m.pop_compliant
-            )
-            pop_compliant = "\n".join(filter(None, pop_compliant))
-
-            sheet5.write(
-                d, 13, pop_compliant or "", bold
-            )  # POP (Persistant Organic Pollutants)
-
-            halogen_compliant = (
-                str(m.halogen_compliant.name) for m in materials if m.halogen_compliant
-            )
-            halogen_compliant = "\n".join(filter(None, halogen_compliant))
-
-            sheet5.write(d, 14, halogen_compliant or "", bold)  # Halogens
-
-            conflict_area_minerals_compliant = (
-                str(m.conflict_area_minerals_compliant.name)
-                for m in materials
-                if m.conflict_area_minerals_compliant
-            )
-            conflict_area_minerals_compliant = "\n".join(
-                filter(None, conflict_area_minerals_compliant)
-            )
-
-            sheet5.write(
-                d, 15, conflict_area_minerals_compliant or "", bold
-            )  # Conflict Area Minerals
-
-            recycled_percentage = (
-                str(m.recycled_percentage) for m in materials if m.recycled_percentage
-            )
-            recycled_percentage = "\n".join(filter(None, recycled_percentage))
-
-            sheet5.write(d, 16, recycled_percentage or "", bold)  # Recycle material %
-
-            product_material_waste_component_id = (
-                str(m.product_material_waste_component_id.name)
-                for m in materials
-                if m.product_material_waste_component_id
-            )
-            product_material_waste_component_id = "\n".join(
-                filter(None, product_material_waste_component_id)
-            )
-
-            sheet5.write(
-                d, 17, product_material_waste_component_id or "", bold
-            )  # Waste product
-
-            product_material_waste_endpoint_id = (
-                str(m.product_material_waste_endpoint_id.name)
-                for m in materials
-                if m.product_material_waste_endpoint_id
-            )
-            product_material_waste_endpoint_id = "\n".join(
-                filter(None, product_material_waste_endpoint_id)
-            )
-
-            sheet5.write(
-                d, 18, product_material_waste_endpoint_id or "", bold
-            )  # Waste endpoint
+            sheet5.write(d, 0, "N/A", sheet5_style)  # Internal category/display name
+            sheet5.write(d, 1, "1", sheet5_style)  # Level
+            sheet5.write(d, 2, "N/A", sheet5_style)  # Internal reference
+            sheet5.write(d, 3, "N/A", sheet5_style)  # Name
+            sheet5.write(d, 4, o.product_uom_id.name or "", sheet5_style)  # Unit
 
             parent_level_2 = a - 1
             parent_level_5 = d - 1
 
-            a += 1
-            d += 1
-
             j = 0
+
+            material_variant = product_variant or o.product_tmpl_id.product_variant_id
+
+            d = self.print_material_requirements(
+                product_id=material_variant,
+                sheet5=sheet5,
+                row=d,
+                level=j,
+                quantity=o.product_qty,
+                style=None,
+            )
 
             ident = "{}".format(o.id)
 
@@ -1178,9 +972,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     identifier=ident,
                 )
 
-    # ------------------------------------#
-    # ------ Code below is not used ------#
-    # ------------------------------------#
+    # ************************************ #
+    # *----------------------------------* #
+    # *----- Code below is not used -----* #
+    # *----------------------------------* #
+    # ************************************ #
 
     def print_bom_children(
         self,
