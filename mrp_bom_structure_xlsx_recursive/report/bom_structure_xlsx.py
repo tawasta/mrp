@@ -139,7 +139,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet5.write(d, 3, product_id.name or "", sheet5_style)  # Name
             sheet5.write(d, 4, parent.product_uom_id.name or "", sheet5_style)  # Unit
 
-            sheet5.write(d, 5, mater.name, sheet5_style)  # Part name
+            sheet5.write(d, 5, mater.name or "", sheet5_style)  # Part name
             sheet5.write(
                 d, 6, mater.product_material_id.name or "", sheet5_style
             )  # Material
