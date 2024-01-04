@@ -96,24 +96,29 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet2.write(a, 3, parent.product_tmpl_id.name)  # Name
             sheet2.write(a, 4, parent.product_uom_id.name or "")  # Unit
             sheet2.write(a, 5, quantity)  # Quantity in products
-
+            sheet2.write(a, 6, mater.name or "")  # Part name
+            sheet2.write(a, 7, mater.product_material_id.name or "")  # Material
             sheet2.write(
-                a, 6, mater.product_material_class_id.name or ""
+                a, 8, mater.product_material_class_id.name or ""
             )  # Material class
-            sheet2.write(a, 7, mater.name or "")  # Material
-            sheet2.write(a, 8, mater.net_weight)  # Material weight / per unit
+            sheet2.write(a, 9, mater.net_weight)  # Material weight / per unit
             sheet2.write(
                 a, 9, mater.net_weight * quantity
             )  # Material total weight in product
-            sheet2.write(a, 10, mater.net_weight_uom_id.name)  # Net weight UoM
-            sheet2.write(a, 11, mater.recycled_percentage)  # Recycled material %
+            sheet2.write(a, 11, mater.net_weight_uom_id.name)  # Net weight UoM
+            sheet2.write(a, 12, mater.recycled_percentage)  # Recycled material %
             sheet2.write(
-                a, 12, mater.product_material_waste_component_id.name
+                a, 13, mater.product_material_waste_component_id.name
             )  # Waste procuts
             sheet2.write(
-                a, 13, mater.product_material_waste_endpoint_id.name
+                a, 14, mater.product_material_waste_endpoint_id.name
             )  # Waste endpoint
-            a += 1
+
+            if len(product_id.product_material_composition_ids.ids) > 1:
+                a += 1
+
+        if len(product_id.product_material_composition_ids.ids) > 1:
+            a -= 1
 
         return a
 
@@ -134,45 +139,52 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet5.write(d, 3, product_id.name or "", sheet5_style)  # Name
             sheet5.write(d, 4, parent.product_uom_id.name or "", sheet5_style)  # Unit
 
+            sheet5.write(d, 5, mater.name, sheet5_style)  # Part name
             sheet5.write(
-                d, 5, mater.product_material_class_id.name, sheet5_style
+                d, 6, mater.product_material_id.name or "", sheet5_style
+            )  # Material
+            sheet5.write(
+                d, 7, mater.product_material_class_id.name, sheet5_style
             )  # Material class
-            sheet5.write(d, 6, mater.name, sheet5_style)  # Material
             sheet5.write(
-                d, 7, mater.net_weight, sheet5_style
+                d, 8, mater.net_weight, sheet5_style
             )  # Net weight in a product
             sheet5.write(
-                d, 8, mater.net_weight_uom_id.name or "", sheet5_style
+                d, 9, mater.net_weight_uom_id.name or "", sheet5_style
             )  # Net weight Unit
             sheet5.write(
-                d, 9, mater.chemicals_compliant.name or "", sheet5_style
+                d, 10, mater.chemicals_compliant.name or "", sheet5_style
             )  # Dangerous materials / Chemicals Compliant
-            sheet5.write(d, 10, mater.rohs_compliant.name or "", sheet5_style)  # RoHS
-            sheet5.write(d, 11, mater.reach_compliant.name or "", sheet5_style)  # REACH
-            sheet5.write(d, 12, mater.scip_compliant.name or "", sheet5_style)  # SCIP
+            sheet5.write(d, 11, mater.rohs_compliant.name or "", sheet5_style)  # RoHS
+            sheet5.write(d, 12, mater.reach_compliant.name or "", sheet5_style)  # REACH
+            sheet5.write(d, 13, mater.scip_compliant.name or "", sheet5_style)  # SCIP
             sheet5.write(
-                d, 13, mater.pop_compliant.name or "", sheet5_style
+                d, 14, mater.pop_compliant.name or "", sheet5_style
             )  # POP (Persistant Organic Pollutants)
             sheet5.write(
-                d, 14, mater.halogen_compliant.name or "", sheet5_style
+                d, 15, mater.halogen_compliant.name or "", sheet5_style
             )  # Halogens
             sheet5.write(
-                d, 15, mater.conflict_area_minerals_compliant.name or "", sheet5_style
+                d, 16, mater.conflict_area_minerals_compliant.name or "", sheet5_style
             )  # Conflict Area Minerals
             sheet5.write(
-                d, 16, mater.recycled_percentage or "", sheet5_style
+                d, 17, mater.recycled_percentage or "", sheet5_style
             )  # Recycle material %
             sheet5.write(
                 d,
-                17,
+                18,
                 mater.product_material_waste_component_id.name or "",
                 sheet5_style,
             )  # Waste product
             sheet5.write(
-                d, 18, mater.product_material_waste_endpoint_id.name or "", sheet5_style
+                d, 19, mater.product_material_waste_endpoint_id.name or "", sheet5_style
             )  # Waste endpoint
 
-            d += 1
+            if len(product_id.product_material_composition_ids.ids) > 1:
+                d += 1
+
+        if len(product_id.product_material_composition_ids.ids) > 1:
+            d -= 1
 
         return d
 
@@ -190,6 +202,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
     ):
         a, j = row, level
         j += 1
+        a += 1
 
         ident = "{}{}{}".format(identifier, "0000", ch.id)
         level = "{}.{}".format(parent_level, child_number)
@@ -243,8 +256,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         for child in ch.child_line_ids:
             if child._skip_bom_line(ch.product_id):
                 continue
-
-            a += 1
 
             child_number += 1
             child_bom = ch.product_id.bom_ids and ch.product_id.bom_ids[0]
@@ -429,6 +440,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
     ):
         d, j = row, level
         j += 1
+        d += 1
 
         ident = "{}{}{}".format(identifier, "0000", ch.id)
         level = "{}.{}".format(parent_level, child_number)
@@ -460,8 +472,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         for child in ch.child_line_ids:
             if child._skip_bom_line(ch.product_id):
                 continue
-
-            d += 1
 
             child_number += 1
             child_bom = ch.product_id.bom_ids and ch.product_id.bom_ids[0]
@@ -622,16 +632,16 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet2.set_column(4, 4, 15)
         sheet2.set_column(5, 6, 25)
         sheet2.set_column(7, 7, 28)
-        sheet2.set_column(8, 8, 25)
-        sheet2.set_column(9, 9, 25)
-        sheet2.set_column(10, 10, 20)
+        sheet2.set_column(8, 9, 25)
+        sheet2.set_column(10, 10, 25)
         sheet2.set_column(11, 11, 20)
         sheet2.set_column(12, 12, 20)
         sheet2.set_column(13, 13, 20)
-        sheet2.set_column(14, 14, 25)
+        sheet2.set_column(14, 14, 20)
         sheet2.set_column(15, 15, 25)
-        sheet2.set_column(16, 16, 28)
-        sheet2.set_column(17, 17, 20)
+        sheet2.set_column(16, 16, 25)
+        sheet2.set_column(17, 17, 28)
+        sheet2.set_column(18, 18, 20)
 
         # Column styles
         bold = workbook.add_format({"bold": True})
@@ -647,8 +657,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             _("Name"),
             _("Unit"),
             _("Quantity in products"),
-            _("Material class"),
+            _("Part name"),
             _("Material"),
+            _("Material class"),
             _("Material weight / per unit"),
             _("Material total weight in product"),
             _("Weight unit"),
@@ -779,20 +790,19 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet5.set_column(2, 2, 25)
         sheet5.set_column(3, 3, 47)
         sheet5.set_column(4, 4, 20)
-        sheet5.set_column(5, 5, 29)
-        sheet5.set_column(6, 6, 29)
-        sheet5.set_column(7, 7, 25)
-        sheet5.set_column(8, 8, 20)
+        sheet5.set_column(5, 7, 29)
+        sheet5.set_column(8, 8, 25)
         sheet5.set_column(9, 9, 20)
         sheet5.set_column(10, 10, 20)
         sheet5.set_column(11, 11, 20)
         sheet5.set_column(12, 12, 20)
-        sheet5.set_column(13, 13, 34)
-        sheet5.set_column(14, 14, 20)
-        sheet5.set_column(15, 15, 28)
-        sheet5.set_column(16, 16, 20)
+        sheet5.set_column(13, 13, 20)
+        sheet5.set_column(14, 14, 34)
+        sheet5.set_column(15, 15, 20)
+        sheet5.set_column(16, 16, 28)
         sheet5.set_column(17, 17, 20)
         sheet5.set_column(18, 18, 20)
+        sheet5.set_column(19, 19, 20)
 
         # Column styles
         bold = workbook.add_format({"bold": True})
@@ -807,8 +817,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             _("Product internal reference"),
             _("Name"),
             _("Unit"),
-            _("Material class"),
+            _("Part name"),
             _("Material"),
+            _("Material class"),
             _("Net weight in a product"),
             _("Net weight Unit"),
             _("Dangerous materials"),
