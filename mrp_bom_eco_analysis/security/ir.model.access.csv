@@ -1,4 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-mrp_workcenter_category_access_user,mrp_workcenter_category_access_user,model_mrp_workcenter_category,mrp.group_mrp_user,1,0,0,0
-mrp_workcenter_category_access_manager,mrp_workcenter_category_access_manager,model_mrp_workcenter_category,mrp.group_mrp_manager,1,1,1,0
-mrp_workcenter_category_access_admin,mrp_workcenter_category_access_admin,model_mrp_workcenter_category,base.group_system,1,1,1,1
