@@ -339,7 +339,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     row=b,
                     level=j,
                     parent_level=level,
-                    product_variant=product_variant,
+                    product_variant=ch.product_id,
                     style=None,
                     bom=ch.child_bom_id,
                     child_number=child_number,
@@ -519,10 +519,23 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet4.write(c, 3, oper.id or "", bold)  # Operation ID
             sheet4.write(c, 4, oper.name or "", bold)  # Operation name
 
-            sheet4.write(c, 5, "N/A", bold)  # Operation consumptions product ID
+            workcenter = oper.workcenter_id
+
+            total_energy = (
+                (workcenter.energy_consumption + workcenter.energy_consumption_passive)
+                * workcenter.electric_consumption
+                * workcenter.costs_hour
+            )
 
             sheet4.write(
-                c, 6, "N/A", bold
+                c, 5, total_energy, bold
+            )  # Energy consumption during an operation / Total/(kWh)
+
+            sheet4.write(c, 6, "kWh", bold)
+            sheet4.write(c, 7, "N/A", bold)  # Operation consumptions product ID
+
+            sheet4.write(
+                c, 8, "N/A", bold
             )  # Name of the product consumed in an operation
 
             minutes_in_year = bom.company_id.minutes_in_year
@@ -546,22 +559,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
 
             sheet4.write(
-                c, 7, consumed_weight, bold
+                c, 9, consumed_weight, bold
             )  # Consumed amount / produced 1 product
 
-            workcenter = oper.workcenter_id
-
-            total_energy = (
-                (workcenter.energy_consumption + workcenter.energy_consumption_passive)
-                * workcenter.electric_consumption
-                * workcenter.costs_hour
-            )
-
-            sheet4.write(
-                c, 8, total_energy, bold
-            )  # Energy consumption during an operation / Total/(kWh)
-
-            sheet4.write(c, 9, bom.product_uom_id.name or "", bold)  # Unit
+            sheet4.write(c, 10, bom.product_uom_id.name or "", bold)  # Unit
 
             parent_level_4 = c - 1
             c += 1
@@ -597,7 +598,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             if ch.child_bom_id:
                 c = self.operation_bom_consus(
                     bom=ch.child_bom_id,
-                    product_variant=product_variant,
+                    product_variant=ch.product_id,
                     sheet4=sheet4,
                     row=c,
                     level=j,
@@ -741,11 +742,13 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet4.set_column(2, 2, 47)
         sheet4.set_column(3, 3, 18)
         sheet4.set_column(4, 4, 25)
-        sheet4.set_column(5, 5, 35)
-        sheet4.set_column(6, 6, 42)
+        sheet4.set_column(5, 5, 40)
+        sheet4.set_column(6, 6, 18)
         sheet4.set_column(7, 7, 35)
-        sheet4.set_column(8, 8, 40)
-        sheet4.set_column(9, 9, 15)
+        sheet4.set_column(8, 8, 42)
+        sheet4.set_column(9, 9, 35)
+        sheet4.set_column(10, 10, 40)
+        sheet4.set_column(11, 11, 15)
 
         # Column styles
         bold = workbook.add_format({"bold": True})
@@ -755,16 +758,17 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         )
 
         sheet_title_4 = [
-            _("Internal category/display name"),
-            _("Product internal reference"),
-            _("Name"),
-            _("Operation ID"),
-            _("Operation name"),
-            _("Operation consumptions product ID"),
-            _("Name of the product consumed in an operation"),
-            _("Consumed amount / produced 1 product"),
-            _("Energy consumption during an operation / Total(kWh)"),
-            _("Unit"),
+            _("Internal category/display name"),  # 0
+            _("Product internal reference"),  # 1
+            _("Name"),  # 2
+            _("Operation ID"),  # 3
+            _("Operation name"),  # 4
+            _("Energy consumption during an operation / Total(kWh)"),  # 5
+            _("Energy Unit"),  # 6
+            _("Operation consumptions product ID"),  # 7
+            _("Name of the product consumed in an operation"),  # 7
+            _("Consumed amount / produced 1 product"),  # 8
+            _("Unit"),  # 10
         ]
 
         sheet4.set_row(0, None, None, {"collapsed": 1})
@@ -864,7 +868,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet2.write(a, 0, "N/A")  # Internal category/display name
             sheet2.write(a, 1, "1")  # Level
             sheet2.write(
-                a, 2, o.product_id.default_code or "", bold
+                a,
+                2,
+                o.product_id.default_code or product_variant.default_code or "",
+                bold,
             )  # Internal reference
             sheet2.write(a, 3, o.product_tmpl_id.name, bold)  # Name
             sheet2.write(a, 4, o.product_uom_id.name or "", bold)  # Unit
@@ -889,11 +896,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 or ("N/A", "N/A")
             )
 
-            sheet2.write(a, 14, vendor[0], bold)  # Vendor
-            sheet2.write(a, 15, vendor[1], bold)  # Supply address
+            sheet2.write(a, 15, vendor[0], bold)  # Vendor
+            sheet2.write(a, 16, vendor[1], bold)  # Supply address
 
             sheet2.write(
-                a, 16, o.product_id.origin_country_id.name or "", bold
+                a, 17, o.product_id.origin_country_id.name or "", bold
             )  # Country of origin
 
             j = 0
@@ -957,7 +964,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet5.write(d, 0, "N/A", sheet5_style)  # Internal category/display name
             sheet5.write(d, 1, "1", sheet5_style)  # Level
             sheet5.write(
-                d, 2, o.product_id.default_code or "", sheet5_style
+                d,
+                2,
+                o.product_id.default_code or product_variant.default_code or "",
+                sheet5_style,
             )  # Internal reference
             sheet5.write(d, 3, o.product_tmpl_id.name, sheet5_style)  # Name
             sheet5.write(d, 4, o.product_uom_id.name or "", sheet5_style)  # Unit
