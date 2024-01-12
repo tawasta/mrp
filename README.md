@@ -6,4 +6,11 @@ MRP
 MRP Addons for Odoo.
 
 [//]: # (addons)
+
+Available addons
+----------------
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[mrp_bom_line_comment](mrp_bom_line_comment/) | 17.0.1.0.0 |  | Allow adding a comment for BoM line
+
 [//]: # (end addons)
