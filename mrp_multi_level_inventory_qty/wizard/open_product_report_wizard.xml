@@ -19,7 +19,7 @@
                 />
                 <footer>
                     <button
-                        string="Confirm"
+                        string="Calculate"
                         type="object"
                         class="oe_highlight"
                         name="forecast_open_report"
