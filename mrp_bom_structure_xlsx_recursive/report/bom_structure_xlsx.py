@@ -313,7 +313,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 b, 2, by_product.product_id.product_tmpl_id.name, bold
             )  # Product to which operation is done
             sheet3.write(
-                b, 3, bom.product_tmpl_id.default_code or "", bold
+                b,
+                3,
+                bom.product_tmpl_id.default_code or product_variant.default_code or "",
+                bold,
             )  # Product internal reference
 
             sheet3.write(b, 4, by_product.operation_id.sequence, bold)  # Operation ID
@@ -381,8 +384,8 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
         child_bom = ch.product_id.bom_ids and ch.product_id.bom_ids[0]
 
-        sheet4.write(c, 5, ch.product_id.default_code or "")  # Internal reference
-        sheet4.write(c, 6, ch.product_id.name)  # Name
+        sheet4.write(c, 7, ch.product_id.default_code or "")  # Internal reference
+        sheet4.write(c, 8, ch.product_id.name)  # Name
 
         minutes_in_year = ch.company_id.minutes_in_year
 
@@ -397,10 +400,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         )
 
         sheet4.write(
-            c, 7, consumed_weight
+            c, 9, consumed_weight
         )  # Energy consumption during an operation / Total/(kWh)
 
-        sheet4.write(c, 9, ch.product_uom_id.name or "")  # Unit
+        sheet4.write(c, 10, ch.product_uom_id.name or "")  # Unit
 
         c += 1
         child_number = 0
@@ -642,7 +645,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet2.set_column(15, 15, 25)
         sheet2.set_column(16, 16, 25)
         sheet2.set_column(17, 17, 28)
-        sheet2.set_column(18, 18, 20)
 
         # Column styles
         bold = workbook.add_format({"bold": True})
@@ -652,24 +654,24 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         )
 
         sheet_title_2 = [
-            _("Internal category/display name"),
-            _("Level"),
-            _("Internal reference"),
-            _("Name"),
-            _("Unit"),
-            _("Quantity in products"),
-            _("Part name"),
-            _("Material"),
-            _("Material class"),
-            _("Material weight / per unit"),
-            _("Material total weight in product"),
-            _("Weight unit"),
-            _("Recycle material %"),
-            _("Waste products"),
-            _("Waste endpoint"),
-            _("Vendor"),
-            _("Supply address"),
-            _("Country of origin"),
+            _("Internal category/display name"),  # 0
+            _("Level"),  # 1
+            _("Internal reference"),  # 2
+            _("Name"),  # 3
+            _("Unit"),  # 4
+            _("Quantity in products"),  # 5
+            _("Part name"),  # 6
+            _("Material"),  # 7
+            _("Material class"),  # 8
+            _("Material weight / per unit"),  # 9
+            _("Material total weight in product"),  # 10
+            _("Weight unit"),  # 11
+            _("Recycle material %"),  # 12
+            _("Waste products"),  # 13
+            _("Waste endpoint"),  # 14
+            _("Vendor"),  # 15
+            _("Supply address"),  # 16
+            _("Country of origin"),  # 17
         ]
 
         sheet2.set_row(0, None, None, {"collapsed": 1})
