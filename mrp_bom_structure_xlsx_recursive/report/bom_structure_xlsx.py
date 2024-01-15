@@ -224,6 +224,12 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
         main_vendor = main_vendor and main_vendor[0] or ""
 
+        if main_vendor:
+            vendor = main_vendor.name.address_ids.filtered(lambda r: r.type == "other")
+            vendor = vendor and vendor[0].name or ""
+        else:
+            vendor = ""
+
         main_vendor = (
             main_vendor
             and (
@@ -241,12 +247,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
             or ("N/A", "N/A")
         )
-
-        if main_vendor:
-            vendor = main_vendor.name.address_ids.filtered(lambda r: r.type == "other")
-            vendor = vendor and vendor[0].name or ""
-        else:
-            vendor = ""
 
         sheet2.write(a, 15, main_vendor[0])  # Vendor
         sheet2.write(a, 16, main_vendor[1])  # Vendor address
@@ -901,6 +901,14 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             main_vendor = main_vendor and main_vendor[0] or ""
 
+            if main_vendor:
+                vendor = main_vendor.name.address_ids.filtered(
+                    lambda r: r.type == "other"
+                )
+                vendor = vendor and vendor[0].name or ""
+            else:
+                vendor = ""
+
             main_vendor = (
                 main_vendor
                 and (
@@ -918,14 +926,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 )
                 or ("N/A", "N/A")
             )
-
-            if main_vendor:
-                vendor = main_vendor.name.address_ids.filtered(
-                    lambda r: r.type == "other"
-                )
-                vendor = vendor and vendor[0].name or ""
-            else:
-                vendor = ""
 
             sheet2.write(a, 15, main_vendor[0], bold)  # Vendor
             sheet2.write(a, 16, main_vendor[1], bold)  # Vendor address
