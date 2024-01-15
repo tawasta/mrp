@@ -218,28 +218,42 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet2.write(a, 4, ch.product_id.uom_id.name)  # Unit
         sheet2.write(a, 5, quantities[ident][1])  # Quantity in products
 
-        vendor = ch.product_id.seller_ids and ch.product_id.seller_ids.filtered(
-            lambda r: r.name.type == "other"
+        main_vendor = ch.product_id.seller_ids and ch.product_id.seller_ids.filtered(
+            lambda v: v.company_id == ch.company_id
         )
-        vendor = (
-            vendor
+
+        main_vendor = main_vendor and main_vendor[0] or ""
+
+        main_vendor = (
+            main_vendor
             and (
-                vendor[0].name.name,
+                main_vendor[0].name.name,
                 "{}{}{}".format(
-                    vendor[0].name.country_id.name,
-                    vendor[0].name.street and " {}".format(vendor[0].name.street) or "",
-                    vendor[0].name.city and " {}".format(vendor[0].name.city) or "",
+                    main_vendor[0].name.country_id.name,
+                    main_vendor[0].name.street
+                    and " {}".format(main_vendor[0].name.street)
+                    or "",
+                    main_vendor[0].name.city
+                    and " {}".format(main_vendor[0].name.city)
+                    or "",
                 )
                 or "",
             )
             or ("N/A", "N/A")
         )
 
-        sheet2.write(a, 14, vendor[0])  # Vendor
-        sheet2.write(a, 15, vendor[1])  # Supply address
+        if main_vendor:
+            vendor = main_vendor.name.address_ids.filtered(lambda r: r.type == "other")
+            vendor = vendor and vendor[0].name or ""
+        else:
+            vendor = ""
+
+        sheet2.write(a, 15, main_vendor[0])  # Vendor
+        sheet2.write(a, 16, main_vendor[1])  # Vendor address
+        sheet2.write(a, 17, vendor)  # Supply address
 
         sheet2.write(
-            a, 16, ch.product_id.origin_country_id.name or ""
+            a, 18, ch.product_id.origin_country_id.name or ""
         )  # Country of origin
 
         a = self.print_materials(
@@ -645,6 +659,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet2.set_column(15, 15, 25)
         sheet2.set_column(16, 16, 25)
         sheet2.set_column(17, 17, 28)
+        sheet2.set_column(18, 18, 25)
 
         # Column styles
         bold = workbook.add_format({"bold": True})
@@ -670,8 +685,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             _("Waste products"),  # 13
             _("Waste endpoint"),  # 14
             _("Vendor"),  # 15
-            _("Supply address"),  # 16
-            _("Country of origin"),  # 17
+            _("Vendor Address"),  # 16
+            _("Supply Address"),  # 17
+            _("Country of origin"),  # 18
         ]
 
         sheet2.set_row(0, None, None, {"collapsed": 1})
@@ -879,30 +895,44 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet2.write(a, 4, o.product_uom_id.name or "", bold)  # Unit
             sheet2.write(a, 5, o.product_qty, bold)  # Quantity in products
 
-            vendor = o.product_id.seller_ids and o.product_id.seller_ids.filtered(
-                lambda r: r.name.type == "other"
+            main_vendor = o.product_id.seller_ids and o.product_id.seller_ids.filtered(
+                lambda v: v.company_id == o.company_id
             )
-            vendor = (
-                vendor
+
+            main_vendor = main_vendor and main_vendor[0] or ""
+
+            main_vendor = (
+                main_vendor
                 and (
-                    vendor[0].name.name,
+                    main_vendor[0].name.name,
                     "{}{}{}".format(
-                        vendor[0].name.country_id.name,
-                        vendor[0].name.street
-                        and " {}".format(vendor[0].name.street)
+                        main_vendor[0].name.country_id.name,
+                        main_vendor[0].name.street
+                        and " {}".format(main_vendor[0].name.street)
                         or "",
-                        vendor[0].name.city and " {}".format(vendor[0].name.city) or "",
+                        main_vendor[0].name.city
+                        and " {}".format(main_vendor[0].name.city)
+                        or "",
                     )
                     or "",
                 )
                 or ("N/A", "N/A")
             )
 
-            sheet2.write(a, 15, vendor[0], bold)  # Vendor
-            sheet2.write(a, 16, vendor[1], bold)  # Supply address
+            if main_vendor:
+                vendor = main_vendor.name.address_ids.filtered(
+                    lambda r: r.type == "other"
+                )
+                vendor = vendor and vendor[0].name or ""
+            else:
+                vendor = ""
+
+            sheet2.write(a, 15, main_vendor[0], bold)  # Vendor
+            sheet2.write(a, 16, main_vendor[1], bold)  # Vendor address
+            sheet2.write(a, 17, vendor, bold)  # Supply address
 
             sheet2.write(
-                a, 17, o.product_id.origin_country_id.name or "", bold
+                a, 18, o.product_id.origin_country_id.name or "", bold
             )  # Country of origin
 
             j = 0
