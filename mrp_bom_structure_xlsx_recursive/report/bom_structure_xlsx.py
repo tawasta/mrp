@@ -518,7 +518,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         c, j = row, level
 
         for oper in parent_bom.operation_ids:
-            c, j = row, level
             j += 1
 
             bom = oper.workcenter_id.bom_consu
