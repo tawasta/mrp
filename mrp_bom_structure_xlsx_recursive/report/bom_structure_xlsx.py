@@ -409,6 +409,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             and (
                 (quantities[ident][1] * ch.product_id.weight / minutes_in_year)
                 * operation.time_cycle_manual
+                * 1000
             )
             or 0
         )
@@ -417,7 +418,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             c, 9, consumed_weight
         )  # Energy consumption during an operation / Total/(kWh)
 
-        sheet4.write(c, 10, ch.product_uom_id.name or "")  # Unit
+        sheet4.write(c, 10, "g" or "")  # Unit
 
         c += 1
         child_number = 0
