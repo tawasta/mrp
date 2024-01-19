@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="component_change_wizard_form" model="ir.ui.view">
+        <field name="model">mrp.bom.component.change.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Change components">
+                <p>The selected components will be changed</p>
+                <field name="bom_line_ids">
+                    <tree limit="20">
+                        <field name="product_id" />
+                        <field name="bom_id" />
+                    </tree>
+                </field>
+                <p>Select a product and change it for these components</p>
+                <field name="product_id" />
+                <footer>
+                    <button
+                        string="Change"
+                        type="object"
+                        class="oe_highlight"
+                        name="confirm_message_wizard"
+                    />
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_change_wizard" model="ir.actions.act_window">
+        <field name="name">Change components</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.bom.component.change.wizard</field>
+        <field name="target">new</field>
+        <field name="view_mode">form</field>
+        <field name="binding_model_id" ref="mrp.model_mrp_bom_line" />
+    </record>
+</odoo>
