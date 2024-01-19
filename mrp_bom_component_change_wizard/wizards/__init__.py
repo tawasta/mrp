@@ -1,0 +1,2 @@
+from . import mrp_bom_component_change_wizard
+from . import mrp_component_change_message_confirm_wizard
