@@ -408,7 +408,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             minutes_in_year
             and (
                 (quantities[ident][1] * ch.product_id.weight / minutes_in_year)
-                * operation.time_cycle_manual
+                * (operation.time_cycle_manual * 60)
                 * 1000
             )
             or 0
@@ -570,7 +570,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 minutes_in_year
                 and (
                     (bom.product_qty * weight / minutes_in_year)
-                    * oper.time_cycle_manual
+                    * (oper.time_cycle_manual * 60)
                 )
                 or 0
             )
@@ -579,7 +579,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 c, 9, consumed_weight, bold
             )  # Consumed amount / produced 1 product
 
-            sheet4.write(c, 10, bom.product_uom_id.name or "", bold)  # Unit
+            sheet4.write(c, 10, "g", bold)  # Unit
 
             parent_level_4 = c - 1
             c += 1
@@ -755,18 +755,17 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet4.set_zoom(80)
 
         # Some column sizes changed to match their title
-        sheet4.set_column(0, 0, 30)
-        sheet4.set_column(1, 1, 25)
+        sheet4.set_column(0, 0, 39)
+        sheet4.set_column(1, 1, 20)
         sheet4.set_column(2, 2, 47)
         sheet4.set_column(3, 3, 18)
         sheet4.set_column(4, 4, 25)
         sheet4.set_column(5, 5, 40)
         sheet4.set_column(6, 6, 18)
         sheet4.set_column(7, 7, 35)
-        sheet4.set_column(8, 8, 42)
-        sheet4.set_column(9, 9, 35)
-        sheet4.set_column(10, 10, 40)
-        sheet4.set_column(11, 11, 15)
+        sheet4.set_column(8, 8, 45)
+        sheet4.set_column(9, 9, 40)
+        sheet4.set_column(10, 10, 12)
 
         # Column styles
         bold = workbook.add_format({"bold": True})

@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2018 Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
+#    Copyright 2024 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,9 +19,9 @@
 ##############################################################################
 
 {
-    "name": "BOM Excel Export",
-    "summary": "Field additions for the BOM export module",
-    "version": "14.0.1.0.24",
+    "name": "MRP BoM component change wizard",
+    "summary": "MRP BoM component change wizard",
+    "version": "14.0.1.0.0",
     "category": "Manufacturing",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
@@ -29,19 +29,12 @@
     "application": False,
     "installable": True,
     "depends": [
-        "mrp_bom_structure_xlsx",
-        "product_compliant",
-        "product_harmonized_system",
-        "product_manufacturer",
-        "product_materials",
-        "product_materials_compliant",
-        "res_partner_addresses_simple",
-        "web_ir_actions_act_multi",
+        "mrp",
+        "mrp_bom_component_menu",
     ],
     "data": [
-        "report/bom_structure_xlsx.xml",
         "security/ir.model.access.csv",
-        "views/res_config_settings.xml",
-        "wizard/bom_structure_xlsx_wizard.xml",
+        "wizards/mrp_component_change_message_confirm_wizard.xml",
+        "wizards/mrp_bom_component_change_wizard.xml",
     ],
 }
