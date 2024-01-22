@@ -579,7 +579,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 c, 9, consumed_weight, bold
             )  # Consumed amount / produced 1 product
 
-            sheet4.write(c, 10, bom.product_uom_id.name or "", bold)  # Unit
+            sheet4.write(c, 10, "g", bold)  # Unit
 
             parent_level_4 = c - 1
             c += 1
