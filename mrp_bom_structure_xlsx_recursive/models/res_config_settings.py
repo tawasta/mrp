@@ -5,9 +5,9 @@ class ResConfigSettings(models.TransientModel):
 
     _inherit = "res.config.settings"
 
-    minutes_in_year = fields.Integer(
-        string="Minutes in a year",
-        related="company_id.minutes_in_year",
+    time_in_year = fields.Integer(
+        string="Seconds in a year",
+        related="company_id.time_in_year",
         readonly=False,
-        help="Set a minute parameter for LCA bom excel",
+        help="Set the time parameter for LCA bom excel",
     )

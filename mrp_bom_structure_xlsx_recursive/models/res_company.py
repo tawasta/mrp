@@ -5,4 +5,4 @@ class ResCompany(models.Model):
 
     _inherit = "res.company"
 
-    minutes_in_year = fields.Integer(string="Minutes in a year")
+    time_in_year = fields.Integer(string="Seconds in a year")
