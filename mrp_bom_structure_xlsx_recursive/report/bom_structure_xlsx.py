@@ -401,15 +401,20 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet4.write(c, 7, ch.product_id.default_code or "")  # Internal reference
         sheet4.write(c, 8, ch.product_id.name)  # Name
 
-        minutes_in_year = ch.company_id.minutes_in_year
+        time_in_year = ch.company_id.time_in_year
 
-        #  Check that minutes_in_year is not zero
+        grams = self.env.ref("uom.product_uom_gram")
+
+        weight_in_grams = ch.product_id.weight_uom_id._compute_quantity(
+            ch.product_id.weight, grams
+        )
+
+        #  Check that time_in_year is not zero
         consumed_weight = (
-            minutes_in_year
+            time_in_year
             and (
-                (quantities[ident][1] * ch.product_id.weight / minutes_in_year)
+                (quantities[ident][1] * weight_in_grams / time_in_year)
                 * (operation.time_cycle_manual * 60)
-                * 1000
             )
             or 0
         )
@@ -555,21 +560,27 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 c, 8, "N/A", bold
             )  # Name of the product consumed in an operation
 
-            minutes_in_year = bom.company_id.minutes_in_year
+            time_in_year = bom.company_id.time_in_year
 
-            weight = (
-                bom.product_id
-                and bom.product_id.weight
-                or bom.product_tmpl_id
-                and bom.product_tmpl_id.weight
-                or 0
-            )
+            grams = self.env.ref("uom.product_uom_gram")
 
-            #  Check that minutes_in_year is not zero
+            # Either use variant or template weight
+            if bom.product_id and bom.product_id.weight:
+                weight_in_grams = bom.product_id.weight_uom_id._compute_quantity(
+                    bom.product_id.weight, grams
+                )
+            elif bom.product_tmpl_id and bom.product_tmpl_id.weight:
+                weight_in_grams = bom.product_tmpl_id.weight_uom_id._compute_quantity(
+                    bom.product_tmpl_id.weight, grams
+                )
+            else:
+                weight_in_grams = 0
+
+            #  Check that time_in_year is not zero
             consumed_weight = (
-                minutes_in_year
+                time_in_year
                 and (
-                    (bom.product_qty * weight / minutes_in_year)
+                    (bom.product_qty * weight_in_grams / time_in_year)
                     * (oper.time_cycle_manual * 60)
                 )
                 or 0

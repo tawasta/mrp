@@ -3,7 +3,7 @@
     <record id="action_open_product_report_wizard" model="ir.ui.view">
         <field name="model">open.product.report.wizard</field>
         <field name="arch" type="xml">
-            <form string="Open a circulation report">
+            <form string="Open a turnover report">
                 <p>Choose the number of days</p>
                 <field name="number_of_days" />
                 <p>Product (optional)</p>
