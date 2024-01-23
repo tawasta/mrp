@@ -18,7 +18,7 @@ class ProductReport(models.Model):
         "abc.classification.profile", "ABC Classification Profile", readonly=True
     )
     value = fields.Float("Value now", readonly=True)
-    sufficiency = fields.Float("Coverage", readonly=True)
+    sufficiency = fields.Float("Coverage in Days", readonly=True)
     year_sufficiency = fields.Float("Inventory Turnover", readonly=True)
 
     def _select_product(self, fields=None, days=1):

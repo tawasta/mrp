@@ -30,7 +30,7 @@ class OpenProductReportWizard(models.TransientModel):
         self.env["product.report"].with_context(ctx).init()
 
         return {
-            "name": "Product circulation report",
+            "name": "Inventory Turnover report",
             "type": "ir.actions.act_window",
             "res_model": "product.report",
             "view_type": "pivot",
