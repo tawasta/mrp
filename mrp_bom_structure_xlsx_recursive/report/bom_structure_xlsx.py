@@ -544,10 +544,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             workcenter = oper.workcenter_id
 
             total_energy = (
-                (workcenter.energy_consumption + workcenter.energy_consumption_passive)
-                * workcenter.electric_consumption
-                * workcenter.costs_hour
-            )
+                (workcenter.energy_consumption * oper.duration_active)
+                + (workcenter.energy_consumption_passive * oper.duration_passive)
+            ) / 3600
 
             sheet4.write(
                 c, 5, total_energy, bold
