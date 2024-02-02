@@ -1,4 +1,4 @@
-from odoo import fields, models, tools
+from odoo import api, fields, models, tools
 
 
 class ProductReport(models.Model):
@@ -6,6 +6,32 @@ class ProductReport(models.Model):
     _name = "product.report"
     _description = "Product Circulation Report"
     _auto = False
+
+    @api.model
+    def read_group(
+        self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True
+    ):
+        """Changed how column sums work"""
+        res = super().read_group(
+            domain,
+            fields,
+            groupby,
+            offset=offset,
+            limit=limit,
+            orderby=orderby,
+            lazy=lazy,
+        )
+        if "sufficiency:sum" in fields:
+            if (
+                res
+                and res[0].get("year_sufficiency")
+                and res[0].get("total_year_sufficiency")
+            ):
+                res[0]["year_sufficiency"] = res[0]["total_year_sufficiency"]
+            if res and res[0].get("sufficiency") and res[0].get("total_sufficiency"):
+                res[0]["sufficiency"] = res[0]["total_sufficiency"]
+
+        return res
 
     name = fields.Char("Name", readonly=True)
     product_id = fields.Many2one("product.product", "Product", readonly=True)
@@ -18,10 +44,8 @@ class ProductReport(models.Model):
         "abc.classification.profile", "ABC Classification Profile", readonly=True
     )
     value = fields.Float("Value now", readonly=True)
-    sufficiency = fields.Float("Coverage in Days", readonly=True, group_operator="avg")
-    year_sufficiency = fields.Float(
-        "Inventory Turnover", readonly=True, group_operator="avg"
-    )
+    sufficiency = fields.Float("Coverage in Days", readonly=True)
+    year_sufficiency = fields.Float("Inventory Turnover", readonly=True)
     total_year_sufficiency = fields.Float("Total Inventory Turnover", readonly=True)
     total_sufficiency = fields.Float("Total Coverage in Days", readonly=True)
     temp_value = fields.Float("Temp Value", readonly=True)
