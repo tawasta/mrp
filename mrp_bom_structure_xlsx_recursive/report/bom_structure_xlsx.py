@@ -414,7 +414,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             time_in_year
             and (
                 (quantities[ident][1] * weight_in_grams / time_in_year)
-                * (operation.time_cycle_manual * 60)
+                * (operation.duration_total * 60)
             )
             or 0
         )
@@ -581,7 +581,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 time_in_year
                 and (
                     (bom.product_qty * weight_in_grams / time_in_year)
-                    * (oper.time_cycle_manual * 60)
+                    * (oper.duration_total * 60)
                 )
                 or 0
             )
