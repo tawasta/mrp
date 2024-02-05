@@ -1,4 +1,4 @@
-from odoo import fields, models, tools
+from odoo import api, fields, models, tools
 
 
 class ProductReport(models.Model):
@@ -6,6 +6,32 @@ class ProductReport(models.Model):
     _name = "product.report"
     _description = "Product Circulation Report"
     _auto = False
+
+    @api.model
+    def read_group(
+        self, domain, fields, groupby, offset=0, limit=None, orderby=False, lazy=True
+    ):
+        """Changed how column sums work"""
+        res = super().read_group(
+            domain,
+            fields,
+            groupby,
+            offset=offset,
+            limit=limit,
+            orderby=orderby,
+            lazy=lazy,
+        )
+        if "sufficiency:sum" in fields:
+            if (
+                res
+                and res[0].get("year_sufficiency")
+                and res[0].get("total_year_sufficiency")
+            ):
+                res[0]["year_sufficiency"] = res[0]["total_year_sufficiency"]
+            if res and res[0].get("sufficiency") and res[0].get("total_sufficiency"):
+                res[0]["sufficiency"] = res[0]["total_sufficiency"]
+
+        return res
 
     name = fields.Char("Name", readonly=True)
     product_id = fields.Many2one("product.product", "Product", readonly=True)
@@ -20,6 +46,11 @@ class ProductReport(models.Model):
     value = fields.Float("Value now", readonly=True)
     sufficiency = fields.Float("Coverage in Days", readonly=True)
     year_sufficiency = fields.Float("Inventory Turnover", readonly=True)
+    total_year_sufficiency = fields.Float("Total Inventory Turnover", readonly=True)
+    total_sufficiency = fields.Float("Total Coverage in Days", readonly=True)
+    temp_value = fields.Float("Temp Value", readonly=True)
+    temp_qty = fields.Float("Temp Qty", readonly=True)
+    temp_float = fields.Float("Temp Float", readonly=True)
 
     def _select_product(self, fields=None, days=1):
         if not fields:
@@ -28,7 +59,19 @@ class ProductReport(models.Model):
         select_ = """
                 p.id AS id,
                 p.id AS product_id,
-                (SELECT sum(value) FROM stock_valuation_layer WHERE product_id = p.id) AS value,
+
+                min(temp_value.value) AS temp_value,
+                min(temp_float.value_float) AS temp_float,
+
+                (min(temp_value.value) / NULLIF(
+                    min(temp_float.value_float), 0.0)) * {} AS total_sufficiency,
+
+                365 / NULLIF(((min(temp_value.value) /
+                    NULLIF(min(temp_float.value_float), 0.0)) * {}), 0.0)
+                        AS total_year_sufficiency,
+
+                (SELECT sum(value) FROM stock_valuation_layer
+                    WHERE product_id = p.id) AS value,
                 abc_p.id AS abc_profile_id,
                 prop.value_float AS cost,
                 stq.id AS stock_quant,
@@ -62,7 +105,7 @@ class ProductReport(models.Model):
 
                 t.name AS name
         """.format(
-            days, days
+            days, days, days, days
         )
 
         for field in fields.values():
@@ -71,7 +114,7 @@ class ProductReport(models.Model):
 
     def _from_product(self, from_clause="", days=1):
         from_ = """
-                product_product p
+                temp_value, temp_float, product_product p
                     LEFT JOIN product_template t ON (p.product_tmpl_id=t.id)
                     LEFT JOIN abc_classification_profile abc_p ON (
                         abc_p.id=p.abc_classification_profile_id)
@@ -83,7 +126,7 @@ class ProductReport(models.Model):
                     LEFT JOIN mrp_area m_area ON (m_area.id=mra.mrp_area_id)
                     LEFT JOIN stock_quant stq ON (
                         stq.product_id=p.id AND stq.location_id=m_area.location_id)
-                    JOIN {currency_table} ON currency_table.company_id=stq.company_id
+                    LEFT JOIN {currency_table} ON currency_table.company_id=stq.company_id
                 {from_clause}
         """.format(
             days=days,
@@ -122,30 +165,65 @@ class ProductReport(models.Model):
         if not fields:
             fields = {}
 
-        with_ = ("WITH %s" % with_clause) if with_clause else ""
+        def variant_generator(category):
+            products = self.env["product.product"].search([])
+            for product in products:
+                if product.product_tmpl_id.categ_id.id == category:
+                    yield product.id
 
-        filters = [category, product_id, abc_profile_id, abc_level_id]
-        use_and = ""
         where_clause = ""
-
-        if any(filters):
-            where_clause = "WHERE "
+        search_domain = []
+        variants = []
 
         if category:
-            use_and = any(filters[-3:]) and " AND " or ""
-            where_clause += "t.categ_id = {}{}".format(category, use_and)
+            variants = list(variant_generator(category))
         if product_id:
-            use_and = any(filters[-2:]) and " AND " or ""
-            where_clause += "p.id = {}{}".format(product_id, use_and)
+            search_domain += [("id", "=", product_id)]
         if abc_level_id:
-            use_and = any(filters[-1:]) and " AND " or ""
-            where_clause += "p.abc_classification_level_id = {}{}".format(
-                abc_level_id, use_and
-            )
+            search_domain += [("abc_classification_level_id", "=", abc_level_id)]
         if abc_profile_id:
-            where_clause += "p.abc_classification_profile_id = {}".format(
-                abc_profile_id
+            search_domain += [("abc_classification_profile_id", "=", abc_profile_id)]
+
+        if search_domain:
+            product_ids = (
+                self.env["product.product"].search(search_domain).ids + variants
             )
+        elif variants:
+            product_ids = variants
+        else:
+            product_ids = self.env["product.product"].search([]).ids
+
+        # We avoid an error for "product_id IN (37337,)" in WHERE statement
+        # with this trick.
+        if len(product_ids) == 1:
+            product_ids = tuple(product_ids + product_ids)
+        else:
+            product_ids = tuple(product_ids)
+
+        if not product_ids:
+            product_ids = "(NULL, NULL)"
+
+        with_clause = """
+                temp_value (value) AS
+                    (SELECT sum(value) FROM stock_valuation_layer WHERE product_id IN {}),
+                temp_float (value_float) AS
+                    (SELECT sum(temp_mrm.mrp_qty * -1 * temp_prop.value_float)
+                    FROM product_product temp_p
+                        LEFT JOIN mrp_move temp_mrm ON (
+                            temp_mrm.product_id=temp_p.id AND temp_mrm.mrp_type='d'
+                            AND temp_mrm.mrp_date < CURRENT_DATE + INTERVAL '{} DAY')
+                        LEFT JOIN ir_property temp_prop
+                            ON (temp_prop.res_id='product.product,' || temp_p.id)
+                    WHERE temp_p.id IN {})
+            """.format(
+            product_ids,
+            days,
+            product_ids,
+        )
+
+        with_ = ("WITH %s" % with_clause) if with_clause else ""
+
+        where_clause = "WHERE p.id in {}".format(product_ids)
 
         return "%s SELECT %s FROM %s%s GROUP BY %s" % (
             with_,
@@ -171,6 +249,6 @@ class ProductReport(models.Model):
                     product_id=product_id,
                     abc_profile_id=abc_profile_id,
                     abc_level_id=abc_level_id,
-                ),
+                )
             )
         )

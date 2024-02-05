@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_product_report_pivot" model="ir.ui.view">
-         <field name="name">product.report.pivot</field>
-         <field name="model">product.report</field>
-         <field name="arch" type="xml">
-             <pivot string="Inventory Turnover">
-                 <field name="product_id" type="row" />
-                 <field name="quant_sum" type="measure" />
-                 <field name="value" type="measure" />
-                 <field name="move_sum" type="measure" />
-                 <field name="cost_total" type="measure" />
-                 <field name="sufficiency" type="measure" />
-                 <field name="year_sufficiency" type="measure" />
-             </pivot>
-         </field>
+        <field name="name">product.report.pivot</field>
+        <field name="model">product.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Inventory Turnover">
+                <field name="product_id" type="row" />
+                <field name="quant_sum" type="measure" />
+                <field name="value" type="measure" />
+                <field name="move_sum" type="measure" />
+                <field name="cost_total" type="measure" />
+                <field name="sufficiency" type="measure" />
+                <field name="year_sufficiency" type="measure" />
+                <field name="temp_value" type="col" />
+                <field name="temp_float" type="col" />
+                <field name="total_sufficiency" type="col" />
+                <field name="total_year_sufficiency" type="col" />
+            </pivot>
+        </field>
     </record>
 
     <record id="view_product_report_search" model="ir.ui.view">
