@@ -21,7 +21,7 @@ class ProductReport(models.Model):
             orderby=orderby,
             lazy=lazy,
         )
-        if "sufficiency:sum" in fields:
+        if "sufficiency:sum" in fields and len(res) == 1:
             if (
                 res
                 and res[0].get("year_sufficiency")
