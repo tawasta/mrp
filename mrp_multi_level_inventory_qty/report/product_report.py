@@ -223,7 +223,7 @@ class ProductReport(models.Model):
 
         with_ = ("WITH %s" % with_clause) if with_clause else ""
 
-        where_clause = "WHERE p.id in {}".format(product_ids)
+        where_clause = "WHERE p.id in {} AND t.purchase_ok".format(product_ids)
 
         return "%s SELECT %s FROM %s%s GROUP BY %s" % (
             with_,
