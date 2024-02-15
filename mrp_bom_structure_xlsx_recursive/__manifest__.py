@@ -19,9 +19,9 @@
 ##############################################################################
 
 {
-    "name": "BOM Excel Export",
-    "summary": "Field additions for the BOM export module",
-    "version": "14.0.1.0.28",
+    "name": "Life Cycle Analysis report",
+    "summary": "Export an excel for LCA report of a BoM",
+    "version": "14.0.1.0.29",
     "category": "Manufacturing",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
