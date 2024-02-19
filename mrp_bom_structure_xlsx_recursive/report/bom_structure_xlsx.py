@@ -1010,7 +1010,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet5.write(
                 d,
                 2,
-                o.product_id.default_code or product_variant.default_code or "",
+                o.product_id.default_code
+                or (product_variant and product_variant.default_code)
+                or "",
                 sheet5_style,
             )  # Internal reference
             sheet5.write(d, 3, o.product_tmpl_id.name, sheet5_style)  # Name
