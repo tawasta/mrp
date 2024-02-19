@@ -12,5 +12,6 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [mrp_bom_line_comment](mrp_bom_line_comment/) | 17.0.1.0.0 |  | Allow adding a comment for BoM line
+[mrp_bom_raw_material_quantities](mrp_bom_raw_material_quantities/) | 17.0.1.0.0 |  | Helper module for calculating total raw material requirements of a BOM
 
 [//]: # (end addons)
