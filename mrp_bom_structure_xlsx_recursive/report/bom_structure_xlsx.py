@@ -898,7 +898,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet2.write(
                 a,
                 2,
-                o.product_id.default_code or product_variant.default_code or "",
+                o.product_id.default_code
+                or (product_variant and product_variant.default_code)
+                or "",
                 bold,
             )  # Internal reference
             sheet2.write(a, 3, o.product_tmpl_id.name, bold)  # Name
