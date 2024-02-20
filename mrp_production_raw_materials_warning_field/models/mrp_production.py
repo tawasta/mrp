@@ -2,7 +2,6 @@ from odoo import api, fields, models
 
 
 class MrpProduction(models.Model):
-
     _inherit = "mrp.production"
 
     @api.depends("state", "components_availability_state")

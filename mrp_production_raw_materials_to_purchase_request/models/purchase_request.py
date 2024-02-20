@@ -2,7 +2,6 @@ from odoo import fields, models
 
 
 class PurchaseRequest(models.Model):
-
     _inherit = "purchase.request"
 
     mrp_production_id = fields.Many2one(

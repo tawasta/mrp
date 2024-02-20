@@ -2,7 +2,6 @@ from odoo import models
 
 
 class MrpBom(models.Model):
-
     _inherit = "mrp.bom"
 
     def compute_raw_material_qties(self, raw_mats_needed=None, multiplier=1):

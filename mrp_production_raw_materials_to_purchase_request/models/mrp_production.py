@@ -3,7 +3,6 @@ from odoo.exceptions import UserError
 
 
 class MrpProduction(models.Model):
-
     _inherit = "mrp.production"
 
     def check_material_for_request(self, material):
