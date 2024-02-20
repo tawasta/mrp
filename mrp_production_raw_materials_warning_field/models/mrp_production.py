@@ -10,13 +10,10 @@ class MrpProduction(models.Model):
         """Helper field that formulates the same condition that shows/hides
         the 'Raw materials missing!' label in the core form view."""
         for production in self:
-            if production.state in [
-                "confirmed",
-                "progress",
-            ] and production.components_availability_state not in [
-                "available",
-                "unavailable",
-            ]:
+            if (
+                production.state in ["confirmed", "progress"]
+                and production.components_availability_state != "available"
+            ):
                 production.materials_warning_visible = True
             else:
                 production.materials_warning_visible = False
