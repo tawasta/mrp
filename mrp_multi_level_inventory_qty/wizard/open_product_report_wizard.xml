@@ -14,8 +14,9 @@
                 <field name="abc_profile_id" />
                 <p>ABC level (optional)</p>
                 <field
-                    name="abc_level_id"
+                    name="abc_level_ids"
                     domain="[('profile_id', '=', abc_profile_id)]"
+                    widget="many2many_tags"
                 />
                 <footer>
                     <button

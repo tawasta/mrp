@@ -11,9 +11,9 @@ class OpenProductReportWizard(models.TransientModel):
     abc_profile_id = fields.Many2one(
         "abc.classification.profile", "ABC Classification Profile"
     )
-    abc_level_id = fields.Many2one(
+    abc_level_ids = fields.Many2many(
         "abc.classification.profile.level",
-        "ABC Classification Level",
+        string="ABC Classification Level",
     )
 
     def forecast_open_report(self):
@@ -25,7 +25,7 @@ class OpenProductReportWizard(models.TransientModel):
             product_category_id=self.product_category_id.id,
             product_id=self.product_id.id,
             abc_profile_id=self.abc_profile_id.id,
-            abc_level_id=self.abc_level_id.id,
+            abc_level_ids=self.abc_level_ids.ids,
         )
         self.env["product.report"].with_context(ctx).init()
 
