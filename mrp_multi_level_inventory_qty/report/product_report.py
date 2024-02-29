@@ -159,7 +159,7 @@ class ProductReport(models.Model):
         category=None,
         product_id=None,
         abc_profile_id=None,
-        abc_level_id=None,
+        abc_level_ids=None,
     ):
 
         if not fields:
@@ -179,8 +179,8 @@ class ProductReport(models.Model):
             variants = list(variant_generator(category))
         if product_id:
             search_domain += [("id", "=", product_id)]
-        if abc_level_id:
-            search_domain += [("abc_classification_level_id", "=", abc_level_id)]
+        if abc_level_ids:
+            search_domain += [("abc_classification_level_id", "in", abc_level_ids)]
         if abc_profile_id:
             search_domain += [("abc_classification_profile_id", "=", abc_profile_id)]
 
@@ -238,7 +238,7 @@ class ProductReport(models.Model):
         category = self.env.context.get("product_category_id", None)
         product_id = self.env.context.get("product_id", None)
         abc_profile_id = self.env.context.get("abc_profile_id", None)
-        abc_level_id = self.env.context.get("abc_level_id", None)
+        abc_level_ids = self.env.context.get("abc_level_ids", None)
         tools.drop_view_if_exists(self._cr, "product_report")
         self.env.cr.execute(
             """CREATE or REPLACE VIEW product_report as (%s);"""
@@ -248,7 +248,7 @@ class ProductReport(models.Model):
                     category=category,
                     product_id=product_id,
                     abc_profile_id=abc_profile_id,
-                    abc_level_id=abc_level_id,
+                    abc_level_ids=abc_level_ids,
                 )
             )
         )
