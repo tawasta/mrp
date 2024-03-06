@@ -12,6 +12,7 @@
                     'mrp_bom': {
                         '_HEAD_': {
                             'A3': 'product_tmpl_id',
+                            'B3': 'type',
                         },
                         'bom_line_ids': {
                             'A6': 'product_id',
