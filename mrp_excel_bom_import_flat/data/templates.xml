@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="import_flat_bom_xlsx_template" model="xlsx.template">
+        <field name="res_model">mrp.bom</field>
+        <field name="fname">import_flat_bom.xlsx</field>
+        <field name="name">Import BoM</field>
+        <field name="description">Import BoM with its components</field>
+        <field name="redirect_action" ref="mrp.mrp_bom_form_action" />
+        <field name="input_instruction">
+            {
+                '__IMPORT__': {
+                    'mrp_bom': {
+                        '_HEAD_': {
+                            'A3': 'product_tmpl_id',
+                        },
+                        'bom_line_ids': {
+                            'A6': 'product_id',
+                            'B6': 'product_qty',
+                        }
+                    }
+                },
+            }
+        </field>
+    </record>
+    <function model="xlsx.template" name="load_xlsx_template">
+        <value eval="[ref('import_flat_bom_xlsx_template')]" />
+    </function>
+</odoo>

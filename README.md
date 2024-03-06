@@ -22,6 +22,7 @@ addon | version | maintainers | summary
 [mrp_bom_structure_xlsx_cost](mrp_bom_structure_xlsx_cost/) | 14.0.1.0.0 |  | Add cost to MRP BOM Structure XLSX
 [mrp_bom_structure_xlsx_recursive](mrp_bom_structure_xlsx_recursive/) | 14.0.1.0.31 |  | Export an excel for LCA report of a BoM
 [mrp_default_focus](mrp_default_focus/) | 14.0.1.0.0 |  | Sets default focus fields for MRP
+[mrp_excel_bom_import_flat](mrp_excel_bom_import_flat/) | 14.0.1.0.0 |  | Import template for importing a flat Bill of Material
 [mrp_inventory_hide_forecasted_inventory](mrp_inventory_hide_forecasted_inventory/) | 14.0.1.0.0 |  | Hide Forecasted Inventory in MRP Inventory tree view
 [mrp_inventory_hide_mrp_area](mrp_inventory_hide_mrp_area/) | 14.0.1.0.0 |  | Hide MRP Area in MRP Inventory tree view
 [mrp_inventory_product_category](mrp_inventory_product_category/) | 14.0.1.0.0 |  | Shows product category in mrp.inventory list view
