@@ -21,7 +21,7 @@
 {
     "name": "MO Raw Materials to Purchase Request",
     "summary": "Purchase request creation from manufacturing order",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.0.1",
     "category": "Manufacturing",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",

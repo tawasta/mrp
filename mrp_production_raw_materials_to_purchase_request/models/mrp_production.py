@@ -40,10 +40,11 @@ class MrpProduction(models.Model):
         purchase_request_line_model = self.env["purchase.request.line"]
 
         mo_account_id = False
-        for account, _percent in self.analytic_distribution.items():
-            mo_account_id = self.env["account.analytic.account"].browse(
-                map(int, account.split(","))
-            )
+        if self.analytic_distribution:
+            for account, _percent in self.analytic_distribution.items():
+                mo_account_id = self.env["account.analytic.account"].browse(
+                    map(int, account.split(","))
+                )
 
         vals = {
             "mrp_production_id": self.id,
@@ -54,7 +55,7 @@ class MrpProduction(models.Model):
         }
 
         # Check if mrp_production_analytic_account is installed
-        if hasattr(self, "analytic_distribution"):
+        if hasattr(self, "analytic_distribution") and mo_account_id:
             vals["analytic_account_id"] = mo_account_id.id
 
         res = purchase_request_model.create(vals)
