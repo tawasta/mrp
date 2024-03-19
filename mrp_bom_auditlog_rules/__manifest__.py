@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2018 Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
+#    Copyright 2020 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,21 +19,18 @@
 ##############################################################################
 
 {
-    "name": "MO Raw Materials to Purchase Request",
-    "summary": "Purchase request creation from manufacturing order",
-    "version": "17.0.1.0.1",
-    "category": "Manufacturing",
-    "website": "https://gitlab.com/tawasta/odoo/mrp",
+    "name": "Audit Log Rules - MRP",
+    "summary": "Adds audit log rules for mrp.bom",
     "author": "Tawasta",
     "license": "AGPL-3",
+    "website": "https://gitlab.com/tawasta/odoo/mrp",
+    "category": "Logging",
     "application": False,
     "installable": True,
-    "external_dependencies": {"python": [], "bin": []},
+    "version": "17.0.1.0.0",
     "depends": [
-        "mrp_production_raw_materials_warning_field",
-        "purchase_request",
-        "purchase_stock",
+        "mrp",
+        "auditlog",
     ],
-    "data": ["views/mrp_production.xml"],
-    "demo": [],
+    "data": ["data/rules.xml"],
 }
