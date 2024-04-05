@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="mrp_bom_component_menu" model="ir.ui.view">
+        <field name="name">mrp.bom.line.view.filter.remove.bom</field>
+        <field name="model">mrp.bom.line</field>
+        <field
+            name="inherit_id"
+            ref="mrp_bom_component_menu.mrp_bom_line_view_filter"
+        />
+        <field name="arch" type="xml">
+            <field name="bom_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+        </field>
+    </record>
+</odoo>

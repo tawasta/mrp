@@ -21,7 +21,7 @@
 {
     "name": "MRP BoM component change wizard",
     "summary": "MRP BoM component change wizard",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "Manufacturing",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
@@ -34,6 +34,8 @@
     ],
     "data": [
         "security/ir.model.access.csv",
+        "security/res_groups.xml",
+        "views/mrp_bom_component.xml",
         "wizards/mrp_component_change_message_confirm_wizard.xml",
         "wizards/mrp_bom_component_change_wizard.xml",
     ],
