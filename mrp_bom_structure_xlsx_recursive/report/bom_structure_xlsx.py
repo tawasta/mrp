@@ -88,8 +88,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
     ):
         a, level = row, level
 
-        for mater in product_id.product_material_composition_ids:
+        materials = self.env["product.material.composition"].search(
+            [("product_product_id", "=", product_id.id)]
+        )
 
+        for mater in materials:
             sheet2.write(a, 0, parent_code)  # Internal category/display name
             sheet2.write(a, 1, str(level))  # Level
             sheet2.write(a, 2, product_id.default_code or "")  # Internal reference
@@ -101,10 +104,8 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet2.write(
                 a, 8, mater.product_material_class_id.name or ""
             )  # Material class
-            sheet2.write(a, 9, mater.net_weight)  # Material weight / per unit
-            sheet2.write(
-                a, 9, mater.net_weight * quantity
-            )  # Material total weight in product
+            sheet2.write(a, 9, mater.type)  # Material type
+            sheet2.write(a, 10, mater.net_weight)  # Material weight / per unit
             sheet2.write(a, 11, mater.net_weight_uom_id.name)  # Net weight UoM
             sheet2.write(a, 12, mater.recycled_percentage)  # Recycled material %
             sheet2.write(
@@ -121,6 +122,76 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             a -= 1
 
         return a
+
+    def print_materials_sheet4(
+        self, product_id, sheet4, row, level, quantity, parent_code, parent, oper, bom
+    ):
+        c, level = row, level
+
+        materials = self.env["product.material.composition"].search(
+            [("product_product_id", "=", product_id.id)]
+        )
+
+        for mater in materials:
+            sheet4.write(c, 0, bom.product_tmpl_id.name or "")  # Internal reference
+            sheet4.write(c, 1, bom.product_id.default_code or "")  # Name
+            sheet4.write(
+                c, 2, bom.product_tmpl_id.name or ""
+            )  # Internal category/display name
+            sheet4.write(c, 3, oper.id or "")  # Operation ID
+            sheet4.write(c, 4, oper.name or "")  # Operation name
+            #            sheet4.write(c, 5, quantity)  # Quantity in products
+
+            sheet4.write(c, 7, product_id.default_code or "")  # Internal reference
+            sheet4.write(c, 8, product_id.name)  # Name
+
+            sheet4.write(c, 9, mater.name or "")  # Part name
+            sheet4.write(c, 10, mater.product_material_id.name or "")  # Material
+            sheet4.write(
+                c, 11, mater.product_material_class_id.name or ""
+            )  # Material class
+            sheet4.write(c, 12, mater.type)  # Material type
+            sheet4.write(c, 13, mater.net_weight)  # Material weight / per unit
+            sheet4.write(c, 14, mater.net_weight_uom_id.name)  # Net weight UoM
+            sheet4.write(c, 15, mater.recycled_percentage)  # Recycled material %
+            sheet4.write(
+                c, 16, mater.product_material_waste_component_id.name
+            )  # Waste procuts
+            sheet4.write(
+                c, 17, mater.product_material_waste_endpoint_id.name
+            )  # Waste endpoint
+
+            time_in_year = parent.company_id.time_in_year
+
+            grams = self.env.ref("uom.product_uom_gram")
+
+            weight_in_grams = product_id.weight_uom_id._compute_quantity(
+                product_id.weight, grams
+            )
+
+            #  Check that time_in_year is not zero
+            consumed_weight = (
+                time_in_year
+                and (
+                    (quantity * weight_in_grams / time_in_year)
+                    * (oper.duration_total * 60)
+                )
+                or 0
+            )
+
+            sheet4.write(
+                c, 18, consumed_weight
+            )  # Energy consumption during an operation / Total/(kWh)
+
+            sheet4.write(c, 19, "g" or "")  # Unit
+
+            if len(product_id.product_material_composition_ids.ids) > 1:
+                c += 1
+
+        if len(product_id.product_material_composition_ids.ids) > 1:
+            c -= 1
+
+        return c
 
     def print_material_requirements(
         self, product_id, sheet5, row, level, quantity, style, parent_code, parent
@@ -377,6 +448,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         quantities,
         identifier,
         operation,
+        bom,
     ):
         c, j = row, level
         j += 1
@@ -419,11 +491,23 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             or 0
         )
 
+        c = self.print_materials_sheet4(
+            product_id=ch.product_id,
+            sheet4=sheet4,
+            row=c,
+            level=level,
+            quantity=quantities[ident][1],
+            parent_code=parent_with_code,
+            parent=ch,
+            oper=operation,
+            bom=bom,
+        )
+
         sheet4.write(
-            c, 9, consumed_weight
+            c, 18, consumed_weight
         )  # Energy consumption during an operation / Total/(kWh)
 
-        sheet4.write(c, 10, "g" or "")  # Unit
+        sheet4.write(c, 19, "g" or "")  # Unit
 
         c += 1
         child_number = 0
@@ -445,6 +529,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 child_number=child_number,
                 quantities=quantities,
                 identifier=ident,
+                bom=bom,
             )
         j -= 1
         return c
@@ -587,10 +672,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
 
             sheet4.write(
-                c, 9, consumed_weight, bold
+                c, 18, consumed_weight, bold
             )  # Consumed amount / produced 1 product
 
-            sheet4.write(c, 10, "g", bold)  # Unit
+            sheet4.write(c, 19, "g", bold)  # Unit
 
             parent_level_4 = c - 1
             c += 1
@@ -612,6 +697,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     quantities=quantities,
                     identifier=ident,
                     operation=oper,
+                    bom=bom,
                 )
 
         parent_level_4 = c - 1
@@ -661,16 +747,15 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet2.set_column(4, 4, 15)
         sheet2.set_column(5, 6, 25)
         sheet2.set_column(7, 7, 28)
-        sheet2.set_column(8, 9, 25)
-        sheet2.set_column(10, 10, 25)
+        sheet2.set_column(8, 9, 26)
+        sheet2.set_column(10, 10, 22)
         sheet2.set_column(11, 11, 20)
         sheet2.set_column(12, 12, 20)
         sheet2.set_column(13, 13, 20)
-        sheet2.set_column(14, 14, 20)
+        sheet2.set_column(14, 14, 25)
         sheet2.set_column(15, 15, 25)
-        sheet2.set_column(16, 16, 25)
-        sheet2.set_column(17, 17, 28)
-        sheet2.set_column(18, 18, 25)
+        sheet2.set_column(16, 16, 28)
+        sheet2.set_column(17, 17, 25)
 
         # Column styles
         bold = workbook.add_format({"bold": True})
@@ -680,25 +765,25 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         )
 
         sheet_title_2 = [
-            _("Internal category/display name"),  # 0
-            _("Level"),  # 1
-            _("Internal reference"),  # 2
-            _("Name"),  # 3
-            _("Unit"),  # 4
-            _("Quantity in products"),  # 5
-            _("Part name"),  # 6
-            _("Material"),  # 7
-            _("Material class"),  # 8
-            _("Material weight / per unit"),  # 9
-            _("Material total weight in product"),  # 10
-            _("Weight unit"),  # 11
-            _("Recycle material %"),  # 12
-            _("Waste products"),  # 13
-            _("Waste endpoint"),  # 14
-            _("Vendor"),  # 15
-            _("Vendor Address"),  # 16
-            _("Supply Address"),  # 17
-            _("Country of origin"),  # 18
+            _("Internal category/display name"),  # 0 (A)
+            _("Level"),  # 1 (B)
+            _("Internal reference"),  # 2 (C)
+            _("Name"),  # 3 (D)
+            _("Unit"),  # 4 (E)
+            _("Quantity in products"),  # 5 (F)
+            _("Part name"),  # 6 (G)
+            _("Material"),  # 7 (H)
+            _("Material class"),  # 8 (I)
+            _("Material type"),  # 9 (J)
+            _("Material weight / per unit"),  # 9 (K)
+            _("Weight unit"),  # 10 (L)
+            _("Recycle material %"),  # 11 (M)
+            _("Waste products"),  # 12 (N)
+            _("Waste endpoint"),  # 13 (O)
+            _("Vendor"),  # 14 (P)
+            _("Vendor Address"),  # 15 (Q)
+            _("Supply Address"),  # 16 (R)
+            _("Country of origin"),  # 17 (S)
         ]
 
         sheet2.set_row(0, None, None, {"collapsed": 1})
@@ -766,17 +851,26 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet4.set_zoom(80)
 
         # Some column sizes changed to match their title
-        sheet4.set_column(0, 0, 39)
-        sheet4.set_column(1, 1, 20)
-        sheet4.set_column(2, 2, 47)
-        sheet4.set_column(3, 3, 18)
-        sheet4.set_column(4, 4, 25)
-        sheet4.set_column(5, 5, 40)
-        sheet4.set_column(6, 6, 18)
-        sheet4.set_column(7, 7, 35)
-        sheet4.set_column(8, 8, 45)
-        sheet4.set_column(9, 9, 40)
-        sheet4.set_column(10, 10, 12)
+        sheet4.set_column(0, 0, 39)  # A
+        sheet4.set_column(1, 1, 20)  # B
+        sheet4.set_column(2, 2, 47)  # C
+        sheet4.set_column(3, 3, 18)  # D
+        sheet4.set_column(4, 4, 25)  # E
+        sheet4.set_column(5, 5, 40)  # F
+        sheet4.set_column(6, 6, 18)  # G
+        sheet4.set_column(7, 7, 35)  # H
+        sheet4.set_column(8, 8, 45)  # I
+        sheet4.set_column(9, 9, 25)  # J
+        sheet4.set_column(10, 10, 28)  # K
+        sheet4.set_column(11, 11, 26)  # L
+        sheet4.set_column(12, 12, 26)  # M
+        sheet4.set_column(13, 13, 22)  # N
+        sheet4.set_column(14, 14, 20)  # O
+        sheet4.set_column(15, 15, 20)  # P
+        sheet4.set_column(16, 16, 20)  # Q
+        sheet4.set_column(17, 17, 20)  # R
+        sheet4.set_column(18, 18, 40)  # S
+        sheet4.set_column(19, 19, 12)  # T
 
         # Column styles
         bold = workbook.add_format({"bold": True})
@@ -786,17 +880,26 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         )
 
         sheet_title_4 = [
-            _("Internal category/display name"),  # 0
-            _("Product internal reference"),  # 1
-            _("Name"),  # 2
-            _("Operation ID"),  # 3
-            _("Operation name"),  # 4
-            _("Energy consumption during an operation / Total(kWh)"),  # 5
-            _("Energy Unit"),  # 6
-            _("Operation consumptions product ID"),  # 7
-            _("Name of the product consumed in an operation"),  # 7
-            _("Consumed amount / produced 1 product"),  # 8
-            _("Unit"),  # 10
+            _("Internal category/display name"),  # 0 (A)
+            _("Product internal reference"),  # 1 (B)
+            _("Name"),  # 2 (C)
+            _("Operation ID"),  # 3 (D)
+            _("Operation name"),  # 4 (E)
+            _("Energy consumption during an operation / Total(kWh)"),  # 5 (F)
+            _("Energy Unit"),  # 6 (G)
+            _("Operation consumptions product ID"),  # 7 (H)
+            _("Name of the product consumed in an operation"),  # 8 (I)
+            _("Part name"),  # 9 (J)
+            _("Material"),  # 10 (K)
+            _("Material class"),  # 11 (L)
+            _("Material type"),  # 12 (M)
+            _("Material weight / per unit"),  # 13 (N)
+            _("Weight unit"),  # 14 (O)
+            _("Recycle material %"),  # 15 (P)
+            _("Waste products"),  # 16 (Q)
+            _("Waste endpoint"),  # 17 (R)
+            _("Consumed amount / produced 1 product"),  # 18 (S)
+            _("Unit"),  # 19 (T)
         ]
 
         sheet4.set_row(0, None, None, {"collapsed": 1})

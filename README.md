@@ -14,14 +14,15 @@ addon | version | maintainers | summary
 [bsm_importer](bsm_importer/) | 14.0.1.0.0 |  | Import data from local file system to database
 [material_requirement_planning](material_requirement_planning/) | 14.0.1.0.1 |  | Material Requirement
 [mrp_auditlog_rules](mrp_auditlog_rules/) | 14.0.1.0.0 |  | Adds audit log rules for mrp.bom
-[mrp_bom_component_change_wizard](mrp_bom_component_change_wizard/) | 14.0.1.0.0 |  | MRP BoM component change wizard
+[mrp_bom_component_change_wizard](mrp_bom_component_change_wizard/) | 14.0.1.0.1 |  | MRP BoM component change wizard
 [mrp_bom_cost_cron](mrp_bom_cost_cron/) | 14.0.1.0.3 |  | Cron for MRP compute cost
 [mrp_bom_eco_analysis](mrp_bom_eco_analysis/) | 14.0.1.1.16 |  | ECO analysis modifications
 [mrp_bom_limit_increase](mrp_bom_limit_increase/) | 14.0.1.0.0 |  | Incrases BOM tree-view limit to 100
 [mrp_bom_operation_template](mrp_bom_operation_template/) | 14.0.1.0.2 |  | Templates for different operations
 [mrp_bom_structure_xlsx_cost](mrp_bom_structure_xlsx_cost/) | 14.0.1.0.0 |  | Add cost to MRP BOM Structure XLSX
-[mrp_bom_structure_xlsx_recursive](mrp_bom_structure_xlsx_recursive/) | 14.0.1.0.31 |  | Export an excel for LCA report of a BoM
+[mrp_bom_structure_xlsx_recursive](mrp_bom_structure_xlsx_recursive/) | 14.0.1.0.32 |  | Export an excel for LCA report of a BoM
 [mrp_default_focus](mrp_default_focus/) | 14.0.1.0.0 |  | Sets default focus fields for MRP
+[mrp_excel_bom_import_flat](mrp_excel_bom_import_flat/) | 14.0.1.0.1 |  | Import template for importing a flat Bill of Material
 [mrp_inventory_hide_forecasted_inventory](mrp_inventory_hide_forecasted_inventory/) | 14.0.1.0.0 |  | Hide Forecasted Inventory in MRP Inventory tree view
 [mrp_inventory_hide_mrp_area](mrp_inventory_hide_mrp_area/) | 14.0.1.0.0 |  | Hide MRP Area in MRP Inventory tree view
 [mrp_inventory_product_category](mrp_inventory_product_category/) | 14.0.1.0.0 |  | Shows product category in mrp.inventory list view

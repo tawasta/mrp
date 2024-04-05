@@ -19,24 +19,21 @@
 ##############################################################################
 
 {
-    "name": "MRP BoM component change wizard",
-    "summary": "MRP BoM component change wizard",
+    "name": "Import template for importing a flat Bill of Material",
+    "summary": "Import template for importing a flat Bill of Material",
     "version": "14.0.1.0.1",
-    "category": "Manufacturing",
+    "category": "MRP",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
     "depends": [
+        "excel_import_export",
         "mrp",
-        "mrp_bom_component_menu",
     ],
     "data": [
-        "security/ir.model.access.csv",
-        "security/res_groups.xml",
-        "views/mrp_bom_component.xml",
-        "wizards/mrp_component_change_message_confirm_wizard.xml",
-        "wizards/mrp_bom_component_change_wizard.xml",
+        "data/menu_action.xml",
+        "data/templates.xml",
     ],
 }
