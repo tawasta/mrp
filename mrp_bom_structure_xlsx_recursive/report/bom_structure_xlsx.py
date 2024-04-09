@@ -115,10 +115,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 a, 14, mater.product_material_waste_endpoint_id.name
             )  # Waste endpoint
 
-            if len(product_id.product_material_composition_ids.ids) > 1:
+            if len(materials.ids) > 1:
                 a += 1
 
-        if len(product_id.product_material_composition_ids.ids) > 1:
+        if len(materials.ids) > 1:
             a -= 1
 
         return a
@@ -185,10 +185,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             sheet4.write(c, 19, "g" or "")  # Unit
 
-            if len(product_id.product_material_composition_ids.ids) > 1:
+            if len(materials.ids) > 1:
                 c += 1
 
-        if len(product_id.product_material_composition_ids.ids) > 1:
+        if len(materials.ids) > 1:
             c -= 1
 
         return c
@@ -199,7 +199,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         d, level = row, level
         sheet5_style = style
 
-        for mater in product_id.product_material_composition_ids:
+        materials = self.env["product.material.composition"].search(
+            [("product_product_id", "=", product_id.id)]
+        )
+
+        for mater in materials:
             sheet5.write(
                 d, 0, parent_code, sheet5_style
             )  # Internal category/display name
@@ -251,10 +255,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 d, 19, mater.product_material_waste_endpoint_id.name or "", sheet5_style
             )  # Waste endpoint
 
-            if len(product_id.product_material_composition_ids.ids) > 1:
+            if len(materials.ids) > 1:
                 d += 1
 
-        if len(product_id.product_material_composition_ids.ids) > 1:
+        if len(materials.ids) > 1:
             d -= 1
 
         return d
