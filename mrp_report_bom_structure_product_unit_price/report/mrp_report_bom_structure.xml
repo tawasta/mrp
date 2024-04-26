@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <tr
+        t-name="mrp_report_bom_structure_product_unit_price.BomOverviewLine"
+        t-inherit="mrp.BomOverviewLine"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+
+<!--         <xpath expr='//span[@t-esc="formatMonetary(data.prod_cost)"]' position="attributes"> -->
+<!--             <attribute name="t-if">1 == 0</attribute> -->
+<!--         </xpath> -->
+
+<!--         <xpath expr='//span[@t-esc="formatMonetary(data.prod_cost)"]' position="after"> -->
+<!--             <span t-if="data.hasOwnProperty('unit_price')" t-esc="formatMonetary(data.prod_cost)"/> -->
+<!--             <span t-esc="l['unit_price']" t-options='{"widget": "monetary", "display_currency": currency}' /> -->
+<!--                 <td t-if="data['unit_price']" class="text-end" t-esc="data['unit_price']" -->
+<!--                     t-options='{"widget": "monetary", "display_currency": currency}'/> -->
+<!--         </xpath> -->
+    </tr>
+</templates>

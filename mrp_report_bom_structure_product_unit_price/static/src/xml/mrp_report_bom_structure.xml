@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <tr
+        t-name="mrp_report_bom_structure_product_unit_price.BomOverviewLine"
+        t-inherit="mrp.BomOverviewLine"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath
+            expr='//span[@t-esc="formatMonetary(data.prod_cost)"]'
+            position="attributes"
+        >
+            <attribute name="t-if">data.hasOwnProperty('unit_price')</attribute>
+            <attribute name="t-esc">formatMonetary(data.unit_price)</attribute>
+        </xpath>
+    </tr>
+</templates>
