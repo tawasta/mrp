@@ -19,5 +19,6 @@ addon | version | maintainers | summary
 [mrp_bom_structure_xlsx_cost](mrp_bom_structure_xlsx_cost/) | 17.0.1.0.0 |  | Add cost to MRP BOM Structure XLSX
 [mrp_production_raw_materials_to_purchase_request](mrp_production_raw_materials_to_purchase_request/) | 17.0.1.0.1 |  | Purchase request creation from manufacturing order
 [mrp_production_raw_materials_warning_field](mrp_production_raw_materials_warning_field/) | 17.0.1.0.0 |  | Helper field indicating if materials are available and assigned
+[mrp_report_bom_structure_product_unit_price](mrp_report_bom_structure_product_unit_price/) | 17.0.1.0.0 |  | Use product Unit price instead of its multiple on report
 
 [//]: # (end addons)
