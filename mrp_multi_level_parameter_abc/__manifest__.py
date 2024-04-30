@@ -21,7 +21,7 @@
 {
     "name": "MRP product parameter ABC Fields",
     "summary": "MRP product parameter ABC Fields",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.1.0",
     "category": "MRP",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",

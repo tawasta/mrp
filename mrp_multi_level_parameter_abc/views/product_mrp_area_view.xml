@@ -11,4 +11,22 @@
             </field>
         </field>
     </record>
+
+    <record id="product_mrp_area_search" model="ir.ui.view">
+        <field name="name">product.mrp.area.search.abc</field>
+        <field name="model">product.mrp.area</field>
+        <field name="inherit_id" ref="mrp_multi_level.product_mrp_area_search" />
+        <field name="arch" type="xml">
+            <field name="mrp_area_id" position="after">
+                <group expand="0">
+                    <filter
+                        string="Abc Classification Level"
+                        name="abc_classification_level_id"
+                        domain="[]"
+                        context="{'group_by': 'abc_classification_level_id'}"
+                    />
+                </group>
+            </field>
+        </field>
+    </record>
 </odoo>
