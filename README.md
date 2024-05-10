@@ -42,7 +42,7 @@ addon | version | maintainers | summary
 [mrp_multi_level_inventory_qty](mrp_multi_level_inventory_qty/) | 14.0.1.0.16 |  | Inventory product circulation report
 [mrp_multi_level_move_forecasted_qty](mrp_multi_level_move_forecasted_qty/) | 14.0.1.0.0 |  | Forecasted quantity for mrp.move
 [mrp_multi_level_optimization](mrp_multi_level_optimization/) | 14.0.1.0.0 |  | MRP multi level optimization
-[mrp_multi_level_parameter_abc](mrp_multi_level_parameter_abc/) | 14.0.1.0.0 |  | MRP product parameter ABC Fields
+[mrp_multi_level_parameter_abc](mrp_multi_level_parameter_abc/) | 14.0.1.1.0 |  | MRP product parameter ABC Fields
 [mrp_multi_level_queue](mrp_multi_level_queue/) | 14.0.1.0.0 |  | MRP Multi Level with queue jobs
 [mrp_operations_disable_sequence_dragging](mrp_operations_disable_sequence_dragging/) | 14.0.1.0.0 |  | Hides sequence column in operations tree view
 [mrp_product_only_select](mrp_product_only_select/) | 14.0.1.0.0 |  | Disable creating and editing of products from the MO product field
