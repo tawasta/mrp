@@ -114,6 +114,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet2.write(
                 a, 14, mater.product_material_waste_endpoint_id.name
             )  # Waste endpoint
+            sheet2.write(a, 15, mater.description or "")  # Material notes
 
             if len(materials.ids) > 1:
                 a += 1
@@ -323,12 +324,12 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             or ("N/A", "N/A")
         )
 
-        sheet2.write(a, 15, main_vendor[0])  # Vendor
-        sheet2.write(a, 16, main_vendor[1])  # Vendor address
-        sheet2.write(a, 17, vendor)  # Supply address
+        sheet2.write(a, 16, main_vendor[0])  # Vendor
+        sheet2.write(a, 17, main_vendor[1])  # Vendor address
+        sheet2.write(a, 18, vendor)  # Supply address
 
         sheet2.write(
-            a, 18, ch.product_id.origin_country_id.name or ""
+            a, 19, ch.product_id.origin_country_id.name or ""
         )  # Country of origin
 
         a = self.print_materials(
@@ -757,9 +758,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet2.set_column(12, 12, 20)
         sheet2.set_column(13, 13, 20)
         sheet2.set_column(14, 14, 25)
-        sheet2.set_column(15, 15, 25)
-        sheet2.set_column(16, 16, 28)
-        sheet2.set_column(17, 17, 25)
+        sheet2.set_column(15, 15, 40)
+        sheet2.set_column(16, 16, 25)
+        sheet2.set_column(17, 17, 28)
+        sheet2.set_column(18, 18, 25)
+        sheet2.set_column(19, 19, 27)
 
         # Column styles
         bold = workbook.add_format({"bold": True})
@@ -784,10 +787,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             _("Recycle material %"),  # 11 (M)
             _("Waste products"),  # 12 (N)
             _("Waste endpoint"),  # 13 (O)
-            _("Vendor"),  # 14 (P)
-            _("Vendor Address"),  # 15 (Q)
-            _("Supply Address"),  # 16 (R)
-            _("Country of origin"),  # 17 (S)
+            _("Material notes"),  # 14 (P)
+            _("Vendor"),  # 15 (Q)
+            _("Vendor Address"),  # 16 (R)
+            _("Supply Address"),  # 17 (S)
+            _("Country of origin"),  # 18 (T)
         ]
 
         sheet2.set_row(0, None, None, {"collapsed": 1})
@@ -1046,12 +1050,12 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 or ("N/A", "N/A")
             )
 
-            sheet2.write(a, 15, main_vendor[0], bold)  # Vendor
-            sheet2.write(a, 16, main_vendor[1], bold)  # Vendor address
-            sheet2.write(a, 17, vendor, bold)  # Supply address
+            sheet2.write(a, 16, main_vendor[0], bold)  # Vendor
+            sheet2.write(a, 17, main_vendor[1], bold)  # Vendor address
+            sheet2.write(a, 18, vendor, bold)  # Supply address
 
             sheet2.write(
-                a, 18, o.product_id.origin_country_id.name or "", bold
+                a, 19, o.product_id.origin_country_id.name or "", bold
             )  # Country of origin
 
             j = 0
