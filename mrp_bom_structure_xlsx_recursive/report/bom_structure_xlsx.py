@@ -114,6 +114,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet2.write(
                 a, 14, mater.product_material_waste_endpoint_id.name
             )  # Waste endpoint
+            sheet2.write(a, 19, mater.description or "")  # Material notes
 
             if len(materials.ids) > 1:
                 a += 1
@@ -760,6 +761,8 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet2.set_column(15, 15, 25)
         sheet2.set_column(16, 16, 28)
         sheet2.set_column(17, 17, 25)
+        sheet2.set_column(18, 18, 27)
+        sheet2.set_column(19, 19, 40)
 
         # Column styles
         bold = workbook.add_format({"bold": True})
@@ -788,6 +791,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             _("Vendor Address"),  # 15 (Q)
             _("Supply Address"),  # 16 (R)
             _("Country of origin"),  # 17 (S)
+            _("Material notes"),  # 18 (T)
         ]
 
         sheet2.set_row(0, None, None, {"collapsed": 1})
