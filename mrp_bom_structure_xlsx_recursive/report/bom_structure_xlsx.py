@@ -1464,16 +1464,16 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             name_and_weight = {}
 
             for material in materials:
-                if not name_and_weight.get(material.name):
-                    name_and_weight[material.name] = material.net_weight
+                if not name_and_weight.get(material.product_material_id):
+                    name_and_weight[material.product_material_id] = material.net_weight
                 else:
-                    name_and_weight[material.name] += material.net_weight
+                    name_and_weight[material.product_material_id] += material.net_weight
             r = 3
 
             total_grouped_net_weight = sum(name_and_weight.values())
 
-            for name, weight in name_and_weight.items():
-                sheet6.write(r, 3, name)
+            for material, weight in name_and_weight.items():
+                sheet6.write(r, 3, material.name)
                 sheet6.write(r, 4, weight)
                 sheet6.write(r, 5, str((weight / total_grouped_net_weight) * 100) + "%")
                 r += 1
