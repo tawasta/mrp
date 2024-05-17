@@ -734,6 +734,24 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         j -= 1
         return d
 
+    def energy_summary(self, bom, product_variant, sheet6, operations):
+
+        for oper in bom.operation_ids:
+            operations += oper
+
+        for ch in bom.bom_line_ids:
+            if product_variant and ch._skip_bom_line(product_variant):
+                continue
+            if ch.child_bom_id:
+                operations = self.energy_summary(
+                    bom=ch.child_bom_id,
+                    product_variant=ch.product_id,
+                    sheet6=sheet6,
+                    operations=operations,
+                )
+        return operations
+
+    # flake8: noqa: C901
     def operation_bom_consus(
         self, bom, product_variant, sheet4, row, level, parent_level, identifier, style
     ):
@@ -1129,9 +1147,13 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet6.set_column(1, 1, 20)  # B
         sheet6.set_column(2, 2, 20)  # C
 
-        sheet6.set_column(3, 3, 35)  # A
-        sheet6.set_column(4, 4, 20)  # B
-        sheet6.set_column(5, 5, 20)  # C
+        sheet6.set_column(3, 3, 35)  # D
+        sheet6.set_column(4, 4, 20)  # E
+        sheet6.set_column(5, 5, 20)  # F
+
+        sheet6.set_column(6, 6, 35)  # G
+        sheet6.set_column(7, 7, 20)  # H
+        sheet6.set_column(8, 8, 20)  # I
 
         title_style_main_1 = workbook.add_format(
             {"bold": True, "bg_color": "#83B9F7", "bottom": 1}
@@ -1159,15 +1181,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
         # -------------------------------#
 
-        sheet6.set_landscape()
-        sheet6.fit_to_pages(1, 0)
-        sheet6.set_zoom(80)
-
-        # Some column sizes changed to match their title
-        sheet6.set_column(0, 0, 35)  # A
-        sheet6.set_column(1, 1, 20)  # B
-        sheet6.set_column(2, 2, 20)  # C
-
         title_style_main_2 = workbook.add_format(
             {"bold": True, "bg_color": "#97E55C", "bottom": 1}
         )
@@ -1184,7 +1197,29 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         for title in enumerate(sheet_title_6):
             sheet6.write(2, title[0] + 3, title[1] or "", title_style_sub_2)
 
-        sheet6.freeze_panes(2, 0)
+        # -------------------------------#
+
+        sheet_title_energy_6 = [
+            _("Process"),  # 6 (G)
+            _("Energy use (kwH)"),  # 7 (H)
+            _("% of total"),  # 8 (I)
+        ]
+
+        title_style_main_3 = workbook.add_format(
+            {"bold": True, "bg_color": "#FF5050", "bottom": 1}
+        )
+        title_style_main_3.set_align("center")
+        title_style_main_3.set_align("vcenter")
+
+        title_style_sub_3 = workbook.add_format(
+            {"bold": True, "bg_color": "#F0934C", "bottom": 1}
+        )
+
+        sheet6.merge_range("G1:I2", _("Energy summary "), title_style_main_3)
+        sheet6.set_row(0, None, None, {"collapsed": 1})
+
+        for title in enumerate(sheet_title_energy_6):
+            sheet6.write(2, title[0] + 6, title[1] or "", title_style_sub_3)
 
         a = 1
         b = 1
@@ -1477,6 +1512,40 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 sheet6.write(r, 4, weight)
                 sheet6.write(r, 5, str((weight / total_grouped_net_weight) * 100) + "%")
                 r += 1
+
+            # --------------------------------------------------------------------- #
+            # --------------------------------------------------------------------- #
+
+            operations = self.env["mrp.routing.workcenter"]
+
+            operations = self.energy_summary(
+                bom=o,
+                product_variant=material_variant,
+                sheet6=sheet6,
+                operations=operations,
+            )
+
+            workcenter_and_energy = {}
+
+            for oper in operations:
+                workcenter = oper.workcenter_id
+                energy = (
+                    (workcenter.energy_consumption * oper.duration_active)
+                    + (workcenter.energy_consumption_passive * oper.duration_passive)
+                ) / 60
+                if not workcenter_and_energy.get(workcenter):
+                    workcenter_and_energy[workcenter] = energy
+                else:
+                    workcenter_and_energy[workcenter] += energy
+            t = 3
+
+            total_grouped_energy = sum(workcenter_and_energy.values())
+
+            for workcenter, energy in workcenter_and_energy.items():
+                sheet6.write(t, 6, workcenter.name)
+                sheet6.write(t, 7, energy)
+                sheet6.write(t, 8, str((energy / total_grouped_energy) * 100) + "%")
+                t += 1
 
             # --------------------------------------------------------------------- #
             # --------------------------------------------------------------------- #
