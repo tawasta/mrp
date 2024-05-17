@@ -365,6 +365,136 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         j -= 1
         return a
 
+    def product_material_summary(
+        self,
+        sheet6,
+        bom,
+        product_variant,
+        style,
+        child_number,
+        materials,
+        wood_materials,
+        glue_materials,
+        metal_materials,
+        plastic_materials,
+        eee_materials,
+    ):
+        wood_category_id = self.env["product.material.upper.category"].search(
+            [("name", "=", "Wood")]
+        )
+        glue_category_id = self.env["product.material.upper.category"].search(
+            [("name", "=", "Glue")]
+        )
+        metal_category_id = self.env["product.material.upper.category"].search(
+            [("name", "=", "Metal")]
+        )
+        plastic_category_id = self.env["product.material.upper.category"].search(
+            [("name", "=", "Plastic")]
+        )
+        eee_category_id = self.env["product.material.upper.category"].search(
+            [("name", "=", "EEE")]
+        )
+
+        for ch in bom.bom_line_ids:
+            if product_variant and ch._skip_bom_line(product_variant):
+                continue
+
+            materials += self.env["product.material.composition"].search(
+                [("product_product_id", "=", ch.product_id.id)]
+            )
+
+            wood_materials += self.env["product.material.composition"].search(
+                [
+                    ("product_product_id", "=", ch.product_id.id),
+                    ("product_material_upper_category_id", "=", wood_category_id.id),
+                    ("product_material_upper_category_id", "!=", False),
+                ]
+            )
+            glue_materials += self.env["product.material.composition"].search(
+                [
+                    ("product_product_id", "=", ch.product_id.id),
+                    ("product_material_upper_category_id", "=", glue_category_id.id),
+                    ("product_material_upper_category_id", "!=", False),
+                ]
+            )
+            metal_materials += self.env["product.material.composition"].search(
+                [
+                    ("product_product_id", "=", ch.product_id.id),
+                    ("product_material_upper_category_id", "=", metal_category_id.id),
+                    ("product_material_upper_category_id", "!=", False),
+                ]
+            )
+            plastic_materials += self.env["product.material.composition"].search(
+                [
+                    ("product_product_id", "=", ch.product_id.id),
+                    ("product_material_upper_category_id", "=", plastic_category_id.id),
+                    ("product_material_upper_category_id", "!=", False),
+                ]
+            )
+            eee_materials += self.env["product.material.composition"].search(
+                [
+                    ("product_product_id", "=", ch.product_id.id),
+                    ("product_material_upper_category_id", "=", eee_category_id.id),
+                    ("product_material_upper_category_id", "!=", False),
+                ]
+            )
+
+            if ch.child_bom_id:
+                (
+                    materials,
+                    wood_materials,
+                    glue_materials,
+                    metal_materials,
+                    plastic_materials,
+                    eee_materials,
+                ) = self.product_material_summary(
+                    sheet6,
+                    product_variant=ch.product_id,
+                    style=None,
+                    bom=ch.child_bom_id,
+                    child_number=child_number,
+                    materials=materials,
+                    wood_materials=wood_materials,
+                    glue_materials=glue_materials,
+                    metal_materials=metal_materials,
+                    plastic_materials=plastic_materials,
+                    eee_materials=eee_materials,
+                )
+        return (
+            materials,
+            wood_materials,
+            glue_materials,
+            metal_materials,
+            plastic_materials,
+            eee_materials,
+        )
+
+    def all_material_summary(
+        self,
+        sheet6,
+        bom,
+        product_variant,
+        style,
+        child_number,
+        products,
+    ):
+        for ch in bom.bom_line_ids:
+            if product_variant and ch._skip_bom_line(product_variant):
+                continue
+
+            products += self.env["product.product"].browse(ch.product_id.id)
+
+            if ch.child_bom_id:
+                products = self.all_material_summary(
+                    sheet6,
+                    product_variant=ch.product_id,
+                    style=None,
+                    bom=ch.child_bom_id,
+                    child_number=child_number,
+                    products=products,
+                )
+        return products
+
     def print_by_products(
         self,
         sheet3,
@@ -604,6 +734,24 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         j -= 1
         return d
 
+    def energy_summary(self, bom, product_variant, sheet6, operations):
+
+        for oper in bom.operation_ids:
+            operations += oper
+
+        for ch in bom.bom_line_ids:
+            if product_variant and ch._skip_bom_line(product_variant):
+                continue
+            if ch.child_bom_id:
+                operations = self.energy_summary(
+                    bom=ch.child_bom_id,
+                    product_variant=ch.product_id,
+                    sheet6=sheet6,
+                    operations=operations,
+                )
+        return operations
+
+    # flake8: noqa: C901
     def operation_bom_consus(
         self, bom, product_variant, sheet4, row, level, parent_level, identifier, style
     ):
@@ -984,6 +1132,95 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
         sheet5.freeze_panes(2, 0)
 
+        # -------------------------------#
+        # ----------- Sheet 6 -----------#
+        # -------------------------------#
+
+        sheet6 = workbook.add_worksheet(_("Material summaries"))
+
+        sheet6.set_landscape()
+        sheet6.fit_to_pages(1, 0)
+        sheet6.set_zoom(80)
+
+        # Some column sizes changed to match their title
+        sheet6.set_column(0, 0, 35)  # A
+        sheet6.set_column(1, 1, 20)  # B
+        sheet6.set_column(2, 2, 20)  # C
+
+        sheet6.set_column(3, 3, 35)  # D
+        sheet6.set_column(4, 4, 20)  # E
+        sheet6.set_column(5, 5, 20)  # F
+
+        sheet6.set_column(6, 6, 35)  # G
+        sheet6.set_column(7, 7, 20)  # H
+        sheet6.set_column(8, 8, 20)  # I
+
+        title_style_main_1 = workbook.add_format(
+            {"bold": True, "bg_color": "#83B9F7", "bottom": 1}
+        )
+        title_style_main_1.set_align("center")
+        title_style_main_1.set_align("vcenter")
+
+        title_style_1 = workbook.add_format(
+            {"bold": True, "bg_color": "#ECB18F", "bottom": 1}
+        )
+
+        sheet_title_6 = [
+            _("Material"),  # 0 (A)
+            _("Total amount (g)"),  # 1 (B)
+            _("% of total"),  # 2 (C)
+        ]
+
+        sheet6.merge_range("A1:C2", _("Product Materials Summary"), title_style_main_1)
+        sheet6.set_row(0, None, None, {"collapsed": 1})
+
+        for title in enumerate(sheet_title_6):
+            sheet6.write(2, title[0], title[1] or "", title_style_1)
+
+        sheet6.freeze_panes(2, 0)
+
+        # -------------------------------#
+
+        title_style_main_2 = workbook.add_format(
+            {"bold": True, "bg_color": "#97E55C", "bottom": 1}
+        )
+        title_style_main_2.set_align("center")
+        title_style_main_2.set_align("vcenter")
+
+        title_style_sub_2 = workbook.add_format(
+            {"bold": True, "bg_color": "#D9F776", "bottom": 1}
+        )
+
+        sheet6.merge_range("D1:F2", _("Product materials"), title_style_main_2)
+        sheet6.set_row(0, None, None, {"collapsed": 1})
+
+        for title in enumerate(sheet_title_6):
+            sheet6.write(2, title[0] + 3, title[1] or "", title_style_sub_2)
+
+        # -------------------------------#
+
+        sheet_title_energy_6 = [
+            _("Process"),  # 6 (G)
+            _("Energy use (kwH)"),  # 7 (H)
+            _("% of total"),  # 8 (I)
+        ]
+
+        title_style_main_3 = workbook.add_format(
+            {"bold": True, "bg_color": "#FF5050", "bottom": 1}
+        )
+        title_style_main_3.set_align("center")
+        title_style_main_3.set_align("vcenter")
+
+        title_style_sub_3 = workbook.add_format(
+            {"bold": True, "bg_color": "#F0934C", "bottom": 1}
+        )
+
+        sheet6.merge_range("G1:I2", _("Energy summary "), title_style_main_3)
+        sheet6.set_row(0, None, None, {"collapsed": 1})
+
+        for title in enumerate(sheet_title_energy_6):
+            sheet6.write(2, title[0] + 6, title[1] or "", title_style_sub_3)
+
         a = 1
         b = 1
         c = 1
@@ -1147,9 +1384,171 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 parent=o,
             )
 
-            ident = "{}".format(o.id)
+            # --------------------------------------------------------------------- #
+            # ------------------------------ Sheet 6 ------------------------------ #
+            # --------------------------------------------------------------------- #
 
+            ident = "{}".format(o.id)
             quantities = self.get_bom_quantities(o)
+
+            materials = self.env["product.material.composition"]
+
+            (
+                materials,
+                wood_materials,
+                glue_materials,
+                metal_materials,
+                plastic_materials,
+                eee_materials,
+            ) = self.product_material_summary(
+                sheet6,
+                bom=o,
+                product_variant=material_variant,
+                style=None,
+                child_number=0,
+                materials=materials,
+                wood_materials=materials,
+                glue_materials=materials,
+                metal_materials=materials,
+                plastic_materials=materials,
+                eee_materials=materials,
+            )
+
+            total_material_weight = sum(mater.net_weight for mater in materials)
+            total_wood_material_weight = sum(
+                mater.net_weight for mater in wood_materials
+            )
+            total_glue_material_weight = sum(
+                mater.net_weight for mater in glue_materials
+            )
+            total_metal_material_weight = sum(
+                mater.net_weight for mater in metal_materials
+            )
+            total_plastic_material_weight = sum(
+                mater.net_weight for mater in plastic_materials
+            )
+            total_eee_material_weight = sum(mater.net_weight for mater in eee_materials)
+            sheet6.write(3, 0, "Wood")
+            sheet6.write(3, 1, total_wood_material_weight)
+            sheet6.write(
+                3,
+                2,
+                str((total_wood_material_weight / total_material_weight) * 100) + "%",
+            )
+            sheet6.write(4, 0, "Glue")
+            sheet6.write(4, 1, total_glue_material_weight)
+            sheet6.write(
+                4,
+                2,
+                str((total_glue_material_weight / total_material_weight) * 100) + "%",
+            )
+            sheet6.write(5, 0, "Metal")
+            sheet6.write(5, 1, total_metal_material_weight)
+            sheet6.write(
+                5,
+                2,
+                str((total_metal_material_weight / total_material_weight) * 100) + "%",
+            )
+            sheet6.write(6, 0, "Plastic")
+            sheet6.write(6, 1, total_plastic_material_weight)
+            sheet6.write(
+                6,
+                2,
+                str((total_plastic_material_weight / total_material_weight) * 100)
+                + "%",
+            )
+            sheet6.write(7, 0, "EEE")
+            sheet6.write(7, 1, total_eee_material_weight)
+            sheet6.write(
+                7,
+                2,
+                str((total_eee_material_weight / total_material_weight) * 100) + "%",
+            )
+            sheet6.write(8, 0, "Total")
+            total_all = (
+                total_wood_material_weight
+                + total_glue_material_weight
+                + total_metal_material_weight
+                + total_metal_material_weight
+                + total_eee_material_weight
+            )
+            sheet6.write(8, 1, total_all)
+            sheet6.write(8, 2, str((total_all / total_material_weight) * 100) + "%")
+
+            # --------------------------------------------------------------------- #
+            # --------------------------------------------------------------------- #
+
+            products = self.env["product.product"]
+
+            products = self.all_material_summary(
+                sheet6,
+                bom=o,
+                product_variant=material_variant,
+                style=None,
+                child_number=0,
+                products=products,
+            )
+
+            materials = self.env["product.material.composition"]
+
+            for product in products:
+                materials += self.env["product.material.composition"].search(
+                    domain=[("product_product_id", "=", product.id)]
+                )
+
+            name_and_weight = {}
+
+            for material in materials:
+                if not name_and_weight.get(material.product_material_id):
+                    name_and_weight[material.product_material_id] = material.net_weight
+                else:
+                    name_and_weight[material.product_material_id] += material.net_weight
+            r = 3
+
+            total_grouped_net_weight = sum(name_and_weight.values())
+
+            for material, weight in name_and_weight.items():
+                sheet6.write(r, 3, material.name)
+                sheet6.write(r, 4, weight)
+                sheet6.write(r, 5, str((weight / total_grouped_net_weight) * 100) + "%")
+                r += 1
+
+            # --------------------------------------------------------------------- #
+            # --------------------------------------------------------------------- #
+
+            operations = self.env["mrp.routing.workcenter"]
+
+            operations = self.energy_summary(
+                bom=o,
+                product_variant=material_variant,
+                sheet6=sheet6,
+                operations=operations,
+            )
+
+            workcenter_and_energy = {}
+
+            for oper in operations:
+                workcenter = oper.workcenter_id
+                energy = (
+                    (workcenter.energy_consumption * oper.duration_active)
+                    + (workcenter.energy_consumption_passive * oper.duration_passive)
+                ) / 60
+                if not workcenter_and_energy.get(workcenter):
+                    workcenter_and_energy[workcenter] = energy
+                else:
+                    workcenter_and_energy[workcenter] += energy
+            t = 3
+
+            total_grouped_energy = sum(workcenter_and_energy.values())
+
+            for workcenter, energy in workcenter_and_energy.items():
+                sheet6.write(t, 6, workcenter.name)
+                sheet6.write(t, 7, energy)
+                sheet6.write(t, 8, str((energy / total_grouped_energy) * 100) + "%")
+                t += 1
+
+            # --------------------------------------------------------------------- #
+            # --------------------------------------------------------------------- #
 
             child_number = 0
             for ch in o.bom_line_ids:
