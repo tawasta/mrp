@@ -1482,7 +1482,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             for product in products:
                 materials += self.env["product.material.composition"].search(
-                    domain=[("product_product_id", "=", product.id)]
+                    domain=[
+                        ("product_product_id", "=", product.id),
+                        ("type", "=", "product"),
+                    ]
                 )
 
             name_and_weight = {}
