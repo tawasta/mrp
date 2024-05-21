@@ -1431,38 +1431,27 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet6.write(3, 0, "Wood")
             sheet6.write(3, 1, total_wood_material_weight)
             sheet6.write(
-                3,
-                2,
-                str((total_wood_material_weight / total_material_weight) * 100) + "%",
+                3, 2, (total_wood_material_weight / total_material_weight) * 100
             )
             sheet6.write(4, 0, "Glue")
             sheet6.write(4, 1, total_glue_material_weight)
             sheet6.write(
-                4,
-                2,
-                str((total_glue_material_weight / total_material_weight) * 100) + "%",
+                4, 2, (total_glue_material_weight / total_material_weight) * 100
             )
             sheet6.write(5, 0, "Metal")
             sheet6.write(5, 1, total_metal_material_weight)
             sheet6.write(
-                5,
-                2,
-                str((total_metal_material_weight / total_material_weight) * 100) + "%",
+                5, 2, (total_metal_material_weight / total_material_weight) * 100
             )
             sheet6.write(6, 0, "Plastic")
             sheet6.write(6, 1, total_plastic_material_weight)
             sheet6.write(
-                6,
-                2,
-                str((total_plastic_material_weight / total_material_weight) * 100)
-                + "%",
+                6, 2, (total_plastic_material_weight / total_material_weight) * 100
             )
             sheet6.write(7, 0, "EEE")
             sheet6.write(7, 1, total_eee_material_weight)
             sheet6.write(
-                7,
-                2,
-                str((total_eee_material_weight / total_material_weight) * 100) + "%",
+                7, 2, (total_eee_material_weight / total_material_weight) * 100
             )
             sheet6.write(8, 0, "Total")
             total_all = (
@@ -1473,7 +1462,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 + total_eee_material_weight
             )
             sheet6.write(8, 1, total_all)
-            sheet6.write(8, 2, str((total_all / total_material_weight) * 100) + "%")
+            sheet6.write(8, 2, (total_all / total_material_weight) * 100)
 
             # --------------------------------------------------------------------- #
             # --------------------------------------------------------------------- #
@@ -1493,7 +1482,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             for product in products:
                 materials += self.env["product.material.composition"].search(
-                    domain=[("product_product_id", "=", product.id)]
+                    domain=[
+                        ("product_product_id", "=", product.id),
+                        ("type", "=", "product"),
+                    ]
                 )
 
             name_and_weight = {}
@@ -1510,7 +1502,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             for material, weight in name_and_weight.items():
                 sheet6.write(r, 3, material.name)
                 sheet6.write(r, 4, weight)
-                sheet6.write(r, 5, str((weight / total_grouped_net_weight) * 100) + "%")
+                sheet6.write(r, 5, (weight / total_grouped_net_weight) * 100)
                 r += 1
 
             # --------------------------------------------------------------------- #
@@ -1544,7 +1536,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             for workcenter, energy in workcenter_and_energy.items():
                 sheet6.write(t, 6, workcenter.name)
                 sheet6.write(t, 7, energy)
-                sheet6.write(t, 8, str((energy / total_grouped_energy) * 100) + "%")
+                sheet6.write(t, 8, (energy / total_grouped_energy) * 100)
                 t += 1
 
             # --------------------------------------------------------------------- #
