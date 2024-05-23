@@ -399,8 +399,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             if product_variant and ch._skip_bom_line(product_variant):
                 continue
 
-            materials += self.env["product.material.composition"].search(
-                [("product_product_id", "=", ch.product_id.id)]
+            materials += self.env["product.material.composition"].search([
+                    ("product_product_id", "=", ch.product_id.id),
+                    ("is_delivery_package", "=", False),
+                    ("type", "=", "product"),
+                ]
             )
 
             wood_materials += self.env["product.material.composition"].search(
@@ -408,6 +411,8 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ("product_product_id", "=", ch.product_id.id),
                     ("product_material_upper_category_id", "=", wood_category_id.id),
                     ("product_material_upper_category_id", "!=", False),
+                    ("is_delivery_package", "=", False),
+                    ("type", "=", "product"),
                 ]
             )
             glue_materials += self.env["product.material.composition"].search(
@@ -415,6 +420,8 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ("product_product_id", "=", ch.product_id.id),
                     ("product_material_upper_category_id", "=", glue_category_id.id),
                     ("product_material_upper_category_id", "!=", False),
+                    ("is_delivery_package", "=", False),
+                    ("type", "=", "product"),
                 ]
             )
             metal_materials += self.env["product.material.composition"].search(
@@ -422,6 +429,8 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ("product_product_id", "=", ch.product_id.id),
                     ("product_material_upper_category_id", "=", metal_category_id.id),
                     ("product_material_upper_category_id", "!=", False),
+                    ("is_delivery_package", "=", False),
+                    ("type", "=", "product"),
                 ]
             )
             plastic_materials += self.env["product.material.composition"].search(
@@ -429,6 +438,8 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ("product_product_id", "=", ch.product_id.id),
                     ("product_material_upper_category_id", "=", plastic_category_id.id),
                     ("product_material_upper_category_id", "!=", False),
+                    ("is_delivery_package", "=", False),
+                    ("type", "=", "product"),
                 ]
             )
             eee_materials += self.env["product.material.composition"].search(
@@ -436,6 +447,8 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ("product_product_id", "=", ch.product_id.id),
                     ("product_material_upper_category_id", "=", eee_category_id.id),
                     ("product_material_upper_category_id", "!=", False),
+                    ("is_delivery_package", "=", False),
+                    ("type", "=", "product"),
                 ]
             )
 
