@@ -1333,6 +1333,16 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet6.set_column(22, 22, 33)  # W
         sheet6.set_column(23, 23, 38)  # X
 
+        sheet6.set_column(24, 24, 33)  # Y
+        sheet6.set_column(25, 25, 14)  # Z
+        sheet6.set_column(26, 26, 33)  # AA
+        sheet6.set_column(27, 27, 38)  # AB
+
+        sheet6.set_column(28, 28, 33)  # AC
+        sheet6.set_column(29, 29, 14)  # AD
+        sheet6.set_column(30, 30, 32)  # AE
+        sheet6.set_column(31, 31, 35)  # AF
+
         title_style_main_1 = workbook.add_format(
             {"bold": True, "bg_color": "#83B9F7", "bottom": 1}
         )
@@ -1468,6 +1478,60 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
         for title in enumerate(sheet_title_total_material):
             sheet6.write(2, title[0] + 18, title[1] or "", title_style_sub_6)
+
+        # -------------------------------#
+
+        sheet_title_content = [
+            _("Product components"),
+            _("Weight, kg"),
+            _("Post-consumer material, weight-%"),
+            _("Biogenic material, weight-% and kg C/kg"),
+        ]
+
+        title_style_main_7 = workbook.add_format(
+            {"bold": True, "bg_color": "#CB93FC", "bottom": 1}
+        )
+        title_style_main_7.set_align("center")
+        title_style_main_7.set_align("vcenter")
+
+        title_style_sub_7 = workbook.add_format(
+            {"bold": True, "bg_color": "#DFC3F7", "bottom": 1}
+        )
+
+        sheet6.merge_range("Y1:AB2", _("Content information"), title_style_main_7)
+        sheet6.set_row(0, None, None, {"collapsed": 1})
+
+        for title in enumerate(sheet_title_content):
+            sheet6.write(2, title[0] + 24, title[1] or "", title_style_sub_7)
+
+        # -------------------------------#
+
+        sheet_title_packaging_info = [
+            _("Product components"),
+            _("Weight, kg"),
+            _("Weight-% (versus the product)"),
+            _("Weight biogenic carbon, kg C/kg"),
+        ]
+
+        title_style_main_8 = workbook.add_format(
+            {"bold": True, "bg_color": "#61B975", "bottom": 1}
+        )
+        title_style_main_8.set_align("center")
+        title_style_main_8.set_align("vcenter")
+
+        title_style_sub_8 = workbook.add_format(
+            {"bold": True, "bg_color": "#92B099", "bottom": 1}
+        )
+
+        sheet6.merge_range(
+            "AC1:AF2", _("Packaging materials information"), title_style_main_8
+        )
+        sheet6.set_row(0, None, None, {"collapsed": 1})
+
+        for title in enumerate(sheet_title_packaging_info):
+            sheet6.write(2, title[0] + 28, title[1] or "", title_style_sub_8)
+
+        # -------------------------------#
 
         a = 1
         b = 1
@@ -2136,7 +2200,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             for material, weight_recyc in name_and_weight.items():
                 sheet6.write(r, 18, material.name)
                 sheet6.write(r, 19, weight_recyc[0])
-                sheet6.write(r, 20, weight_recyc[0] * 0.001) # weight in kg
+                sheet6.write(r, 20, weight_recyc[0] * 0.001)  # weight in kg
                 sheet6.write(r, 21, (weight_recyc[0] / total_grouped_net_weight) * 100)
                 check_weight += weight_recyc[0]
                 sheet6.write(
@@ -2148,6 +2212,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet6.write(r, 19, total_grouped_net_weight)
             sheet6.write(r, 20, total_grouped_net_weight * 0.001)
             sheet6.write(r, 21, (check_weight / total_grouped_net_weight) * 100)
+
+            # --------------------------------------------------------------------- #
+            # --------------------------------------------------------------------- #
 
             # --------------------------------------------------------------------- #
             # --------------------------------------------------------------------- #
@@ -2180,256 +2247,3 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     quantities=quantities,
                     identifier=ident,
                 )
-
-    # ************************************ #
-    # *----------------------------------* #
-    # *----- Code below is not used -----* #
-    # *----------------------------------* #
-    # ************************************ #
-
-
-#    def print_bom_children(
-#        self,
-#        ch,
-#        sheet,
-#        row,
-#        level,
-#        parent,
-#        parent_level,
-#        child_number,
-#        quantities,
-#        identifier,
-#    ):
-#        i, j = row, level
-#        j += 1
-#
-#        ident = "{}{}{}".format(identifier, "0000", ch.id)
-#        level = "{}.{}".format(parent_level, child_number)
-#
-#        parent_with_code = "{}{}".format(
-#            parent.default_code and "[" + parent.default_code + "] " or "", parent.name
-#        )
-#
-#        sheet.write(i, 0, ch.product_id.default_code)
-#        sheet.write(i, 1, level)
-#        sheet.write(i, 2, ch.product_id.name)
-#        sheet.write(i, 3, parent_with_code)
-#        sheet.write(
-#            i,
-#            4,
-#            ", ".join(
-#                [attr.name for attr in ch.bom_product_template_attribute_value_ids]
-#            ),
-#        )
-#        sheet.write(i, 5, ch.product_id.manufacturer.name or "")
-#        sheet.write(i, 6, ch.product_id.manufacturer_pref or "")
-#        sheet.write(i, 7, quantities[ident][1])
-#        sheet.write(i, 8, ch.product_uom_id.name)
-#        sheet.write(
-#            i,
-#            9,
-#            ch.product_id.route_ids
-#            and ", ".join([route.name for route in ch.product_id.route_ids])
-#            or "",
-#        )
-#        sheet.write(i, 10, ch.product_id.categ_id.name)
-#
-#        material_info = ""
-#
-#        for mater in ch.product_id.product_material_composition_ids:
-#            if mater.name:
-#                if not material_info:
-#                    material_info += mater.name
-#                else:
-#                    material_info += "{}{}".format("\n\n", mater.name)
-#
-#        sheet.write(i, 11, material_info or "")
-#        sheet.write(i, 12, ch.product_id.origin_country_id.name or "")
-#        sheet.write(
-#            i, 13, ", ".join([seller.name.name for seller in ch.product_id.seller_ids])
-#        )
-#        sheet.write(
-#            i,
-#            14,
-#            ch.product_id.seller_ids and ch.product_id.seller_ids[0].product_code or "",
-#        )
-#        sheet.write(i, 15, ch.product_id.weight)
-#        sheet.write(i, 16, ch.product_id.weight * quantities[ident][1])
-#        sheet.write(i, 17, ch.product_id.weight)
-#        sheet.write(i, 18, ch.product_id.weight * quantities[ident][1])
-#        i += 1
-#        child_number = 0
-#        for child in ch.child_line_ids:
-#            child_number += 1
-#
-#            child_bom = ch.product_id.bom_ids and ch.product_id.bom_ids[0]
-#            ident = "{}{}{}".format(identifier, "0000", child_bom.id)
-#
-#            i = self.print_bom_children(
-#                child,
-#                sheet,
-#                i,
-#                j,
-#                parent=ch.product_id,
-#                parent_level=level,
-#                child_number=child_number,
-#                quantities=quantities,
-#                identifier=ident,
-#            )
-#        j -= 1
-#        return i
-#
-#    def generate_xlsx_report_old(self, workbook, data, objects):
-#
-#        sheet = workbook.add_worksheet(_("BOM Structure recursive"))
-#        sheet.set_landscape()
-#        sheet.fit_to_pages(1, 0)
-#        sheet.set_zoom(80)
-#
-#        # Some column sizes changed to match their title
-#        sheet.set_column(0, 0, 18)
-#        sheet.set_column(1, 1, 12)
-#        sheet.set_column(2, 3, 56)
-#        sheet.set_column(4, 4, 40)
-#        sheet.set_column(5, 5, 27)
-#        sheet.set_column(6, 6, 29)
-#        sheet.set_column(7, 7, 11)
-#        sheet.set_column(8, 8, 20)
-#        sheet.set_column(9, 9, 20)
-#        sheet.set_column(10, 10, 17)
-#        sheet.set_column(11, 11, 42)
-#        sheet.set_column(12, 12, 20)
-#        sheet.set_column(13, 13, 52)
-#        sheet.set_column(14, 14, 22)
-#        sheet.set_column(15, 15, 17)
-#        sheet.set_column(16, 16, 20)
-#        sheet.set_column(17, 17, 16)
-#        sheet.set_column(18, 18, 20)
-#
-#        # Column styles
-#        bold = workbook.add_format({"bold": True})
-#
-#        title_style = workbook.add_format(
-#            {"bold": True, "bg_color": "#FFFFCC", "bottom": 1}
-#        )
-#
-#        title_style_weight = workbook.add_format(
-#            {"bold": True, "bg_color": "#DEBF6B", "bottom": 1}
-#        )
-#
-#        title_style_vendor = workbook.add_format(
-#            {"bold": True, "bg_color": "#A4AAFF", "bottom": 1}
-#        )
-#
-#        title_style_product_level = workbook.add_format(
-#            {"bold": True, "bg_color": "#C6FF8D", "bottom": 1}
-#        )
-#
-#        sheet_title_product_level = [
-#            _("Internal Reference"),
-#            _("Level"),
-#            _("Name"),
-#            _("Parent"),
-#            _("Apply on Variants"),
-#        ]
-#
-#        sheet_title = [
-#            _("Manufacturer"),
-#            _("Manufacturer Product Code"),
-#            _("Quantity"),
-#            _("Unit of Measure"),
-#            _("Routes"),
-#            _("Internal Category"),
-#            _("Material"),
-#            _("Country of Origin"),
-#        ]
-#
-#        sheet_title_vendor = [
-#            _("Vendors"),
-#            _("Primary Vendor Code"),
-#        ]
-#
-#        sheet_title_weight = [
-#            _("Net weight"),
-#            _("Total net weight"),
-#            _("Gross weight"),
-#            _("Total gross weight"),
-#        ]
-#
-#        sheet.set_row(0, None, None, {"collapsed": 1})
-#        sheet.write_row(1, 0, sheet_title_product_level, title_style_product_level)
-#        sheet.write_row(1, 5, sheet_title, title_style)
-#        sheet.write_row(1, 13, sheet_title_vendor, title_style_vendor)
-#        sheet.write_row(1, 15, sheet_title_weight, title_style_weight)
-#        sheet.freeze_panes(2, 0)
-#
-#        i = 2
-#
-#        for o in objects:
-#            ident = "{}".format(o.id)
-#
-#            quantities = self.get_bom_quantities(o)
-#
-#            sheet.write(i, 0, o.product_id.default_code or "", bold)
-#            sheet.write(i, 1, "1", bold)
-#            sheet.write(i, 2, o.product_tmpl_id.name, bold)
-#            sheet.write(i, 3, "N/A")  # No parent, since it's the top level
-#            sheet.write(i, 4, "N/A")  # No Apply on Variants, since it's the top level
-#            sheet.write(i, 5, o.product_tmpl_id.manufacturer.name or "")
-#            sheet.write(i, 6, o.product_tmpl_id.manufacturer_pref or "")
-#            sheet.write(i, 7, o.product_qty, bold)
-#            sheet.write(i, 8, o.product_uom_id.name, bold)
-#            sheet.write(
-#                i, 9, ", ".join([route.name for route in o.product_tmpl_id.route_ids])
-#            )
-#            sheet.write(i, 10, o.product_tmpl_id.categ_id.name)
-#
-#            material_info = ""
-#
-#            for mater in o.product_id.product_material_composition_ids:
-#                if mater.name:
-#                    if not material_info:
-#                        material_info += mater.name
-#                    else:
-#                        material_info += "{}{}".format("\n\n", mater.name)
-#
-#            sheet.write(i, 11, material_info or "", bold)
-#            sheet.write(i, 12, o.product_id.origin_country_id.name or "", bold)
-#            sheet.write(
-#                i,
-#                13,
-#                ", ".join(
-#                    [seller.name.name for seller in o.product_tmpl_id.seller_ids]
-#                ),
-#            )
-#            sheet.write(
-#                i,
-#                14,
-#                o.product_tmpl_id.seller_ids
-#                and o.product_tmpl_id.seller_ids[0].product_code
-#                or "",
-#            )
-#            sheet.write(i, 15, o.product_id.weight, bold)
-#            sheet.write(i, 16, o.product_id.weight * o.product_qty, bold)
-#            sheet.write(i, 17, o.product_id.weight, bold)
-#            sheet.write(i, 18, o.product_id.weight * o.product_qty, bold)
-#
-#            parent_level = i - 1
-#            i += 1
-#
-#            j = 0
-#
-#            child_number = 0
-#            for ch in o.bom_line_ids:
-#                child_number += 1
-#                i = self.print_bom_children(
-#                    ch,
-#                    sheet,
-#                    i,
-#                    j,
-#                    parent=o.product_tmpl_id,
-#                    parent_level=parent_level,
-#                    child_number=child_number,
-#                    quantities=quantities,
-#                    identifier=ident,
-#                )
