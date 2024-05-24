@@ -1326,6 +1326,13 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet6.set_column(16, 16, 13)  # Q
         sheet6.set_column(17, 17, 33)  # R
 
+        sheet6.set_column(18, 18, 33)  # S
+        sheet6.set_column(19, 19, 17)  # T
+        sheet6.set_column(20, 20, 17)  # U
+        sheet6.set_column(21, 21, 13)  # V
+        sheet6.set_column(22, 22, 33)  # W
+        sheet6.set_column(23, 23, 38)  # X
+
         title_style_main_1 = workbook.add_format(
             {"bold": True, "bg_color": "#83B9F7", "bottom": 1}
         )
@@ -1356,7 +1363,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             _("Material"),
             _("Total amount (g)"),
             _("% of total"),
-            _("Post-consumer material, weight % "),
+            _("Post-consumer material, weight %"),
         ]
 
         title_style_main_2 = workbook.add_format(
@@ -1419,21 +1426,48 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
         # -------------------------------#
 
-        title_style_main_4 = workbook.add_format(
+        title_style_main_5 = workbook.add_format(
             {"bold": True, "bg_color": "#A8E669", "bottom": 1}
         )
-        title_style_main_4.set_align("center")
-        title_style_main_4.set_align("vcenter")
+        title_style_main_5.set_align("center")
+        title_style_main_5.set_align("vcenter")
 
-        title_style_sub_4 = workbook.add_format(
+        title_style_sub_5 = workbook.add_format(
             {"bold": True, "bg_color": "#BAE58E", "bottom": 1}
         )
 
-        sheet6.merge_range("O1:R2", _("Materials in production"), title_style_main_4)
+        sheet6.merge_range("O1:R2", _("Materials in production"), title_style_main_5)
         sheet6.set_row(0, None, None, {"collapsed": 1})
 
         for title in enumerate(sheet_title_6_recyc):
-            sheet6.write(2, title[0] + 14, title[1] or "", title_style_sub_4)
+            sheet6.write(2, title[0] + 14, title[1] or "", title_style_sub_5)
+
+        # -------------------------------#
+
+        sheet_title_total_material = [
+            _("Material"),
+            _("Total amount (g)"),
+            _("Amount (kg)"),
+            _("% of total"),
+            _("Post-consumer material, weight %"),
+            _("Biogenic material, weight-% and kg C/kg"),
+        ]
+
+        title_style_main_6 = workbook.add_format(
+            {"bold": True, "bg_color": "#938DE5", "bottom": 1}
+        )
+        title_style_main_6.set_align("center")
+        title_style_main_6.set_align("vcenter")
+
+        title_style_sub_6 = workbook.add_format(
+            {"bold": True, "bg_color": "#C1BFDF", "bottom": 1}
+        )
+
+        sheet6.merge_range("S1:X2", _("Total material usage"), title_style_main_6)
+        sheet6.set_row(0, None, None, {"collapsed": 1})
+
+        for title in enumerate(sheet_title_total_material):
+            sheet6.write(2, title[0] + 18, title[1] or "", title_style_sub_6)
 
         a = 1
         b = 1
@@ -2049,6 +2083,71 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet6.write(r, 14, "Total")
             sheet6.write(r, 15, total_grouped_net_weight)
             sheet6.write(r, 16, (check_weight / total_grouped_net_weight) * 100)
+
+            # --------------------------------------------------------------------- #
+            # --------------------------------------------------------------------- #
+
+            products = self.env["product.product"]
+
+            products = self.all_material_summary(
+                sheet6,
+                bom=o,
+                product_variant=material_variant,
+                style=None,
+                child_number=0,
+                products=products,
+            )
+
+            materials = self.env["product.material.composition"]
+
+            for product in products:
+                materials += self.env["product.material.composition"].search(
+                    domain=[
+                        ("product_product_id", "=", product.id),
+                    ]
+                )
+
+            name_and_weight = {}
+
+            for material in materials:
+                if not name_and_weight.get(material.product_material_id):
+                    name_and_weight[material.product_material_id] = [
+                        material.net_weight,
+                        material.recycled_percentage,
+                        1,
+                    ]
+                else:
+                    name_and_weight[material.product_material_id][
+                        0
+                    ] += material.net_weight
+                    name_and_weight[material.product_material_id][
+                        1
+                    ] += material.recycled_percentage
+                    name_and_weight[material.product_material_id][2] += 1
+            r = 3
+
+            total_grouped_net_weight = 0
+
+            for weight, _recyc, _num in name_and_weight.values():
+                total_grouped_net_weight += weight
+
+            check_weight = 0
+
+            for material, weight_recyc in name_and_weight.items():
+                sheet6.write(r, 18, material.name)
+                sheet6.write(r, 19, weight_recyc[0])
+                sheet6.write(r, 20, weight_recyc[0] * 0.001) # weight in kg
+                sheet6.write(r, 21, (weight_recyc[0] / total_grouped_net_weight) * 100)
+                check_weight += weight_recyc[0]
+                sheet6.write(
+                    r, 22, weight_recyc[2] and weight_recyc[1] / weight_recyc[2] or 0
+                )
+                r += 1
+
+            sheet6.write(r, 18, "Total")
+            sheet6.write(r, 19, total_grouped_net_weight)
+            sheet6.write(r, 20, total_grouped_net_weight * 0.001)
+            sheet6.write(r, 21, (check_weight / total_grouped_net_weight) * 100)
 
             # --------------------------------------------------------------------- #
             # --------------------------------------------------------------------- #
