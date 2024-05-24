@@ -794,7 +794,8 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         )
 
         has_materials = self.env["product.material.composition"].search(
-            [("product_product_id", "=", ch.product_id.id)])
+            [("product_product_id", "=", ch.product_id.id)]
+        )
 
         if len(has_materials.ids) <= 1:
             sheet4.write(
@@ -1982,11 +1983,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             # --------------------------------------------------------------------- #
             # --------------------------------------------------------------------- #
 
-            bom_model = self.env['mrp.bom']
+            bom_model = self.env["mrp.bom"]
 
             bom_consus = self.all_bom_consus(o, product_variant, bom_model)
 
-            consu_products = self.env['product.product']
+            consu_products = self.env["product.product"]
 
             for consu_bom in bom_consus:
                 consu_products = self.all_material_summary(
