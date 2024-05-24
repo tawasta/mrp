@@ -170,8 +170,8 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             grams = self.env.ref("uom.product_uom_gram")
 
-            weight_in_grams = product_id.weight_uom_id._compute_quantity(
-                product_id.weight, grams
+            weight_in_grams = mater.net_weight_uom_id._compute_quantity(
+                mater.net_weight, grams
             )
 
             #  Check that time_in_year is not zero
@@ -778,11 +778,15 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             bom=bom,
         )
 
-        sheet4.write(
-            c, 18, consumed_weight
-        )  # Energy consumption during an operation / Total/(kWh)
+        has_materials = self.env["product.material.composition"].search(
+            [("product_product_id", "=", ch.product_id.id)])
 
-        sheet4.write(c, 19, "g" or "")  # Unit
+        if len(has_materials.ids) <= 1:
+            sheet4.write(
+                c, 18, consumed_weight
+            )  # Energy consumption during an operation / Total/(kWh)
+
+            sheet4.write(c, 19, "g" or "")  # Unit
 
         c += 1
         child_number = 0
