@@ -1306,42 +1306,56 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet6.set_column(0, 0, 33)  # A
         sheet6.set_column(1, 1, 17)  # B
         sheet6.set_column(2, 2, 13)  # C
-
         sheet6.set_column(3, 3, 33)  # D
-        sheet6.set_column(4, 4, 17)  # E
-        sheet6.set_column(5, 5, 13)  # F
-        sheet6.set_column(6, 6, 33)  # G
 
-        sheet6.set_column(7, 7, 33)  # H
-        sheet6.set_column(8, 8, 17)  # I
-        sheet6.set_column(9, 9, 13)  # J
-        sheet6.set_column(10, 10, 33)  # K
+        sheet6.set_column(4, 4, 33)  # D
+        sheet6.set_column(5, 5, 17)  # E
+        sheet6.set_column(6, 6, 13)  # F
+        sheet6.set_column(7, 7, 33)  # G
 
-        sheet6.set_column(11, 11, 35)  # L
-        sheet6.set_column(12, 12, 18)  # M
-        sheet6.set_column(13, 13, 13)  # N
+        sheet6.set_column(8, 8, 33)  # H
+        sheet6.set_column(9, 9, 17)  # I
+        sheet6.set_column(10, 10, 13)  # J
+        sheet6.set_column(11, 11, 33)  # K
+        sheet6.set_column(12, 12, 33)  # W
+        sheet6.set_column(13, 13, 18)  # X
+        sheet6.set_column(14, 14, 18)  # X
 
-        sheet6.set_column(14, 14, 33)  # O
-        sheet6.set_column(15, 15, 17)  # P
-        sheet6.set_column(16, 16, 13)  # Q
-        sheet6.set_column(17, 17, 33)  # R
+        sheet6.set_column(15, 15, 35)  # L
+        sheet6.set_column(16, 16, 18)  # M
+        sheet6.set_column(17, 17, 13)  # N
 
-        sheet6.set_column(18, 18, 33)  # S
-        sheet6.set_column(19, 19, 17)  # T
-        sheet6.set_column(20, 20, 17)  # U
-        sheet6.set_column(21, 21, 13)  # V
-        sheet6.set_column(22, 22, 33)  # W
-        sheet6.set_column(23, 23, 38)  # X
+        sheet6.set_column(18, 18, 35)  # L
+        sheet6.set_column(19, 19, 18)  # M
+        sheet6.set_column(20, 20, 13)  # N
 
-        sheet6.set_column(24, 24, 33)  # Y
-        sheet6.set_column(25, 25, 14)  # Z
-        sheet6.set_column(26, 26, 33)  # AA
-        sheet6.set_column(27, 27, 38)  # AB
+        sheet6.set_column(21, 21, 33)  # O
+        sheet6.set_column(22, 22, 17)  # P
+        sheet6.set_column(23, 23, 13)  # Q
+        sheet6.set_column(24, 24, 33)  # R
+        sheet6.set_column(25, 25, 33)  # W
+        sheet6.set_column(26, 26, 38)  # X
 
-        sheet6.set_column(28, 28, 33)  # AC
-        sheet6.set_column(29, 29, 14)  # AD
-        sheet6.set_column(30, 30, 32)  # AE
-        sheet6.set_column(31, 31, 35)  # AF
+        sheet6.set_column(27, 27, 33)  # S
+        sheet6.set_column(28, 28, 17)  # T
+        sheet6.set_column(29, 29, 17)  # U
+        sheet6.set_column(30, 30, 13)  # V
+        sheet6.set_column(31, 31, 33)  # W
+        sheet6.set_column(32, 32, 38)  # X
+
+        sheet6.set_column(33, 33, 33)  # Y
+        sheet6.set_column(34, 34, 17)  # Z
+        sheet6.set_column(35, 35, 17)  # AA
+        sheet6.set_column(36, 36, 13)  # AB
+        sheet6.set_column(37, 37, 33)  # W
+        sheet6.set_column(38, 38, 38)  # X
+
+        sheet6.set_column(39, 39, 33)  # AC
+        sheet6.set_column(40, 40, 17)  # AD
+        sheet6.set_column(41, 41, 17)  # AE
+        sheet6.set_column(42, 42, 13)  # AF
+        sheet6.set_column(43, 43, 33)  # W
+        sheet6.set_column(44, 44, 38)  # X
 
         title_style_main_1 = workbook.add_format(
             {"bold": True, "bg_color": "#83B9F7", "bottom": 1}
@@ -1350,16 +1364,17 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         title_style_main_1.set_align("vcenter")
 
         title_style_1 = workbook.add_format(
-            {"bold": True, "bg_color": "#ECB18F", "bottom": 1}
+            {"bold": True, "bg_color": "AFCDFF", "bottom": 1}
         )
 
         sheet_title_6 = [
             _("Material"),  # 0 (A)
             _("Total amount (g)"),  # 1 (B)
             _("% of total"),  # 2 (C)
+            _("Post-consumer material, weight % "),  # 3 (D)
         ]
 
-        sheet6.merge_range("A1:C2", _("Product Materials Summary"), title_style_main_1)
+        sheet6.merge_range("A1:D2", _("Product Materials Summary"), title_style_main_1)
         sheet6.set_row(0, None, None, {"collapsed": 1})
 
         for title in enumerate(sheet_title_6):
@@ -1386,13 +1401,25 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             {"bold": True, "bg_color": "#D9F776", "bottom": 1}
         )
 
-        sheet6.merge_range("D1:G2", _("Product Materials Summary"), title_style_main_2)
+        sheet6.merge_range(
+            "E1:H2", _("Packaging Materials Summary"), title_style_main_2
+        )
         sheet6.set_row(0, None, None, {"collapsed": 1})
 
         for title in enumerate(sheet_title_6_recyc):
-            sheet6.write(2, title[0] + 3, title[1] or "", title_style_sub_2)
+            sheet6.write(2, title[0] + 4, title[1] or "", title_style_sub_2)
 
         # -------------------------------#
+
+        sheet_title_incoming_material = [
+            _("Material"),
+            _("Total amount (g)"),
+            _("Weight, kg"),
+            _("% of total"),
+            _("Post-consumer material, weight %"),
+            _("Waste flow"),
+            _("Waste fate"),
+        ]
 
         title_style_main_3 = workbook.add_format(
             {"bold": True, "bg_color": "#E2C0FF", "bottom": 1}
@@ -1404,16 +1431,18 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             {"bold": True, "bg_color": "#E8DCF2", "bottom": 1}
         )
 
-        sheet6.merge_range("H1:K2", _("All materials in DU"), title_style_main_3)
+        sheet6.merge_range(
+            "I1:O2", _("All materials in Incoming packaging"), title_style_main_3
+        )
         sheet6.set_row(0, None, None, {"collapsed": 1})
 
-        for title in enumerate(sheet_title_6_recyc):
-            sheet6.write(2, title[0] + 7, title[1] or "", title_style_sub_3)
+        for title in enumerate(sheet_title_incoming_material):
+            sheet6.write(2, title[0] + 8, title[1] or "", title_style_sub_3)
 
         # -------------------------------#
 
-        sheet_title_energy_6 = [
-            _("Process"),  # 6 (G)
+        sheet_title_energy_work = [
+            _("Workcenter"),  # 6 (G)
             _("Energy use (kwH)"),  # 7 (H)
             _("% of total"),  # 8 (I)
         ]
@@ -1425,16 +1454,51 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         title_style_main_4.set_align("vcenter")
 
         title_style_sub_4 = workbook.add_format(
-            {"bold": True, "bg_color": "#F0934C", "bottom": 1}
+            {"bold": True, "bg_color": "#FF7373", "bottom": 1}
         )
 
-        sheet6.merge_range("L1:N2", _("Energy summary"), title_style_main_4)
+        sheet6.merge_range("P1:R2", _("Workcenters Energy summary"), title_style_main_4)
+        sheet6.set_row(0, None, None, {"collapsed": 1})
+
+        for title in enumerate(sheet_title_energy_work):
+            sheet6.write(2, title[0] + 15, title[1] or "", title_style_sub_4)
+
+        # -------------------------------#
+
+        sheet_title_energy_6 = [
+            _("Process"),  # 6 (G)
+            _("Energy use (kwH)"),  # 7 (H)
+            _("% of total"),  # 8 (I)
+        ]
+
+        title_style_main_oper = workbook.add_format(
+            {"bold": True, "bg_color": "#FF9537", "bottom": 1}
+        )
+        title_style_main_oper.set_align("center")
+        title_style_main_oper.set_align("vcenter")
+
+        title_style_sub_oper = workbook.add_format(
+            {"bold": True, "bg_color": "#FFB675", "bottom": 1}
+        )
+
+        sheet6.merge_range(
+            "S1:U2", _("Operations Energy summary"), title_style_main_oper
+        )
         sheet6.set_row(0, None, None, {"collapsed": 1})
 
         for title in enumerate(sheet_title_energy_6):
-            sheet6.write(2, title[0] + 11, title[1] or "", title_style_sub_4)
+            sheet6.write(2, title[0] + 18, title[1] or "", title_style_sub_oper)
 
         # -------------------------------#
+
+        sheet_title_material_template = [
+            _("Material"),
+            _("Total amount (g)"),
+            _("Weight, kg"),
+            _("% of total"),
+            _("Post-consumer material, weight %"),
+            _("Biogenic material, weight-% and kg C/kg"),
+        ]
 
         title_style_main_5 = workbook.add_format(
             {"bold": True, "bg_color": "#A8E669", "bottom": 1}
@@ -1446,18 +1510,18 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             {"bold": True, "bg_color": "#BAE58E", "bottom": 1}
         )
 
-        sheet6.merge_range("O1:R2", _("Materials in production"), title_style_main_5)
+        sheet6.merge_range("V1:AA2", _("Materials in production"), title_style_main_5)
         sheet6.set_row(0, None, None, {"collapsed": 1})
 
-        for title in enumerate(sheet_title_6_recyc):
-            sheet6.write(2, title[0] + 14, title[1] or "", title_style_sub_5)
+        for title in enumerate(sheet_title_material_template):
+            sheet6.write(2, title[0] + 21, title[1] or "", title_style_sub_5)
 
         # -------------------------------#
 
         sheet_title_total_material = [
             _("Material"),
             _("Total amount (g)"),
-            _("Amount (kg)"),
+            _("Weight, kg"),
             _("% of total"),
             _("Post-consumer material, weight %"),
             _("Biogenic material, weight-% and kg C/kg"),
@@ -1473,11 +1537,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             {"bold": True, "bg_color": "#C1BFDF", "bottom": 1}
         )
 
-        sheet6.merge_range("S1:X2", _("Total material usage"), title_style_main_6)
+        sheet6.merge_range("AB1:AG2", _("Summary of all materials"), title_style_main_6)
         sheet6.set_row(0, None, None, {"collapsed": 1})
 
         for title in enumerate(sheet_title_total_material):
-            sheet6.write(2, title[0] + 18, title[1] or "", title_style_sub_6)
+            sheet6.write(2, title[0] + 27, title[1] or "", title_style_sub_6)
 
         # -------------------------------#
 
@@ -1498,11 +1562,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             {"bold": True, "bg_color": "#DFC3F7", "bottom": 1}
         )
 
-        sheet6.merge_range("Y1:AB2", _("Content information"), title_style_main_7)
+        sheet6.merge_range("AH1:AM2", _("Content information"), title_style_main_7)
         sheet6.set_row(0, None, None, {"collapsed": 1})
 
-        for title in enumerate(sheet_title_content):
-            sheet6.write(2, title[0] + 24, title[1] or "", title_style_sub_7)
+        for title in enumerate(sheet_title_material_template):
+            sheet6.write(2, title[0] + 33, title[1] or "", title_style_sub_7)
 
         # -------------------------------#
 
@@ -1524,12 +1588,12 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         )
 
         sheet6.merge_range(
-            "AC1:AF2", _("Packaging materials information"), title_style_main_8
+            "AN1:AS2", _("Packaging materials information"), title_style_main_8
         )
         sheet6.set_row(0, None, None, {"collapsed": 1})
 
-        for title in enumerate(sheet_title_packaging_info):
-            sheet6.write(2, title[0] + 28, title[1] or "", title_style_sub_8)
+        for title in enumerate(sheet_title_material_template):
+            sheet6.write(2, title[0] + 39, title[1] or "", title_style_sub_8)
 
         # -------------------------------#
 
@@ -1700,6 +1764,13 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             # ------------------------------ Sheet 6 ------------------------------ #
             # --------------------------------------------------------------------- #
 
+            # --------------------------------------------------------------------- #
+            # -------------------- Product Materials Summary ---------------------- #
+            # --------------------------------------------------------------------- #
+
+            # NOT IN INCOMING PACKAGING
+            # IS NOT A DELIVERY PACKAGE
+
             ident = "{}".format(o.id)
             quantities = self.get_bom_quantities(o)
 
@@ -1726,66 +1797,134 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 eee_materials=materials,
             )
 
-            total_material_weight = sum(mater.net_weight for mater in materials)
-            total_material_recyc = sum(mater.recycled_percentage for mater in materials)
+            combined_materials = (
+                wood_materials
+                + glue_materials
+                + metal_materials
+                + plastic_materials
+                + eee_materials
+            )
+            total_material_weight = sum(
+                mater.net_weight for mater in combined_materials
+            )
+            total_material_recyc = sum(
+                (mater.recycled_percentage / 100) * mater.net_weight
+                for mater in materials
+            )
+            #            total_material_recyc = sum(mater.recycled_percentage for mater in materials)
             total_wood_material_weight = sum(
                 mater.net_weight for mater in wood_materials
             )
             total_wood_material_recyc = sum(
-                mater.recycled_percentage for mater in wood_materials
+                (mater.recycled_percentage / 100) * mater.net_weight
+                for mater in wood_materials
             )
             total_glue_material_weight = sum(
                 mater.net_weight for mater in glue_materials
             )
             total_glue_material_recyc = sum(
-                mater.recycled_percentage for mater in glue_materials
+                (mater.recycled_percentage / 100) * mater.net_weight
+                for mater in glue_materials
             )
             total_metal_material_weight = sum(
                 mater.net_weight for mater in metal_materials
             )
             total_metal_material_recyc = sum(
-                mater.recycled_percentage for mater in metal_materials
+                (mater.recycled_percentage / 100) * mater.net_weight
+                for mater in metal_materials
             )
             total_plastic_material_weight = sum(
                 mater.net_weight for mater in plastic_materials
             )
             total_plastic_material_recyc = sum(
-                mater.recycled_percentage for mater in plastic_materials
+                (mater.recycled_percentage / 100) * mater.net_weight
+                for mater in plastic_materials
             )
             total_eee_material_weight = sum(mater.net_weight for mater in eee_materials)
             total_eee_material_recyc = sum(
-                mater.recycled_percentage for mater in eee_materials
+                (mater.recycled_percentage / 100) * mater.net_weight
+                for mater in eee_materials
             )
             sheet6.write(3, 0, "Wood")
             sheet6.write(3, 1, total_wood_material_weight)
             sheet6.write(
-                3, 2, (total_wood_material_weight / total_material_weight) * 100
+                3,
+                2,
+                total_material_weight
+                and (total_wood_material_weight / total_material_weight) * 100
+                or 0,
             )
-            sheet6.write(3, 3, total_wood_material_recyc)
+            sheet6.write(
+                3,
+                3,
+                total_wood_material_weight
+                and (total_wood_material_recyc / total_wood_material_weight) * 100
+                or 0,
+            )
             sheet6.write(4, 0, "Glue")
             sheet6.write(4, 1, total_glue_material_weight)
             sheet6.write(
-                4, 2, (total_glue_material_weight / total_material_weight) * 100
+                4,
+                2,
+                total_material_weight
+                and (total_glue_material_weight / total_material_weight) * 100
+                or 0,
             )
-            sheet6.write(4, 3, total_glue_material_recyc)
+            sheet6.write(
+                4,
+                3,
+                total_glue_material_weight
+                and (total_glue_material_recyc / total_glue_material_weight) * 100
+                or 0,
+            )
             sheet6.write(5, 0, "Metal")
             sheet6.write(5, 1, total_metal_material_weight)
             sheet6.write(
-                5, 2, (total_metal_material_weight / total_material_weight) * 100
+                5,
+                2,
+                total_material_weight
+                and (total_metal_material_weight / total_material_weight) * 100
+                or 0,
             )
-            sheet6.write(5, 3, total_metal_material_recyc)
+            sheet6.write(
+                5,
+                3,
+                total_metal_material_weight
+                and (total_metal_material_recyc / total_metal_material_weight) * 100
+                or 0,
+            )
             sheet6.write(6, 0, "Plastic")
             sheet6.write(6, 1, total_plastic_material_weight)
             sheet6.write(
-                6, 2, (total_plastic_material_weight / total_material_weight) * 100
+                6,
+                2,
+                total_material_weight
+                and (total_plastic_material_weight / total_material_weight) * 100
+                or 0,
             )
-            sheet6.write(6, 3, total_plastic_material_recyc)
+            sheet6.write(
+                6,
+                3,
+                total_plastic_material_weight
+                and (total_plastic_material_recyc / total_plastic_material_weight) * 100
+                or 0,
+            )
             sheet6.write(7, 0, "EEE")
             sheet6.write(7, 1, total_eee_material_weight)
             sheet6.write(
-                7, 2, (total_eee_material_weight / total_material_weight) * 100
+                7,
+                2,
+                total_material_weight
+                and (total_eee_material_weight / total_material_weight) * 100
+                or 0,
             )
-            sheet6.write(7, 1, total_eee_material_recyc)
+            sheet6.write(
+                7,
+                1,
+                total_eee_material_weight
+                and (total_eee_material_recyc / total_eee_material_weight) * 100
+                or 0,
+            )
             sheet6.write(8, 0, "Total")
             total_all = (
                 total_wood_material_weight
@@ -1802,11 +1941,27 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 + total_eee_material_recyc
             )
             sheet6.write(8, 1, total_all)
-            sheet6.write(8, 2, (total_all / total_material_weight) * 100)
-            sheet6.write(8, 3, total_all_recyc)
+            sheet6.write(
+                8,
+                2,
+                total_material_weight
+                and (total_all / total_material_weight) * 100
+                or 0,
+            )
+            sheet6.write(
+                8,
+                3,
+                total_material_weight
+                and (total_all_recyc / total_material_weight) * 100
+                or 0,
+            )
 
             # --------------------------------------------------------------------- #
+            # -------------------- Packaging Materials Summary -------------------- #
             # --------------------------------------------------------------------- #
+
+            # NOT IN INCOMING PACKAGING
+            # IS A DELIVERY PACKAGE
 
             ident = "{}".format(o.id)
             quantities = self.get_bom_quantities(o)
@@ -1834,63 +1989,60 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 wood_materials=materials,
             )
 
-            total_material_weight = sum(mater.net_weight for mater in materials)
-            total_material_recyc = (
-                len(materials.ids)
-                and sum(mater.recycled_percentage for mater in materials)
-                / len(materials.ids)
-                or 0
+            combined_materials = (
+                cardboard_materials
+                + paper_materials
+                + plastic_materials
+                + metal_materials
+                + wood_materials
+            )
+            total_material_weight = sum(
+                mater.net_weight for mater in combined_materials
+            )
+            total_material_recyc = sum(
+                (mater.recycled_percentage / 100) * mater.net_weight
+                for mater in materials
             )
             total_cardboard_material_weight = sum(
                 mater.net_weight for mater in cardboard_materials
             )
-            total_cardboard_material_recyc = (
-                len(materials.ids)
-                and sum(mater.recycled_percentage for mater in cardboard_materials)
-                / len(materials.ids)
-                or 0
+            total_cardboard_material_recyc = sum(
+                (mater.recycled_percentage / 100) * mater.net_weight
+                for mater in cardboard_materials
             )
             total_paper_material_weight = sum(
                 mater.net_weight for mater in paper_materials
             )
-            total_paper_material_recyc = (
-                len(materials.ids)
-                and sum(mater.recycled_percentage for mater in paper_materials)
-                / len(materials.ids)
-                or 0
+            total_paper_material_recyc = sum(
+                (mater.recycled_percentage / 100) * mater.net_weight
+                for mater in paper_materials
             )
             total_plastic_material_weight = sum(
                 mater.net_weight for mater in plastic_materials
             )
-            total_plastic_material_recyc = (
-                len(materials.ids)
-                and sum(mater.recycled_percentage for mater in plastic_materials)
-                / len(materials.ids)
-                or 0
+            total_plastic_material_recyc = sum(
+                (mater.recycled_percentage / 100) * mater.net_weight
+                for mater in plastic_materials
             )
             total_metal_material_weight = sum(
                 mater.net_weight for mater in metal_materials
             )
-            total_metal_material_recyc = (
-                len(materials.ids)
-                and sum(mater.recycled_percentage for mater in metal_materials)
-                / len(materials.ids)
-                or 0
+            total_metal_material_recyc = sum(
+                (mater.recycled_percentage / 100) * mater.net_weight
+                for mater in metal_materials
             )
             total_wood_material_weight = sum(
                 mater.net_weight for mater in wood_materials
             )
-            total_wood_material_recyc = (
-                len(materials.ids)
-                and sum(mater.recycled_percentage for mater in wood_materials)
-                / len(materials.ids)
-                or 0
+            total_wood_material_recyc = sum(
+                (mater.recycled_percentage / 100) * mater.net_weight
+                for mater in wood_materials
             )
-            sheet6.write(3, 3, "Cardboard")
-            sheet6.write(3, 4, total_cardboard_material_weight)
+            sheet6.write(3, 4, "Cardboard")
+            sheet6.write(3, 5, total_cardboard_material_weight)
             sheet6.write(
                 3,
-                5,
+                6,
                 (
                     total_material_weight
                     and total_cardboard_material_weight / total_material_weight
@@ -1898,12 +2050,19 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 )
                 * 100,
             )
-            sheet6.write(3, 6, total_cardboard_material_recyc)
-            sheet6.write(4, 3, "Paper")
-            sheet6.write(4, 4, total_paper_material_weight)
+            sheet6.write(
+                3,
+                7,
+                total_cardboard_material_weight
+                and (total_cardboard_material_recyc / total_cardboard_material_weight)
+                * 100
+                or 0,
+            )
+            sheet6.write(4, 4, "Paper")
+            sheet6.write(4, 5, total_paper_material_weight)
             sheet6.write(
                 4,
-                5,
+                6,
                 (
                     total_material_weight
                     and total_paper_material_weight / total_material_weight
@@ -1911,12 +2070,18 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 )
                 * 100,
             )
-            sheet6.write(4, 6, total_paper_material_recyc)
-            sheet6.write(5, 3, "Plastic")
-            sheet6.write(5, 4, total_plastic_material_weight)
+            sheet6.write(
+                4,
+                7,
+                total_paper_material_weight
+                and (total_paper_material_recyc / total_paper_material_weight) * 100
+                or 0,
+            )
+            sheet6.write(5, 4, "Plastic")
+            sheet6.write(5, 5, total_plastic_material_weight)
             sheet6.write(
                 5,
-                5,
+                6,
                 (
                     total_material_weight
                     and total_plastic_material_weight / total_material_weight
@@ -1924,12 +2089,18 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 )
                 * 100,
             )
-            sheet6.write(5, 6, total_plastic_material_recyc)
-            sheet6.write(6, 3, "Metal")
-            sheet6.write(6, 4, total_metal_material_weight)
+            sheet6.write(
+                5,
+                7,
+                total_plastic_material_weight
+                and (total_plastic_material_recyc / total_plastic_material_weight) * 100
+                or 0,
+            )
+            sheet6.write(6, 4, "Metal")
+            sheet6.write(6, 5, total_metal_material_weight)
             sheet6.write(
                 6,
-                5,
+                6,
                 (
                     total_material_weight
                     and total_metal_material_weight / total_material_weight
@@ -1937,12 +2108,18 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 )
                 * 100,
             )
-            sheet6.write(6, 6, total_metal_material_recyc)
-            sheet6.write(7, 3, "Wood")
-            sheet6.write(7, 4, total_wood_material_weight)
+            sheet6.write(
+                6,
+                7,
+                total_metal_material_weight
+                and (total_metal_material_recyc / total_metal_material_weight) * 100
+                or 0,
+            )
+            sheet6.write(7, 4, "Wood")
+            sheet6.write(7, 5, total_wood_material_weight)
             sheet6.write(
                 7,
-                5,
+                6,
                 (
                     total_material_weight
                     and total_wood_material_weight / total_material_weight
@@ -1950,8 +2127,14 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 )
                 * 100,
             )
-            sheet6.write(7, 6, total_wood_material_recyc)
-            sheet6.write(8, 3, "Total")
+            sheet6.write(
+                7,
+                7,
+                total_wood_material_weight
+                and (total_wood_material_recyc / total_wood_material_weight) * 100
+                or 0,
+            )
+            sheet6.write(8, 4, "Total")
             total_all = (
                 total_cardboard_material_weight
                 + total_paper_material_weight
@@ -1959,25 +2142,33 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 + total_metal_material_weight
                 + total_wood_material_weight
             )
-            #            total_all_recyc = (
-            #                (len(materials.ids) and
-            #                    (total_cardboard_material_recyc
-            #                    + total_paper_material_recyc
-            #                    + total_plastic_material_recyc
-            #                    + total_metal_material_recyc
-            #                    + total_wood_material_recyc) / len(materials.ids) or 0)
-            #            )
-            sheet6.write(8, 4, total_all)
+            total_all_recyc = (
+                total_cardboard_material_recyc
+                + total_paper_material_recyc
+                + total_plastic_material_recyc
+                + total_metal_material_recyc
+                + total_wood_material_recyc
+            )
+            sheet6.write(8, 5, total_all)
             sheet6.write(
                 8,
-                5,
+                6,
                 (total_material_weight and total_all / total_material_weight or 0)
                 * 100,
             )
-            #            sheet6.write(8, 6, total_all_recyc)
+            sheet6.write(
+                8,
+                7,
+                total_material_weight
+                and (total_all_recyc / total_material_weight) * 100
+                or 0,
+            )
 
             # --------------------------------------------------------------------- #
+            # --------------- All materials in Incoming packaging ----------------- #
             # --------------------------------------------------------------------- #
+
+            # IS IN INCOMING PACKAGING
 
             products = self.env["product.product"]
 
@@ -1996,7 +2187,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 materials += self.env["product.material.composition"].search(
                     domain=[
                         ("product_product_id", "=", product.id),
-                        ("type", "!=", "product_packaging"),
+                        ("type", "=", "product_packaging"),
                     ]
                 )
 
@@ -2006,45 +2197,65 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 if not name_and_weight.get(material.product_material_id):
                     name_and_weight[material.product_material_id] = [
                         material.net_weight,
-                        material.recycled_percentage,
-                        1,
+                        (material.recycled_percentage / 100) * material.net_weight,
+                        material.product_material_waste_component_id,
+                        material.product_material_waste_endpoint_id,
                     ]
                 else:
                     name_and_weight[material.product_material_id][
                         0
                     ] += material.net_weight
+                    name_and_weight[material.product_material_id][1] += (
+                        material.recycled_percentage / 100
+                    ) * material.net_weight
                     name_and_weight[material.product_material_id][
-                        1
-                    ] += material.recycled_percentage
-                    name_and_weight[material.product_material_id][2] += 1
+                        2
+                    ] += material.product_material_waste_component_id
+                    name_and_weight[material.product_material_id][
+                        3
+                    ] += material.product_material_waste_endpoint_id
             r = 3
 
             total_grouped_net_weight = 0
-            #            total_grouped_net_recyc = 0
 
-            for weight, _recyc, _num in name_and_weight.values():
+            for weight, _recyc, _waste_comp, _waste_end in name_and_weight.values():
                 total_grouped_net_weight += weight
-            #                total_grouped_net_recyc += recyc
-
-            #            = sum(name_and_weight.values())
 
             check_weight = 0
+            total_grouped_recycled_weight = 0
 
             for material, weight_recyc in name_and_weight.items():
-                sheet6.write(r, 7, material.name)
-                sheet6.write(r, 8, weight_recyc[0])
-                sheet6.write(r, 9, (weight_recyc[0] / total_grouped_net_weight) * 100)
+                sheet6.write(r, 8, material.name)
+                sheet6.write(r, 9, weight_recyc[0])
+                sheet6.write(r, 10, weight_recyc[0] * 0.001)  # weight in kg
+                sheet6.write(r, 11, (weight_recyc[0] / total_grouped_net_weight) * 100)
                 check_weight += weight_recyc[0]
+                total_grouped_recycled_weight += weight_recyc[1]
                 sheet6.write(
-                    r, 10, weight_recyc[2] and weight_recyc[1] / weight_recyc[2] or 0
+                    r,
+                    12,
+                    weight_recyc[0] and (weight_recyc[1] / weight_recyc[0]) * 100 or 0,
                 )
+                waste_component = weight_recyc[2] and weight_recyc[2][0].name or ""
+                sheet6.write(r, 13, waste_component)
+                waste_endpoint = weight_recyc[3] and weight_recyc[3][0].name or ""
+                sheet6.write(r, 14, waste_endpoint)
                 r += 1
 
-            sheet6.write(r, 7, "Total")
-            sheet6.write(r, 8, total_grouped_net_weight)
-            sheet6.write(r, 9, (check_weight / total_grouped_net_weight) * 100)
+            sheet6.write(r, 8, "Total")
+            sheet6.write(r, 9, total_grouped_net_weight)
+            sheet6.write(r, 10, total_grouped_net_weight * 0.001)
+            sheet6.write(r, 11, (check_weight / total_grouped_net_weight) * 100)
+            sheet6.write(
+                r,
+                12,
+                total_grouped_net_weight
+                and (total_grouped_recycled_weight / total_grouped_net_weight) * 100
+                or 0,
+            )
 
             # --------------------------------------------------------------------- #
+            # ------------------- Workcenters Energy summary ---------------------- #
             # --------------------------------------------------------------------- #
 
             operations = self.env["mrp.routing.workcenter"]
@@ -2058,7 +2269,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             workcenter_and_energy = {}
 
-            for oper in operations:
+            for oper in operations.sorted(key=lambda o: o.sequence):
                 workcenter = oper.workcenter_id
                 energy = (
                     (workcenter.energy_consumption * oper.duration_active)
@@ -2073,13 +2284,51 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             total_grouped_energy = sum(workcenter_and_energy.values())
 
             for workcenter, energy in workcenter_and_energy.items():
-                sheet6.write(t, 11, workcenter.name)
-                sheet6.write(t, 12, energy)
-                sheet6.write(t, 13, (energy / total_grouped_energy) * 100)
+                sheet6.write(t, 15, workcenter.name)
+                sheet6.write(t, 16, energy)
+                sheet6.write(t, 17, (energy / total_grouped_energy) * 100)
                 t += 1
 
             # --------------------------------------------------------------------- #
+            # ---------------- Operations Energy summary -------------------------- #
             # --------------------------------------------------------------------- #
+
+            operations = self.env["mrp.routing.workcenter"]
+
+            operations = self.energy_summary(
+                bom=o,
+                product_variant=material_variant,
+                sheet6=sheet6,
+                operations=operations,
+            )
+
+            operation_and_energy = {}
+
+            for oper in operations.sorted(key=lambda o: o.sequence):
+                workcenter = oper.workcenter_id
+                energy = (
+                    (workcenter.energy_consumption * oper.duration_active)
+                    + (workcenter.energy_consumption_passive * oper.duration_passive)
+                ) / 60
+                if not operation_and_energy.get(oper):
+                    operation_and_energy[oper] = energy
+                else:
+                    operation_and_energy[oper] += energy
+            t = 3
+
+            total_grouped_energy = sum(operation_and_energy.values())
+
+            for operation, energy in operation_and_energy.items():
+                sheet6.write(t, 18, operation.name)
+                sheet6.write(t, 19, energy)
+                sheet6.write(t, 20, (energy / total_grouped_energy) * 100)
+                t += 1
+
+            # --------------------------------------------------------------------- #
+            # --------------------- Materials in production ----------------------- #
+            # --------------------------------------------------------------------- #
+
+            # NOT IN INCOMING PACKAGING
 
             bom_model = self.env["mrp.bom"]
 
@@ -2113,42 +2362,59 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 if not name_and_weight.get(material.product_material_id):
                     name_and_weight[material.product_material_id] = [
                         material.net_weight,
-                        material.recycled_percentage,
-                        1,
+                        (material.recycled_percentage / 100) * material.net_weight,
                     ]
                 else:
                     name_and_weight[material.product_material_id][
                         0
                     ] += material.net_weight
-                    name_and_weight[material.product_material_id][
-                        1
-                    ] += material.recycled_percentage
-                    name_and_weight[material.product_material_id][2] += 1
+                    name_and_weight[material.product_material_id][1] += (
+                        material.recycled_percentage / 100
+                    ) * material.net_weight
             r = 3
 
             total_grouped_net_weight = 0
-            #            total_grouped_net_recyc = 0
 
-            for weight, _recyc, _num in name_and_weight.values():
+            for weight, _recyc in name_and_weight.values():
                 total_grouped_net_weight += weight
 
             check_weight = 0
+            total_grouped_recycled_weight = 0
 
             for material, weight_recyc in name_and_weight.items():
-                sheet6.write(r, 14, material.name)
-                sheet6.write(r, 15, weight_recyc[0])
-                sheet6.write(r, 16, (weight_recyc[0] / total_grouped_net_weight) * 100)
+                sheet6.write(r, 21, material.name)
+                sheet6.write(r, 22, weight_recyc[0])
+                sheet6.write(r, 23, weight_recyc[0] * 0.001)  # weight in kg
+                sheet6.write(r, 24, (weight_recyc[0] / total_grouped_net_weight) * 100)
                 check_weight += weight_recyc[0]
+                total_grouped_recycled_weight += weight_recyc[1]
                 sheet6.write(
-                    r, 17, weight_recyc[2] and weight_recyc[1] / weight_recyc[2] or 0
+                    r,
+                    25,
+                    weight_recyc[0] and (weight_recyc[1] / weight_recyc[0]) * 100 or 0,
                 )
                 r += 1
 
-            sheet6.write(r, 14, "Total")
-            sheet6.write(r, 15, total_grouped_net_weight)
-            sheet6.write(r, 16, (check_weight / total_grouped_net_weight) * 100)
+            sheet6.write(r, 21, "Total")
+            sheet6.write(r, 22, total_grouped_net_weight)
+            sheet6.write(r, 23, total_grouped_net_weight * 0.001)
+            sheet6.write(
+                r,
+                24,
+                total_grouped_net_weight
+                and (check_weight / total_grouped_net_weight) * 100
+                or 0,
+            )
+            sheet6.write(
+                r,
+                25,
+                total_grouped_net_weight
+                and (total_grouped_recycled_weight / total_grouped_net_weight) * 100
+                or 0,
+            )
 
             # --------------------------------------------------------------------- #
+            # -------------------- Summary of all materials ----------------------- #
             # --------------------------------------------------------------------- #
 
             products = self.env["product.product"]
@@ -2177,46 +2443,225 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 if not name_and_weight.get(material.product_material_id):
                     name_and_weight[material.product_material_id] = [
                         material.net_weight,
-                        material.recycled_percentage,
-                        1,
+                        (material.recycled_percentage / 100) * material.net_weight,
                     ]
                 else:
                     name_and_weight[material.product_material_id][
                         0
                     ] += material.net_weight
-                    name_and_weight[material.product_material_id][
-                        1
-                    ] += material.recycled_percentage
-                    name_and_weight[material.product_material_id][2] += 1
+                    name_and_weight[material.product_material_id][1] += (
+                        material.recycled_percentage / 100
+                    ) * material.net_weight
             r = 3
 
             total_grouped_net_weight = 0
 
-            for weight, _recyc, _num in name_and_weight.values():
+            for weight, _recyc in name_and_weight.values():
                 total_grouped_net_weight += weight
 
             check_weight = 0
+            total_grouped_recycled_weight = 0
 
             for material, weight_recyc in name_and_weight.items():
-                sheet6.write(r, 18, material.name)
-                sheet6.write(r, 19, weight_recyc[0])
-                sheet6.write(r, 20, weight_recyc[0] * 0.001)  # weight in kg
-                sheet6.write(r, 21, (weight_recyc[0] / total_grouped_net_weight) * 100)
+                sheet6.write(r, 27, material.name)
+                sheet6.write(r, 28, weight_recyc[0])
+                sheet6.write(r, 29, weight_recyc[0] * 0.001)  # weight in kg
+                sheet6.write(r, 30, (weight_recyc[0] / total_grouped_net_weight) * 100)
                 check_weight += weight_recyc[0]
+                total_grouped_recycled_weight += weight_recyc[1]
                 sheet6.write(
-                    r, 22, weight_recyc[2] and weight_recyc[1] / weight_recyc[2] or 0
+                    r,
+                    31,
+                    weight_recyc[0] and (weight_recyc[1] / weight_recyc[0]) * 100 or 0,
                 )
                 r += 1
 
-            sheet6.write(r, 18, "Total")
-            sheet6.write(r, 19, total_grouped_net_weight)
-            sheet6.write(r, 20, total_grouped_net_weight * 0.001)
-            sheet6.write(r, 21, (check_weight / total_grouped_net_weight) * 100)
+            sheet6.write(r, 27, "Total")
+            sheet6.write(r, 28, total_grouped_net_weight)
+            sheet6.write(r, 29, total_grouped_net_weight * 0.001)
+            sheet6.write(
+                r,
+                30,
+                total_grouped_net_weight
+                and (check_weight / total_grouped_net_weight) * 100,
+            ) or 0
+            sheet6.write(
+                r,
+                31,
+                total_grouped_net_weight
+                and (total_grouped_recycled_weight / total_grouped_net_weight) * 100
+                or 0,
+            )
 
             # --------------------------------------------------------------------- #
+            # ----------------------- Content information ------------------------- #
             # --------------------------------------------------------------------- #
 
+            # NOT IN INCOMING PACKAGING
+            # IS NOT A DELIVERY PACKAGE
+
+            content_products = self.env["product.product"]
+
+            content_products = self.all_material_summary(
+                sheet6,
+                bom=o,
+                product_variant=material_variant,
+                style=None,
+                child_number=0,
+                products=content_products,
+            )
+
+            content_materials = self.env["product.material.composition"]
+
+            for product in content_products:
+                content_materials += self.env["product.material.composition"].search(
+                    domain=[
+                        ("product_product_id", "=", product.id),
+                        ("type", "!=", "product_packaging"),
+                        ("is_delivery_package", "=", False),
+                    ]
+                )
+
+            content_materials = content_materials.filtered(
+                lambda m: m.is_delivery_package != True
+            )
+
+            name_and_weight = {}
+
+            for material in content_materials:
+                if not name_and_weight.get(material.product_material_id):
+                    name_and_weight[material.product_material_id] = [
+                        material.net_weight,
+                        (material.recycled_percentage / 100) * material.net_weight,
+                    ]
+                else:
+                    name_and_weight[material.product_material_id][
+                        0
+                    ] += material.net_weight
+                    name_and_weight[material.product_material_id][1] += (
+                        material.recycled_percentage / 100
+                    ) * material.net_weight
+            r = 3
+
+            total_grouped_net_weight = 0
+
+            for weight, _recyc in name_and_weight.values():
+                total_grouped_net_weight += weight
+
+            check_weight = 0
+            total_grouped_recycled_weight = 0
+
+            for material, weight_recyc in name_and_weight.items():
+                sheet6.write(r, 33, material.name)
+                sheet6.write(r, 34, weight_recyc[0])
+                sheet6.write(r, 35, weight_recyc[0] * 0.001)  # weight in kg
+                sheet6.write(r, 36, (weight_recyc[0] / total_grouped_net_weight) * 100)
+                check_weight += weight_recyc[0]
+                total_grouped_recycled_weight += weight_recyc[1]
+                sheet6.write(
+                    r,
+                    37,
+                    weight_recyc[0] and (weight_recyc[1] / weight_recyc[0]) * 100 or 0,
+                )
+                r += 1
+
+            sheet6.write(r, 33, "Total")
+            sheet6.write(r, 34, total_grouped_net_weight)
+            sheet6.write(r, 35, total_grouped_net_weight * 0.001)
+            sheet6.write(
+                r,
+                36,
+                total_grouped_net_weight
+                and (check_weight / total_grouped_net_weight) * 100,
+            ) or 0
+            sheet6.write(
+                r,
+                37,
+                total_grouped_net_weight
+                and (total_grouped_recycled_weight / total_grouped_net_weight) * 100
+                or 0,
+            )
+
             # --------------------------------------------------------------------- #
+            # ------------------ Packaging materials information ------------------ #
+            # --------------------------------------------------------------------- #
+
+            # NOT IN INCOMING PACKAGING
+            # IS A DELIVERY PACKAGE
+
+            pack_products = self.env["product.product"]
+
+            pack_products = self.all_material_summary(
+                sheet6,
+                bom=o,
+                product_variant=material_variant,
+                style=None,
+                child_number=0,
+                products=pack_products,
+            )
+
+            pack_materials = self.env["product.material.composition"]
+
+            for product in pack_products:
+                pack_materials += self.env["product.material.composition"].search(
+                    domain=[
+                        ("product_product_id", "=", product.id),
+                        ("type", "!=", "product_packaging"),
+                        ("is_delivery_package", "=", True),
+                    ]
+                )
+
+            name_and_weight = {}
+
+            for material in pack_materials:
+                if not name_and_weight.get(material.product_material_id):
+                    name_and_weight[material.product_material_id] = [
+                        material.net_weight,
+                        (material.recycled_percentage / 100) * material.net_weight,
+                    ]
+                else:
+                    name_and_weight[material.product_material_id][
+                        0
+                    ] += material.net_weight
+                    name_and_weight[material.product_material_id][1] += (
+                        material.recycled_percentage / 100
+                    ) * material.net_weight
+            r = 3
+
+            total_grouped_net_weight = 0
+
+            for weight, _recyc in name_and_weight.values():
+                total_grouped_net_weight += weight
+
+            check_weight = 0
+            total_grouped_recycled_weight = 0
+
+            for material, weight_recyc in name_and_weight.items():
+                sheet6.write(r, 39, material.name)
+                sheet6.write(r, 40, weight_recyc[0])
+                sheet6.write(r, 41, weight_recyc[0] * 0.001)  # weight in kg
+                sheet6.write(r, 42, (weight_recyc[0] / total_grouped_net_weight) * 100)
+                check_weight += weight_recyc[0]
+                total_grouped_recycled_weight += weight_recyc[1]
+                sheet6.write(
+                    r,
+                    43,
+                    weight_recyc[0] and (weight_recyc[1] / weight_recyc[0]) * 100 or 0,
+                )
+                r += 1
+
+            sheet6.write(r, 39, "Total")
+            sheet6.write(r, 40, total_grouped_net_weight)
+            sheet6.write(r, 41, total_grouped_net_weight * 0.001)
+            sheet6.write(r, 42, (check_weight / total_grouped_net_weight) * 100)
+            sheet6.write(
+                r,
+                43,
+                total_grouped_net_weight
+                and (total_grouped_recycled_weight / total_grouped_net_weight) * 100
+                or 0,
+            )
+
             # --------------------------------------------------------------------- #
 
             child_number = 0
