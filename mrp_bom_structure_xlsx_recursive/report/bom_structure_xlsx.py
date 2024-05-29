@@ -1374,7 +1374,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             _("Post-consumer material, weight % "),  # 3 (D)
         ]
 
-        sheet6.merge_range("A1:D2", _("Product Materials Summary"), title_style_main_1)
+        sheet6.merge_range(
+            "A1:D2", _("1. Product Materials Summary"), title_style_main_1
+        )
         sheet6.set_row(0, None, None, {"collapsed": 1})
 
         for title in enumerate(sheet_title_6):
@@ -1402,7 +1404,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         )
 
         sheet6.merge_range(
-            "E1:H2", _("Packaging Materials Summary"), title_style_main_2
+            "E1:H2", _("2. Packaging Materials Summary"), title_style_main_2
         )
         sheet6.set_row(0, None, None, {"collapsed": 1})
 
@@ -1438,7 +1440,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         )
 
         sheet6.merge_range(
-            "I1:N2", _("Product component materials"), title_style_main_7
+            "I1:N2", _("3. Product component materials"), title_style_main_7
         )
         sheet6.set_row(0, None, None, {"collapsed": 1})
 
@@ -1474,7 +1476,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         )
 
         sheet6.merge_range(
-            "O1:T2", _("Delivery Packaging materials"), title_style_main_8
+            "O1:T2", _("4. Delivery Packaging materials"), title_style_main_8
         )
         sheet6.set_row(0, None, None, {"collapsed": 1})
 
@@ -1503,7 +1505,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         )
 
         sheet6.merge_range(
-            "U1:Z2", _("All materials consumed in production"), title_style_main_5
+            "U1:Z2", _("5. All materials consumed in production"), title_style_main_5
         )
 
         sheet6.set_row(0, None, None, {"collapsed": 1})
@@ -1534,7 +1536,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         )
 
         sheet6.merge_range(
-            "AA1:AG2", _("All materials in Incoming packaging"), title_style_main_3
+            "AA1:AG2", _("6. All materials in Incoming packaging"), title_style_main_3
         )
         sheet6.set_row(0, None, None, {"collapsed": 1})
 
@@ -1562,7 +1564,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             {"bold": True, "bg_color": "#C1BFDF", "bottom": 1}
         )
 
-        sheet6.merge_range("AH1:AM2", _("Summary of all materials"), title_style_main_6)
+        sheet6.merge_range(
+            "AH1:AM2", _("7. Summary of all materials"), title_style_main_6
+        )
 
         sheet6.set_row(0, None, None, {"collapsed": 1})
 
@@ -1588,7 +1592,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         )
 
         sheet6.merge_range(
-            "AN1:AP2", _("Workcenters Energy summary"), title_style_main_4
+            "AN1:AP2", _("8. Workcenters Energy summary"), title_style_main_4
         )
         sheet6.set_row(0, None, None, {"collapsed": 1})
 
@@ -1614,7 +1618,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         )
 
         sheet6.merge_range(
-            "AQ1:AS2", _("Operations Energy summary"), title_style_main_oper
+            "AQ1:AS2", _("9. Operations Energy summary"), title_style_main_oper
         )
         sheet6.set_row(0, None, None, {"collapsed": 1})
 
