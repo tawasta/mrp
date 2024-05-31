@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_mrp_cost_logs" model="ir.actions.act_window">
+        <field name="name">BoM cost logs</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.control.log</field>
+        <field name="domain">[]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        name="BoM cost logs"
+        id="menu_mrp_cost_logs"
+        action="action_mrp_cost_logs"
+        parent="mrp.menu_mrp_reporting"
+        sequence="60"
+    />
+
+    <record id="mrp_cost_logs_view_form" model="ir.ui.view">
+        <field name="name">mrp.control.log.form</field>
+        <field name="model">mrp.control.log</field>
+        <field name="arch" type="xml">
+            <form string="Logs" id="cost_logs">
+                <sheet name="cost_logs">
+                    <group>
+                        <field name="product_code" />
+                        <field name="computed_date" />
+                        <field name="computed_cost" />
+                        <field name="product_id" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="mrp_cost_logs_view_tree" model="ir.ui.view">
+        <field name="name">mrp.control.log.form</field>
+        <field name="model">mrp.control.log</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="product_code" />
+                <field name="computed_date" />
+                <field name="computed_cost" />
+                <field name="product_id" optional="hide" />
+            </tree>
+        </field>
+    </record>
+</odoo>
