@@ -5,9 +5,7 @@ class ProductProduct(models.Model):
 
     _inherit = "product.product"
 
-    compute_control_logs = fields.Boolean(
-        related="product_tmpl_id.compute_control_logs"
-    )
+    compute_control_logs = fields.Boolean(string="Compute BoM cost logs")
     mrp_control_log_ids = fields.One2many(
         "mrp.control.log", "product_id", string="BoM cost logs"
     )

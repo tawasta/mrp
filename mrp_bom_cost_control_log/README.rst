@@ -7,7 +7,7 @@ Create Log lines from BoM cost computation
 ==========================================
 
 This module was created to keep an account of how computed BoM cost prices
-develop over time. Product template has "Compute BoM cost logs" -field that
+develop over time. Product variant has "Compute BoM cost logs" -field that
 is used to mark the products to which log lines a created.
 
 BoM cost logs menu can be found by going to Manufacturing --> Reporting
@@ -31,7 +31,7 @@ it also works without it. However the scheduled action created by
 that module makes creating logs easier, because it goes through a
 bunch of products.
 
-Use "Compute BoM cost logs" -field on product template to mark the
+Use "Compute BoM cost logs" -field on product variant to mark the
 products and create logs for those products.
 
 Known issues / Roadmap
