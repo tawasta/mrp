@@ -84,7 +84,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         return quantities
 
     def print_materials(
-        self, product_id, sheet2, row, level, quantity, parent_code, parent
+        self, product_id, sheet2, row, level, quantity, parent_code, parent, bom
     ):
         a, level = row, level
 
@@ -107,7 +107,15 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet2.write(
                 a, 9, dict(mater._fields["type"].selection).get(mater.type)
             )  # Material type
-            sheet2.write(a, 10, mater.net_weight)  # Material weight / per unit
+
+            percentage = (mater.relative_net_weight_percentage if mater.type == 'product'
+                else mater.relative_gross_weight_percentage)
+            product_weight = (product_id.weight if mater.type == 'product'
+                else product_id.gross_weight)
+
+            sheet2.write(
+                a, 10, percentage * product_weight * quantity
+            )  # Material weight / per unit
             sheet2.write(a, 11, mater.net_weight_uom_id.name)  # Net weight UoM
             sheet2.write(a, 12, mater.recycled_percentage)  # Recycled material %
             sheet2.write(
@@ -279,6 +287,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         child_number,
         quantities,
         identifier,
+        parent_bom,
     ):
         a, j = row, level
         j += 1
@@ -344,6 +353,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             quantity=quantities[ident][1],
             parent_code=parent_with_code,
             parent=ch,
+            bom=parent_bom,
         )
 
         child_number = 0
@@ -365,6 +375,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 child_number=child_number,
                 quantities=quantities,
                 identifier=ident,
+                parent_bom=child_bom,
             )
         j -= 1
         return a
@@ -376,12 +387,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         product_variant,
         style,
         child_number,
-        materials,
-        wood_materials,
-        glue_materials,
-        metal_materials,
-        plastic_materials,
-        eee_materials,
+        materials_dict,
     ):
         wood_category_id = self.env["product.material.upper.category"].search(
             [("name", "=", "Wood")]
@@ -403,15 +409,22 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             if product_variant and ch._skip_bom_line(product_variant):
                 continue
 
-            materials += self.env["product.material.composition"].search(
+            materials = self.env["product.material.composition"].search(
                 [
                     ("product_product_id", "=", ch.product_id.id),
                     ("is_delivery_package", "=", False),
                     ("type", "=", "product"),
                 ]
             )
+            materials_dict["materials_weight"] += sum(
+                mater.net_weight * ch.product_qty for mater in materials
+            )
+            materials_dict["materials_recyc_weight"] += sum(
+                (mater.recycled_percentage / 100) * mater.net_weight * ch.product_qty
+                for mater in materials
+            )
 
-            wood_materials += self.env["product.material.composition"].search(
+            wood_materials = self.env["product.material.composition"].search(
                 [
                     ("product_product_id", "=", ch.product_id.id),
                     ("product_material_upper_category_id", "=", wood_category_id.id),
@@ -420,7 +433,15 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ("type", "=", "product"),
                 ]
             )
-            glue_materials += self.env["product.material.composition"].search(
+            materials_dict["wood_materials_weight"] += sum(
+                mater.net_weight * ch.product_qty for mater in wood_materials
+            )
+            materials_dict["wood_materials_recyc_weight"] += sum(
+                (mater.recycled_percentage / 100) * mater.net_weight * ch.product_qty
+                for mater in wood_materials
+            )
+
+            glue_materials = self.env["product.material.composition"].search(
                 [
                     ("product_product_id", "=", ch.product_id.id),
                     ("product_material_upper_category_id", "=", glue_category_id.id),
@@ -429,7 +450,15 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ("type", "=", "product"),
                 ]
             )
-            metal_materials += self.env["product.material.composition"].search(
+            materials_dict["glue_materials_weight"] += sum(
+                mater.net_weight * ch.product_qty for mater in glue_materials
+            )
+            materials_dict["glue_materials_recyc_weight"] += sum(
+                (mater.recycled_percentage / 100) * mater.net_weight * ch.product_qty
+                for mater in glue_materials
+            )
+
+            metal_materials = self.env["product.material.composition"].search(
                 [
                     ("product_product_id", "=", ch.product_id.id),
                     ("product_material_upper_category_id", "=", metal_category_id.id),
@@ -438,7 +467,15 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ("type", "=", "product"),
                 ]
             )
-            plastic_materials += self.env["product.material.composition"].search(
+            materials_dict["metal_materials_weight"] += sum(
+                mater.net_weight * ch.product_qty for mater in metal_materials
+            )
+            materials_dict["metal_materials_recyc_weight"] += sum(
+                (mater.recycled_percentage / 100) * mater.net_weight * ch.product_qty
+                for mater in metal_materials
+            )
+
+            plastic_materials = self.env["product.material.composition"].search(
                 [
                     ("product_product_id", "=", ch.product_id.id),
                     ("product_material_upper_category_id", "=", plastic_category_id.id),
@@ -447,7 +484,15 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ("type", "=", "product"),
                 ]
             )
-            eee_materials += self.env["product.material.composition"].search(
+            materials_dict["plastic_materials_weight"] += sum(
+                mater.net_weight * ch.product_qty for mater in plastic_materials
+            )
+            materials_dict["plastic_materials_recyc_weight"] += sum(
+                (mater.recycled_percentage / 100) * mater.net_weight * ch.product_qty
+                for mater in plastic_materials
+            )
+
+            eee_materials = self.env["product.material.composition"].search(
                 [
                     ("product_product_id", "=", ch.product_id.id),
                     ("product_material_upper_category_id", "=", eee_category_id.id),
@@ -456,36 +501,24 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ("type", "=", "product"),
                 ]
             )
+            materials_dict["eee_materials_weight"] += sum(
+                mater.net_weight * ch.product_qty for mater in eee_materials
+            )
+            materials_dict["eee_materials_recyc_weight"] += sum(
+                (mater.recycled_percentage / 100) * mater.net_weight * ch.product_qty
+                for mater in eee_materials
+            )
 
             if ch.child_bom_id:
-                (
-                    materials,
-                    wood_materials,
-                    glue_materials,
-                    metal_materials,
-                    plastic_materials,
-                    eee_materials,
-                ) = self.product_material_summary(
+                materials_dict = self.product_material_summary(
                     sheet6,
                     product_variant=ch.product_id,
                     style=None,
                     bom=ch.child_bom_id,
                     child_number=child_number,
-                    materials=materials,
-                    wood_materials=wood_materials,
-                    glue_materials=glue_materials,
-                    metal_materials=metal_materials,
-                    plastic_materials=plastic_materials,
-                    eee_materials=eee_materials,
+                    materials_dict=materials_dict,
                 )
-        return (
-            materials,
-            wood_materials,
-            glue_materials,
-            metal_materials,
-            plastic_materials,
-            eee_materials,
-        )
+        return materials_dict
 
     def packaging_material_summary(
         self,
@@ -494,12 +527,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         product_variant,
         style,
         child_number,
-        materials,
-        cardboard_materials,
-        paper_materials,
-        plastic_materials,
-        metal_materials,
-        wood_materials,
+        materials_dict,
     ):
         cardboard_category_id = self.env["product.material.upper.category"].search(
             [("name", "=", "Cardboard")]
@@ -521,15 +549,22 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             if product_variant and ch._skip_bom_line(product_variant):
                 continue
 
-            materials += self.env["product.material.composition"].search(
+            materials = self.env["product.material.composition"].search(
                 [
                     ("product_product_id", "=", ch.product_id.id),
                     ("is_delivery_package", "=", True),
                     ("type", "=", "product"),
                 ]
             )
+            materials_dict["materials_weight"] += sum(
+                mater.net_weight * ch.product_qty for mater in materials
+            )
+            materials_dict["materials_recyc_weight"] += sum(
+                (mater.recycled_percentage / 100) * mater.net_weight * ch.product_qty
+                for mater in materials
+            )
 
-            cardboard_materials += self.env["product.material.composition"].search(
+            cardboard_materials = self.env["product.material.composition"].search(
                 [
                     ("product_product_id", "=", ch.product_id.id),
                     (
@@ -542,7 +577,15 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ("type", "=", "product"),
                 ]
             )
-            paper_materials += self.env["product.material.composition"].search(
+            materials_dict["cardboard_materials_weight"] += sum(
+                mater.net_weight * ch.product_qty for mater in cardboard_materials
+            )
+            materials_dict["cardboard_materials_recyc_weight"] += sum(
+                (mater.recycled_percentage / 100) * mater.net_weight * ch.product_qty
+                for mater in cardboard_materials
+            )
+
+            paper_materials = self.env["product.material.composition"].search(
                 [
                     ("product_product_id", "=", ch.product_id.id),
                     ("product_material_upper_category_id", "=", paper_category_id.id),
@@ -551,7 +594,15 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ("type", "=", "product"),
                 ]
             )
-            plastic_materials += self.env["product.material.composition"].search(
+            materials_dict["paper_materials_weight"] += sum(
+                mater.net_weight * ch.product_qty for mater in paper_materials
+            )
+            materials_dict["paper_materials_recyc_weight"] += sum(
+                (mater.recycled_percentage / 100) * mater.net_weight * ch.product_qty
+                for mater in paper_materials
+            )
+
+            plastic_materials = self.env["product.material.composition"].search(
                 [
                     ("product_product_id", "=", ch.product_id.id),
                     ("product_material_upper_category_id", "=", plastic_category_id.id),
@@ -560,7 +611,15 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ("type", "=", "product"),
                 ]
             )
-            metal_materials += self.env["product.material.composition"].search(
+            materials_dict["plastic_materials_weight"] += sum(
+                mater.net_weight * ch.product_qty for mater in plastic_materials
+            )
+            materials_dict["plastic_materials_recyc_weight"] += sum(
+                (mater.recycled_percentage / 100) * mater.net_weight * ch.product_qty
+                for mater in plastic_materials
+            )
+
+            metal_materials = self.env["product.material.composition"].search(
                 [
                     ("product_product_id", "=", ch.product_id.id),
                     ("product_material_upper_category_id", "=", metal_category_id.id),
@@ -569,7 +628,15 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ("type", "=", "product"),
                 ]
             )
-            wood_materials += self.env["product.material.composition"].search(
+            materials_dict["metal_materials_weight"] += sum(
+                mater.net_weight * ch.product_qty for mater in metal_materials
+            )
+            materials_dict["metal_materials_recyc_weight"] += sum(
+                (mater.recycled_percentage / 100) * mater.net_weight * ch.product_qty
+                for mater in metal_materials
+            )
+
+            wood_materials = self.env["product.material.composition"].search(
                 [
                     ("product_product_id", "=", ch.product_id.id),
                     ("product_material_upper_category_id", "=", wood_category_id.id),
@@ -578,36 +645,24 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ("type", "=", "product"),
                 ]
             )
+            materials_dict["wood_materials_weight"] += sum(
+                mater.net_weight * ch.product_qty for mater in wood_materials
+            )
+            materials_dict["wood_materials_recyc_weight"] += sum(
+                (mater.recycled_percentage / 100) * mater.net_weight * ch.product_qty
+                for mater in wood_materials
+            )
 
             if ch.child_bom_id:
-                (
-                    materials,
-                    cardboard_materials,
-                    paper_materials,
-                    plastic_materials,
-                    metal_materials,
-                    wood_materials,
-                ) = self.packaging_material_summary(
+                materials_dict = self.packaging_material_summary(
                     sheet6,
                     product_variant=ch.product_id,
                     style=None,
                     bom=ch.child_bom_id,
                     child_number=child_number,
-                    materials=materials,
-                    cardboard_materials=cardboard_materials,
-                    paper_materials=paper_materials,
-                    plastic_materials=plastic_materials,
-                    metal_materials=metal_materials,
-                    wood_materials=wood_materials,
+                    materials_dict=materials_dict,
                 )
-        return (
-            materials,
-            cardboard_materials,
-            paper_materials,
-            plastic_materials,
-            metal_materials,
-            wood_materials,
-        )
+        return materials_dict
 
     def all_bom_consus(self, bom, product_variant, bom_consus):
         for oper in bom.operation_ids:
@@ -637,7 +692,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             if product_variant and ch._skip_bom_line(product_variant):
                 continue
 
-            products += self.env["product.product"].browse(ch.product_id.id)
+            product = self.env["product.product"].browse(ch.product_id.id)
+
+            if product:
+                products.append([product, ch.product_qty])
 
             if ch.child_bom_id:
                 products = self.all_material_summary(
@@ -1713,6 +1771,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 quantity=o.product_qty,
                 parent_code="N/A",
                 parent=o,
+                bom=o,
             )
 
             # --------------------------------------------------------------------- #
@@ -1804,77 +1863,51 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             ident = "{}".format(o.id)
             quantities = self.get_bom_quantities(o)
 
-            materials = self.env["product.material.composition"]
+            materials_dict = {
+                'materials_weight': 0,
+                'wood_materials_weight': 0,
+                'glue_materials_weight': 0,
+                'metal_materials_weight': 0,
+                'plastic_materials_weight': 0,
+                'eee_materials_weight': 0,
+                'materials_recyc_weight': 0,
+                'wood_materials_recyc_weight': 0,
+                'glue_materials_recyc_weight': 0,
+                'metal_materials_recyc_weight': 0,
+                'plastic_materials_recyc_weight': 0,
+                'eee_materials_recyc_weight': 0,
+            }
 
-            (
-                materials,
-                wood_materials,
-                glue_materials,
-                metal_materials,
-                plastic_materials,
-                eee_materials,
-            ) = self.product_material_summary(
+            materials_dict = self.product_material_summary(
                 sheet6,
                 bom=o,
                 product_variant=material_variant,
                 style=None,
                 child_number=0,
-                materials=materials,
-                wood_materials=materials,
-                glue_materials=materials,
-                metal_materials=materials,
-                plastic_materials=materials,
-                eee_materials=materials,
+                materials_dict=materials_dict,
             )
 
-            combined_materials = (
-                wood_materials
-                + glue_materials
-                + metal_materials
-                + plastic_materials
-                + eee_materials
+            total_wood_material_weight = materials_dict.get('wood_materials_weight', 0)
+            total_wood_material_recyc = materials_dict.get('wood_materials_recyc_weight', 0)
+            total_glue_material_weight = materials_dict.get('glue_materials_weight', 0)
+            total_glue_material_recyc = materials_dict.get('glue_materials_recyc_weight', 0)
+            total_metal_material_weight = materials_dict.get('metal_materials_weight', 0)
+            total_metal_material_recyc = materials_dict.get('metal_materials_recyc_weight', 0)
+            total_plastic_material_weight = materials_dict.get('plastic_materials_weight', 0)
+            total_plastic_material_recyc = materials_dict.get('plastic_materials_recyc_weight', 0)
+            total_eee_material_weight = materials_dict.get('eee_materials_weight', 0)
+            total_eee_material_recyc = materials_dict.get('eee_materials_recyc_weight', 0)
+
+            total_material_weight = (
+                total_wood_material_weight +
+                total_glue_material_weight +
+                total_metal_material_weight +
+                total_plastic_material_weight +
+                total_eee_material_weight
             )
-            total_material_weight = sum(
-                mater.net_weight for mater in combined_materials
-            )
-            total_material_recyc = sum(
-                (mater.recycled_percentage / 100) * mater.net_weight
-                for mater in materials
-            )
-            #            total_material_recyc = sum(mater.recycled_percentage for mater in materials)
-            total_wood_material_weight = sum(
-                mater.net_weight for mater in wood_materials
-            )
-            total_wood_material_recyc = sum(
-                (mater.recycled_percentage / 100) * mater.net_weight
-                for mater in wood_materials
-            )
-            total_glue_material_weight = sum(
-                mater.net_weight for mater in glue_materials
-            )
-            total_glue_material_recyc = sum(
-                (mater.recycled_percentage / 100) * mater.net_weight
-                for mater in glue_materials
-            )
-            total_metal_material_weight = sum(
-                mater.net_weight for mater in metal_materials
-            )
-            total_metal_material_recyc = sum(
-                (mater.recycled_percentage / 100) * mater.net_weight
-                for mater in metal_materials
-            )
-            total_plastic_material_weight = sum(
-                mater.net_weight for mater in plastic_materials
-            )
-            total_plastic_material_recyc = sum(
-                (mater.recycled_percentage / 100) * mater.net_weight
-                for mater in plastic_materials
-            )
-            total_eee_material_weight = sum(mater.net_weight for mater in eee_materials)
-            total_eee_material_recyc = sum(
-                (mater.recycled_percentage / 100) * mater.net_weight
-                for mater in eee_materials
-            )
+
+            total_material_recyc = materials_dict.get('materials_recyc_weight', 0)
+
             sheet6.write(3, 0, "Wood")
             sheet6.write(3, 1, total_wood_material_weight)
             sheet6.write(
@@ -1996,78 +2029,51 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             ident = "{}".format(o.id)
             quantities = self.get_bom_quantities(o)
 
-            materials = self.env["product.material.composition"]
+            materials_dict = {
+                'materials_weight': 0,
+                'cardboard_materials_weight': 0,
+                'paper_materials_weight': 0,
+                'plastic_materials_weight': 0,
+                'metal_materials_weight': 0,
+                'wood_materials_weight': 0,
+                'materials_recyc_weight': 0,
+                'cardboard_materials_recyc_weight': 0,
+                'paper_materials_recyc_weight': 0,
+                'plastic_materials_recyc_weight': 0,
+                'metal_materials_recyc_weight': 0,
+                'wood_materials_recyc_weight': 0,
+            }
 
-            (
-                materials,
-                cardboard_materials,
-                paper_materials,
-                plastic_materials,
-                metal_materials,
-                wood_materials,
-            ) = self.packaging_material_summary(
+            materials_dict = self.packaging_material_summary(
                 sheet6,
                 bom=o,
                 product_variant=material_variant,
                 style=None,
                 child_number=0,
-                materials=materials,
-                cardboard_materials=materials,
-                paper_materials=materials,
-                plastic_materials=materials,
-                metal_materials=materials,
-                wood_materials=materials,
+                materials_dict=materials_dict,
             )
 
-            combined_materials = (
-                cardboard_materials
-                + paper_materials
-                + plastic_materials
-                + metal_materials
-                + wood_materials
+            total_cardboard_material_weight = materials_dict.get('cardboard_materials_weight', 0)
+            total_cardboard_material_recyc = materials_dict.get('cardboard_materials_recyc_weight', 0)
+            total_paper_material_weight = materials_dict.get('paper_materials_weight', 0)
+            total_paper_material_recyc = materials_dict.get('paper_materials_recyc_weight', 0)
+            total_plastic_material_weight = materials_dict.get('plastic_materials_weight', 0)
+            total_plastic_material_recyc = materials_dict.get('plastic_materials_recyc_weight', 0)
+            total_metal_material_weight = materials_dict.get('metal_materials_weight', 0)
+            total_metal_material_recyc = materials_dict.get('metal_materials_recyc_weight', 0)
+            total_wood_material_weight = materials_dict.get('wood_materials_weight', 0)
+            total_wood_material_recyc = materials_dict.get('wood_materials_recyc_weight', 0)
+
+            total_material_weight = (
+                total_cardboard_material_weight +
+                total_paper_material_weight +
+                total_plastic_material_weight +
+                total_metal_material_weight +
+                total_wood_material_weight
             )
-            total_material_weight = sum(
-                mater.net_weight for mater in combined_materials
-            )
-            total_material_recyc = sum(
-                (mater.recycled_percentage / 100) * mater.net_weight
-                for mater in materials
-            )
-            total_cardboard_material_weight = sum(
-                mater.net_weight for mater in cardboard_materials
-            )
-            total_cardboard_material_recyc = sum(
-                (mater.recycled_percentage / 100) * mater.net_weight
-                for mater in cardboard_materials
-            )
-            total_paper_material_weight = sum(
-                mater.net_weight for mater in paper_materials
-            )
-            total_paper_material_recyc = sum(
-                (mater.recycled_percentage / 100) * mater.net_weight
-                for mater in paper_materials
-            )
-            total_plastic_material_weight = sum(
-                mater.net_weight for mater in plastic_materials
-            )
-            total_plastic_material_recyc = sum(
-                (mater.recycled_percentage / 100) * mater.net_weight
-                for mater in plastic_materials
-            )
-            total_metal_material_weight = sum(
-                mater.net_weight for mater in metal_materials
-            )
-            total_metal_material_recyc = sum(
-                (mater.recycled_percentage / 100) * mater.net_weight
-                for mater in metal_materials
-            )
-            total_wood_material_weight = sum(
-                mater.net_weight for mater in wood_materials
-            )
-            total_wood_material_recyc = sum(
-                (mater.recycled_percentage / 100) * mater.net_weight
-                for mater in wood_materials
-            )
+
+            total_material_recyc = materials_dict.get('materials_recyc_weight', 0)
+
             sheet6.write(3, 4, "Cardboard")
             sheet6.write(3, 5, total_cardboard_material_weight)
             sheet6.write(
@@ -2195,13 +2201,14 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
 
             # --------------------------------------------------------------------- #
-            # ------------------ Product component materials ---------------------- #
+            # ------------------ 3. Product component materials ------------------- #
             # --------------------------------------------------------------------- #
 
             # NOT IN INCOMING PACKAGING
             # IS NOT A DELIVERY PACKAGE
 
             content_products = self.env["product.product"]
+            content_products = []
 
             content_products = self.all_material_summary(
                 sheet6,
@@ -2213,9 +2220,12 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
 
             content_materials = self.env["product.material.composition"]
+            content_materials = []
 
-            for product in content_products:
-                content_materials += self.env["product.material.composition"].search(
+            name_and_weight = {}
+
+            for product, qty in content_products:
+                materials = self.env["product.material.composition"].search(
                     domain=[
                         ("product_product_id", "=", product.id),
                         ("type", "!=", "product_packaging"),
@@ -2223,25 +2233,21 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ]
                 )
 
-            content_materials = content_materials.filtered(
-                lambda m: m.is_delivery_package != True
-            )
+                for material in materials:
+                    if not name_and_weight.get(material.product_material_id):
+                        name_and_weight[material.product_material_id] = [
+                            material.net_weight * qty,
+                            (material.recycled_percentage / 100
+                            ) * material.net_weight * qty,
+                        ]
+                    else:
+                        name_and_weight[material.product_material_id][
+                            0
+                        ] += material.net_weight * qty
+                        name_and_weight[material.product_material_id][1] += (
+                            material.recycled_percentage / 100
+                        ) * material.net_weight * qty
 
-            name_and_weight = {}
-
-            for material in content_materials:
-                if not name_and_weight.get(material.product_material_id):
-                    name_and_weight[material.product_material_id] = [
-                        material.net_weight,
-                        (material.recycled_percentage / 100) * material.net_weight,
-                    ]
-                else:
-                    name_and_weight[material.product_material_id][
-                        0
-                    ] += material.net_weight
-                    name_and_weight[material.product_material_id][1] += (
-                        material.recycled_percentage / 100
-                    ) * material.net_weight
             r = 3
 
             total_grouped_net_weight = 0
@@ -2291,6 +2297,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             # IS A DELIVERY PACKAGE
 
             pack_products = self.env["product.product"]
+            pack_products = []
 
             pack_products = self.all_material_summary(
                 sheet6,
@@ -2302,9 +2309,12 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
 
             pack_materials = self.env["product.material.composition"]
+            pack_materials = []
 
-            for product in pack_products:
-                pack_materials += self.env["product.material.composition"].search(
+            name_and_weight = {}
+
+            for product, qty in pack_products:
+                materials = self.env["product.material.composition"].search(
                     domain=[
                         ("product_product_id", "=", product.id),
                         ("type", "!=", "product_packaging"),
@@ -2312,21 +2322,21 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ]
                 )
 
-            name_and_weight = {}
+                for material in materials:
+                    if not name_and_weight.get(material.product_material_id):
+                        name_and_weight[material.product_material_id] = [
+                            material.net_weight * qty,
+                            (material.recycled_percentage / 100
+                            ) * material.net_weight * qty,
+                        ]
+                    else:
+                        name_and_weight[material.product_material_id][
+                            0
+                        ] += material.net_weight * qty
+                        name_and_weight[material.product_material_id][1] += (
+                            material.recycled_percentage / 100
+                        ) * material.net_weight * qty
 
-            for material in pack_materials:
-                if not name_and_weight.get(material.product_material_id):
-                    name_and_weight[material.product_material_id] = [
-                        material.net_weight,
-                        (material.recycled_percentage / 100) * material.net_weight,
-                    ]
-                else:
-                    name_and_weight[material.product_material_id][
-                        0
-                    ] += material.net_weight
-                    name_and_weight[material.product_material_id][1] += (
-                        material.recycled_percentage / 100
-                    ) * material.net_weight
             r = 3
 
             total_grouped_net_weight = 0
@@ -2374,6 +2384,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             bom_consus = self.all_bom_consus(o, product_variant, bom_model)
 
             consu_products = self.env["product.product"]
+            consu_products = []
 
             for consu_bom in bom_consus:
                 consu_products = self.all_material_summary(
@@ -2386,30 +2397,31 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 )
 
             consu_materials = self.env["product.material.composition"]
+            name_and_weight = {}
 
-            for product in consu_products:
-                consu_materials += self.env["product.material.composition"].search(
+            for product, qty in consu_products:
+                material = self.env["product.material.composition"].search(
                     domain=[
                         ("product_product_id", "=", product.id),
                         ("type", "!=", "product_packaging"),
                     ]
                 )
 
-            name_and_weight = {}
+                for material in consu_materials:
+                    if not name_and_weight.get(material.product_material_id):
+                        name_and_weight[material.product_material_id] = [
+                            material.net_weight * qty,
+                            (material.recycled_percentage / 100
+                            ) * material.net_weight * qty,
+                        ]
+                    else:
+                        name_and_weight[material.product_material_id][
+                            0
+                        ] += material.net_weight * qty
+                        name_and_weight[material.product_material_id][1] += (
+                            material.recycled_percentage / 100
+                        ) * material.net_weight * qty
 
-            for material in consu_materials:
-                if not name_and_weight.get(material.product_material_id):
-                    name_and_weight[material.product_material_id] = [
-                        material.net_weight,
-                        (material.recycled_percentage / 100) * material.net_weight,
-                    ]
-                else:
-                    name_and_weight[material.product_material_id][
-                        0
-                    ] += material.net_weight
-                    name_and_weight[material.product_material_id][1] += (
-                        material.recycled_percentage / 100
-                    ) * material.net_weight
             r = 3
 
             total_grouped_net_weight = 0
@@ -2459,6 +2471,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             # IS IN INCOMING PACKAGING
 
             products = self.env["product.product"]
+            products = []
 
             products = self.all_material_summary(
                 sheet6,
@@ -2470,38 +2483,38 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
 
             materials = self.env["product.material.composition"]
+            name_and_weight = {}
 
-            for product in products:
-                materials += self.env["product.material.composition"].search(
+            for product, qty in products:
+                materials = self.env["product.material.composition"].search(
                     domain=[
                         ("product_product_id", "=", product.id),
                         ("type", "=", "product_packaging"),
                     ]
                 )
 
-            name_and_weight = {}
+                for material in materials:
+                    if not name_and_weight.get(material.product_material_id):
+                        name_and_weight[material.product_material_id] = [
+                            material.net_weight * qty,
+                            (material.recycled_percentage / 100) * material.net_weight * qty,
+                            material.product_material_waste_component_id,
+                            material.product_material_waste_endpoint_id,
+                        ]
+                    else:
+                        name_and_weight[material.product_material_id][
+                            0
+                        ] += material.net_weight * qty
+                        name_and_weight[material.product_material_id][1] += (
+                            material.recycled_percentage / 100
+                        ) * material.net_weight * qty
+                        name_and_weight[material.product_material_id][
+                            2
+                        ] += material.product_material_waste_component_id
+                        name_and_weight[material.product_material_id][
+                            3
+                        ] += material.product_material_waste_endpoint_id
 
-            for material in materials:
-                if not name_and_weight.get(material.product_material_id):
-                    name_and_weight[material.product_material_id] = [
-                        material.net_weight,
-                        (material.recycled_percentage / 100) * material.net_weight,
-                        material.product_material_waste_component_id,
-                        material.product_material_waste_endpoint_id,
-                    ]
-                else:
-                    name_and_weight[material.product_material_id][
-                        0
-                    ] += material.net_weight
-                    name_and_weight[material.product_material_id][1] += (
-                        material.recycled_percentage / 100
-                    ) * material.net_weight
-                    name_and_weight[material.product_material_id][
-                        2
-                    ] += material.product_material_waste_component_id
-                    name_and_weight[material.product_material_id][
-                        3
-                    ] += material.product_material_waste_endpoint_id
             r = 3
 
             total_grouped_net_weight = 0
@@ -2547,6 +2560,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             # --------------------------------------------------------------------- #
 
             products = self.env["product.product"]
+            products = []
 
             products = self.all_material_summary(
                 sheet6,
@@ -2558,29 +2572,29 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
 
             materials = self.env["product.material.composition"]
+            name_and_weight = {}
 
-            for product in products:
-                materials += self.env["product.material.composition"].search(
+            for product, qty in products:
+                materials = self.env["product.material.composition"].search(
                     domain=[
                         ("product_product_id", "=", product.id),
                     ]
                 )
 
-            name_and_weight = {}
+                for material in materials:
+                    if not name_and_weight.get(material.product_material_id):
+                        name_and_weight[material.product_material_id] = [
+                            material.net_weight * qty,
+                            (material.recycled_percentage / 100) * material.net_weight * qty,
+                        ]
+                    else:
+                        name_and_weight[material.product_material_id][
+                            0
+                        ] += material.net_weight * qty
+                        name_and_weight[material.product_material_id][1] += (
+                            material.recycled_percentage / 100
+                        ) * material.net_weight * qty
 
-            for material in materials:
-                if not name_and_weight.get(material.product_material_id):
-                    name_and_weight[material.product_material_id] = [
-                        material.net_weight,
-                        (material.recycled_percentage / 100) * material.net_weight,
-                    ]
-                else:
-                    name_and_weight[material.product_material_id][
-                        0
-                    ] += material.net_weight
-                    name_and_weight[material.product_material_id][1] += (
-                        material.recycled_percentage / 100
-                    ) * material.net_weight
             r = 3
 
             total_grouped_net_weight = 0
@@ -2709,6 +2723,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     child_number=child_number,
                     quantities=quantities,
                     identifier=ident,
+                    parent_bom=o,
                 )
 
                 d = self.print_bom_children_5(
