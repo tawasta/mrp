@@ -108,19 +108,22 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 a, 9, dict(mater._fields["type"].selection).get(mater.type)
             )  # Material type
 
-            percentage = (
-                mater.relative_net_weight_percentage
-                if mater.type == "product"
-                else mater.relative_gross_weight_percentage
-            )
-            product_weight = (
-                product_id.weight
-                if mater.type == "product"
-                else product_id.gross_weight
-            )
-
+            #            percentage = (
+            #                mater.relative_net_weight_percentage
+            #                if mater.type == "product"
+            #                else mater.relative_gross_weight_percentage
+            #            )
+            #            product_weight = (
+            #                product_id.weight
+            #                if mater.type == "product"
+            #                else product_id.gross_weight
+            #            )
+            #
+            #            sheet2.write(
+            #                a, 10, percentage * product_weight * quantity
+            #            )  # Material weight / per unit
             sheet2.write(
-                a, 10, percentage * product_weight * quantity
+                a, 10, mater.net_weight * quantity
             )  # Material weight / per unit
             sheet2.write(a, 11, mater.net_weight_uom_id.name)  # Net weight UoM
             sheet2.write(a, 12, mater.recycled_percentage)  # Recycled material %
@@ -170,7 +173,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet4.write(
                 c, 12, dict(mater._fields["type"].selection).get(mater.type)
             )  # Material type
-            sheet4.write(c, 13, mater.net_weight)  # Material weight / per unit
+            sheet4.write(
+                c, 13, mater.net_weight * quantity
+            )  # Material weight / per unit
             sheet4.write(c, 14, mater.net_weight_uom_id.name)  # Net weight UoM
             sheet4.write(c, 15, mater.recycled_percentage)  # Recycled material %
             sheet4.write(
@@ -241,7 +246,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 d, 7, mater.product_material_class_id.name, sheet5_style
             )  # Material class
             sheet5.write(
-                d, 8, mater.net_weight, sheet5_style
+                d, 8, mater.net_weight * quantity, sheet5_style
             )  # Net weight in a product
             sheet5.write(
                 d, 9, mater.net_weight_uom_id.name or "", sheet5_style
