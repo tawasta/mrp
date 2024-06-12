@@ -1463,8 +1463,8 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         sheet6.set_column(25, 25, 25)  # X
 
         sheet6.set_column(26, 26, 33)  # Y
-        sheet6.set_column(27, 27, 17)  # Z
-        sheet6.set_column(28, 28, 17)  # AA
+        sheet6.set_column(27, 27, 21)  # Z
+        sheet6.set_column(28, 28, 21)  # AA
         sheet6.set_column(29, 29, 13)  # AB
         sheet6.set_column(30, 30, 33)  # W
         sheet6.set_column(31, 31, 38)  # X
@@ -2679,6 +2679,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                         weight_in_grams = material.net_weight_uom_id._compute_quantity(
                             material.net_weight, grams
                         )
+
+                        if len(consu_materials) <= 1:
+                            weight_in_grams = product.weight_uom_id._compute_quantity(
+                                product.weight, grams
+                            )
 
                         #  Check that time_in_year is not zero
                         consumed_weight = (
