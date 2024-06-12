@@ -728,9 +728,14 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 )
         return materials_dict
 
-    def all_bom_consus(self, bom, product_variant, bom_consus):
+    def all_bom_consus(self, bom, product_variant, consu_oper_durat):
         for oper in bom.operation_ids:
-            bom_consus += oper.workcenter_id.bom_consu
+            consu = oper.workcenter_id.bom_consu
+
+            if consu:
+                consu_oper_durat.append(
+                    [oper.workcenter_id.bom_consu, oper.duration_total * 60]
+                )
 
         for ch in bom.bom_line_ids:
             if product_variant and ch._skip_bom_line(product_variant):
@@ -739,9 +744,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 bom_consus = self.all_bom_consus(
                     bom=ch.child_bom_id,
                     product_variant=ch.product_id,
-                    bom_consus=bom_consus,
+                    consu_oper_durat=consu_oper_durat,
                 )
-        return bom_consus
+        return consu_oper_durat
 
     def all_material_summary(
         self,
@@ -2641,14 +2646,16 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             # NOT IN INCOMING PACKAGING
 
-            bom_model = self.env["mrp.bom"]
+            consu_oper_durat = []
 
-            bom_consus = self.all_bom_consus(o, product_variant, bom_model)
+            bom_consus = self.all_bom_consus(o, product_variant, consu_oper_durat)
 
-            consu_products = self.env["product.product"]
-            consu_products = []
+            name_and_weight = {}
+            time_in_year = o.company_id.time_in_year
 
-            for consu_bom in bom_consus:
+            for consu_bom, oper_duration in bom_consus:
+                consu_products = []
+
                 consu_products = self.all_material_summary(
                     sheet6,
                     bom=consu_bom,
@@ -2658,34 +2665,42 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     products=consu_products,
                 )
 
-            consu_materials = self.env["product.material.composition"]
-            name_and_weight = {}
-
-            for product, qty in consu_products:
-                consu_materials = self.env["product.material.composition"].search(
-                    domain=[
-                        ("product_product_id", "=", product.id),
-                        ("type", "!=", "product_packaging"),
-                    ]
-                )
-
-                for material in consu_materials:
-                    if not name_and_weight.get(material.product_material_id):
-                        name_and_weight[material.product_material_id] = [
-                            material.net_weight * qty,
-                            (material.recycled_percentage / 100)
-                            * material.net_weight
-                            * qty,
+                for product, qty in consu_products:
+                    consu_materials = self.env["product.material.composition"].search(
+                        domain=[
+                            ("product_product_id", "=", product.id),
+                            ("type", "!=", "product_packaging"),
                         ]
-                    else:
-                        name_and_weight[material.product_material_id][0] += (
-                            material.net_weight * qty
+                    )
+
+                    for material in consu_materials:
+                        grams = self.env.ref("uom.product_uom_gram")
+
+                        weight_in_grams = material.net_weight_uom_id._compute_quantity(
+                            material.net_weight, grams
                         )
-                        name_and_weight[material.product_material_id][1] += (
-                            (material.recycled_percentage / 100)
-                            * material.net_weight
-                            * qty
+
+                        #  Check that time_in_year is not zero
+                        consumed_weight = (
+                            time_in_year
+                            and (
+                                (qty * weight_in_grams / time_in_year) * (oper_duration)
+                            )
+                            or 0
                         )
+
+                        if not name_and_weight.get(material.product_material_id):
+                            name_and_weight[material.product_material_id] = [
+                                consumed_weight,
+                                (material.recycled_percentage / 100) * consumed_weight,
+                            ]
+                        else:
+                            name_and_weight[material.product_material_id][
+                                0
+                            ] += consumed_weight
+                            name_and_weight[material.product_material_id][1] += (
+                                material.recycled_percentage / 100
+                            ) * consumed_weight
 
             r = 3
 
