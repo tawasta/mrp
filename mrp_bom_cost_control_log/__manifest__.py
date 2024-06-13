@@ -22,7 +22,7 @@
     "name": "Log lines produced from BoM cost computations",
     "summary": """Adds log lines for products which are produced from BoM cost
                   computations""",
-    "version": "14.0.1.1.0",
+    "version": "14.0.1.2.0",
     "category": "MRP",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
