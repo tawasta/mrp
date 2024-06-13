@@ -2714,6 +2714,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             r = 3
 
             total_grouped_net_weight = 0
+            total_grouped_biogenic_weight = 0
 
             for weight, _recyc in name_and_weight.values():
                 total_grouped_net_weight += weight
@@ -2722,20 +2723,31 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             total_grouped_recycled_weight = 0
 
             for material, weight_recyc in name_and_weight.items():
+                net_weight = weight_recyc[0]
                 sheet6.write(r, 26, material.name)
-                sheet6.write(r, 27, weight_recyc[0])
-                sheet6.write(r, 28, weight_recyc[0] * 0.001)  # weight in kg
-                sheet6.write(r, 29, (weight_recyc[0] / total_grouped_net_weight) * 100)
-                check_weight += weight_recyc[0]
+                sheet6.write(r, 27, net_weight)
+                sheet6.write(r, 28, net_weight * 0.001)  # weight in kg
+                sheet6.write(r, 29, (net_weight / total_grouped_net_weight) * 100)
+                check_weight += net_weight
                 total_grouped_recycled_weight += weight_recyc[1]
                 sheet6.write(
                     r,
                     30,
-                    weight_recyc[0] and (weight_recyc[1] / weight_recyc[0]) * 100 or 0,
+                    net_weight and (weight_recyc[1] / net_weight) * 100 or 0,
+                )
+
+                total_grouped_biogenic_weight += (
+                    material.biogenic_material_weight_percentage / 100
+                ) * net_weight
+                sheet6.write(r, 31, material.biogenic_material_weight_percentage or 0)
+                sheet6.write(
+                    r,
+                    32,
+                    (material.biogenic_material_weight_percentage / 100)
+                    * net_weight
+                    * 0.001,
                 )
                 r += 1
-                sheet6.write(r, 31, "")
-                sheet6.write(r, 32, "")
 
             sheet6.write(r, 26, "Total")
             sheet6.write(r, 27, total_grouped_net_weight)
@@ -2754,8 +2766,14 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 and (total_grouped_recycled_weight / total_grouped_net_weight) * 100
                 or 0,
             )
-            sheet6.write(r, 31, "")
-            sheet6.write(r, 32, "")
+            sheet6.write(
+                r,
+                31,
+                total_grouped_net_weight
+                and (total_grouped_biogenic_weight / total_grouped_net_weight) * 100
+                or 0,
+            )
+            sheet6.write(r, 32, total_grouped_biogenic_weight * 0.001)
 
             # --------------------------------------------------------------------- #
             # ------------ 6. All materials in Incoming packaging ----------------- #
@@ -2903,22 +2921,38 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             check_weight = 0
             total_grouped_recycled_weight = 0
+            total_grouped_biogenic_weight = 0
 
             for material, weight_recyc in name_and_weight.items():
+                net_weight = weight_recyc[0]
                 sheet6.write(r, 40, material.name)
-                sheet6.write(r, 41, weight_recyc[0])
-                sheet6.write(r, 42, weight_recyc[0] * 0.001)  # weight in kg
-                sheet6.write(r, 43, (weight_recyc[0] / total_grouped_net_weight) * 100)
-                check_weight += weight_recyc[0]
+                sheet6.write(r, 41, net_weight)
+                sheet6.write(r, 42, net_weight * 0.001)  # weight in kg
+                sheet6.write(r, 43, (net_weight / total_grouped_net_weight) * 100)
+                check_weight += net_weight
                 total_grouped_recycled_weight += weight_recyc[1]
                 sheet6.write(
                     r,
                     44,
-                    weight_recyc[0] and (weight_recyc[1] / weight_recyc[0]) * 100 or 0,
+                    net_weight and (weight_recyc[1] / net_weight) * 100 or 0,
+                )
+
+                total_grouped_biogenic_weight += (
+                    material.biogenic_material_weight_percentage / 100
+                ) * net_weight
+                sheet6.write(
+                    r,
+                    45,
+                    material.biogenic_material_weight_percentage or 0,
+                )
+                sheet6.write(
+                    r,
+                    46,
+                    (material.biogenic_material_weight_percentage / 100)
+                    * net_weight
+                    * 0.001,
                 )
                 r += 1
-                sheet6.write(r, 45, "")
-                sheet6.write(r, 46, "")
 
             sheet6.write(r, 40, "Total")
             sheet6.write(r, 41, total_grouped_net_weight)
@@ -2936,8 +2970,14 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 and (total_grouped_recycled_weight / total_grouped_net_weight) * 100
                 or 0,
             )
-            sheet6.write(r, 45, "")
-            sheet6.write(r, 46, "")
+            sheet6.write(
+                r,
+                45,
+                total_grouped_net_weight
+                and (total_grouped_biogenic_weight / total_grouped_net_weight) * 100
+                or 0,
+            )
+            sheet6.write(r, 46, total_grouped_biogenic_weight * 0.001)
 
             # --------------------------------------------------------------------- #
             # ---------------- 8. Workcenters Energy summary ---------------------- #
