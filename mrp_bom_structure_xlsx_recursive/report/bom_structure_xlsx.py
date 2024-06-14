@@ -173,10 +173,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet4.write(
                 c, 12, dict(mater._fields["type"].selection).get(mater.type)
             )  # Material type
-            sheet4.write(
-                c, 13, mater.net_weight * quantity
-            )  # Material weight / per unit
-            sheet4.write(c, 14, mater.net_weight_uom_id.name)  # Net weight UoM
             sheet4.write(c, 15, mater.recycled_percentage)  # Recycled material %
             sheet4.write(
                 c, 16, mater.product_material_waste_component_id.name
@@ -189,9 +185,20 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             grams = self.env.ref("uom.product_uom_gram")
 
-            weight_in_grams = mater.net_weight_uom_id._compute_quantity(
-                mater.net_weight, grams
-            )
+            if (
+                parent.product_uom_id.category_id.id
+                == self.env.ref("uom.product_uom_categ_kgm").id
+            ):
+                weight_in_grams = parent.product_uom_id._compute_quantity(
+                    mater.net_weight * quantity, grams
+                )
+            else:
+                weight_in_grams = mater.net_weight_uom_id._compute_quantity(
+                    mater.net_weight * quantity, grams
+                )
+
+            sheet4.write(c, 13, weight_in_grams)  # Material weight / per unit
+            sheet4.write(c, 14, grams.name)  # Net weight UoM
 
             #  Check that time_in_year is not zero
             consumed_weight = (
@@ -926,7 +933,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             [("product_product_id", "=", ch.product_id.id)]
         )
 
-        if len(has_materials.ids) <= 1:
+        if len(has_materials.ids) < 1:
             sheet4.write(
                 c, 18, consumed_weight
             )  # Energy consumption during an operation / Total/(kWh)
