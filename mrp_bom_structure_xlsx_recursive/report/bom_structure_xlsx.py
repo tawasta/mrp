@@ -173,10 +173,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet4.write(
                 c, 12, dict(mater._fields["type"].selection).get(mater.type)
             )  # Material type
-            sheet4.write(
-                c, 13, mater.net_weight * quantity
-            )  # Material weight / per unit
-            sheet4.write(c, 14, mater.net_weight_uom_id.name)  # Net weight UoM
             sheet4.write(c, 15, mater.recycled_percentage)  # Recycled material %
             sheet4.write(
                 c, 16, mater.product_material_waste_component_id.name
@@ -189,17 +185,25 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             grams = self.env.ref("uom.product_uom_gram")
 
-            weight_in_grams = mater.net_weight_uom_id._compute_quantity(
-                mater.net_weight, grams
-            )
+            if (
+                parent.product_uom_id.category_id.id
+                == self.env.ref("uom.product_uom_categ_kgm").id
+            ):
+                weight_in_grams = parent.product_uom_id._compute_quantity(
+                    mater.net_weight * quantity, grams, round=False
+                )
+            else:
+                weight_in_grams = mater.net_weight_uom_id._compute_quantity(
+                    mater.net_weight * quantity, grams, round=False
+                )
+
+            sheet4.write(c, 13, weight_in_grams)  # Material weight / per unit
+            sheet4.write(c, 14, grams.name)  # Net weight UoM
 
             #  Check that time_in_year is not zero
             consumed_weight = (
                 time_in_year
-                and (
-                    (quantity * weight_in_grams / time_in_year)
-                    * (oper.duration_total * 60)
-                )
+                and ((weight_in_grams / time_in_year) * (oper.duration_total * 60))
                 or 0
             )
 
@@ -765,7 +769,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             product = self.env["product.product"].browse(ch.product_id.id)
 
             if product:
-                products.append([product, ch.product_qty * multiplier])
+                products.append(
+                    [product, ch.product_qty * multiplier, ch.product_uom_id]
+                )
 
             if ch.child_bom_id:
                 products = self.all_material_summary(
@@ -897,7 +903,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         grams = self.env.ref("uom.product_uom_gram")
 
         weight_in_grams = ch.product_id.weight_uom_id._compute_quantity(
-            ch.product_id.weight, grams
+            ch.product_id.weight, grams, round=False
         )
 
         #  Check that time_in_year is not zero
@@ -926,7 +932,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             [("product_product_id", "=", ch.product_id.id)]
         )
 
-        if len(has_materials.ids) <= 1:
+        if len(has_materials.ids) < 1:
             sheet4.write(
                 c, 18, consumed_weight
             )  # Energy consumption during an operation / Total/(kWh)
@@ -1094,11 +1100,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             # Either use variant or template weight
             if bom.product_id and bom.product_id.weight:
                 weight_in_grams = bom.product_id.weight_uom_id._compute_quantity(
-                    bom.product_id.weight, grams
+                    bom.product_id.weight, grams, round=False
                 )
             elif bom.product_tmpl_id and bom.product_tmpl_id.weight:
                 weight_in_grams = bom.product_tmpl_id.weight_uom_id._compute_quantity(
-                    bom.product_tmpl_id.weight, grams
+                    bom.product_tmpl_id.weight, grams, round=False
                 )
             else:
                 weight_in_grams = 0
@@ -2363,7 +2369,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             name_and_weight = {}
 
-            for product, qty in content_products:
+            for product, qty, uom in content_products:
                 materials = self.env["product.material.composition"].search(
                     domain=[
                         ("product_product_id", "=", product.id),
@@ -2516,7 +2522,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             name_and_weight = {}
 
-            for product, qty in pack_products:
+            for product, qty, uom in pack_products:
                 materials = self.env["product.material.composition"].search(
                     domain=[
                         ("product_product_id", "=", product.id),
@@ -2669,7 +2675,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     products=consu_products,
                 )
 
-                for product, qty in consu_products:
+                for product, qty, uom in consu_products:
                     consu_materials = self.env["product.material.composition"].search(
                         domain=[
                             ("product_product_id", "=", product.id),
@@ -2680,21 +2686,29 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     for material in consu_materials:
                         grams = self.env.ref("uom.product_uom_gram")
 
-                        weight_in_grams = material.net_weight_uom_id._compute_quantity(
-                            material.net_weight, grams
-                        )
+                        if (
+                            uom.category_id.id
+                            == self.env.ref("uom.product_uom_categ_kgm").id
+                        ):
+                            weight_in_grams = uom._compute_quantity(
+                                material.net_weight * qty, grams, round=False
+                            )
+                        else:
+                            weight_in_grams = (
+                                material.net_weight_uom_id._compute_quantity(
+                                    material.net_weight * qty, grams, round=False
+                                )
+                            )
 
-                        if len(consu_materials) <= 1:
+                        if len(consu_materials) < 1:
                             weight_in_grams = product.weight_uom_id._compute_quantity(
-                                product.weight, grams
+                                product.weight * qty, grams, round=False
                             )
 
                         #  Check that time_in_year is not zero
                         consumed_weight = (
                             time_in_year
-                            and (
-                                (qty * weight_in_grams / time_in_year) * (oper_duration)
-                            )
+                            and ((weight_in_grams / time_in_year) * (oper_duration))
                             or 0
                         )
 
@@ -2795,7 +2809,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             materials = self.env["product.material.composition"]
             name_and_weight = {}
 
-            for product, qty in products:
+            for product, qty, uom in products:
                 materials = self.env["product.material.composition"].search(
                     domain=[
                         ("product_product_id", "=", product.id),
@@ -2887,7 +2901,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             materials = self.env["product.material.composition"]
             name_and_weight = {}
 
-            for product, qty in products:
+            for product, qty, uom in products:
                 materials = self.env["product.material.composition"].search(
                     domain=[
                         ("product_product_id", "=", product.id),
