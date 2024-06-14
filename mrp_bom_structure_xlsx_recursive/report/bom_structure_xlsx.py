@@ -190,11 +190,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 == self.env.ref("uom.product_uom_categ_kgm").id
             ):
                 weight_in_grams = parent.product_uom_id._compute_quantity(
-                    mater.net_weight * quantity, grams
+                    mater.net_weight * quantity, grams, round=False
                 )
             else:
                 weight_in_grams = mater.net_weight_uom_id._compute_quantity(
-                    mater.net_weight * quantity, grams
+                    mater.net_weight * quantity, grams, round=False
                 )
 
             sheet4.write(c, 13, weight_in_grams)  # Material weight / per unit
@@ -203,10 +203,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             #  Check that time_in_year is not zero
             consumed_weight = (
                 time_in_year
-                and (
-                    (quantity * weight_in_grams / time_in_year)
-                    * (oper.duration_total * 60)
-                )
+                and ((weight_in_grams / time_in_year) * (oper.duration_total * 60))
                 or 0
             )
 
@@ -904,7 +901,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         grams = self.env.ref("uom.product_uom_gram")
 
         weight_in_grams = ch.product_id.weight_uom_id._compute_quantity(
-            ch.product_id.weight, grams
+            ch.product_id.weight, grams, round=False
         )
 
         #  Check that time_in_year is not zero
@@ -1101,11 +1098,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             # Either use variant or template weight
             if bom.product_id and bom.product_id.weight:
                 weight_in_grams = bom.product_id.weight_uom_id._compute_quantity(
-                    bom.product_id.weight, grams
+                    bom.product_id.weight, grams, round=False
                 )
             elif bom.product_tmpl_id and bom.product_tmpl_id.weight:
                 weight_in_grams = bom.product_tmpl_id.weight_uom_id._compute_quantity(
-                    bom.product_tmpl_id.weight, grams
+                    bom.product_tmpl_id.weight, grams, round=False
                 )
             else:
                 weight_in_grams = 0
@@ -2688,12 +2685,12 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                         grams = self.env.ref("uom.product_uom_gram")
 
                         weight_in_grams = material.net_weight_uom_id._compute_quantity(
-                            material.net_weight, grams
+                            material.net_weight, grams, round=False
                         )
 
                         if len(consu_materials) <= 1:
                             weight_in_grams = product.weight_uom_id._compute_quantity(
-                                product.weight, grams
+                                product.weight, grams, round=False
                             )
 
                         #  Check that time_in_year is not zero
