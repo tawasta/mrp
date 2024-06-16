@@ -868,8 +868,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )  # Waste product name
 
             if product_variant.multiply_with_by_products:
+                weight_result = product_variant.gross_weight - product_variant.weight
                 sheet3.write(
-                    b, 7, by_product.product_qty * multiplier or 0, bold
+                    b, 7, weight_result * multiplier or 0, bold
                 )  # Waste amount
             else:
                 sheet3.write(b, 7, by_product.product_qty or 0, bold)  # Waste amount
