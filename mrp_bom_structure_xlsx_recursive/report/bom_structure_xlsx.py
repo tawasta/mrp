@@ -134,6 +134,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     or 1
                 )
 
+            if product_id.ignore_component_qty:
+                quantity = 1
+
             sheet2.write(
                 a, 10, mater.net_weight * quantity * multiply_with
             )  # Material weight / per unit
@@ -440,6 +443,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             if product_variant and ch._skip_bom_line(product_variant):
                 continue
 
+            if ch.product_id.ignore_component_qty:
+                quantity = 1
+            else:
+                quantity = ch.product_qty
+
             bom_product_id = bom.product_id or bom.product_tmpl_id.product_variant_id
 
             multiply_with = 1
@@ -459,13 +467,13 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 ]
             )
             materials_dict["materials_weight"] += sum(
-                mater.net_weight * ch.product_qty * multiplier * multiply_with
+                mater.net_weight * quantity * multiplier * multiply_with
                 for mater in materials
             )
             materials_dict["materials_recyc_weight"] += sum(
                 (mater.recycled_percentage / 100)
                 * mater.net_weight
-                * ch.product_qty
+                * quantity
                 * multiplier
                 * multiply_with
                 for mater in materials
@@ -481,13 +489,13 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 ]
             )
             materials_dict["wood_materials_weight"] += sum(
-                mater.net_weight * ch.product_qty * multiplier * multiply_with
+                mater.net_weight * quantity * multiplier * multiply_with
                 for mater in wood_materials
             )
             materials_dict["wood_materials_recyc_weight"] += sum(
                 (mater.recycled_percentage / 100)
                 * mater.net_weight
-                * ch.product_qty
+                * quantity
                 * multiplier
                 * multiply_with
                 for mater in wood_materials
@@ -503,13 +511,13 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 ]
             )
             materials_dict["glue_materials_weight"] += sum(
-                mater.net_weight * ch.product_qty * multiplier * multiply_with
+                mater.net_weight * quantity * multiplier * multiply_with
                 for mater in glue_materials
             )
             materials_dict["glue_materials_recyc_weight"] += sum(
                 (mater.recycled_percentage / 100)
                 * mater.net_weight
-                * ch.product_qty
+                * quantity
                 * multiplier
                 * multiply_with
                 for mater in glue_materials
@@ -525,13 +533,13 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 ]
             )
             materials_dict["metal_materials_weight"] += sum(
-                mater.net_weight * ch.product_qty * multiplier * multiply_with
+                mater.net_weight * quantity * multiplier * multiply_with
                 for mater in metal_materials
             )
             materials_dict["metal_materials_recyc_weight"] += sum(
                 (mater.recycled_percentage / 100)
                 * mater.net_weight
-                * ch.product_qty
+                * quantity
                 * multiplier
                 * multiply_with
                 for mater in metal_materials
@@ -547,13 +555,13 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 ]
             )
             materials_dict["plastic_materials_weight"] += sum(
-                mater.net_weight * ch.product_qty * multiplier * multiply_with
+                mater.net_weight * quantity * multiplier * multiply_with
                 for mater in plastic_materials
             )
             materials_dict["plastic_materials_recyc_weight"] += sum(
                 (mater.recycled_percentage / 100)
                 * mater.net_weight
-                * ch.product_qty
+                * quantity
                 * multiplier
                 * multiply_with
                 for mater in plastic_materials
@@ -569,13 +577,13 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 ]
             )
             materials_dict["eee_materials_weight"] += sum(
-                mater.net_weight * ch.product_qty * multiplier * multiply_with
+                mater.net_weight * quantity * multiplier * multiply_with
                 for mater in eee_materials
             )
             materials_dict["eee_materials_recyc_weight"] += sum(
                 (mater.recycled_percentage / 100)
                 * mater.net_weight
-                * ch.product_qty
+                * quantity
                 * multiplier
                 * multiply_with
                 for mater in eee_materials
@@ -589,7 +597,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     bom=ch.child_bom_id,
                     child_number=child_number,
                     materials_dict=materials_dict,
-                    multiplier=multiplier * ch.product_qty,
+                    multiplier=multiplier * quantity,
                 )
         return materials_dict
 
@@ -2433,6 +2441,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                         product.weight and (bom_product_id.weight / product.weight) or 1
                     )
 
+                if product.ignore_component_qty:
+                    qty = 1
+
                 qty = qty * multiply_with
 
                 for material in materials:
@@ -2753,6 +2764,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                             or 1
                         )
 
+                    if product.ignore_component_qty:
+                        qty = 1
+
                     qty = qty * multiply_with
 
                     for material in consu_materials:
@@ -2990,6 +3004,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     multiply_with = (
                         product.weight and (bom_product_id.weight / product.weight) or 1
                     )
+
+                if product.ignore_component_qty:
+                    qty = 1
 
                 qty = qty * multiply_with
 

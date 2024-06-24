@@ -21,7 +21,7 @@
 {
     "name": "Life Cycle Analysis report",
     "summary": "Export an excel for LCA report of a BoM",
-    "version": "14.0.2.17.42",
+    "version": "14.0.2.18.42",
     "category": "Manufacturing",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
@@ -43,6 +43,7 @@
     "data": [
         "report/bom_structure_xlsx.xml",
         "security/ir.model.access.csv",
+        "security/lca_manager_group.xml",
         "views/product_view.xml",
         "views/res_config_settings.xml",
         "wizard/bom_structure_xlsx_wizard.xml",
