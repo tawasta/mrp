@@ -18,3 +18,10 @@ class ProductProduct(models.Model):
         help="Used in LCA BoM computations",
         copy=False,
     )
+
+    ignore_component_qty = fields.Boolean(
+        string="Ignore component quantity",
+        store=True,
+        help="Used in LCA BoM computations",
+        copy=False,
+    )
