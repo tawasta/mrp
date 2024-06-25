@@ -13,7 +13,7 @@ class ProductProduct(models.Model):
     )
 
     multiply_with_by_products = fields.Boolean(
-        string="Multiply with By-products",
+        string="Multiply with BoM amount",
         store=True,
         help="Used in LCA BoM computations",
         copy=False,
