@@ -1,0 +1,56 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mgmtsystem_hazard_risk_workcenter
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-11 12:29+0000\n"
+"PO-Revision-Date: 2024-07-11 15:32+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. module: mgmtsystem_hazard_risk_workcenter
+#: model:ir.model.fields,field_description:mgmtsystem_hazard_risk_workcenter.field_mgmtsystem_hazard__display_name
+#: model:ir.model.fields,field_description:mgmtsystem_hazard_risk_workcenter.field_mrp_workcenter__display_name
+msgid "Display Name"
+msgstr "Nimi"
+
+#. module: mgmtsystem_hazard_risk_workcenter
+#: model:ir.model.fields,field_description:mgmtsystem_hazard_risk_workcenter.field_mrp_workcenter__hazard_ids
+msgid "Hazards"
+msgstr ""
+
+#. module: mgmtsystem_hazard_risk_workcenter
+#: model:ir.model,name:mgmtsystem_hazard_risk_workcenter.model_mgmtsystem_hazard
+msgid "Hazards of the health and safety management system"
+msgstr ""
+
+#. module: mgmtsystem_hazard_risk_workcenter
+#: model:ir.model.fields,field_description:mgmtsystem_hazard_risk_workcenter.field_mgmtsystem_hazard__id
+#: model:ir.model.fields,field_description:mgmtsystem_hazard_risk_workcenter.field_mrp_workcenter__id
+msgid "ID"
+msgstr "Tunniste (ID)"
+
+#. module: mgmtsystem_hazard_risk_workcenter
+#: model:ir.model.fields,field_description:mgmtsystem_hazard_risk_workcenter.field_mgmtsystem_hazard____last_update
+#: model:ir.model.fields,field_description:mgmtsystem_hazard_risk_workcenter.field_mrp_workcenter____last_update
+msgid "Last Modified on"
+msgstr "Viimeksi muokattu"
+
+#. module: mgmtsystem_hazard_risk_workcenter
+#: model:ir.model,name:mgmtsystem_hazard_risk_workcenter.model_mrp_workcenter
+msgid "Work Center"
+msgstr "Työpiste"
+
+#. module: mgmtsystem_hazard_risk_workcenter
+#: model:ir.model.fields,field_description:mgmtsystem_hazard_risk_workcenter.field_mgmtsystem_hazard__workcenter_id
+msgid "Workcenter"
+msgstr "Työpiste"
