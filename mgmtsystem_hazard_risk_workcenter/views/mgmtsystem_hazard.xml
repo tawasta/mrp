@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_mgmtsystem_hazard_form" model="ir.ui.view">
+        <field name="name">mgmtsystem.hazard.form.workcenter</field>
+        <field name="model">mgmtsystem.hazard</field>
+        <field name="inherit_id" ref="mgmtsystem_hazard.view_mgmtsystem_hazard_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='origin_id']/.." position="after">
+                <group>
+                    <group>
+                        <field name="workcenter_id" />
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>
