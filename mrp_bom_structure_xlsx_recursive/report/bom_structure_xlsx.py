@@ -616,6 +616,28 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 for mater in eee_materials
             )
 
+            oil_materials = self.env["product.material.composition"].search(
+                [
+                    ("product_product_id", "=", ch.product_id.id),
+                    ("product_material_upper_category_id", "=", oil_category_id.id),
+                    ("product_material_upper_category_id", "!=", False),
+                    ("is_delivery_package", "=", False),
+                    ("type", "=", "product"),
+                ]
+            )
+            materials_dict["oil_materials_weight"] += sum(
+                mater.net_weight * quantity * multiplier * multiply_with
+                for mater in oil_materials
+            )
+            materials_dict["oil_materials_recyc_weight"] += sum(
+                (mater.recycled_percentage / 100)
+                * mater.net_weight
+                * quantity
+                * multiplier
+                * multiply_with
+                for mater in oil_materials
+            )
+
             if ch.child_bom_id:
                 materials_dict = self.product_material_summary(
                     sheet6,
