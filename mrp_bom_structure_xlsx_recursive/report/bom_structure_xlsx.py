@@ -84,7 +84,16 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         return quantities
 
     def print_materials(
-        self, product_id, sheet2, row, level, quantity, parent_code, parent, bom
+        self,
+        product_id,
+        sheet2,
+        row,
+        level,
+        quantity,
+        parent_code,
+        parent,
+        bom,
+        center_cell,
     ):
         a, level = row, level
 
@@ -107,6 +116,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet2.write(
                 a, 9, dict(mater._fields["type"].selection).get(mater.type)
             )  # Material type
+            sheet2.write(
+                a, 10, mater.product_material_upper_category_id.name or ""
+            )  # Upper category
 
             #            percentage = (
             #                mater.relative_net_weight_percentage
@@ -137,18 +149,30 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             if product_id.ignore_component_qty:
                 quantity = 1
 
+            if mater.type == "product_packaging":
+                sheet2.write(
+                    a, 11, mater.net_weight * quantity * multiply_with
+                )  # Incoming packaging Material weight / per unit
+            elif mater.type == "product" and not mater.is_delivery_package:
+                sheet2.write(
+                    a, 12, mater.net_weight * quantity * multiply_with
+                )  # Product Material weight / per unit
+            elif mater.type == "product" and mater.is_delivery_package:
+                sheet2.write(
+                    a, 13, mater.net_weight * quantity * multiply_with
+                )  # Product and Delivery package Material weight / per unit
+
             sheet2.write(
-                a, 10, mater.net_weight * quantity * multiply_with
-            )  # Material weight / per unit
-            sheet2.write(a, 11, mater.net_weight_uom_id.name)  # Net weight UoM
-            sheet2.write(a, 12, mater.recycled_percentage)  # Recycled material %
+                a, 14, mater.net_weight_uom_id.name, center_cell
+            )  # Net weight UoM
+            sheet2.write(a, 15, mater.recycled_percentage)  # Recycled material %
             sheet2.write(
-                a, 13, mater.product_material_waste_component_id.name
+                a, 16, mater.product_material_waste_component_id.name or ""
             )  # Waste procuts
             sheet2.write(
-                a, 14, mater.product_material_waste_endpoint_id.name
+                a, 17, mater.product_material_waste_endpoint_id.name or ""
             )  # Waste endpoint
-            sheet2.write(a, 19, mater.description or "")  # Material notes
+            sheet2.write(a, 22, mater.description or "")  # Material notes
 
             if len(materials.ids) > 1:
                 a += 1
@@ -318,6 +342,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         quantities,
         identifier,
         parent_bom,
+        center_cell,
     ):
         a, j = row, level
         j += 1
@@ -367,12 +392,12 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             or ("N/A", "N/A")
         )
 
-        sheet2.write(a, 15, main_vendor[0])  # Vendor
-        sheet2.write(a, 16, main_vendor[1])  # Vendor address
-        sheet2.write(a, 17, vendor)  # Supply address
+        sheet2.write(a, 18, main_vendor[0])  # Vendor
+        sheet2.write(a, 19, main_vendor[1])  # Vendor address
+        sheet2.write(a, 20, vendor)  # Supply address
 
         sheet2.write(
-            a, 18, ch.product_id.origin_country_id.name or ""
+            a, 21, ch.product_id.origin_country_id.name or ""
         )  # Country of origin
 
         a = self.print_materials(
@@ -384,6 +409,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             parent_code=parent_with_code,
             parent=ch,
             bom=parent_bom,
+            center_cell=center_cell,
         )
 
         child_number = 0
@@ -406,6 +432,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 quantities=quantities,
                 identifier=ident,
                 parent_bom=child_bom,
+                center_cell=center_cell,
             )
         j -= 1
         return a
@@ -587,6 +614,28 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 * multiplier
                 * multiply_with
                 for mater in eee_materials
+            )
+
+            oil_materials = self.env["product.material.composition"].search(
+                [
+                    ("product_product_id", "=", ch.product_id.id),
+                    ("product_material_upper_category_id", "=", oil_category_id.id),
+                    ("product_material_upper_category_id", "!=", False),
+                    ("is_delivery_package", "=", False),
+                    ("type", "=", "product"),
+                ]
+            )
+            materials_dict["oil_materials_weight"] += sum(
+                mater.net_weight * quantity * multiplier * multiply_with
+                for mater in oil_materials
+            )
+            materials_dict["oil_materials_recyc_weight"] += sum(
+                (mater.recycled_percentage / 100)
+                * mater.net_weight
+                * quantity
+                * multiplier
+                * multiply_with
+                for mater in oil_materials
             )
 
             if ch.child_bom_id:
@@ -1241,29 +1290,41 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
         # Some column sizes changed to match their title
         sheet2.set_column(0, 0, 56)
-        sheet2.set_column(1, 1, 18)
+        sheet2.set_column(1, 1, 15)
         sheet2.set_column(2, 2, 20)
         sheet2.set_column(3, 3, 56)
         sheet2.set_column(4, 4, 15)
         sheet2.set_column(5, 6, 25)
         sheet2.set_column(7, 7, 28)
         sheet2.set_column(8, 9, 26)
-        sheet2.set_column(10, 10, 22)
-        sheet2.set_column(11, 11, 20)
-        sheet2.set_column(12, 12, 20)
-        sheet2.set_column(13, 13, 20)
-        sheet2.set_column(14, 14, 25)
-        sheet2.set_column(15, 15, 25)
-        sheet2.set_column(16, 16, 28)
+        sheet2.set_column(10, 10, 24)
+        sheet2.set_column(11, 11, 22)
+        sheet2.set_column(12, 12, 22)
+        sheet2.set_column(13, 13, 22)
+        sheet2.set_column(14, 14, 16)
+        sheet2.set_column(15, 15, 20)
+        sheet2.set_column(16, 16, 20)
         sheet2.set_column(17, 17, 25)
-        sheet2.set_column(18, 18, 27)
-        sheet2.set_column(19, 19, 40)
+        sheet2.set_column(18, 18, 25)
+        sheet2.set_column(19, 19, 28)
+        sheet2.set_column(20, 20, 25)
+        sheet2.set_column(21, 21, 27)
+        sheet2.set_column(22, 22, 40)
 
         # Column styles
         bold = workbook.add_format({"bold": True})
 
+        center_cell = workbook.add_format({"align": "center"})
+
         title_style_product_level = workbook.add_format(
-            {"bold": True, "bg_color": "#C6FF8D", "bottom": 1}
+            {
+                "bold": True,
+                "bg_color": "#C6FF8D",
+                "bottom": 1,
+                "text_wrap": True,
+                "align": "center",
+                "valign": "vcenter",
+            }
         )
 
         sheet_title_2 = [
@@ -1277,24 +1338,29 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             _("Material"),  # 7 (H)
             _("Material class"),  # 8 (I)
             _("Material type"),  # 9 (J)
-            _("Material weight / per unit"),  # 9 (K)
-            _("Weight unit"),  # 10 (L)
-            _("Recycle material %"),  # 11 (M)
-            _("Waste products"),  # 12 (N)
-            _("Waste endpoint"),  # 13 (O)
-            _("Vendor"),  # 14 (P)
-            _("Vendor Address"),  # 15 (Q)
-            _("Supply Address"),  # 16 (R)
-            _("Country of origin"),  # 17 (S)
-            _("Material notes"),  # 18 (T)
+            _("Upper category"),  # 10 (K)
+            _("Incoming packaging Material weight / per unit"),  # 11 (L)
+            _("Product Material weight / per unit"),  # 12 (M)
+            _("Product and Delivery package Material weight / per unit"),  # 13 (N)
+            _("Weight unit"),  # 14 (O)
+            _("Recycle material %"),  # 15 (P)
+            _("Waste products"),  # 16 (Q)
+            _("Waste endpoint"),  # 17 (R)
+            _("Vendor"),  # 18 (S)
+            _("Vendor Address"),  # 19 (T)
+            _("Supply Address"),  # 20 (U)
+            _("Country of origin"),  # 21 (V)
+            _("Material notes"),  # 22 (W)
         ]
 
-        sheet2.set_row(0, None, None, {"collapsed": 1})
+        # sheet2.set_row(0, None, None, {"collapsed": 0})
 
         for title in enumerate(sheet_title_2):
-            sheet2.write(0, title[0], title[1] or "", title_style_product_level)
+            sheet2.merge_range(
+                0, title[0], 2, title[0], title[1] or "", title_style_product_level
+            )
 
-        sheet2.freeze_panes(2, 0)
+        sheet2.freeze_panes(3, 0)
 
         # -------------------------------#
         # ----------- Sheet 3 -----------#
@@ -1341,7 +1407,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         for title in enumerate(sheet_title_3):
             sheet3.write(0, title[0], title[1] or "", title_style_product_level)
 
-        sheet3.freeze_panes(2, 0)
+        sheet3.freeze_panes(1, 0)
 
         # -------------------------------#
         # ----------- Sheet 4 -----------#
@@ -1410,7 +1476,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         for title in enumerate(sheet_title_4):
             sheet4.write(0, title[0], title[1] or "", title_style_product_level)
 
-        sheet4.freeze_panes(2, 0)
+        sheet4.freeze_panes(1, 0)
 
         # -------------------------------#
         # ----------- Sheet 5 -----------#
@@ -1477,7 +1543,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         for title in enumerate(sheet_title_5):
             sheet5.write(0, title[0], title[1] or "", title_style_product_level)
 
-        sheet5.freeze_panes(2, 0)
+        sheet5.freeze_panes(1, 0)
 
         # -------------------------------#
         # ----------- Sheet 6 -----------#
@@ -1829,7 +1895,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
         # -------------------------------#
 
-        a = 1
+        a = 3
         b = 1
         c = 1
         d = 1
@@ -1916,6 +1982,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 parent_code="N/A",
                 parent=o,
                 bom=o,
+                center_cell=center_cell,
             )
 
             # --------------------------------------------------------------------- #
@@ -3183,6 +3250,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     quantities=quantities,
                     identifier=ident,
                     parent_bom=o,
+                    center_cell=center_cell,
                 )
 
                 d = self.print_bom_children_5(
