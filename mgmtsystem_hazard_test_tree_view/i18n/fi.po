@@ -1,0 +1,40 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mgmtsystem_hazard_test_tree_view
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-08-19 09:10+0000\n"
+"PO-Revision-Date: 2024-08-19 12:12+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fi_FI\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. module: mgmtsystem_hazard_test_tree_view
+#: model_terms:ir.ui.view,arch_db:mgmtsystem_hazard_test_tree_view.view_mgmtsystem_hazard_test_filter
+msgid "Executed"
+msgstr "Toteutettu"
+
+#. module: mgmtsystem_hazard_test_tree_view
+#: model_terms:ir.ui.view,arch_db:mgmtsystem_hazard_test_tree_view.view_mgmtsystem_hazard_test_filter
+msgid "Group By..."
+msgstr "Ryhmittele..."
+
+#. module: mgmtsystem_hazard_test_tree_view
+#: model:ir.actions.act_window,name:mgmtsystem_hazard_test_tree_view.open_mgmtsystem_implementation_tests
+#: model:ir.ui.menu,name:mgmtsystem_hazard_test_tree_view.menu_open_implementation_tests
+#: model_terms:ir.ui.view,arch_db:mgmtsystem_hazard_test_tree_view.view_mgmtsystem_hazard_test_filter
+msgid "Implementation Tests"
+msgstr "Toteutuksien testit"
+
+#. module: mgmtsystem_hazard_test_tree_view
+#: model_terms:ir.ui.view,arch_db:mgmtsystem_hazard_test_tree_view.view_mgmtsystem_hazard_test_filter
+msgid "Responsible"
+msgstr "Vastuuhenkilö"
