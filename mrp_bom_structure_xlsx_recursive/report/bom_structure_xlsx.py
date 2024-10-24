@@ -1916,6 +1916,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         c = 1
         d = 1
 
+        prec = "{:.2f}"
+        accu = 2
+
         for o in objects:
 
             # --------------------------------------------------------------------- #
@@ -2157,100 +2160,135 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             materials_dict.get("materials_recyc_weight", 0)
 
             sheet6.write(3, 0, "Wood")
-            sheet6.write(3, 1, total_wood_material_weight)
+            sheet6.write(3, 1,
+                prec.format(round(total_wood_material_weight, accu))
+            )
             sheet6.write(
                 3,
                 2,
+                prec.format(round((
                 total_material_weight
                 and (total_wood_material_weight / total_material_weight) * 100
-                or 0,
+                or 0),
+                accu)),
             )
             sheet6.write(
                 3,
                 3,
+                prec.format(round((
                 total_wood_material_weight
                 and (total_wood_material_recyc / total_wood_material_weight) * 100
-                or 0,
+                or 0),
+                accu)),
             )
             sheet6.write(4, 0, "Glue")
-            sheet6.write(4, 1, total_glue_material_weight)
+            sheet6.write(4, 1,
+                prec.format(round(total_glue_material_weight, 2)))
             sheet6.write(
                 4,
                 2,
+                prec.format(round((
                 total_material_weight
                 and (total_glue_material_weight / total_material_weight) * 100
-                or 0,
+                or 0),
+                accu)),
             )
             sheet6.write(
                 4,
                 3,
+                prec.format(round((
                 total_glue_material_weight
                 and (total_glue_material_recyc / total_glue_material_weight) * 100
-                or 0,
+                or 0),
+                accu)),
             )
             sheet6.write(5, 0, "Metal")
-            sheet6.write(5, 1, total_metal_material_weight)
+            sheet6.write(5, 1,
+                prec.format(round( total_metal_material_weight, 2)))
             sheet6.write(
                 5,
                 2,
+                prec.format(round((
                 total_material_weight
                 and (total_metal_material_weight / total_material_weight) * 100
-                or 0,
+                or 0),
+                accu)),
             )
             sheet6.write(
                 5,
                 3,
+                prec.format(round((
                 total_metal_material_weight
                 and (total_metal_material_recyc / total_metal_material_weight) * 100
-                or 0,
+                or 0),
+                accu)),
             )
             sheet6.write(6, 0, "Plastic")
-            sheet6.write(6, 1, total_plastic_material_weight)
+            sheet6.write(6, 1,
+                prec.format(round(
+                total_plastic_material_weight, 2))
+            )
             sheet6.write(
                 6,
                 2,
+                prec.format(round((
                 total_material_weight
                 and (total_plastic_material_weight / total_material_weight) * 100
-                or 0,
+                or 0),
+                accu)),
             )
             sheet6.write(
                 6,
                 3,
+                prec.format(round((
                 total_plastic_material_weight
                 and (total_plastic_material_recyc / total_plastic_material_weight) * 100
-                or 0,
+                or 0),
+                accu)),
             )
             sheet6.write(7, 0, "EEE")
-            sheet6.write(7, 1, total_eee_material_weight)
+            sheet6.write(7, 1,
+                prec.format(round(total_eee_material_weight, 0))
+            )
             sheet6.write(
                 7,
                 2,
+                prec.format(round((
                 total_material_weight
                 and (total_eee_material_weight / total_material_weight) * 100
-                or 0,
+                or 0),
+                accu)),
             )
             sheet6.write(
                 7,
                 3,
+                prec.format(round((
                 total_eee_material_weight
                 and (total_eee_material_recyc / total_eee_material_weight) * 100
-                or 0,
+                or 0),
+                accu)),
             )
             sheet6.write(8, 0, "OIL")
-            sheet6.write(8, 1, total_oil_material_weight)
+            sheet6.write(8, 1,
+                prec.format(round(total_oil_material_weight, accu))
+            )
             sheet6.write(
                 8,
                 2,
+                prec.format(round((
                 total_material_weight
                 and (total_oil_material_weight / total_material_weight) * 100
-                or 0,
+                or 0),
+                accu)),
             )
             sheet6.write(
                 8,
                 3,
+                prec.format(round((
                 total_oil_material_weight
                 and (total_oil_material_recyc / total_oil_material_weight) * 100
-                or 0,
+                or 0),
+                accu)),
             )
             sheet6.write(9, 0, "Total")
             total_all = (
@@ -2269,20 +2307,26 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 + total_eee_material_recyc
                 + total_oil_material_recyc
             )
-            sheet6.write(9, 1, total_all)
+            sheet6.write(9, 1,
+                prec.format(round(total_all, accu))
+            )
             sheet6.write(
                 9,
                 2,
+                prec.format(round((
                 total_material_weight
                 and (total_all / total_material_weight) * 100
-                or 0,
+                or 0),
+                accu)),
             )
             sheet6.write(
                 9,
                 3,
+                prec.format(round((
                 total_material_weight
                 and (total_all_recyc / total_material_weight) * 100
-                or 0,
+                or 0),
+                accu)),
             )
 
             # --------------------------------------------------------------------- #
@@ -2359,100 +2403,121 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             materials_dict.get("materials_recyc_weight", 0)
 
             sheet6.write(3, 4, "Cardboard")
-            sheet6.write(3, 5, total_cardboard_material_weight)
+            sheet6.write(3, 5,
+                prec.format(round(total_cardboard_material_weight, 2))
+            )
             sheet6.write(
                 3,
                 6,
+                prec.format(round((
                 (
                     total_material_weight
                     and total_cardboard_material_weight / total_material_weight
                     or 0
                 )
-                * 100,
+                * 100), accu))
             )
             sheet6.write(
                 3,
                 7,
+                prec.format(round((
                 total_cardboard_material_weight
                 and (total_cardboard_material_recyc / total_cardboard_material_weight)
                 * 100
-                or 0,
+                or 0), accu))
             )
             sheet6.write(4, 4, "Paper")
-            sheet6.write(4, 5, total_paper_material_weight)
+            sheet6.write(4, 5,
+                prec.format(round(total_paper_material_weight, accu))
+            )
             sheet6.write(
                 4,
                 6,
+                prec.format(round((
                 (
                     total_material_weight
                     and total_paper_material_weight / total_material_weight
                     or 0
                 )
-                * 100,
+                * 100), accu))
             )
             sheet6.write(
                 4,
                 7,
+                prec.format(round((
                 total_paper_material_weight
                 and (total_paper_material_recyc / total_paper_material_weight) * 100
-                or 0,
+                or 0), accu))
             )
             sheet6.write(5, 4, "Plastic")
-            sheet6.write(5, 5, total_plastic_material_weight)
+            sheet6.write(5, 5,
+                prec.format(round(total_plastic_material_weight, accu))
+            )
             sheet6.write(
                 5,
                 6,
+                prec.format(round((
                 (
                     total_material_weight
                     and total_plastic_material_weight / total_material_weight
                     or 0
                 )
-                * 100,
+                * 100), accu))
             )
             sheet6.write(
                 5,
                 7,
+                prec.format(round((
                 total_plastic_material_weight
                 and (total_plastic_material_recyc / total_plastic_material_weight) * 100
-                or 0,
+                or 0), accu))
             )
             sheet6.write(6, 4, "Metal")
-            sheet6.write(6, 5, total_metal_material_weight)
+            sheet6.write(6, 5,
+                prec.format(round(
+                total_metal_material_weight, accu))
+            )
             sheet6.write(
                 6,
                 6,
+                prec.format(round((
                 (
                     total_material_weight
                     and total_metal_material_weight / total_material_weight
                     or 0
                 )
-                * 100,
+                * 100), accu))
             )
             sheet6.write(
                 6,
                 7,
+                prec.format(round((
                 total_metal_material_weight
                 and (total_metal_material_recyc / total_metal_material_weight) * 100
-                or 0,
+                or 0), accu))
             )
             sheet6.write(7, 4, "Wood")
-            sheet6.write(7, 5, total_wood_material_weight)
+            sheet6.write(7, 5,
+                prec.format(round(total_wood_material_weight, accu))
+            )
             sheet6.write(
                 7,
                 6,
+                prec.format(round((
                 (
                     total_material_weight
                     and total_wood_material_weight / total_material_weight
                     or 0
                 )
-                * 100,
+                * 100), accu))
             )
             sheet6.write(
                 7,
                 7,
+                prec.format(round((
                 total_wood_material_weight
                 and (total_wood_material_recyc / total_wood_material_weight) * 100
-                or 0,
+                or 0), accu))
             )
             sheet6.write(8, 4, "Total")
             total_all = (
@@ -2469,19 +2534,23 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 + total_metal_material_recyc
                 + total_wood_material_recyc
             )
-            sheet6.write(8, 5, total_all)
+            sheet6.write(8, 5,
+                prec.format(round(total_all, accu))
+            )
             sheet6.write(
                 8,
                 6,
+                prec.format(round((
                 (total_material_weight and total_all / total_material_weight or 0)
-                * 100,
+                * 100), accu))
             )
             sheet6.write(
                 8,
                 7,
+                prec.format(round((
                 total_material_weight
                 and (total_all_recyc / total_material_weight) * 100
-                or 0,
+                or 0), accu))
             )
 
             # --------------------------------------------------------------------- #
@@ -2579,21 +2648,28 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             for material, weight_recyc in name_and_weight.items():
                 net_weight = weight_recyc[0]
                 sheet6.write(r, 8, material.name)
-                sheet6.write(r, 9, net_weight)
-                sheet6.write(r, 10, net_weight * 0.001)  # weight in kg
+                sheet6.write(r, 9,
+                    prec.format(round(net_weight, accu))
+                )
+                sheet6.write(r, 10,
+                    prec.format(round(net_weight * 0.001, accu))
+                )  # weight in kg
                 sheet6.write(
                     r,
                     11,
+                    prec.format(round((
                     total_grouped_net_weight
-                    and (net_weight / total_grouped_net_weight) * 100,
-                ) or 0
+                    and (net_weight / total_grouped_net_weight) * 100
+                    or 0), accu))
+                )
                 check_weight += net_weight
 
                 total_grouped_recycled_weight += weight_recyc[1]
                 sheet6.write(
                     r,
                     12,
-                    net_weight and (weight_recyc[1] / net_weight) * 100 or 0,
+                    prec.format(round((
+                    net_weight and (weight_recyc[1] / net_weight) * 100 or 0), accu))
                 )
 
                 total_grouped_biogenic_weight += (
@@ -2602,14 +2678,16 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 sheet6.write(
                     r,
                     13,
-                    material.biogenic_material_weight_percentage or 0,
+                    prec.format(round((
+                    material.biogenic_material_weight_percentage or 0), accu))
                 )
                 sheet6.write(
                     r,
                     14,
+                    prec.format(round((
                     (material.biogenic_material_weight_percentage / 100)
                     * net_weight
-                    * 0.001,
+                    * 0.001), accu))
                 )
 
                 total_grouped_renewable_weight += (
@@ -2618,45 +2696,58 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 sheet6.write(
                     r,
                     15,
-                    material.renewable_weight_percentage or 0,
+                    prec.format(round((
+                    material.renewable_weight_percentage or 0), accu))
                 )
                 sheet6.write(
-                    r, 16, (material.renewable_weight_percentage / 100) * net_weight
+                    r, 16,
+                    prec.format(round((
+                    (material.renewable_weight_percentage / 100) * net_weight), accu))
                 )
                 r += 1
 
             sheet6.write(r, 8, "Total")
-            sheet6.write(r, 9, total_grouped_net_weight)
-            sheet6.write(r, 10, total_grouped_net_weight * 0.001)
+            sheet6.write(r, 9,
+                prec.format(round(total_grouped_net_weight, accu))
+            )
+            sheet6.write(r, 10,
+                prec.format(round(total_grouped_net_weight * 0.001, accu))
+            )
             sheet6.write(
                 r,
                 11,
+                prec.format(round((
                 total_grouped_net_weight
-                and (check_weight / total_grouped_net_weight) * 100,
-            ) or 0
+                and (check_weight / total_grouped_net_weight) * 100 or 0), accu))
+            )
             sheet6.write(
                 r,
                 12,
+                prec.format(round((
                 total_grouped_net_weight
-                and (total_grouped_recycled_weight / total_grouped_net_weight) * 100
-                or 0,
+                and (total_grouped_recycled_weight / total_grouped_net_weight)
+                * 100 or 0), accu))
             )
             sheet6.write(
                 r,
                 13,
+                prec.format(round((
                 total_grouped_net_weight
                 and (total_grouped_biogenic_weight / total_grouped_net_weight) * 100
-                or 0,
+                or 0), accu))
             )
             sheet6.write(r, 14, total_grouped_biogenic_weight * 0.001)
             sheet6.write(
                 r,
                 15,
+                prec.format(round((
                 total_grouped_net_weight
                 and (total_grouped_renewable_weight / total_grouped_net_weight) * 100
-                or 0,
+                or 0), accu))
             )
-            sheet6.write(r, 16, total_grouped_renewable_weight)
+            sheet6.write(r, 16,
+                prec.format(round(total_grouped_renewable_weight, accu))
+            )
 
             # --------------------------------------------------------------------- #
             # --------------- 4. Delivery Packaging materials --------------------- #
