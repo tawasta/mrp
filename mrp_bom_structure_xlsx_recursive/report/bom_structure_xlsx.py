@@ -1916,7 +1916,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         c = 1
         d = 1
 
-        prec = "{:.2f}"
         accu = 2
 
         number_format = workbook.add_format({"num_format": "0.00"})
@@ -2281,7 +2280,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 number_format,
             )
             sheet6.write(7, 0, "EEE")
-            sheet6.write(7, 1, round(total_eee_material_weight, 0), number_format)
+            sheet6.write(7, 1, round(total_eee_material_weight, accu), number_format)
             sheet6.write(
                 7,
                 2,
