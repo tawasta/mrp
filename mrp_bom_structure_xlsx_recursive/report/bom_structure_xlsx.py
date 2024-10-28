@@ -2331,7 +2331,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
             sheet6.write(4, 0, "Glue")
             sheet6.write(
-                4, 1, round_to_significant_figures(total_glue_material_weight, 2)
+                4, 1, round_to_significant_figures(total_glue_material_weight, accu)
             )
             sheet6.write(
                 4,
@@ -2360,7 +2360,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
             sheet6.write(5, 0, "Metal")
             sheet6.write(
-                5, 1, round_to_significant_figures(total_metal_material_weight, 2)
+                5, 1, round_to_significant_figures(total_metal_material_weight, accu)
             )
             sheet6.write(
                 5,
@@ -2389,7 +2389,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
             sheet6.write(6, 0, "Plastic")
             sheet6.write(
-                6, 1, round_to_significant_figures(total_plastic_material_weight, 2)
+                6, 1, round_to_significant_figures(total_plastic_material_weight, accu)
             )
             sheet6.write(
                 6,
@@ -2593,7 +2593,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             sheet6.write(3, 4, "Cardboard")
             sheet6.write(
-                3, 5, round_to_significant_figures(total_cardboard_material_weight, 2)
+                3, 5, round_to_significant_figures(total_cardboard_material_weight, accu)
             )
             sheet6.write(
                 3,
