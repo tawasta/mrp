@@ -1608,8 +1608,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         columns_2 = column
 
         # 3. Product component materials
-        #        sheet6.set_column(column, column, 33)  # O
-        #        column += 1
         sheet6.set_column(column, column, 33)  # O
         column += 1
         sheet6.set_column(column, column, 17)  # P
