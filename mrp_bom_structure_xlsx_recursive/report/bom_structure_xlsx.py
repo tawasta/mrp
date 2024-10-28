@@ -2593,7 +2593,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             sheet6.write(3, 4, "Cardboard")
             sheet6.write(
-                3, 5, round_to_significant_figures(total_cardboard_material_weight, accu)
+                3,
+                5,
+                round_to_significant_figures(total_cardboard_material_weight, accu),
             )
             sheet6.write(
                 3,
