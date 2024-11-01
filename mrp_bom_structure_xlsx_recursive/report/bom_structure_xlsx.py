@@ -2848,7 +2848,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                         ("product_product_id", "=", product.id),
                         ("type", "!=", "product_packaging"),
                         ("is_delivery_package", "=", False),
-                    ]
+                    ],
                 )
 
                 bom_product_id = (
@@ -2913,6 +2913,13 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             total_grouped_recycled_weight = 0
             total_grouped_biogenic_weight = 0
             total_grouped_renewable_weight = 0
+
+            name_and_weight = dict(
+                sorted(
+                    name_and_weight.items(),
+                    key=lambda item: (item[0].name is None, str(item[0].name).lower()),
+                )
+            )
 
             for material, weight_recyc in name_and_weight.items():
                 net_weight = weight_recyc[0]
@@ -3086,7 +3093,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                         ("product_product_id", "=", product.id),
                         ("type", "!=", "product_packaging"),
                         ("is_delivery_package", "=", True),
-                    ]
+                    ],
                 )
 
                 for material in materials:
@@ -3135,6 +3142,13 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             total_grouped_recycled_weight = 0
             total_grouped_biogenic_weight = 0
             total_grouped_renewable_weight = 0
+
+            name_and_weight = dict(
+                sorted(
+                    name_and_weight.items(),
+                    key=lambda item: (item[0].name is None, str(item[0].name).lower()),
+                )
+            )
 
             for material, weight_recyc in name_and_weight.items():
                 net_weight = weight_recyc[0]
@@ -3321,7 +3335,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                         domain=[
                             ("product_product_id", "=", product.id),
                             ("type", "!=", "product_packaging"),
-                        ]
+                        ],
                     )
 
                     bom_product_id = (
@@ -3395,6 +3409,13 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             check_weight = 0
             total_grouped_recycled_weight = 0
+
+            name_and_weight = dict(
+                sorted(
+                    name_and_weight.items(),
+                    key=lambda item: (item[0].name is None, str(item[0].name).lower()),
+                )
+            )
 
             for material, weight_recyc in name_and_weight.items():
                 net_weight = weight_recyc[0]
@@ -3536,7 +3557,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     domain=[
                         ("product_product_id", "=", product.id),
                         ("type", "=", "product_packaging"),
-                    ]
+                    ],
                 )
 
                 for material in materials:
@@ -3574,6 +3595,13 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             check_weight = 0
             total_grouped_recycled_weight = 0
+
+            name_and_weight = dict(
+                sorted(
+                    name_and_weight.items(),
+                    key=lambda item: (item[0].name is None, str(item[0].name).lower()),
+                )
+            )
 
             for material, weight_recyc in name_and_weight.items():
                 sheet6.write(r, 33, material.name)
@@ -3670,7 +3698,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 materials = self.env["product.material.composition"].search(
                     domain=[
                         ("product_product_id", "=", product.id),
-                    ]
+                    ],
                 )
 
                 bom_product_id = (
@@ -3717,6 +3745,13 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             check_weight = 0
             total_grouped_recycled_weight = 0
             total_grouped_biogenic_weight = 0
+
+            name_and_weight = dict(
+                sorted(
+                    name_and_weight.items(),
+                    key=lambda item: (item[0].name is None, str(item[0].name).lower()),
+                )
+            )
 
             for material, weight_recyc in name_and_weight.items():
                 net_weight = weight_recyc[0]
