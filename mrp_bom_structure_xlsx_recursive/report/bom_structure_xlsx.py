@@ -1608,13 +1608,13 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         column += 1
         sheet6.set_column(column, column, 33)  # W
         column += 1
-        sheet6.set_column(column, column, 27)  # X
+        sheet6.set_column(column, column, 31)  # X
         column += 1
-        sheet6.set_column(column, column, 27)  # R
+        sheet6.set_column(column, column, 32)  # R
         column += 1
-        sheet6.set_column(column, column, 25)  # W
+        sheet6.set_column(column, column, 26)  # W
         column += 1
-        sheet6.set_column(column, column, 25)  # X
+        sheet6.set_column(column, column, 30)  # X
         column += 1
         columns_3 = column
 
@@ -1788,10 +1788,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             _("Weight, kg"),
             _("% of total"),
             _("Post-consumer material, weight %"),
-            _("Biogenic material, weight-%"),
-            _("Biogenic material, kg C/kg"),
-            _("Renewable % weight"),
-            _("Renewable Weight (g)"),
+            _("Renewable (Biogenic) % weight"),
+            _("Renewable (Biogenic) Weight (kg)"),
+            _("Biogenic carbon, weight-%"),
+            _("Biogenic carbon, kg C/product"),
         ]
 
         sheet_title_content = [
@@ -1954,8 +1954,8 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             _("Weight, kg"),
             _("% of total"),
             _("Post-consumer material, weight %"),
-            _("Biogenic material, weight-%"),
-            _("Biogenic material, kg C/kg"),
+            _("Biogenic carbon, weight-%"),
+            _("Biogenic carbon, kg C/product"),
         ]
 
         title_style_main_6 = workbook.add_format(
@@ -2945,11 +2945,16 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 total_grouped_biogenic_weight += (
                     material.biogenic_material_weight_percentage / 100
                 ) * net_weight
+
+                total_grouped_renewable_weight += (
+                    material.renewable_weight_percentage / 100
+                ) * net_weight
+
                 sheet6.write(
                     r,
                     13,
                     round_to_significant_figures(
-                        (material.biogenic_material_weight_percentage or 0), accu
+                        (material.renewable_weight_percentage or 0), accu
                     ),
                 )
                 sheet6.write(
@@ -2957,7 +2962,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     14,
                     round_to_significant_figures(
                         (
-                            (material.biogenic_material_weight_percentage / 100)
+                            (material.renewable_weight_percentage / 100)
                             * net_weight
                             * 0.001
                         ),
@@ -2965,21 +2970,22 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ),
                 )
 
-                total_grouped_renewable_weight += (
-                    material.renewable_weight_percentage / 100
-                ) * net_weight
                 sheet6.write(
                     r,
                     15,
                     round_to_significant_figures(
-                        (material.renewable_weight_percentage or 0), accu
+                        (material.biogenic_material_weight_percentage or 0), accu
                     ),
                 )
                 sheet6.write(
                     r,
                     16,
                     round_to_significant_figures(
-                        ((material.renewable_weight_percentage / 100) * net_weight),
+                        (
+                            (material.biogenic_material_weight_percentage / 100)
+                            * net_weight
+                            * 0.001
+                        ),
                         accu,
                     ),
                 )
@@ -3019,29 +3025,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     accu,
                 ),
             )
+
             sheet6.write(
                 r,
                 13,
-                round_to_significant_figures(
-                    (
-                        total_grouped_net_weight
-                        and (total_grouped_biogenic_weight / total_grouped_net_weight)
-                        * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                r,
-                14,
-                round_to_significant_figures(
-                    total_grouped_biogenic_weight * 0.001, accu
-                ),
-            )
-            sheet6.write(
-                r,
-                15,
                 round_to_significant_figures(
                     (
                         total_grouped_net_weight
@@ -3054,8 +3041,31 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
             sheet6.write(
                 r,
+                14,
+                round_to_significant_figures(
+                    total_grouped_renewable_weight * 0.001, accu
+                ),
+            )
+
+            sheet6.write(
+                r,
+                15,
+                round_to_significant_figures(
+                    (
+                        total_grouped_net_weight
+                        and (total_grouped_biogenic_weight / total_grouped_net_weight)
+                        * 100
+                        or 0
+                    ),
+                    accu,
+                ),
+            )
+            sheet6.write(
+                r,
                 16,
-                round_to_significant_figures(total_grouped_renewable_weight, accu),
+                round_to_significant_figures(
+                    total_grouped_biogenic_weight * 0.001, accu
+                ),
             )
 
             # --------------------------------------------------------------------- #
