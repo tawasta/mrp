@@ -146,7 +146,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             #                a, 10, percentage * product_weight * quantity
             #            )  # Material weight / per unit
 
-            bom_product_id = bom.product_id or bom.product_tmpl_id.product_variant_id
+            bom_product_id = product_id or bom.product_tmpl_id.product_variant_id
 
             multiply_with = 1
 
@@ -486,7 +486,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             else:
                 quantity = ch.alt_qty or ch.product_qty
 
-            bom_product_id = bom.product_id or bom.product_tmpl_id.product_variant_id
+            bom_product_id = product_variant or bom.product_tmpl_id.product_variant_id
 
             multiply_with = 1
 
@@ -874,6 +874,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                         (ch.alt_qty or ch.product_qty) * multiplier,
                         ch.product_uom_id,
                         bom,
+                        product_variant,
                     ]
                 )
 
@@ -2842,7 +2843,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             name_and_weight = {}
 
-            for product, qty, uom, bom in content_products:
+            for product, qty, uom, bom, product_variant in content_products:
                 materials = self.env["product.material.composition"].search(
                     domain=[
                         ("product_product_id", "=", product.id),
@@ -2852,7 +2853,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 )
 
                 bom_product_id = (
-                    bom.product_id or bom.product_tmpl_id.product_variant_id
+                    product_variant or bom.product_tmpl_id.product_variant_id
                 )
 
                 multiply_with = 1
@@ -3087,7 +3088,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             name_and_weight = {}
 
-            for product, qty, uom, bom in pack_products:
+            for product, qty, uom, bom, product_variant in pack_products:
                 materials = self.env["product.material.composition"].search(
                     domain=[
                         ("product_product_id", "=", product.id),
@@ -3330,7 +3331,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     products=consu_products,
                 )
 
-                for product, qty, uom, bom in consu_products:
+                for product, qty, uom, bom, product_variant in consu_products:
                     consu_materials = self.env["product.material.composition"].search(
                         domain=[
                             ("product_product_id", "=", product.id),
@@ -3339,7 +3340,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     )
 
                     bom_product_id = (
-                        bom.product_id or bom.product_tmpl_id.product_variant_id
+                        product_variant or bom.product_tmpl_id.product_variant_id
                     )
 
                     multiply_with = 1
@@ -3552,7 +3553,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             materials = self.env["product.material.composition"]
             name_and_weight = {}
 
-            for product, qty, uom, bom in products:
+            for product, qty, uom, bom, product_variant in products:
                 materials = self.env["product.material.composition"].search(
                     domain=[
                         ("product_product_id", "=", product.id),
@@ -3694,7 +3695,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             materials = self.env["product.material.composition"]
             name_and_weight = {}
 
-            for product, qty, uom, bom in products:
+            for product, qty, uom, bom, product_variant in products:
                 materials = self.env["product.material.composition"].search(
                     domain=[
                         ("product_product_id", "=", product.id),
@@ -3702,7 +3703,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 )
 
                 bom_product_id = (
-                    bom.product_id or bom.product_tmpl_id.product_variant_id
+                    product_variant or bom.product_tmpl_id.product_variant_id
                 )
 
                 multiply_with = 1
