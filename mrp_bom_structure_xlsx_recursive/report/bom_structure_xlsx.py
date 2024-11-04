@@ -103,6 +103,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         quantity,
         parent_code,
         parent,
+        upper_parent,
         bom,
         center_cell,
     ):
@@ -131,22 +132,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 a, 10, mater.product_material_upper_category_id.name or ""
             )  # Upper category
 
-            #            percentage = (
-            #                mater.relative_net_weight_percentage
-            #                if mater.type == "product"
-            #                else mater.relative_gross_weight_percentage
-            #            )
-            #            product_weight = (
-            #                product_id.weight
-            #                if mater.type == "product"
-            #                else product_id.gross_weight
-            #            )
-            #
-            #            sheet2.write(
-            #                a, 10, percentage * product_weight * quantity
-            #            )  # Material weight / per unit
-
-            bom_product_id = product_id or bom.product_tmpl_id.product_variant_id
+            bom_product_id = upper_parent or bom.product_tmpl_id.product_variant_id
 
             multiply_with = 1
 
@@ -353,6 +339,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         quantities,
         identifier,
         parent_bom,
+        upper_parent,
         center_cell,
     ):
         a, j = row, level
@@ -419,6 +406,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             quantity=quantities[ident][1],
             parent_code=parent_with_code,
             parent=ch,
+            upper_parent=upper_parent,
             bom=parent_bom,
             center_cell=center_cell,
         )
@@ -443,6 +431,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 quantities=quantities,
                 identifier=ident,
                 parent_bom=child_bom,
+                upper_parent=ch.product_id,
                 center_cell=center_cell,
             )
         j -= 1
@@ -2149,6 +2138,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 quantity=o.product_qty,
                 parent_code="N/A",
                 parent=o,
+                upper_parent=material_variant,
                 bom=o,
                 center_cell=center_cell,
             )
@@ -3958,6 +3948,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     quantities=quantities,
                     identifier=ident,
                     parent_bom=o,
+                    upper_parent=product_variant,
                     center_cell=center_cell,
                 )
 
