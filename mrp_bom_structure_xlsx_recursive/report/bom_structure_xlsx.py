@@ -2930,7 +2930,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             for material, weight_recyc in name_and_weight.items():
                 net_weight = weight_recyc[0]
                 sheet6.write(r, 8, material.with_context(lang="en_US").name or "")
-                sheet6.write(r, 9, material.name or "")
+                sheet6.write(r, 9, material.with_context(lang="fi_FI").name or "")
                 sheet6.write(r, 10, round_to_significant_figures(net_weight, accu))
                 sheet6.write(
                     r, 11, round_to_significant_figures(net_weight * 0.001, accu)
@@ -3170,7 +3170,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             for material, weight_recyc in name_and_weight.items():
                 net_weight = weight_recyc[0]
                 sheet6.write(r, 18, material.with_context(lang="en_US").name or "")
-                sheet6.write(r, 19, material.name or "")
+                sheet6.write(r, 19, material.with_context(lang="fi_FI").name or "")
                 sheet6.write(r, 20, round_to_significant_figures(net_weight, accu))
                 sheet6.write(
                     r, 21, round_to_significant_figures(net_weight * 0.001, accu)
@@ -3438,7 +3438,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             for material, weight_recyc in name_and_weight.items():
                 net_weight = weight_recyc[0]
                 sheet6.write(r, 28, material.with_context(lang="en_US").name or "")
-                sheet6.write(r, 29, material.name or "")
+                sheet6.write(r, 29, material.with_context(lang="fi_FI").name or "")
                 sheet6.write(r, 30, round_to_significant_figures(net_weight, accu))
                 sheet6.write(
                     r, 31, round_to_significant_figures(net_weight * 0.001, accu)
@@ -3624,7 +3624,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             for material, weight_recyc in name_and_weight.items():
                 sheet6.write(r, 36, material.with_context(lang="en_US").name or "")
-                sheet6.write(r, 37, material.name or "")
+                sheet6.write(r, 37, material.with_context(lang="fi_FI").name or "")
                 sheet6.write(r, 38, round_to_significant_figures(weight_recyc[0], accu))
                 sheet6.write(
                     r, 39, round_to_significant_figures(weight_recyc[0] * 0.001, accu)
@@ -3776,7 +3776,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             for material, weight_recyc in name_and_weight.items():
                 net_weight = weight_recyc[0]
                 sheet6.write(r, 44, material.with_context(lang="en_US").name or "")
-                sheet6.write(r, 45, material.name or "")
+                sheet6.write(r, 45, material.with_context(lang="fi_FI").name or "")
                 sheet6.write(r, 46, round_to_significant_figures(net_weight, accu))
                 sheet6.write(
                     r, 47, round_to_significant_figures(net_weight * 0.001, accu)
