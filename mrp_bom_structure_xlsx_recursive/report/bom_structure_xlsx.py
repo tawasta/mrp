@@ -1576,7 +1576,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         # Some column sizes changed to match their title
 
         # 1. Product Materials Summary
-        sheet6.set_column(column, column, 33)  # A
+        sheet6.set_column(column, column, 22)  # A
         column += 1
         sheet6.set_column(column, column, 17)  # B
         column += 1
@@ -1587,7 +1587,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         columns_1 = column
 
         # 2. Packaging Materials Summary
-        sheet6.set_column(column, column, 33)  # D
+        sheet6.set_column(column, column, 22)  # D
         column += 1
         sheet6.set_column(column, column, 17)  # E
         column += 1
@@ -1598,6 +1598,8 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         columns_2 = column
 
         # 3. Product component materials
+        sheet6.set_column(column, column, 33)  # O
+        column += 1
         sheet6.set_column(column, column, 33)  # O
         column += 1
         sheet6.set_column(column, column, 17)  # P
@@ -1621,6 +1623,8 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         # 4. Delivery Packaging materials
         sheet6.set_column(column, column, 33)  # S
         column += 1
+        sheet6.set_column(column, column, 33)  # S
+        column += 1
         sheet6.set_column(column, column, 17)  # T
         column += 1
         sheet6.set_column(column, column, 14)  # U
@@ -1642,6 +1646,8 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         # 5. All materials consumed in production
         sheet6.set_column(column, column, 33)  # Y
         column += 1
+        sheet6.set_column(column, column, 33)  # Y
+        column += 1
         sheet6.set_column(column, column, 21)  # Z
         column += 1
         sheet6.set_column(column, column, 21)  # AA
@@ -1650,13 +1656,15 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         column += 1
         sheet6.set_column(column, column, 33)  # W
         column += 1
-        sheet6.set_column(column, column, 27)  # X
+        sheet6.set_column(column, column, 30)  # X
         column += 1
-        sheet6.set_column(column, column, 27)  # X
+        sheet6.set_column(column, column, 30)  # X
         column += 1
         columns_5 = column
 
         # 6. All materials in Incoming packaging
+        sheet6.set_column(column, column, 33)  # H
+        column += 1
         sheet6.set_column(column, column, 33)  # H
         column += 1
         sheet6.set_column(column, column, 17)  # I
@@ -1676,6 +1684,8 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         # 7. Summary of all materials
         sheet6.set_column(column, column, 33)  # AC
         column += 1
+        sheet6.set_column(column, column, 33)  # AC
+        column += 1
         sheet6.set_column(column, column, 17)  # AD
         column += 1
         sheet6.set_column(column, column, 17)  # AE
@@ -1684,9 +1694,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         column += 1
         sheet6.set_column(column, column, 33)  # W
         column += 1
-        sheet6.set_column(column, column, 27)  # X
+        sheet6.set_column(column, column, 25)  # X
         column += 1
-        sheet6.set_column(column, column, 27)  # X
+        sheet6.set_column(column, column, 30)  # X
         column += 1
         columns_7 = column
 
@@ -1783,6 +1793,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         # --------------------------------------------------------------------- #
 
         sheet_title_material_template = [
+            _("Material (en)"),
             _("Material"),
             _("Total amount (g)"),
             _("Weight, kg"),
@@ -1828,6 +1839,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         # --------------------------------------------------------------------- #
 
         sheet_title_material_template = [
+            _("Material (en)"),
             _("Material"),
             _("Total amount (g)"),
             _("Weight, kg"),
@@ -1874,6 +1886,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         # --------------------------------------------------------------------- #
 
         sheet_title_material_template = [
+            _("Material (en)"),
             _("Material"),
             _("Total amount (g)"),
             _("Weight, kg"),
@@ -1912,6 +1925,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         # --------------------------------------------------------------------- #
 
         sheet_title_incoming_material = [
+            _("Material (en)"),
             _("Material"),
             _("Total amount (g)"),
             _("Weight, kg"),
@@ -1949,6 +1963,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         # --------------------------------------------------------------------- #
 
         sheet_title_total_material = [
+            _("Material (en)"),
             _("Material"),
             _("Total amount (g)"),
             _("Weight, kg"),
@@ -2486,7 +2501,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     accu,
                 ),
             )
-            sheet6.write(9, 0, "Total")
+            sheet6.write(9, 0, "Total", bold)
             total_all = (
                 total_wood_material_weight
                 + total_glue_material_weight
@@ -2769,7 +2784,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     accu,
                 ),
             )
-            sheet6.write(8, 4, "Total")
+            sheet6.write(8, 4, "Total", bold)
             total_all = (
                 total_cardboard_material_weight
                 + total_paper_material_weight
@@ -2914,14 +2929,15 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             for material, weight_recyc in name_and_weight.items():
                 net_weight = weight_recyc[0]
-                sheet6.write(r, 8, material.name)
-                sheet6.write(r, 9, round_to_significant_figures(net_weight, accu))
+                sheet6.write(r, 8, material.with_context(lang="en_US").name or "")
+                sheet6.write(r, 9, material.name or "")
+                sheet6.write(r, 10, round_to_significant_figures(net_weight, accu))
                 sheet6.write(
-                    r, 10, round_to_significant_figures(net_weight * 0.001, accu)
+                    r, 11, round_to_significant_figures(net_weight * 0.001, accu)
                 )  # weight in kg
                 sheet6.write(
                     r,
-                    11,
+                    12,
                     round_to_significant_figures(
                         (
                             total_grouped_net_weight
@@ -2936,7 +2952,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 total_grouped_recycled_weight += weight_recyc[1]
                 sheet6.write(
                     r,
-                    12,
+                    13,
                     round_to_significant_figures(
                         (net_weight and (weight_recyc[1] / net_weight) * 100 or 0), accu
                     ),
@@ -2952,14 +2968,14 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
                 sheet6.write(
                     r,
-                    13,
+                    14,
                     round_to_significant_figures(
                         (material.renewable_weight_percentage or 0), accu
                     ),
                 )
                 sheet6.write(
                     r,
-                    14,
+                    15,
                     round_to_significant_figures(
                         (
                             (material.renewable_weight_percentage / 100)
@@ -2972,14 +2988,14 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
                 sheet6.write(
                     r,
-                    15,
+                    16,
                     round_to_significant_figures(
                         (material.biogenic_material_weight_percentage or 0), accu
                     ),
                 )
                 sheet6.write(
                     r,
-                    16,
+                    17,
                     round_to_significant_figures(
                         (
                             (material.biogenic_material_weight_percentage / 100)
@@ -2991,18 +3007,18 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 )
                 r += 1
 
-            sheet6.write(r, 8, "Total")
+            sheet6.write(r, 8, "Total", bold)
             sheet6.write(
-                r, 9, round_to_significant_figures(total_grouped_net_weight, accu)
-            )
-            sheet6.write(
-                r,
-                10,
-                round_to_significant_figures(total_grouped_net_weight * 0.001, accu),
+                r, 10, round_to_significant_figures(total_grouped_net_weight, accu)
             )
             sheet6.write(
                 r,
                 11,
+                round_to_significant_figures(total_grouped_net_weight * 0.001, accu),
+            )
+            sheet6.write(
+                r,
+                12,
                 round_to_significant_figures(
                     (
                         total_grouped_net_weight
@@ -3014,7 +3030,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
             sheet6.write(
                 r,
-                12,
+                13,
                 round_to_significant_figures(
                     (
                         total_grouped_net_weight
@@ -3028,7 +3044,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             sheet6.write(
                 r,
-                13,
+                14,
                 round_to_significant_figures(
                     (
                         total_grouped_net_weight
@@ -3041,7 +3057,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
             sheet6.write(
                 r,
-                14,
+                15,
                 round_to_significant_figures(
                     total_grouped_renewable_weight * 0.001, accu
                 ),
@@ -3049,7 +3065,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             sheet6.write(
                 r,
-                15,
+                16,
                 round_to_significant_figures(
                     (
                         total_grouped_net_weight
@@ -3062,7 +3078,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
             sheet6.write(
                 r,
-                16,
+                17,
                 round_to_significant_figures(
                     total_grouped_biogenic_weight * 0.001, accu
                 ),
@@ -3153,14 +3169,15 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             for material, weight_recyc in name_and_weight.items():
                 net_weight = weight_recyc[0]
-                sheet6.write(r, 17, material.name)
-                sheet6.write(r, 18, round_to_significant_figures(net_weight, accu))
+                sheet6.write(r, 18, material.with_context(lang="en_US").name or "")
+                sheet6.write(r, 19, material.name or "")
+                sheet6.write(r, 20, round_to_significant_figures(net_weight, accu))
                 sheet6.write(
-                    r, 19, round_to_significant_figures(net_weight * 0.001, accu)
+                    r, 21, round_to_significant_figures(net_weight * 0.001, accu)
                 )  # weight in kg
                 sheet6.write(
                     r,
-                    20,
+                    22,
                     round_to_significant_figures(
                         (
                             total_grouped_net_weight
@@ -3175,7 +3192,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 total_grouped_recycled_weight += weight_recyc[1]
                 sheet6.write(
                     r,
-                    21,
+                    23,
                     round_to_significant_figures(
                         (net_weight and (weight_recyc[1] / net_weight) * 100 or 0), accu
                     ),
@@ -3186,14 +3203,14 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 ) * net_weight
                 sheet6.write(
                     r,
-                    22,
+                    24,
                     round_to_significant_figures(
                         material.renewable_weight_percentage or 0, accu
                     ),
                 )
                 sheet6.write(
                     r,
-                    23,
+                    25,
                     round_to_significant_figures(
                         (
                             (material.renewable_weight_percentage / 100)
@@ -3209,14 +3226,14 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 ) * net_weight
                 sheet6.write(
                     r,
-                    24,
+                    26,
                     round_to_significant_figures(
                         material.biogenic_material_weight_percentage or 0, accu
                     ),
                 )
                 sheet6.write(
                     r,
-                    25,
+                    27,
                     round_to_significant_figures(
                         (
                             (material.biogenic_material_weight_percentage / 100)
@@ -3229,18 +3246,18 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
                 r += 1
 
-            sheet6.write(r, 17, "Total")
+            sheet6.write(r, 18, "Total", bold)
             sheet6.write(
-                r, 18, round_to_significant_figures(total_grouped_net_weight, accu)
+                r, 20, round_to_significant_figures(total_grouped_net_weight, accu)
             )
             sheet6.write(
                 r,
-                19,
+                21,
                 round_to_significant_figures(total_grouped_net_weight * 0.001, accu),
             )
             sheet6.write(
                 r,
-                20,
+                22,
                 round_to_significant_figures(
                     (
                         total_grouped_net_weight
@@ -3252,7 +3269,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
             sheet6.write(
                 r,
-                21,
+                23,
                 round_to_significant_figures(
                     (
                         total_grouped_net_weight
@@ -3266,7 +3283,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             sheet6.write(
                 r,
-                22,
+                24,
                 round_to_significant_figures(
                     (
                         total_grouped_net_weight
@@ -3279,7 +3296,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
             sheet6.write(
                 r,
-                23,
+                25,
                 round_to_significant_figures(
                     total_grouped_renewable_weight * 0.001, accu
                 ),
@@ -3287,7 +3304,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             sheet6.write(
                 r,
-                24,
+                26,
                 round_to_significant_figures(
                     (
                         total_grouped_net_weight
@@ -3300,7 +3317,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
             sheet6.write(
                 r,
-                25,
+                27,
                 round_to_significant_figures(
                     total_grouped_biogenic_weight * 0.001, accu
                 ),
@@ -3420,14 +3437,15 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             for material, weight_recyc in name_and_weight.items():
                 net_weight = weight_recyc[0]
-                sheet6.write(r, 26, material.name)
-                sheet6.write(r, 27, round_to_significant_figures(net_weight, accu))
+                sheet6.write(r, 28, material.with_context(lang="en_US").name or "")
+                sheet6.write(r, 29, material.name or "")
+                sheet6.write(r, 30, round_to_significant_figures(net_weight, accu))
                 sheet6.write(
-                    r, 28, round_to_significant_figures(net_weight * 0.001, accu)
+                    r, 31, round_to_significant_figures(net_weight * 0.001, accu)
                 )  # weight in kg
                 sheet6.write(
                     r,
-                    29,
+                    32,
                     round_to_significant_figures(
                         (
                             total_grouped_net_weight
@@ -3441,7 +3459,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 total_grouped_recycled_weight += weight_recyc[1]
                 sheet6.write(
                     r,
-                    30,
+                    33,
                     round_to_significant_figures(
                         (net_weight and (weight_recyc[1] / net_weight) * 100 or 0), accu
                     ),
@@ -3457,7 +3475,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
                 sheet6.write(
                     r,
-                    31,
+                    34,
                     round_to_significant_figures(
                         material.renewable_weight_percentage or 0, accu
                     ),
@@ -3465,7 +3483,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
                 sheet6.write(
                     r,
-                    32,
+                    35,
                     round_to_significant_figures(
                         (
                             (material.biogenic_material_weight_percentage / 100)
@@ -3477,18 +3495,18 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 )
                 r += 1
 
-            sheet6.write(r, 26, "Total")
+            sheet6.write(r, 28, "Total", bold)
             sheet6.write(
-                r, 27, round_to_significant_figures(total_grouped_net_weight, accu)
+                r, 30, round_to_significant_figures(total_grouped_net_weight, accu)
             )
             sheet6.write(
                 r,
-                28,
+                31,
                 round_to_significant_figures(total_grouped_net_weight * 0.001, accu),
             )
             sheet6.write(
                 r,
-                29,
+                32,
                 round_to_significant_figures(
                     (
                         total_grouped_net_weight
@@ -3500,7 +3518,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
             sheet6.write(
                 r,
-                30,
+                33,
                 round_to_significant_figures(
                     (
                         total_grouped_net_weight
@@ -3514,7 +3532,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             sheet6.write(
                 r,
-                31,
+                34,
                 round_to_significant_figures(
                     (
                         total_grouped_net_weight
@@ -3527,7 +3545,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
             sheet6.write(
                 r,
-                32,
+                35,
                 round_to_significant_figures(
                     total_grouped_biogenic_weight * 0.001, accu
                 ),
@@ -3605,14 +3623,15 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
 
             for material, weight_recyc in name_and_weight.items():
-                sheet6.write(r, 33, material.name)
-                sheet6.write(r, 34, round_to_significant_figures(weight_recyc[0], accu))
+                sheet6.write(r, 36, material.with_context(lang="en_US").name or "")
+                sheet6.write(r, 37, material.name or "")
+                sheet6.write(r, 38, round_to_significant_figures(weight_recyc[0], accu))
                 sheet6.write(
-                    r, 35, round_to_significant_figures(weight_recyc[0] * 0.001, accu)
+                    r, 39, round_to_significant_figures(weight_recyc[0] * 0.001, accu)
                 )  # weight in kg
                 sheet6.write(
                     r,
-                    36,
+                    40,
                     round_to_significant_figures(
                         (
                             total_grouped_net_weight
@@ -3626,7 +3645,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 total_grouped_recycled_weight += weight_recyc[1]
                 sheet6.write(
                     r,
-                    37,
+                    41,
                     round_to_significant_figures(
                         (
                             weight_recyc[0]
@@ -3637,23 +3656,23 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ),
                 )
                 waste_component = weight_recyc[2] and weight_recyc[2][0].name or ""
-                sheet6.write(r, 38, waste_component)
+                sheet6.write(r, 42, waste_component)
                 waste_endpoint = weight_recyc[3] and weight_recyc[3][0].name or ""
-                sheet6.write(r, 39, waste_endpoint)
+                sheet6.write(r, 43, waste_endpoint)
                 r += 1
 
-            sheet6.write(r, 33, "Total")
+            sheet6.write(r, 36, "Total", bold)
             sheet6.write(
-                r, 34, round_to_significant_figures(total_grouped_net_weight, accu)
+                r, 38, round_to_significant_figures(total_grouped_net_weight, accu)
             )
             sheet6.write(
                 r,
-                35,
+                39,
                 round_to_significant_figures(total_grouped_net_weight * 0.001, accu),
             )
             sheet6.write(
                 r,
-                36,
+                40,
                 round_to_significant_figures(
                     (
                         total_grouped_net_weight
@@ -3665,7 +3684,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
             sheet6.write(
                 r,
-                37,
+                41,
                 round_to_significant_figures(
                     (
                         total_grouped_net_weight
@@ -3756,14 +3775,15 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             for material, weight_recyc in name_and_weight.items():
                 net_weight = weight_recyc[0]
-                sheet6.write(r, 40, material.name)
-                sheet6.write(r, 41, round_to_significant_figures(net_weight, accu))
+                sheet6.write(r, 44, material.with_context(lang="en_US").name or "")
+                sheet6.write(r, 45, material.name or "")
+                sheet6.write(r, 46, round_to_significant_figures(net_weight, accu))
                 sheet6.write(
-                    r, 42, round_to_significant_figures(net_weight * 0.001, accu)
+                    r, 47, round_to_significant_figures(net_weight * 0.001, accu)
                 )  # weight in kg
                 sheet6.write(
                     r,
-                    43,
+                    48,
                     round_to_significant_figures(
                         (
                             total_grouped_net_weight
@@ -3777,7 +3797,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 total_grouped_recycled_weight += weight_recyc[1]
                 sheet6.write(
                     r,
-                    44,
+                    49,
                     round_to_significant_figures(
                         (net_weight and (weight_recyc[1] / net_weight) * 100 or 0), accu
                     ),
@@ -3788,14 +3808,14 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 ) * net_weight
                 sheet6.write(
                     r,
-                    45,
+                    50,
                     round_to_significant_figures(
                         (material.biogenic_material_weight_percentage or 0), accu
                     ),
                 )
                 sheet6.write(
                     r,
-                    46,
+                    51,
                     round_to_significant_figures(
                         (
                             (material.biogenic_material_weight_percentage / 100)
@@ -3807,18 +3827,18 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 )
                 r += 1
 
-            sheet6.write(r, 40, "Total")
+            sheet6.write(r, 44, "Total", bold)
             sheet6.write(
-                r, 41, round_to_significant_figures(total_grouped_net_weight, accu)
+                r, 46, round_to_significant_figures(total_grouped_net_weight, accu)
             )
             sheet6.write(
                 r,
-                42,
+                47,
                 round_to_significant_figures(total_grouped_net_weight * 0.001, accu),
             )
             sheet6.write(
                 r,
-                43,
+                48,
                 round_to_significant_figures(
                     (
                         total_grouped_net_weight
@@ -3830,7 +3850,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
             sheet6.write(
                 r,
-                44,
+                49,
                 round_to_significant_figures(
                     (
                         total_grouped_net_weight
@@ -3843,7 +3863,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
             sheet6.write(
                 r,
-                45,
+                50,
                 round_to_significant_figures(
                     (
                         total_grouped_net_weight
@@ -3856,7 +3876,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             )
             sheet6.write(
                 r,
-                46,
+                51,
                 round_to_significant_figures(
                     total_grouped_biogenic_weight * 0.001, accu
                 ),
@@ -3892,11 +3912,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             total_grouped_energy = sum(workcenter_and_energy.values())
 
             for workcenter, energy in workcenter_and_energy.items():
-                sheet6.write(t, 47, workcenter.name)
-                sheet6.write(t, 48, energy)
+                sheet6.write(t, 52, workcenter.name)
+                sheet6.write(t, 53, energy)
                 sheet6.write(
                     t,
-                    49,
+                    54,
                     total_grouped_energy and (energy / total_grouped_energy) * 100,
                 ) or 0
                 t += 1
@@ -3931,11 +3951,11 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             total_grouped_energy = sum(operation_and_energy.values())
 
             for operation, energy in operation_and_energy.items():
-                sheet6.write(t, 50, operation.name)
-                sheet6.write(t, 51, energy)
+                sheet6.write(t, 55, operation.name)
+                sheet6.write(t, 56, energy)
                 sheet6.write(
                     t,
-                    52,
+                    57,
                     total_grouped_energy and (energy / total_grouped_energy) * 100,
                 ) or 0
                 t += 1
