@@ -57,8 +57,14 @@ class SaleOrder(models.Model):
 
     def prepare_product_mrp_area_vals(self, product):
         """Default Product Mrp Area values"""
+
+        area = self.env["mrp.area"].search([("company_id", "=", self.company_id.id)])
+
+        # In case there are multiple areas
+        area = area and area[0]
+
         return {
-            "mrp_area_id": 1,
+            "mrp_area_id": area.id,
             "product_id": product.id,
         }
 
@@ -71,6 +77,7 @@ class SaleOrder(models.Model):
             "|",
             ("active", "=", True),
             ("active", "=", False),
+            ("company_id", "=", self.company_id.id),
         ]
 
     def product_mrp_area_create_multi(self, products):
@@ -107,9 +114,15 @@ class SaleOrder(models.Model):
 
     def action_confirm(self):
         res = super().action_confirm()
-        job_desc = "Begin MRP Area Parameters creation"
-        self.with_delay(description=job_desc)._product_mrp_area_create_multi_queued(
-            self.order_line
+
+        area_exists = self.env["mrp.area"].search(
+            [("company_id", "=", self.company_id.id)]
         )
+
+        if self.company_id.create_mrp_parameters_on_confirm and area_exists:
+            job_desc = "Begin MRP Area Parameters creation"
+            self.with_delay(description=job_desc)._product_mrp_area_create_multi_queued(
+                self.order_line
+            )
 
         return res
