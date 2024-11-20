@@ -52,9 +52,14 @@ class ProductReport(models.Model):
     temp_qty = fields.Float("Temp Qty", readonly=True)
     temp_float = fields.Float("Temp Float", readonly=True)
 
-    def _select_product(self, fields=None, days=1):
+    def _select_product(self, fields=None, days=1, company_id=None):
         if not fields:
             fields = {}
+
+        if company_id:
+            svl_company_clause = "AND company_id IN ({})".format(company_id)
+        else:
+            svl_company_clause = ""
 
         select_ = """
                 p.id AS id,
@@ -64,71 +69,98 @@ class ProductReport(models.Model):
                 min(temp_float.value_float) AS temp_float,
 
                 (min(temp_value.value) / NULLIF(
-                    min(temp_float.value_float), 0.0)) * {} AS total_sufficiency,
+                    min(temp_float.value_float), 0.0)) * {temp_value_days} AS total_sufficiency,
 
                 365 / NULLIF(((min(temp_value.value) /
-                    NULLIF(min(temp_float.value_float), 0.0)) * {}), 0.0)
+                    NULLIF(min(temp_float.value_float), 0.0)) * {temp_float_days}), 0.0)
                         AS total_year_sufficiency,
 
                 (SELECT sum(value) FROM stock_valuation_layer
-                    WHERE product_id = p.id) AS value,
+                    WHERE product_id = p.id {svl_company_clause}) AS value,
                 abc_p.id AS abc_profile_id,
                 prop.value_float AS cost,
                 stq.id AS stock_quant,
                 (SELECT sum(quantity) FROM stock_valuation_layer
-                    WHERE product_id = p.id) AS quant_sum,
+                    WHERE product_id = p.id {svl_qty_company_clause}) AS quant_sum,
                 sum(mrm.mrp_qty) * -1 AS move_sum,
 
                 (
                     (
-                        (SELECT sum(value) FROM stock_valuation_layer WHERE product_id = p.id)
+                        (SELECT sum(value) FROM stock_valuation_layer
+                         WHERE product_id = p.id {svl_suf_company_clause})
                     )
                         /
                     (
                         NULLIF((SUM(mrm.mrp_qty) * -1 * prop.value_float), 0.0)
                     )
                 )
-                    * {} AS sufficiency,
+                    * {sufficiency_days} AS sufficiency,
 
                 365 / NULLIF(((
                     (
-                        (SELECT sum(value) FROM stock_valuation_layer WHERE product_id = p.id)
+                        (SELECT sum(value) FROM stock_valuation_layer
+                         WHERE product_id = p.id {svl_ysuf_company_clause})
                     )
                         /
                     (
                         NULLIF((SUM(mrm.mrp_qty) * -1 * prop.value_float), 0.0)
                     )
                 )
-                    * {}), 0.0) AS year_sufficiency,
+                    * {year_sufficiency_days}), 0.0) AS year_sufficiency,
 
                 sum(mrm.mrp_qty) * -1 * prop.value_float AS cost_total,
 
                 t.name AS name
         """.format(
-            days, days, days, days
+            temp_value_days=days,
+            temp_float_days=days,
+            svl_company_clause=svl_company_clause,
+            svl_qty_company_clause=svl_company_clause,
+            svl_suf_company_clause=svl_company_clause,
+            sufficiency_days=days,
+            svl_ysuf_company_clause=svl_company_clause,
+            year_sufficiency_days=days,
         )
 
         for field in fields.values():
             select_ += field
         return select_
 
-    def _from_product(self, from_clause="", days=1):
+    def _from_product(self, from_clause="", days=1, company_id=None):
+        if company_id:
+            irp_company_clause = "AND prop.company_id IN ({})".format(company_id)
+            mra_company_clause = "AND mra.company_id IN ({})".format(company_id)
+            mrm_company_clause = "AND mrm.company_id IN ({})".format(company_id)
+            stq_company_clause = "AND stq.company_id IN ({})".format(company_id)
+        else:
+            irp_company_clause = ""
+            mra_company_clause = ""
+            mrm_company_clause = ""
+            stq_company_clause = ""
+
         from_ = """
                 temp_value, temp_float, product_product p
                     LEFT JOIN product_template t ON (p.product_tmpl_id=t.id)
                     LEFT JOIN abc_classification_profile abc_p ON (
                         abc_p.id=p.abc_classification_profile_id)
-                    LEFT JOIN ir_property prop ON (prop.res_id='product.product,' || p.id)
-                    LEFT JOIN product_mrp_area mra ON (mra.product_id=p.id)
+                    LEFT JOIN ir_property prop ON (prop.res_id='product.product,' || p.id
+                        {prop_clause})
+                    LEFT JOIN product_mrp_area mra ON (mra.product_id=p.id {mra_clause})
                     LEFT JOIN mrp_move mrm ON (
                         mrm.product_id=p.id AND mrm.mrp_type='d'
-                        AND mrm.mrp_date < CURRENT_DATE + INTERVAL '{days} DAY')
+                        AND mrm.mrp_date < CURRENT_DATE + INTERVAL '{days} DAY'
+                        {mrm_clause})
                     LEFT JOIN mrp_area m_area ON (m_area.id=mra.mrp_area_id)
                     LEFT JOIN stock_quant stq ON (
-                        stq.product_id=p.id AND stq.location_id=m_area.location_id)
+                        stq.product_id=p.id AND stq.location_id=m_area.location_id
+                        {stq_clause})
                     LEFT JOIN {currency_table} ON currency_table.company_id=stq.company_id
                 {from_clause}
         """.format(
+            prop_clause=irp_company_clause,
+            mra_clause=mra_company_clause,
+            mrm_clause=mrm_company_clause,
+            stq_clause=stq_company_clause,
             days=days,
             currency_table=self.env["res.currency"]._get_query_currency_table(
                 {"multi_company": True, "date": {"date_to": fields.Date.today()}}
@@ -160,6 +192,7 @@ class ProductReport(models.Model):
         product_id=None,
         abc_profile_id=None,
         abc_level_ids=None,
+        company_id=None,
     ):
 
         if not fields:
@@ -196,7 +229,12 @@ class ProductReport(models.Model):
         product_ids = (
             self.env["product.product"]
             .search([("id", "in", product_ids)])
-            .filtered(lambda p: p.product_tmpl_id.purchase_ok)
+            .filtered(
+                lambda p: p.product_tmpl_id.purchase_ok
+                and company_id in p.sudo().mrp_area_ids.mapped("company_id").ids
+                if company_id and p.sudo().mrp_area_ids
+                else True
+            )
             .ids
         )
 
@@ -210,21 +248,35 @@ class ProductReport(models.Model):
         if not product_ids:
             product_ids = "(NULL, NULL)"
 
+        if company_id:
+            mrm_company_clause = "AND temp_mrm.company_id IN ({})".format(company_id)
+            svl_company_clause = "AND company_id IN ({})".format(company_id)
+            irp_company_clause = "AND temp_prop.company_id IN ({})".format(company_id)
+        else:
+            mrm_company_clause = ""
+            svl_company_clause = ""
+            irp_company_clause = ""
+
         with_clause = """
                 temp_value (value) AS
-                    (SELECT sum(value) FROM stock_valuation_layer WHERE product_id IN {}),
+                    (SELECT sum(value) FROM stock_valuation_layer WHERE product_id IN {} {}),
                 temp_float (value_float) AS
                     (SELECT sum(temp_mrm.mrp_qty * -1 * temp_prop.value_float)
                     FROM product_product temp_p
                         LEFT JOIN mrp_move temp_mrm ON (
                             temp_mrm.product_id=temp_p.id AND temp_mrm.mrp_type='d'
-                            AND temp_mrm.mrp_date < CURRENT_DATE + INTERVAL '{} DAY')
+                            AND temp_mrm.mrp_date < CURRENT_DATE + INTERVAL '{} DAY'
+                            {})
                         LEFT JOIN ir_property temp_prop
-                            ON (temp_prop.res_id='product.product,' || temp_p.id)
+                            ON (temp_prop.res_id='product.product,' || temp_p.id
+                            {})
                     WHERE temp_p.id IN {})
             """.format(
             product_ids,
+            svl_company_clause,
             days,
+            mrm_company_clause,
+            irp_company_clause,
             product_ids,
         )
 
@@ -234,8 +286,8 @@ class ProductReport(models.Model):
 
         return "%s SELECT %s FROM %s%s GROUP BY %s" % (
             with_,
-            self._select_product(fields, days=days),
-            self._from_product(from_clause, days=days),
+            self._select_product(fields, days=days, company_id=company_id),
+            self._from_product(from_clause, days=days, company_id=company_id),
             where_clause,
             self._group_by_product(groupby),
         )
@@ -246,6 +298,7 @@ class ProductReport(models.Model):
         product_id = self.env.context.get("product_id", None)
         abc_profile_id = self.env.context.get("abc_profile_id", None)
         abc_level_ids = self.env.context.get("abc_level_ids", None)
+        company_id = self.env.context.get("company_id", None)
         tools.drop_view_if_exists(self._cr, "product_report")
         self.env.cr.execute(
             """CREATE or REPLACE VIEW product_report as (%s);"""
@@ -256,6 +309,7 @@ class ProductReport(models.Model):
                     product_id=product_id,
                     abc_profile_id=abc_profile_id,
                     abc_level_ids=abc_level_ids,
+                    company_id=company_id,
                 )
             )
         )
