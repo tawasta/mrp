@@ -10,6 +10,8 @@
                 <field name="product_id" />
                 <p>Product category (optional)</p>
                 <field name="product_category_id" />
+                <p>Company (optional)</p>
+                <field name="company_id" />
                 <p>ABC profile (optional)</p>
                 <field name="abc_profile_id" />
                 <p>ABC level (optional)</p>

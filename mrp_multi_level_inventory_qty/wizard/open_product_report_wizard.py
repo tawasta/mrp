@@ -15,6 +15,12 @@ class OpenProductReportWizard(models.TransientModel):
         "abc.classification.profile.level",
         string="ABC Classification Level",
     )
+    company_id = fields.Many2one(
+        "res.company", string="Company", default=lambda self: self._default_company_id()
+    )
+
+    def _default_company_id(self):
+        return self.env.company
 
     def forecast_open_report(self):
         self.env.ref("mrp_multi_level_inventory_qty.view_product_report_pivot").id
@@ -26,6 +32,7 @@ class OpenProductReportWizard(models.TransientModel):
             product_id=self.product_id.id,
             abc_profile_id=self.abc_profile_id.id,
             abc_level_ids=self.abc_level_ids.ids,
+            company_id=self.company_id.id,
         )
         self.env["product.report"].with_context(ctx).init()
 
