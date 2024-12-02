@@ -230,10 +230,13 @@ class ProductReport(models.Model):
             self.env["product.product"]
             .search([("id", "in", product_ids)])
             .filtered(
-                lambda p: p.product_tmpl_id.purchase_ok
-                and company_id in p.sudo().mrp_area_ids.mapped("company_id").ids
-                if company_id and p.sudo().mrp_area_ids
-                else True
+                lambda p: (p.product_tmpl_id.type == "product")
+                and p.product_tmpl_id.purchase_ok
+                and (
+                    company_id in p.sudo().mrp_area_ids.mapped("company_id").ids
+                    if company_id and p.sudo().mrp_area_ids
+                    else True
+                )
             )
             .ids
         )
