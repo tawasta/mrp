@@ -10,6 +10,8 @@
                 <field name="product_id" />
                 <p>Product category (optional)</p>
                 <field name="product_category_id" />
+                <p>Company (optional)</p>
+                <field name="company_id" widget="selection" class="col-2" />
                 <p>ABC profile (optional)</p>
                 <field name="abc_profile_id" />
                 <p>ABC level (optional)</p>
