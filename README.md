@@ -12,7 +12,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [bsm_importer](bsm_importer/) | 14.0.1.0.0 |  | Import data from local file system to database
-[material_requirement_planning](material_requirement_planning/) | 14.0.1.0.1 |  | Material Requirement
+[material_requirement_planning](material_requirement_planning/) | 14.0.1.1.1 |  | Material Requirement
 [mgmtsystem_hazard_risk_workcenter](mgmtsystem_hazard_risk_workcenter/) | 14.0.1.0.0 |  | Workcenter for Hazard Risk
 [mgmtsystem_hazard_test_tree_view](mgmtsystem_hazard_test_tree_view/) | 14.0.1.0.0 |  | Creates a tree view for Implementation Tests of hazard
 [mrp_auditlog_rules](mrp_auditlog_rules/) | 14.0.1.0.0 |  | Adds audit log rules for mrp.bom
