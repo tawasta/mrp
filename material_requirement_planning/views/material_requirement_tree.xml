@@ -8,6 +8,7 @@
             <tree>
                 <field name="name" />
                 <field name="product" />
+                <field name="company_id" optional="show" />
                 <field name="product_variants" />
                 <field name="qty_to_manufacture" class="pull-right" />
                 <field name="qty_available" />

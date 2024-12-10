@@ -6,6 +6,14 @@ class MaterialRequirementLine(models.Model):
     _name = "material.requirement.line"
     _description = "Material Requirement Line"
 
+    company_id = fields.Many2one(
+        "res.company",
+        related="material_requirement_id.company_id",
+        store=True,
+        readonly=True,
+        index=True,
+    )
+
     bom = fields.Many2one(
         comodel_name="mrp.bom",
         string="BoM",
