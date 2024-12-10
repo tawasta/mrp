@@ -21,7 +21,7 @@
 {
     "name": "Material Requirement",
     "summary": "Material Requirement",
-    "version": "14.0.1.0.1",
+    "version": "14.0.1.1.1",
     "category": "Manufacturing",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
@@ -35,5 +35,6 @@
         "views/material_requirement.xml",
         "views/menuitem.xml",
         "security/ir.model.access.csv",
+        "security/requirement_security.xml",
     ],
 }

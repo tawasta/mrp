@@ -6,6 +6,16 @@ class MaterialRequirement(models.Model):
     _name = "material.requirement"
     _description = "Material Requirement"
 
+    company_id = fields.Many2one(
+        "res.company",
+        string="Company",
+        default=lambda self: self._default_company_id(),
+        required=True,
+    )
+
+    def _default_company_id(self):
+        return self.env.company
+
     note = fields.Text(string="Notes")
 
     name = fields.Char(string="Name")
@@ -21,6 +31,7 @@ class MaterialRequirement(models.Model):
         comodel_name="product.template",
         string="Product",
         domain=[("bom_ids", "!=", False)],
+        required=True,
     )
 
     qty_to_manufacture = fields.Float(
