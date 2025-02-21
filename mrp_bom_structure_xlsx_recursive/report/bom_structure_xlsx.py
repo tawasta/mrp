@@ -859,7 +859,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             if ch.product_id.ignore_component_qty:
                 quantity = 1
             else:
-                quantity = ch.alt_qty or ch.product_qt
+                quantity = ch.alt_qty or ch.product_qty
 
             if product:
                 products.append(
