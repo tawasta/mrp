@@ -2898,9 +2898,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                         product.weight and (bom_product_id.weight / product.weight) or 1
                     )
 
-                #if product.ignore_component_qty:
-                #    qty = 1
-
                 qty = qty * multiply_with
 
                 for material in materials:
@@ -3399,9 +3396,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                             or 1
                         )
 
-                    if product.ignore_component_qty:
-                        qty = 1
-
                     qty = qty * multiply_with
 
                     for material in consu_materials:
@@ -3761,9 +3755,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     multiply_with = (
                         product.weight and (bom_product_id.weight / product.weight) or 1
                     )
-
-                if product.ignore_component_qty:
-                    qty = 1
 
                 qty = qty * multiply_with
 
