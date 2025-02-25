@@ -3603,6 +3603,19 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ],
                 )
 
+                bom_product_id = (
+                    product_variant or bom.product_tmpl_id.product_variant_id
+                )
+
+                multiply_with = 1
+
+                if product.multiply_with_partial_weight:
+                    multiply_with = (
+                        product.weight and (bom_product_id.weight / product.weight) or 1
+                    )
+
+                qty = qty * multiply_with
+
                 for material in materials:
                     if not name_and_weight.get(material.product_material_id):
                         name_and_weight[material.product_material_id] = [
