@@ -59,22 +59,25 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             else:
                 bom_factor_used = bom_factor
 
+            if bom_line.product_id.ignore_component_qty:
+                quantity = 1
+            else:
+                quantity = bom_line.alt_qty or bom_line.product_qty
+
             lines.append(
                 [
                     ident,
                     [
                         bom_line,
-                        (bom_line.alt_qty or bom_line.product_qty) * bom_factor_used,
+                        quantity * bom_factor_used,
                     ],
                 ]
             )
 
             if bom_line.child_bom_id:
-                bom_factor_used = (
-                    bom_line.alt_qty or bom_line.product_qty
-                ) * bom_factor_used
-                child_bom = product_id.bom_ids and product_id.bom_ids[0]
+                bom_factor_used = quantity * bom_factor_used
 
+                child_bom = product_id.bom_ids and product_id.bom_ids[0]
                 ident = "{}{}{}".format(identifier, "0000", child_bom.id)
 
                 lines += self.get_sub_lines(
@@ -142,9 +145,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     and (bom_product_id.weight / product_id.weight)
                     or 1
                 )
-
-            if product_id.ignore_component_qty:
-                quantity = 1
 
             if mater.type == "product_packaging":
                 sheet2.write(
@@ -856,11 +856,16 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             product = self.env["product.product"].browse(ch.product_id.id)
 
+            if ch.product_id.ignore_component_qty:
+                quantity = 1
+            else:
+                quantity = ch.alt_qty or ch.product_qty
+
             if product:
                 products.append(
                     [
                         product,
-                        (ch.alt_qty or ch.product_qty) * multiplier,
+                        quantity * multiplier,
                         ch.product_uom_id,
                         bom,
                         product_variant,
@@ -875,7 +880,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     bom=ch.child_bom_id,
                     child_number=child_number,
                     products=products,
-                    multiplier=multiplier * (ch.alt_qty or ch.product_qty),
+                    multiplier=multiplier * quantity,
                 )
         return products
 
@@ -889,6 +894,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         product_variant,
         style,
         child_number,
+        quantities,
+        identifier,
+        ch,
         multiplier=1,
     ):
         b, j = row, level
@@ -900,15 +908,13 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         else:
             level = str(1)
 
+        ident = "{}{}{}".format(identifier, "0000", ch.id)
+
         for by_product in bom.byproduct_ids:
 
             # -------------------------------#
             # ----------- Sheet 3 -----------#
             # -------------------------------#
-
-            "{}".format(bom.id)
-
-            self.get_bom_quantities(bom)
 
             sheet3.write(
                 b, 0, bom.product_tmpl_id.name, bold
@@ -931,36 +937,46 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 b, 6, by_product.product_id.product_tmpl_id.name, bold
             )  # Waste product name
 
+            quantity_by = quantities and quantities[ident][1] or 1
+
             if product_variant.multiply_with_by_products:
                 weight_result = product_variant.gross_weight - product_variant.weight
                 sheet3.write(
-                    b, 7, weight_result * multiplier or 0, bold
+                    b, 7, weight_result * quantity_by or 0, bold
                 )  # Waste amount
             else:
-                sheet3.write(b, 7, by_product.product_qty or 0, bold)  # Waste amount
+                sheet3.write(b, 7, by_product.product_qty * quantity_by
+                        or 0, bold)  # Waste amount
 
             sheet3.write(b, 8, by_product.product_uom_id.name, bold)  # Waste unit
 
             b += 1
 
-        for ch in bom.bom_line_ids:
-            if product_variant and ch._skip_bom_line(product_variant):
+        #for ch in bom.bom_line_ids:
+        #    if product_variant and ch._skip_bom_line(product_variant):
+        child_number = 0
+        for child in ch.child_line_ids:
+            child_number += 1
+            if child._skip_bom_line(ch.product_id):
                 continue
 
-            child_number += 1
+            child_bom = ch.product_id.bom_ids and ch.product_id.bom_ids[0]
+            ident = "{}{}{}".format(identifier, "0000", child_bom.id)
 
-            if ch.child_bom_id:
-                b = self.print_by_products(
-                    sheet3,
-                    row=b,
-                    level=j,
-                    parent_level=level,
-                    product_variant=ch.product_id,
-                    style=None,
-                    bom=ch.child_bom_id,
-                    child_number=child_number,
-                    multiplier=multiplier * (ch.alt_qty or ch.product_qty),
-                )
+            b = self.print_by_products(
+                sheet3,
+                row=b,
+                level=j,
+                parent_level=level,
+                product_variant=ch.product_id,
+                style=None,
+                bom=ch.child_bom_id,
+                child_number=child_number,
+                quantities=quantities,
+                identifier=ident,
+                ch=child,
+                multiplier=multiplier * (ch.alt_qty or ch.product_qty),
+            )
 
         j -= 1
         return b
@@ -2162,16 +2178,30 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             # ------------------------------ Sheet 3 ------------------------------ #
             # --------------------------------------------------------------------- #
 
-            self.print_by_products(
-                sheet3,
-                row=b,
-                level=0,
-                parent_level=1,
-                bom=o,
-                product_variant=product_variant,
-                style=None,
-                child_number=0,
-            )
+            quantities = self.get_bom_quantities(o)
+
+            identifier = "{}".format(o.id)
+
+            child_number = 0
+            for ch in o.bom_line_ids:
+                child_number += 1
+                if product_variant and ch._skip_bom_line(product_variant):
+                    continue
+
+                self.print_by_products(
+                    sheet3,
+                    row=b,
+                    level=0,
+                    parent_level=1,
+                    bom=o,
+                    product_variant=product_variant,
+                    style=None,
+                    child_number=0,
+                    quantities=quantities,
+                    identifier=ident,
+                    ch=ch,
+                    multiplier=1,
+                )
 
             # --------------------------------------------------------------------- #
             # ------------------------------ Sheet 4 ------------------------------ #
@@ -2868,9 +2898,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                         product.weight and (bom_product_id.weight / product.weight) or 1
                     )
 
-                if product.ignore_component_qty:
-                    qty = 1
-
                 qty = qty * multiply_with
 
                 for material in materials:
@@ -3369,9 +3396,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                             or 1
                         )
 
-                    if product.ignore_component_qty:
-                        qty = 1
-
                     qty = qty * multiply_with
 
                     for material in consu_materials:
@@ -3579,6 +3603,19 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ],
                 )
 
+                bom_product_id = (
+                    product_variant or bom.product_tmpl_id.product_variant_id
+                )
+
+                multiply_with = 1
+
+                if product.multiply_with_partial_weight:
+                    multiply_with = (
+                        product.weight and (bom_product_id.weight / product.weight) or 1
+                    )
+
+                qty = qty * multiply_with
+
                 for material in materials:
                     if not name_and_weight.get(material.product_material_id):
                         name_and_weight[material.product_material_id] = [
@@ -3731,9 +3768,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     multiply_with = (
                         product.weight and (bom_product_id.weight / product.weight) or 1
                     )
-
-                if product.ignore_component_qty:
-                    qty = 1
 
                 qty = qty * multiply_with
 
