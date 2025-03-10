@@ -18,6 +18,8 @@ addon | version | maintainers | summary
 [mrp_bom_primary_vendor_info](mrp_bom_primary_vendor_info/) | 17.0.1.0.0 |  | Helper fields for showing primary vendor's info
 [mrp_bom_raw_material_quantities](mrp_bom_raw_material_quantities/) | 17.0.1.0.0 |  | Helper module for calculating total raw material requirements of a BOM
 [mrp_bom_structure_xlsx_cost](mrp_bom_structure_xlsx_cost/) | 17.0.1.0.0 |  | Add cost to MRP BOM Structure XLSX
+[mrp_inventory_product_category](mrp_inventory_product_category/) | 17.0.1.0.0 |  | Shows product category in mrp.inventory list view
+[mrp_product_only_select](mrp_product_only_select/) | 17.0.1.0.0 |  | Disable creating and editing of products from the MO product field
 [mrp_production_raw_materials_to_purchase_request](mrp_production_raw_materials_to_purchase_request/) | 17.0.1.0.1 |  | Purchase request creation from manufacturing order
 [mrp_production_raw_materials_warning_field](mrp_production_raw_materials_warning_field/) | 17.0.1.0.0 |  | Helper field indicating if materials are available and assigned
 [mrp_report_bom_structure_product_unit_price](mrp_report_bom_structure_product_unit_price/) | 17.0.1.0.0 |  | Use product Unit price instead of its multiple on report
