@@ -20,6 +20,7 @@ addon | version | maintainers | summary
 [mrp_bom_raw_material_quantities](mrp_bom_raw_material_quantities/) | 17.0.1.0.0 |  | Helper module for calculating total raw material requirements of a BOM
 [mrp_bom_structure_xlsx_cost](mrp_bom_structure_xlsx_cost/) | 17.0.1.0.0 |  | Add cost to MRP BOM Structure XLSX
 [mrp_inventory_product_category](mrp_inventory_product_category/) | 17.0.1.0.0 |  | Shows product category in mrp.inventory list view
+[mrp_inventory_responsible_id](mrp_inventory_responsible_id/) | 17.0.1.0.0 |  | Shows product template responsible id in mrp.inventory list view
 [mrp_product_only_select](mrp_product_only_select/) | 17.0.1.0.0 |  | Disable creating and editing of products from the MO product field
 [mrp_production_mass_cancel](mrp_production_mass_cancel/) | 17.0.1.0.0 |  | Allow cancellation of production orders en masse
 [mrp_production_raw_materials_to_purchase_request](mrp_production_raw_materials_to_purchase_request/) | 17.0.1.0.1 |  | Purchase request creation from manufacturing order
