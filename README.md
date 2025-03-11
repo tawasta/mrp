@@ -11,6 +11,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[mrp_auditlog_rules](mrp_auditlog_rules/) | 17.0.1.0.0 |  | Adds audit log rules for mrp.bom
 [mrp_bom_auditlog_rules](mrp_bom_auditlog_rules/) | 17.0.1.0.0 |  | Adds audit log rules for mrp.bom
 [mrp_bom_cost_cron](mrp_bom_cost_cron/) | 17.0.1.0.0 |  | Scheduled action to calculate product's cost price from BoM
 [mrp_bom_line_comment](mrp_bom_line_comment/) | 17.0.1.0.0 |  | Allow adding a comment for BoM line
@@ -20,8 +21,10 @@ addon | version | maintainers | summary
 [mrp_bom_structure_xlsx_cost](mrp_bom_structure_xlsx_cost/) | 17.0.1.0.0 |  | Add cost to MRP BOM Structure XLSX
 [mrp_inventory_product_category](mrp_inventory_product_category/) | 17.0.1.0.0 |  | Shows product category in mrp.inventory list view
 [mrp_product_only_select](mrp_product_only_select/) | 17.0.1.0.0 |  | Disable creating and editing of products from the MO product field
+[mrp_production_mass_cancel](mrp_production_mass_cancel/) | 17.0.1.0.0 |  | Allow cancellation of production orders en masse
 [mrp_production_raw_materials_to_purchase_request](mrp_production_raw_materials_to_purchase_request/) | 17.0.1.0.1 |  | Purchase request creation from manufacturing order
 [mrp_production_raw_materials_warning_field](mrp_production_raw_materials_warning_field/) | 17.0.1.0.0 |  | Helper field indicating if materials are available and assigned
+[mrp_production_tree_date_planned_start_as_date](mrp_production_tree_date_planned_start_as_date/) | 17.0.1.0.0 |  | Show date planned start as date in mrp production tree
 [mrp_report_bom_structure_product_unit_price](mrp_report_bom_structure_product_unit_price/) | 17.0.1.0.0 |  | Use product Unit price instead of its multiple on report
 
 [//]: # (end addons)
