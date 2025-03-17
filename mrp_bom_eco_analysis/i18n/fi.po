@@ -1,0 +1,349 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mrp_bom_eco_analysis
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0-20250131\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-03-17 12:25+0000\n"
+"PO-Revision-Date: 2025-03-17 14:30+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.5\n"
+
+#. module: mrp_bom_eco_analysis
+#. odoo-python
+#: code:addons/mrp_bom_eco_analysis/models/maintenance_equipment.py:0
+#, python-format
+msgid "According to Work Center {}, this Equipment's location should be {}."
+msgstr ""
+"Koneesen liitetyn työpisteen {} mukaan tämän koneen sijainti pitäisi olla "
+"{}."
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__message_needaction
+msgid "Action Needed"
+msgstr ""
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_routing_workcenter__duration_active
+#: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_routing_workcenter_form_view
+msgid "Active Duration"
+msgstr "Koneaika työstössä"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__message_attachment_count
+msgid "Attachment Count"
+msgstr ""
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model,name:mrp_bom_eco_analysis.model_report_mrp_report_bom_structure
+msgid "BOM Overview Report"
+msgstr "Osaluettelon yleiskatsausraportti"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model,name:mrp_bom_eco_analysis.model_mrp_bom
+msgid "Bill of Material"
+msgstr "Osaluettelo"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_bom__type
+msgid "BoM Type"
+msgstr "Osalistan tyyppi"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__brand
+msgid "Brand"
+msgstr "Merkki"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__compressed_air
+msgid "Compressed Air"
+msgstr "Paineilma"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_routing_workcenter__bom_consu
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__bom_consu
+#: model:ir.model.fields.selection,name:mrp_bom_eco_analysis.selection__mrp_bom__type__consumption
+msgid "Consumable BOM"
+msgstr "Kulutusosaluettelo"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter_category__create_uid
+msgid "Created by"
+msgstr "Luonut"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter_category__create_date
+msgid "Created on"
+msgstr "Luotu"
+
+#. module: mrp_bom_eco_analysis
+#: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_routing_workcenter_form_view
+msgid "Default Duration"
+msgstr "Toiminnon kokonaistyöaika"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter_category__display_name
+msgid "Display Name"
+msgstr "Näyttönimi"
+
+#. module: mrp_bom_eco_analysis
+#: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_routing_workcenter_tree_view
+msgid "Duration (mm:ss)"
+msgstr "Kesto (mm:ss)"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__dust_removal
+msgid "Dust removal"
+msgstr "Purunpoisto"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__electric_consumption
+msgid "Electric consumption"
+msgstr "Sähkökustannus"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__energy_consumption
+msgid "Energy active (kWh)"
+msgstr "Energia aktiivinen (kWh)"
+
+#. module: mrp_bom_eco_analysis
+#: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_workcenter_view
+msgid "Energy and Machines"
+msgstr "Energia ja koneet"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__energy_consumption_passive
+msgid "Energy passive (kWh)"
+msgstr "Energia passivinen (kWh)"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.ui.menu,name:mrp_bom_eco_analysis.menu_equipment_form_eco
+msgid "Equipments"
+msgstr "Laitteet"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__message_follower_ids
+msgid "Followers"
+msgstr ""
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__message_partner_ids
+msgid "Followers (Partners)"
+msgstr ""
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__has_message
+msgid "Has Message"
+msgstr ""
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter_category__id
+msgid "ID"
+msgstr "Tunniste (ID)"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,help:mrp_bom_eco_analysis.field_mrp_workcenter__message_needaction
+msgid "If checked, new messages require your attention."
+msgstr ""
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,help:mrp_bom_eco_analysis.field_mrp_workcenter__message_has_error
+msgid "If checked, some messages have a delivery error."
+msgstr ""
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__message_is_follower
+msgid "Is Follower"
+msgstr ""
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter_category__write_uid
+msgid "Last Updated by"
+msgstr "Viimeksi päivittänyt"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter_category__write_date
+msgid "Last Updated on"
+msgstr "Viimeksi päivitetty"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__location_category_id
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__category_id
+msgid "Location"
+msgstr "Sijainti"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__maintenance_id
+msgid "Machine"
+msgstr "Kone"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__code
+msgid "Machine number"
+msgstr "Kone numero"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model,name:mrp_bom_eco_analysis.model_maintenance_equipment
+msgid "Maintenance Equipment"
+msgstr "Huoltovälineet"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__checked
+msgid "Measured"
+msgstr "Mitattu tieto"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__message_has_error
+msgid "Message Delivery error"
+msgstr ""
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__message_ids
+msgid "Messages"
+msgstr ""
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model,name:mrp_bom_eco_analysis.model_mrp_workcenter_category
+msgid "Mrp Workcenter Category"
+msgstr "Mrp työpisteen kategoria"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter_category__name
+msgid "Name"
+msgstr "Nimi"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__message_needaction_counter
+msgid "Number of Actions"
+msgstr ""
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__message_has_error_counter
+msgid "Number of errors"
+msgstr ""
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,help:mrp_bom_eco_analysis.field_mrp_workcenter__message_needaction_counter
+msgid "Number of messages requiring action"
+msgstr ""
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,help:mrp_bom_eco_analysis.field_mrp_workcenter__message_has_error_counter
+msgid "Number of messages with delivery error"
+msgstr ""
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_routing_workcenter__person_count
+msgid "Number of persons"
+msgstr "Henkilömäärä"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_routing_workcenter__duration_passive
+#: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_routing_workcenter_form_view
+msgid "Passive Duration"
+msgstr "Koneaika levossa"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_routing_workcenter__duration_person
+#: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_routing_workcenter_form_view
+msgid "Personnel working time"
+msgstr "Henkilötyöaika"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__rating_ids
+msgid "Ratings"
+msgstr ""
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__machine_purpose
+msgid "The purpose of the machine"
+msgstr "Laitteen tarkoitus"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_routing_workcenter__duration_total
+#: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_routing_workcenter_form_view
+msgid "Total Duration"
+msgstr "Kokonaiskoneaika"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__website_message_ids
+msgid "Website Messages"
+msgstr ""
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,help:mrp_bom_eco_analysis.field_mrp_workcenter__website_message_ids
+msgid "Website communication history"
+msgstr ""
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,help:mrp_bom_eco_analysis.field_mrp_workcenter__checked
+msgid "When the energy consumption has been measured."
+msgstr "Kun energiankulutus on mitattu."
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model,name:mrp_bom_eco_analysis.model_mrp_workcenter
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__workcenter_id
+msgid "Work Center"
+msgstr "Työpiste"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model,name:mrp_bom_eco_analysis.model_mrp_routing_workcenter
+msgid "Work Center Usage"
+msgstr "Työpisteen käyttäminen"
+
+#. module: mrp_bom_eco_analysis
+#: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_workcenter_view
+msgid "Work Center number"
+msgstr "Työpistenumero"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.actions.act_window,name:mrp_bom_eco_analysis.action_workcenter_category
+#: model:ir.ui.menu,name:mrp_bom_eco_analysis.menu_workcenter_category
+msgid "Work Centers Category"
+msgstr "Työpisteen kategoria"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__work_type
+msgid "Work type"
+msgstr "Työtyyppi"
+
+#. module: mrp_bom_eco_analysis
+#: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_workcenter_category_view
+msgid "Workcenter Category"
+msgstr "Työpisteen kategoria"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__workcenter_lower_exist
+msgid "Workcenter Lower Exist"
+msgstr "Alempi työpiste on olemassa"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__workcenter_lower_id
+msgid "Workcenter lower"
+msgstr "Alempi työpiste"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_mrp_workcenter__workcenter_upper_id
+msgid "Workcenter upper"
+msgstr "Ylempi työpiste"
+
+#. module: mrp_bom_eco_analysis
+#: model:ir.model.fields,field_description:mrp_bom_eco_analysis.field_maintenance_equipment__model_year
+msgid "Year Model"
+msgstr "Vuosimalli"
+
+#. module: mrp_bom_eco_analysis
+#. odoo-javascript
+#: code:addons/mrp_bom_eco_analysis/static/src/xml/mrp_report_bom_structure.xml:0
+#: model_terms:ir.ui.view,arch_db:mrp_bom_eco_analysis.mrp_routing_workcenter_form_view
+#, python-format
+msgid "mm:ss"
+msgstr "mm:ss"
