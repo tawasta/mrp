@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates>
+    <tr
+        t-name="mrp_bom_eco_analysis.BomOverviewSpecialLine"
+        t-inherit="mrp.BomOverviewSpecialLine"
+        t-inherit-mode="extension"
+        owl="1"
+    >
+        <xpath expr='//td[@name="uom"]//span' position="attributes">
+            <attribute name="t-if">1 == 0</attribute>
+        </xpath>
+
+        <xpath expr='//td[@name="uom"]//span' position="after">
+            <span id="show_mm" t-if="props.type == 'operations'">mm:ss</span>
+        </xpath>
+    </tr>
+</templates>
