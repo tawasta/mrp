@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_mgmtsystem_implementation_tests_tree" model="ir.ui.view">
+        <field name="name">mgmtsystem.hazard.test.tree.view</field>
+        <field name="model">mgmtsystem.hazard.test</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" />
+                <field name="responsible_user_id" />
+                <field name="review_date" />
+                <field name="executed" />
+                <field name="hazard_id" />
+            </tree>
+
+        </field>
+    </record>
+
+    <record id="view_mgmtsystem_hazard_test_filter" model="ir.ui.view">
+        <field name="name">mgmtsystem.hazard.test.filter</field>
+        <field name="model">mgmtsystem.hazard.test</field>
+        <field name="arch" type="xml">
+            <search string="Implementation Tests">
+                <group>
+                    <field name="name" />
+                    <field name="responsible_user_id" />
+                    <field name="review_date" />
+                    <field name="executed" />
+                    <field name="hazard_id" />
+                </group>
+                <newline />
+                <group expand="0" string="Group By...">
+                    <filter
+                        name="group_by_executed"
+                        string="Executed"
+                        context="{'group_by':'executed'}"
+                    />
+                    <separator orientation="vertical" />
+                    <filter
+                        name="group_by_responsible_user_id"
+                        string="Responsible"
+                        context="{'group_by':'responsible_user_id'}"
+                    />
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="open_mgmtsystem_implementation_tests">
+        <field name="name">Implementation Tests</field>
+        <field name="res_model">mgmtsystem.hazard.test</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_mgmtsystem_implementation_tests_tree" />
+        <field name="search_view_id" ref="view_mgmtsystem_hazard_test_filter" />
+    </record>
+
+    <menuitem
+        id="menu_open_implementation_tests"
+        action="open_mgmtsystem_implementation_tests"
+        parent="mgmtsystem.menu_mgmtsystem_manuals"
+        groups="mgmtsystem.group_mgmtsystem_user"
+        sequence="30"
+    />
+</odoo>
