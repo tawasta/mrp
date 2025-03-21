@@ -24,6 +24,7 @@ addon | version | maintainers | summary
 [mrp_bom_structure_xlsx_cost](mrp_bom_structure_xlsx_cost/) | 17.0.1.0.0 |  | Add cost to MRP BOM Structure XLSX
 [mrp_inventory_product_category](mrp_inventory_product_category/) | 17.0.1.0.0 |  | Shows product category in mrp.inventory list view
 [mrp_inventory_responsible_id](mrp_inventory_responsible_id/) | 17.0.1.0.0 |  | Shows product template responsible id in mrp.inventory list view
+[mrp_inventory_sh_product_tags_filter](mrp_inventory_sh_product_tags_filter/) | 17.0.1.0.0 |  | MRP Inventory - Group and Filter by SH product tags
 [mrp_multi_level_area_form_group](mrp_multi_level_area_form_group/) | 17.0.1.0.0 |  | Manufacture / User group enables to see MRP Moves
 [mrp_multi_level_move_forecasted_qty](mrp_multi_level_move_forecasted_qty/) | 17.0.1.0.0 |  | Forecasted quantity for mrp.move
 [mrp_operations_disable_sequence_dragging](mrp_operations_disable_sequence_dragging/) | 17.0.1.0.0 |  | Hides sequence column in operations tree view inside BoM
