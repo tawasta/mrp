@@ -12,6 +12,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [mgmtsystem_hazard_risk_workcenter](mgmtsystem_hazard_risk_workcenter/) | 17.0.1.0.0 |  | Workcenter for Hazard Risk
+[mgmtsystem_hazard_test_tree_view](mgmtsystem_hazard_test_tree_view/) | 17.0.1.0.0 |  | Creates a tree view for Implementation Tests of hazard
 [mrp_auditlog_rules](mrp_auditlog_rules/) | 17.0.1.0.0 |  | Adds audit log rules for mrp.bom
 [mrp_bom_auditlog_rules](mrp_bom_auditlog_rules/) | 17.0.1.0.0 |  | Adds audit log rules for mrp.bom
 [mrp_bom_cost_cron](mrp_bom_cost_cron/) | 17.0.1.0.0 |  | Scheduled action to calculate product's cost price from BoM
