@@ -22,13 +22,15 @@ addon | version | maintainers | summary
 [mrp_bom_primary_vendor_info](mrp_bom_primary_vendor_info/) | 17.0.1.0.0 |  | Helper fields for showing primary vendor's info
 [mrp_bom_raw_material_quantities](mrp_bom_raw_material_quantities/) | 17.0.1.0.0 |  | Helper module for calculating total raw material requirements of a BOM
 [mrp_bom_structure_xlsx_cost](mrp_bom_structure_xlsx_cost/) | 17.0.1.0.0 |  | Add cost to MRP BOM Structure XLSX
+[mrp_inventory_hide_forecasted_inventory](mrp_inventory_hide_forecasted_inventory/) | 17.0.1.0.0 |  | Hide Forecasted Inventory in MRP Inventory tree view
 [mrp_inventory_product_category](mrp_inventory_product_category/) | 17.0.1.0.0 |  | Shows product category in mrp.inventory list view
 [mrp_inventory_responsible_id](mrp_inventory_responsible_id/) | 17.0.1.0.0 |  | Shows product template responsible id in mrp.inventory list view
 [mrp_inventory_sh_product_tags_filter](mrp_inventory_sh_product_tags_filter/) | 17.0.1.0.0 |  | MRP Inventory - Group and Filter by SH product tags
 [mrp_inventory_tree_reorder_running_availability](mrp_inventory_tree_reorder_running_availability/) | 17.0.1.0.0 |  | Reorder Running Availability in MRP Inventory tree
 [mrp_multi_level_area_form_group](mrp_multi_level_area_form_group/) | 17.0.1.0.0 |  | Manufacture / User group enables to see MRP Moves
 [mrp_multi_level_move_forecasted_qty](mrp_multi_level_move_forecasted_qty/) | 17.0.1.0.0 |  | Forecasted quantity for mrp.move
-[mrp_multi_level_queue](mrp_multi_level_queue/) | 17.0.1.0.0 |  | MRP Multi Level with queue jobs
+[mrp_multi_level_optimization](mrp_multi_level_optimization/) | 17.0.1.0.0 |  | MRP multi level optimization
+[mrp_multi_level_queue](mrp_multi_level_queue/) | 17.0.1.0.1 |  | MRP Multi Level with queue jobs
 [mrp_operations_disable_sequence_dragging](mrp_operations_disable_sequence_dragging/) | 17.0.1.0.0 |  | Hides sequence column in operations tree view inside BoM
 [mrp_product_only_select](mrp_product_only_select/) | 17.0.1.0.0 |  | Disable creating and editing of products from the MO product field
 [mrp_production_mass_cancel](mrp_production_mass_cancel/) | 17.0.1.0.0 |  | Allow cancellation of production orders en masse

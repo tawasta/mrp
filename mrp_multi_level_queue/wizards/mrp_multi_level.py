@@ -11,7 +11,6 @@ _logger = logging.getLogger(__name__)
 class MultiLevelMrp(models.TransientModel):
     _inherit = "mrp.multi.level"
 
-    # OK
     @api.model
     def _mrp_cleanup_queued(self, mrp_areas):
         res = super()._mrp_cleanup(mrp_areas)
@@ -61,7 +60,7 @@ class MultiLevelMrp(models.TransientModel):
     def _mrp_calculation_queued(self, mrp_areas):
         mrp_lowest_llc = self._low_level_code_calculation()
         # Use _mrp_calculation from this module to allow splitting LLC:s into standalone jobs
-        res = self._mrp_calculation(mrp_lowest_llc, mrp_areas)
+        res = self._mrp_calculation_run_queued(mrp_lowest_llc, mrp_areas)
 
         if res:
             msg = _("MRP LLC Calculation queued")
@@ -89,7 +88,7 @@ class MultiLevelMrp(models.TransientModel):
             self.with_delay(description=job_desc)._mrp_cleanup_queued(area)
 
     @api.model
-    def _mrp_calculation(self, mrp_lowest_llc, mrp_areas):
+    def _mrp_calculation_run_queued(self, mrp_lowest_llc, mrp_areas):
         _logger.info("Start MRP calculation")
         if not mrp_areas:
             mrp_areas = self.env["mrp.area"].search([])

@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2020 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Copyright 2022- Oy Tawasta OS Technologies Ltd. (http://www.tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,16 +19,15 @@
 ##############################################################################
 
 {
-    "name": "MRP Multi Level - Queued",
-    "summary": "MRP Multi Level with queue jobs",
-    "version": "17.0.1.0.1",
+    "name": "MRP Inventory Hide Forecasted Inventory",
+    "summary": "Hide Forecasted Inventory in MRP Inventory tree view",
+    "version": "17.0.1.0.0",
     "category": "Manufacturing",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
-    "author": "Tawasta",
+    "author": "Futural",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "external_dependencies": {"python": [], "bin": []},
-    "depends": ["mrp_multi_level", "queue_job"],
-    "data": ["data/mrp_multi_level_cron.xml"],
+    "depends": ["mrp", "mrp_multi_level"],
+    "data": ["views/mrp_inventory.xml"],
 }
