@@ -21,7 +21,7 @@
 {
     "name": "MRP Multi Level - Queued",
     "summary": "MRP Multi Level with queue jobs",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.0.1",
     "category": "Manufacturing",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
