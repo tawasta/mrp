@@ -29,7 +29,8 @@ addon | version | maintainers | summary
 [mrp_inventory_tree_reorder_running_availability](mrp_inventory_tree_reorder_running_availability/) | 17.0.1.0.0 |  | Reorder Running Availability in MRP Inventory tree
 [mrp_multi_level_area_form_group](mrp_multi_level_area_form_group/) | 17.0.1.0.0 |  | Manufacture / User group enables to see MRP Moves
 [mrp_multi_level_move_forecasted_qty](mrp_multi_level_move_forecasted_qty/) | 17.0.1.0.0 |  | Forecasted quantity for mrp.move
-[mrp_multi_level_queue](mrp_multi_level_queue/) | 17.0.1.0.0 |  | MRP Multi Level with queue jobs
+[mrp_multi_level_optimization](mrp_multi_level_optimization/) | 17.0.1.0.0 |  | MRP multi level optimization
+[mrp_multi_level_queue](mrp_multi_level_queue/) | 17.0.1.0.1 |  | MRP Multi Level with queue jobs
 [mrp_operations_disable_sequence_dragging](mrp_operations_disable_sequence_dragging/) | 17.0.1.0.0 |  | Hides sequence column in operations tree view inside BoM
 [mrp_product_only_select](mrp_product_only_select/) | 17.0.1.0.0 |  | Disable creating and editing of products from the MO product field
 [mrp_production_mass_cancel](mrp_production_mass_cancel/) | 17.0.1.0.0 |  | Allow cancellation of production orders en masse

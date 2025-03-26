@@ -19,16 +19,15 @@
 ##############################################################################
 
 {
-    "name": "MRP Multi Level - Queued",
-    "summary": "MRP Multi Level with queue jobs",
-    "version": "17.0.1.0.1",
-    "category": "Manufacturing",
+    "name": "MRP Multi Level Optimization",
+    "summary": "MRP multi level optimization",
+    "version": "17.0.1.0.0",
+    "category": "MRP",
     "website": "https://gitlab.com/tawasta/odoo/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "external_dependencies": {"python": [], "bin": []},
-    "depends": ["mrp_multi_level", "queue_job"],
-    "data": ["data/mrp_multi_level_cron.xml"],
+    "depends": ["mrp_multi_level"],
+    "data": [],
 }
