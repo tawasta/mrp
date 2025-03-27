@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_normal_form_view" model="ir.ui.view">
+        <field name="name">product.product.form.lca.fields</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//group[@name='group_standard_price']//field[@name='company_id']"
+                position="after"
+            >
+                <field
+                    name="multiply_with_partial_weight"
+                    groups="base.group_system,mrp_bom_lca_excel.lca_manager"
+                />
+                <field
+                    name="multiply_with_by_products"
+                    groups="base.group_system,mrp_bom_lca_excel.lca_manager"
+                />
+                <field
+                    name="ignore_component_qty"
+                    groups="base.group_system,mrp_bom_lca_excel.lca_manager"
+                />
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_product_tree_view" model="ir.ui.view">
+        <field name="name">product.product.tree.lca.fields</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_product_tree_view" />
+        <field name="arch" type="xml">
+            <field name="categ_id" position="after">
+                <field
+                    name="multiply_with_partial_weight"
+                    groups="base.group_system,mrp_bom_lca_excel.lca_manager"
+                    optional="show"
+                />
+                <field
+                    name="multiply_with_by_products"
+                    groups="base.group_system,mrp_bom_lca_excel.lca_manager"
+                    optional="hide"
+                />
+                <field
+                    name="ignore_component_qty"
+                    groups="base.group_system,mrp_bom_lca_excel.lca_manager"
+                    optional="show"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
