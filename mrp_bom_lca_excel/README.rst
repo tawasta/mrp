@@ -11,8 +11,8 @@ environmental impacts of a product. So energy and material consumptions
 are needed to be calculated. This module creates an excel to calculate
 those values from a bill of materials.
 
-Report creates 4 sheets to an excel:
 
+Report creates 5 sheets to an excel:
 
 1. BOM materials, which lists these to an excel:
 
@@ -85,17 +85,27 @@ Report creates 4 sheets to an excel:
     - Waste product
     - Waste endpoint
 
+5. Material summaries, which has the summaries of materials and energy consumption:
+    - 1. Product Materials Summary
+    - 2. Packaging Materials Summary
+    - 3. Product component materials
+    - 4. Delivery Packaging materials
+    - 5. All materials consumed in production
+    - 6. All materials in Incoming packaging
+    - 7. Summary of all materials
+    - 8. Workcenters Energy summary
+    - 9. Operations Energy summary
+
 Configuration
 =============
 \-
 
 Usage
 =====
-* Launch the export from Bill of Materials form/tree-view -> Print ->
-  LCA BOM. Excel exported this way will ignore product variants.
-* Or (preferably) click Action in the BoM form and then "Print LCA excel".
-  This opens up a wizard view to select a specific product variant to
-  which according to values are calculated.
+* Launch the export from Bill of Materials form/tree-view -> Print -> LCA BOM.  Excel
+  exported this way will ignore product variants.
+* Or (preferably) click "Print LCA excel" button in the BoM form. This opens up a wizard
+  view to select a specific product variant to which according to values are calculated.
 
 Known issues / Roadmap
 ======================

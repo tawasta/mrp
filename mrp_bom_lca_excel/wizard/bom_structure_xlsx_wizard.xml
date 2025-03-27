@@ -29,6 +29,6 @@
         <field name="target">new</field>
         <field name="view_mode">form</field>
         <field name="view_id" ref="bom_structure_xlsx_wizard" />
-        <field name="binding_model_id" ref="mrp.model_mrp_bom" />
+        <field name="binding_model_id" ref="" />
     </record>
 </odoo>
