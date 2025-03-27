@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+    <record id="lca_manager" model="res.groups">
+        <field name="name">LCA manager</field>
+    </record>
+</odoo>
