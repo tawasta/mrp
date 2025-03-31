@@ -132,7 +132,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 a, 10, mater.product_material_upper_category_id.name or ""
             )  # Upper category
 
-            bom_product_id = upper_parent or bom.product_tmpl_id.product_variant_id
+            bom_product_id = bom.product_tmpl_id.product_variant_id
 
             multiply_with = 1
 
@@ -3976,7 +3976,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             child_number = 0
             for ch in o.bom_line_ids:
-                if product_variant and ch._skip_bom_line(product_variant):
+                if product_variant and ch._skip_bom_line(material_variant):
                     continue
                 child_number += 1
                 a = self.print_bom_children_2(
