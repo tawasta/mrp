@@ -910,6 +910,8 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
         ident = "{}{}{}".format(identifier, "0000", ch.id)
 
+        child_by_products = False
+
         for by_product in bom.byproduct_ids:
 
             # -------------------------------#
@@ -950,27 +952,29 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             sheet3.write(b, 8, by_product.product_uom_id.name, bold)  # Waste unit
 
-            b += 1
+            if len(bom.byproduct_ids.ids) > 1:
+                b += 1
 
-        #for ch in bom.bom_line_ids:
-        #    if product_variant and ch._skip_bom_line(product_variant):
+        if len(bom.byproduct_ids.ids) > 1:
+            b -= 1
+
         child_number = 0
         for child in ch.child_line_ids:
             child_number += 1
-            if child._skip_bom_line(ch.product_id):
+            if product_variant and child._skip_bom_line(ch.product_id):
                 continue
 
             child_bom = ch.product_id.bom_ids and ch.product_id.bom_ids[0]
             ident = "{}{}{}".format(identifier, "0000", child_bom.id)
 
-            b = self.print_by_products(
+            b, child_by_products = self.print_by_products(
                 sheet3,
                 row=b,
                 level=j,
                 parent_level=level,
+                bom=child_bom,
                 product_variant=ch.product_id,
                 style=None,
-                bom=ch.child_bom_id,
                 child_number=child_number,
                 quantities=quantities,
                 identifier=ident,
@@ -978,8 +982,13 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 multiplier=multiplier * (ch.alt_qty or ch.product_qty),
             )
 
+            if child_by_products:
+                b += 1
+
+            child_by_products = True
+
         j -= 1
-        return b
+        return b, child_by_products
 
     def print_bom_children_4(
         self,
@@ -2185,16 +2194,16 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             child_number = 0
             for ch in o.bom_line_ids:
                 child_number += 1
-                if product_variant and ch._skip_bom_line(product_variant):
+                if product_variant and ch._skip_bom_line(material_variant):
                     continue
 
-                self.print_by_products(
+                b, child_by_products = self.print_by_products(
                     sheet3,
                     row=b,
                     level=0,
                     parent_level=1,
                     bom=o,
-                    product_variant=product_variant,
+                    product_variant=material_variant,
                     style=None,
                     child_number=0,
                     quantities=quantities,
@@ -2202,6 +2211,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     ch=ch,
                     multiplier=1,
                 )
+
+                if child_by_products:
+                    b += 1
 
             # --------------------------------------------------------------------- #
             # ------------------------------ Sheet 4 ------------------------------ #
