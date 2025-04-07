@@ -364,7 +364,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         main_vendor = main_vendor and main_vendor[0] or ""
 
         if main_vendor:
-            vendor = main_vendor.name.address_ids.filtered(lambda r: r.type == "other")
+            vendor = main_vendor.partner_id.address_ids.filtered(
+                lambda r: r.type == "other"
+            )
             vendor = vendor and vendor[0].name or ""
         else:
             vendor = ""
@@ -372,14 +374,14 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         main_vendor = (
             main_vendor
             and (
-                main_vendor[0].name.name,
+                main_vendor[0].partner_id.name,
                 "{}{}{}".format(
-                    main_vendor[0].name.country_id.name,
-                    main_vendor[0].name.street
-                    and " {}".format(main_vendor[0].name.street)
+                    main_vendor[0].partner_id.country_id.name,
+                    main_vendor[0].partner_id.street
+                    and " {}".format(main_vendor[0].partner_id.street)
                     or "",
-                    main_vendor[0].name.city
-                    and " {}".format(main_vendor[0].name.city)
+                    main_vendor[0].partner_id.city
+                    and " {}".format(main_vendor[0].partner_id.city)
                     or "",
                 )
                 or "",
@@ -2104,7 +2106,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             main_vendor = main_vendor and main_vendor[0] or ""
 
             if main_vendor:
-                vendor = main_vendor.name.address_ids.filtered(
+                vendor = main_vendor.partner_id.address_ids.filtered(
                     lambda r: r.type == "other"
                 )
                 vendor = vendor and vendor[0].name or ""
@@ -2114,14 +2116,14 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             main_vendor = (
                 main_vendor
                 and (
-                    main_vendor[0].name.name,
+                    main_vendor[0].partner_id.name,
                     "{}{}{}".format(
-                        main_vendor[0].name.country_id.name,
-                        main_vendor[0].name.street
-                        and " {}".format(main_vendor[0].name.street)
+                        main_vendor[0].partner_id.country_id.name,
+                        main_vendor[0].partner_id.street
+                        and " {}".format(main_vendor[0].partner_id.street)
                         or "",
-                        main_vendor[0].name.city
-                        and " {}".format(main_vendor[0].name.city)
+                        main_vendor[0].partner_id.city
+                        and " {}".format(main_vendor[0].partner_id.city)
                         or "",
                     )
                     or "",
