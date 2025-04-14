@@ -23,7 +23,7 @@
     "summary": "Manufacture / User group enables to see MRP Moves",
     "version": "17.0.1.0.0",
     "category": "MRP",
-    "website": "https://gitlab.com/tawasta/odoo/mrp",
+    "website": "https://github.com/tawasta/hr",
     "author": "Futural",
     "license": "AGPL-3",
     "application": False,
