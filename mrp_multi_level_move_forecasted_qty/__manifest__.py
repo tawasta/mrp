@@ -23,7 +23,7 @@
     "summary": "Forecasted quantity for mrp.move",
     "version": "17.0.1.0.0",
     "category": "Manufacturing",
-    "website": "https://gitlab.com/tawasta/odoo/mrp",
+    "website": "https://github.com/tawasta/hr",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
