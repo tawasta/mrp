@@ -23,7 +23,7 @@
     "summary": "MRP multi level optimization",
     "version": "17.0.1.0.0",
     "category": "MRP",
-    "website": "https://gitlab.com/tawasta/odoo/mrp",
+    "website": "https://github.com/tawasta/hr",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
