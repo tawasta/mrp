@@ -6,7 +6,7 @@
 		<field name="inherit_id" ref="mrp.mrp_production_tree_view" />
 		<field name="arch" type="xml">
             <tree position="attributes">
-                <attribute name="default_order">create_date</attribute>
+                <attribute name="default_order">create_date desc</attribute>
 		    </tree>
 		</field>
 	</record>
