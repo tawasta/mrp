@@ -23,7 +23,7 @@
     "summary": "Scheduled action to calculate product's cost price from BoM",
     "version": "17.0.1.0.0",
     "category": "MRP",
-    "website": "https://github.com/tawasta/hr",
+    "website": "https://github.com/tawasta/mrp",
     "author": "Futural",
     "license": "AGPL-3",
     "application": False,

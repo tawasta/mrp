@@ -23,7 +23,7 @@
     "summary": "Show sequence that was visible in 14.0 but has since then been hidden in core",
     "version": "17.0.1.0.0",
     "category": "MRP",
-    "website": "https://github.com/tawasta/hr",
+    "website": "https://github.com/tawasta/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

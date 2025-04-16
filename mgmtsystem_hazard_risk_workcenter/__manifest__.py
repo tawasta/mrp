@@ -23,7 +23,7 @@
     "summary": "Workcenter for Hazard Risk",
     "version": "17.0.1.0.0",
     "category": "Health",
-    "website": "https://github.com/tawasta/hr",
+    "website": "https://github.com/tawasta/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
