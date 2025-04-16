@@ -23,7 +23,7 @@
     "summary": "Order MO tree view by Create Date",
     "version": "17.0.1.0.0",
     "category": "Manufacturing",
-    "website": "https://github.com/tawasta/hr",
+    "website": "https://github.com/tawasta/mrp",
     "author": "Futural",
     "license": "AGPL-3",
     "application": False,

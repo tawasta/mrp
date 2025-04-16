@@ -23,7 +23,7 @@
     "summary": "Purchase request creation from manufacturing order",
     "version": "17.0.1.0.1",
     "category": "Manufacturing",
-    "website": "https://github.com/tawasta/hr",
+    "website": "https://github.com/tawasta/mrp",
     "author": "Futural",
     "license": "AGPL-3",
     "application": False,

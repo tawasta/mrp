@@ -23,7 +23,7 @@
     "summary": "MRP Multi Level with queue jobs",
     "version": "17.0.1.0.1",
     "category": "Manufacturing",
-    "website": "https://github.com/tawasta/hr",
+    "website": "https://github.com/tawasta/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

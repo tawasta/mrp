@@ -23,7 +23,7 @@
     "summary": "Export an excel for LCA report of a BoM",
     "version": "17.0.1.1.2",
     "category": "Manufacturing",
-    "website": "https://github.com/tawasta/hr",
+    "website": "https://github.com/tawasta/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

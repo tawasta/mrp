@@ -22,7 +22,7 @@
     "version": "17.0.1.0.0",
     "category": "Stock",
     "summary": "Show date planned start as date in mrp production tree",
-    "website": "https://github.com/tawasta/hr",
+    "website": "https://github.com/tawasta/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
