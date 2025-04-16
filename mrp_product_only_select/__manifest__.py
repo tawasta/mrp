@@ -23,7 +23,7 @@
     "summary": "Disable creating and editing of products from the MO product field",
     "category": "MRP",
     "version": "17.0.1.0.0",
-    "website": "https://gitlab.com/tawasta/odoo/mrp",
+    "website": "https://github.com/tawasta/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

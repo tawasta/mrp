@@ -1,5 +1,6 @@
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
-[![Pipeline Status](https://gitlab.com/tawasta/odoo/mrp/badges/17.0-dev/pipeline.svg)](https://gitlab.com/tawasta/odoo/mrp/-/pipelines/)
+[![Pre-commit Status](https://github.com/tawasta/mrp/actions/workflows/pre-commit.yml/badge.svg?branch=17.0)](https://github.com/tawasta/mrp/actions/workflows/pre-commit.yml?query=branch%3A17.0)
+[![Build Status](https://github.com/tawasta/mrp/actions/workflows/test.yml/badge.svg?branch=17.0)](https://github.com/tawasta/mrp/actions/workflows/test.yml?query=branch%3A17.0)
 
 MRP
 ====
@@ -39,6 +40,7 @@ addon | version | maintainers | summary
 [mrp_production_raw_materials_warning_field](mrp_production_raw_materials_warning_field/) | 17.0.1.0.0 |  | Helper field indicating if materials are available and assigned
 [mrp_production_tree_date_planned_start_as_date](mrp_production_tree_date_planned_start_as_date/) | 17.0.1.0.0 |  | Show date planned start as date in mrp production tree
 [mrp_report_bom_structure_product_unit_price](mrp_report_bom_structure_product_unit_price/) | 17.0.1.0.0 |  | Use product Unit price instead of its multiple on report
+[mrp_routing_workcenter_show_sequence](mrp_routing_workcenter_show_sequence/) | 17.0.1.0.0 |  | Show sequence that was visible in 14.0 but has since then been hidden in core
 [mrp_unbuild_note_for_mo](mrp_unbuild_note_for_mo/) | 17.0.1.0.0 |  | Unbuild note to Manufacturing order
 
 [//]: # (end addons)

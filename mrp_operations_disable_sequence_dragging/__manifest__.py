@@ -23,7 +23,7 @@
     "summary": "Hides sequence column in operations tree view inside BoM",
     "version": "17.0.1.0.0",
     "category": "MRP",
-    "website": "https://gitlab.com/tawasta/odoo/mrp",
+    "website": "https://github.com/tawasta/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

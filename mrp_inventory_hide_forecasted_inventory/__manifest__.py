@@ -23,7 +23,7 @@
     "summary": "Hide Forecasted Inventory in MRP Inventory tree view",
     "version": "17.0.1.0.0",
     "category": "Manufacturing",
-    "website": "https://gitlab.com/tawasta/odoo/mrp",
+    "website": "https://github.com/tawasta/mrp",
     "author": "Futural",
     "license": "AGPL-3",
     "application": False,
