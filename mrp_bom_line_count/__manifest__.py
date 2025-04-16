@@ -23,7 +23,7 @@
     "summary": "Add a field for BoM line count",
     "version": "17.0.1.0.0",
     "category": "Manufacturing",
-    "website": "https://github.com/tawasta/hr",
+    "website": "https://github.com/tawasta/mrp",
     "author": "Futural",
     "license": "AGPL-3",
     "application": False,

@@ -1,7 +1,7 @@
 ##############################################################################
 #
 #    Author: Oy Tawasta OS Technologies Ltd.
-#    Copyright 2021 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
+#    Copyright 2025 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,15 +19,19 @@
 ##############################################################################
 
 {
-    "name": "MRP multi level - Area form group",
-    "summary": "Manufacture / User group enables to see MRP Moves",
+    "name": "MRP: Show Operations' Sequence Field in Form View",
+    "summary": "Show sequence that was visible in 14.0 but has since then been hidden in core",
     "version": "17.0.1.0.0",
     "category": "MRP",
     "website": "https://github.com/tawasta/mrp",
-    "author": "Futural",
+    "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": ["mrp_multi_level"],
-    "data": ["views/product_mrp_area_view.xml"],
+    "depends": [
+        "mrp",
+    ],
+    "data": [
+        "views/mrp_routing_workcenter.xml",
+    ],
 }

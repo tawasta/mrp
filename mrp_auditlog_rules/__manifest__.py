@@ -23,7 +23,7 @@
     "summary": "Adds audit log rules for mrp.bom",
     "author": "Futural",
     "license": "AGPL-3",
-    "website": "https://github.com/tawasta/hr",
+    "website": "https://github.com/tawasta/mrp",
     "category": "Logging",
     "application": False,
     "installable": True,
