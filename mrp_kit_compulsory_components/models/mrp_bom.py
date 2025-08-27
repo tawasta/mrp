@@ -3,7 +3,6 @@ from odoo.exceptions import ValidationError
 
 
 class MrpBom(models.Model):
-
     _inherit = "mrp.bom"
 
     @api.constrains("bom_line_ids", "type")

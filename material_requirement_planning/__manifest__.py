@@ -23,7 +23,7 @@
     "summary": "Material Requirement",
     "version": "14.0.1.1.1",
     "category": "Manufacturing",
-    "website": "https://gitlab.com/tawasta/odoo/mrp",
+    "website": "https://github.com/tawasta/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

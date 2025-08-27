@@ -23,7 +23,7 @@
     "summary": "Templates for different operations",
     "version": "14.0.1.0.2",
     "category": "MRP",
-    "website": "https://gitlab.com/tawasta/odoo/mrp",
+    "website": "https://github.com/tawasta/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

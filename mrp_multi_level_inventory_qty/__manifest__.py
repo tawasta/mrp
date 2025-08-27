@@ -23,7 +23,7 @@
     "summary": "Inventory product circulation report",
     "version": "14.0.2.2.16",
     "category": "Reporting",
-    "website": "https://gitlab.com/tawasta/odoo/mrp",
+    "website": "https://github.com/tawasta/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

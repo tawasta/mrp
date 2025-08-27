@@ -2,7 +2,6 @@ from odoo import models
 
 
 class MrpProduction(models.Model):
-
     _inherit = "mrp.production"
 
     def button_mark_done(self):

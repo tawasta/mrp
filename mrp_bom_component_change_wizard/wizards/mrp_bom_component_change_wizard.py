@@ -2,7 +2,6 @@ from odoo import fields, models
 
 
 class MrpBomComponentChangeWizard(models.TransientModel):
-
     _name = "mrp.bom.component.change.wizard"
 
     product_id = fields.Many2one("product.product", string="Product")
@@ -16,7 +15,6 @@ class MrpBomComponentChangeWizard(models.TransientModel):
         return self.env["mrp.bom.line"].browse(self._context.get("active_ids"))
 
     def confirm_message_wizard(self):
-
         components = self.bom_line_ids
         msg_confirm_wiz = self.env[
             "mrp.component.change.message.confirm.wizard"

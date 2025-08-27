@@ -2,7 +2,6 @@ from odoo import api, fields, models
 
 
 class BomStructureXlsxWizard(models.TransientModel):
-
     _name = "bom.structure.xlsx.wizard"
 
     product_id = fields.Many2one(

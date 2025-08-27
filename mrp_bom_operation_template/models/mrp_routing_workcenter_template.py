@@ -2,7 +2,6 @@ from odoo import fields, models
 
 
 class MrpRoutingWorkcenterTemplate(models.Model):
-
     _name = "mrp.routing.workcenter.template"
     _description = "Mrp Routing Workcenter Template"
     _order = "sequence, id"

@@ -2,7 +2,6 @@ from odoo import api, fields, models
 
 
 class MrpInventory(models.Model):
-
     _inherit = "mrp.inventory"
 
     @api.model

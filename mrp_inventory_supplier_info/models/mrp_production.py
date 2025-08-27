@@ -2,7 +2,6 @@ from odoo import fields, models
 
 
 class MrpInventory(models.Model):
-
     _inherit = "mrp.inventory"
 
     supplier_name = fields.Char(

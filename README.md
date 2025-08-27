@@ -23,7 +23,7 @@ addon | version | maintainers | summary
 [mrp_bom_limit_increase](mrp_bom_limit_increase/) | 14.0.1.0.0 |  | Incrases BOM tree-view limit to 100
 [mrp_bom_operation_template](mrp_bom_operation_template/) | 14.0.1.0.2 |  | Templates for different operations
 [mrp_bom_structure_xlsx_cost](mrp_bom_structure_xlsx_cost/) | 14.0.1.0.0 |  | Add cost to MRP BOM Structure XLSX
-[mrp_bom_structure_xlsx_recursive](mrp_bom_structure_xlsx_recursive/) | 14.0.3.25.48 |  | Export an excel for LCA report of a BoM
+[mrp_bom_structure_xlsx_recursive](mrp_bom_structure_xlsx_recursive/) | 14.0.3.29.49 |  | Export an excel for LCA report of a BoM
 [mrp_default_focus](mrp_default_focus/) | 14.0.1.0.0 |  | Sets default focus fields for MRP
 [mrp_excel_bom_import_flat](mrp_excel_bom_import_flat/) | 14.0.1.0.1 |  | Import template for importing a flat Bill of Material
 [mrp_inventory_hide_forecasted_inventory](mrp_inventory_hide_forecasted_inventory/) | 14.0.1.0.0 |  | Hide Forecasted Inventory in MRP Inventory tree view
@@ -44,6 +44,7 @@ addon | version | maintainers | summary
 [mrp_multi_level_create_parameter_from_so_bom_recursive](mrp_multi_level_create_parameter_from_so_bom_recursive/) | 14.0.2.0.3 |  | Sale order line product BoM is run through recursively
 [mrp_multi_level_inventory_qty](mrp_multi_level_inventory_qty/) | 14.0.2.2.16 |  | Inventory product circulation report
 [mrp_multi_level_move_forecasted_qty](mrp_multi_level_move_forecasted_qty/) | 14.0.1.0.0 |  | Forecasted quantity for mrp.move
+[mrp_multi_level_mrp_move_current_date_in_order](mrp_multi_level_mrp_move_current_date_in_order/) | 14.0.1.0.0 |  | MRP moves are ordered also by Current Date field
 [mrp_multi_level_optimization](mrp_multi_level_optimization/) | 14.0.1.0.0 |  | MRP multi level optimization
 [mrp_multi_level_parameter_abc](mrp_multi_level_parameter_abc/) | 14.0.1.1.0 |  | MRP product parameter ABC Fields
 [mrp_multi_level_queue](mrp_multi_level_queue/) | 14.0.1.0.0 |  | MRP Multi Level with queue jobs
