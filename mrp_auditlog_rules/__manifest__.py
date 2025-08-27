@@ -23,7 +23,7 @@
     "summary": "Adds audit log rules for mrp.bom",
     "author": "Tawasta",
     "license": "AGPL-3",
-    "website": "https://gitlab.com/tawasta/odoo/mrp",
+    "website": "https://github.com/tawasta/mrp",
     "category": "Logging",
     "application": False,
     "installable": True,

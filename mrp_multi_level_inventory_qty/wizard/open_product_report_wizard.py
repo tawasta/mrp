@@ -2,7 +2,6 @@ from odoo import fields, models
 
 
 class OpenProductReportWizard(models.TransientModel):
-
     _name = "open.product.report.wizard"
 
     number_of_days = fields.Integer(string="Days", required=True, default=0)

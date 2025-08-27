@@ -2,7 +2,6 @@ from odoo import fields, models
 
 
 class MrpProduction(models.Model):
-
     _inherit = "mrp.production"
 
     work_orders_processed = fields.Boolean(default=False, copy=False)

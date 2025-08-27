@@ -2,7 +2,6 @@ from odoo import models
 
 
 class MrpUnbuild(models.Model):
-
     _inherit = "mrp.unbuild"
 
     def action_unbuild(self):

@@ -2,11 +2,9 @@ from odoo import models
 
 
 class MrpReportBomStructure(models.AbstractModel):
-
     _inherit = "report.mrp.report_bom_structure"
 
     def _get_bom_lines(self, bom, bom_quantity, product, line_id, level):
-
         components, total = super()._get_bom_lines(
             bom, bom_quantity, product, line_id, level
         )

@@ -2,7 +2,6 @@ from odoo import fields, models
 
 
 class ProductMrpArea(models.Model):
-
     _inherit = "product.mrp.area"
 
     abc_classification_profile_id = fields.Many2one(

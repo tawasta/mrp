@@ -23,7 +23,7 @@
     "summary": "Created Work Orders get completed in two steps",
     "version": "14.0.1.0.0",
     "category": "Manufacturing",
-    "website": "https://gitlab.com/tawasta/odoo/mrp",
+    "website": "https://github.com/tawasta/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

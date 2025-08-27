@@ -7,7 +7,6 @@ logger = logging.getLogger(__name__)
 
 
 class MrpMultiLevel(models.TransientModel):
-
     _inherit = "mrp.multi.level"
 
     @api.model
@@ -20,9 +19,7 @@ class MrpMultiLevel(models.TransientModel):
 
         select_query = """
             UPDATE product_product SET llc = {}
-        """.format(
-            llc
-        )
+        """.format(llc)
 
         self.env.cr.execute(select_query)  # pylint: disable=E8103
 
@@ -60,9 +57,7 @@ class MrpMultiLevel(models.TransientModel):
             if diff:
                 update_query = """
                     UPDATE product_product SET llc = {} WHERE id in ({})
-                """.format(
-                    llc_val, ",".join(str(i) for i in diff.ids)
-                )
+                """.format(llc_val, ",".join(str(i) for i in diff.ids))
                 logger.info("LLC: {}, counter: {}".format(llc_val, len(diff)))
                 self.env.cr.execute(update_query)  # pylint: disable=E8103
                 handled_products |= diff

@@ -23,7 +23,7 @@
     "summary": "Import template for importing a flat Bill of Material",
     "version": "14.0.1.0.1",
     "category": "MRP",
-    "website": "https://gitlab.com/tawasta/odoo/mrp",
+    "website": "https://github.com/tawasta/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

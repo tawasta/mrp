@@ -2,7 +2,6 @@ from odoo import api, fields, models, tools
 
 
 class ProductReport(models.Model):
-
     _name = "product.report"
     _description = "Product Circulation Report"
     _auto = False
@@ -176,9 +175,7 @@ class ProductReport(models.Model):
             stock_quant,
             prop.value_float,
             p.id %s
-        """ % (
-            groupby
-        )
+        """ % (groupby)
         return groupby_
 
     def _query(
@@ -194,7 +191,6 @@ class ProductReport(models.Model):
         abc_level_ids=None,
         company_id=None,
     ):
-
         if not fields:
             fields = {}
 

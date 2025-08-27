@@ -23,7 +23,7 @@
     "summary": "Import data from local file system to database",
     "version": "14.0.1.0.0",
     "category": "General",
-    "website": "https://gitlab.com/tawasta/odoo/mrp",
+    "website": "https://github.com/tawasta/mrp",
     "author": "Open Solutions Finland, Tawasta",
     "license": "AGPL-3",
     "application": False,

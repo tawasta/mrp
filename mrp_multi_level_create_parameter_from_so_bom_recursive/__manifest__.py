@@ -23,7 +23,7 @@
     "summary": "Sale order line product BoM is run through recursively",
     "version": "14.0.2.0.3",
     "category": "MRP",
-    "website": "https://gitlab.com/tawasta/odoo/mrp",
+    "website": "https://github.com/tawasta/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

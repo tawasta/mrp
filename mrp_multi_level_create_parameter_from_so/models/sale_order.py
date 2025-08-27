@@ -2,7 +2,6 @@ from odoo import models
 
 
 class SaleOrder(models.Model):
-
     _inherit = "sale.order"
 
     def prepare_product_mrp_area_vals(self, product):

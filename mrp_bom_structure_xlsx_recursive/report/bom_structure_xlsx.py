@@ -5,7 +5,6 @@ from odoo import _, fields, models
 
 
 class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
-
     _name = "report.mrp_bom_structure_xlsx.recursive_structure"
     _description = "BOM Structure XLSX Report recursive"
     _inherit = "report.mrp_bom_structure_xlsx.bom_structure_xlsx"
@@ -41,7 +40,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         lines = []
 
         for bom_line in current_bom.bom_line_ids:
-
             ident = "{}{}{}".format(identifier, "0000", bom_line.id)
 
             # TODO: Create a condition to check if parent BoM contains
@@ -86,7 +84,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         return lines
 
     def get_bom_quantities(self, bom):
-
         line_factors = self.get_sub_lines(bom, 1, bom.bom_line_ids, bom.id)
 
         # Very important to use defaultdict here for the loop below to work
@@ -913,7 +910,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         child_by_products = False
 
         for by_product in bom.byproduct_ids:
-
             # -------------------------------#
             # ----------- Sheet 3 -----------#
             # -------------------------------#
@@ -947,8 +943,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     b, 7, weight_result * quantity_by or 0, bold
                 )  # Waste amount
             else:
-                sheet3.write(b, 7, by_product.product_qty * quantity_by
-                        or 0, bold)  # Waste amount
+                sheet3.write(
+                    b, 7, by_product.product_qty * quantity_by or 0, bold
+                )  # Waste amount
 
             sheet3.write(b, 8, by_product.product_uom_id.name, bold)  # Waste unit
 
@@ -1161,7 +1158,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         return d
 
     def energy_summary(self, bom, product_variant, sheet6, operations):
-
         for oper in bom.operation_ids:
             operations += oper
 
@@ -1181,7 +1177,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
     def operation_bom_consus(
         self, bom, product_variant, sheet4, row, level, parent_level, identifier, style
     ):
-
         parent_bom = bom
 
         bold = style
@@ -1305,7 +1300,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         return c
 
     def generate_xlsx_report(self, workbook, data, objects):
-
         workbook.set_properties(
             {"comments": "Created with Python and XlsxWriter from Odoo 14.0"}
         )
@@ -2098,7 +2092,6 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         accu = 2
 
         for o in objects:
-
             # --------------------------------------------------------------------- #
             # ------------------------------ Sheet 2 ------------------------------ #
             # --------------------------------------------------------------------- #
