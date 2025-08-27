@@ -23,7 +23,7 @@
     "summary": "Export an excel for LCA report of a BoM",
     "version": "14.0.3.29.49",
     "category": "Manufacturing",
-    "website": "https://gitlab.com/tawasta/odoo/mrp",
+    "website": "https://github.com/tawasta/mrp",
     "author": "Tawasta",
     "license": "AGPL-3",
     "application": False,

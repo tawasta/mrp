@@ -2,7 +2,6 @@ from odoo import api, fields, models
 
 
 class ProductProduct(models.Model):
-
     _inherit = "product.product"
 
     compute_control_logs = fields.Boolean(string="Compute BoM cost logs")

@@ -33,7 +33,6 @@ from odoo import fields, models
 
 
 class MrpInventory(models.Model):
-
     # 1. Private attributes
     _inherit = "mrp.inventory"
 

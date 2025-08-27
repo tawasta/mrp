@@ -2,7 +2,6 @@ from odoo import fields, models
 
 
 class MrpControlLog(models.Model):
-
     _name = "mrp.control.log"
     _description = "MRP Control logs"
 

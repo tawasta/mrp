@@ -2,7 +2,6 @@ from odoo import api, models
 
 
 class MrpProduction(models.Model):
-
     _inherit = "mrp.production"
 
     @api.onchange("product_id", "picking_type_id", "company_id")

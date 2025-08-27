@@ -2,7 +2,6 @@ from odoo import api, fields, models
 
 
 class MaterialRequirement(models.Model):
-
     _name = "material.requirement"
     _description = "Material Requirement"
 

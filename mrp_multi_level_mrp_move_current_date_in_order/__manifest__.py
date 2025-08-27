@@ -19,17 +19,17 @@
 ##############################################################################
 
 {
-    'name': 'Current Date is used to order MRP moves',
-    'summary': 'MRP moves are ordered also by Current Date field',
-    'version': '14.0.1.0.0',
-    'category': 'MRP',
-    'website': 'https://tawasta.fi',
-    'author': 'Futural',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'depends': [
-        'mrp_multi_level',
+    "name": "Current Date is used to order MRP moves",
+    "summary": "MRP moves are ordered also by Current Date field",
+    "version": "14.0.1.0.0",
+    "category": "MRP",
+    "website": "https://github.com/tawasta/mrp",
+    "author": "Futural",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "depends": [
+        "mrp_multi_level",
     ],
-    'data': [],
+    "data": [],
 }

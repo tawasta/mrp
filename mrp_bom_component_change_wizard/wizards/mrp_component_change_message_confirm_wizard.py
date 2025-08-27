@@ -2,7 +2,6 @@ from odoo import fields, models
 
 
 class MrpComponentChangeMessageConfirmWizard(models.TransientModel):
-
     _name = "mrp.component.change.message.confirm.wizard"
 
     product_id = fields.Many2one("product.product", string="Product")

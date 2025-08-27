@@ -2,7 +2,6 @@ from odoo import fields, models
 
 
 class MrpBomLine(models.Model):
-
     _inherit = "mrp.bom.line"
 
     alt_qty = fields.Float(

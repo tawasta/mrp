@@ -2,7 +2,6 @@ from odoo import fields, models
 
 
 class MrpWorkcenter(models.Model):
-
     _inherit = "mrp.workcenter"
 
     energy_consumption = fields.Float(string="Energy active (kWh)")

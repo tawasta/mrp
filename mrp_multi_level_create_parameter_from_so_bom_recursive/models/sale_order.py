@@ -2,11 +2,9 @@ from odoo import models
 
 
 class SaleOrder(models.Model):
-
     _inherit = "sale.order"
 
     def get_searchable_products(self, line):
-
         bom_model = self.env["mrp.bom"]
         products = self.env["product.product"]
 
@@ -81,7 +79,6 @@ class SaleOrder(models.Model):
         ]
 
     def product_mrp_area_create_multi(self, products):
-
         product_mrp_area_model = self.env["product.mrp.area"]
 
         for prod in products:

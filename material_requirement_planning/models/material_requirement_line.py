@@ -2,7 +2,6 @@ from odoo import fields, models
 
 
 class MaterialRequirementLine(models.Model):
-
     _name = "material.requirement.line"
     _description = "Material Requirement Line"
 
