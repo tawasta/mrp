@@ -13,7 +13,7 @@ class MrpMove(models.Model):
             if record.mrp_order_number:
                 sale_order = record.env['sale.order'].search([('name', '=', record.mrp_order_number)])
                 record.customer_name = sale_order.partner_id.name
-            if record.origin:
+            elif record.origin:
                 sale_order = record.env['sale.order'].search([('name', '=', record.origin)])
                 record.customer_name = sale_order.partner_id.name
             else:
