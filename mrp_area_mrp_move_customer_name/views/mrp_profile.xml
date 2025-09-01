@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="mrp_area_mrp_move_customer_name">
+        <field name="name">product.mrp.area.form</field>
+        <field name="model">product.mrp.area</field>
+        <field name="type">form</field>
+        <field name="inherit_id" ref="mrp_multi_level.product_mrp_area_form" />
+        <field name="arch" type="xml">
+            <field name="mrp_origin" position="after">
+                <field name="customer_name" />
+            </field>
+        </field>
+    </record>
+</odoo>
