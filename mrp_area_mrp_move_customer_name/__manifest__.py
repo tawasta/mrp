@@ -27,7 +27,7 @@
     "category": "Logging",
     "application": False,
     "installable": True,
-    "version": "17.0.1.0.0",
+    "version": "14.0.1.0.0",
     "depends": [
         "mrp_multi_level"
     ],
