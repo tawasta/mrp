@@ -1,10 +1,12 @@
-from odoo import fields, models, sys
+from odoo import fields, models, sys, _
 
 
 class MrpMove(models.Model):
     _inherit = "mrp.move"
 
-    customer_name = fields.Text("Customer", store=True, compute="_customer_name_compute")
+    customer = _("Customer")
+
+    customer_name = fields.Text(customer, store=True, compute="_customer_name_compute")
 
     def _customer_name_compute(self):
         for record in self:
