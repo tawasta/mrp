@@ -6,7 +6,7 @@ class MrpMove(models.Model):
 
     customer = _("Customer")
 
-    customer_name = fields.Text(customer, store=True, compute="_customer_name_compute")
+    customer_name = fields.Text(customer, store=False, compute="_customer_name_compute")
 
     def _customer_name_compute(self):
         for record in self:
