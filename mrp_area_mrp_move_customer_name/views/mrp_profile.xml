@@ -7,7 +7,7 @@
         <field name="inherit_id" ref="mrp_multi_level.product_mrp_area_form" />
         <field name="arch" type="xml">
             <field name="mrp_origin" position="after">
-                <field name="customer_name" />
+                <field name="name" />
             </field>
         </field>
     </record>
