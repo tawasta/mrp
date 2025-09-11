@@ -10,7 +10,7 @@
                 position="after"
             >
                 <field name="safety_stock_warning" />
-                <div attrs="{'invisible': [('safety_stock_warning', '!=', 'True')]}">
+                <div attrs="{'invisible': [('safety_stock_warning', '=', False)]}">
                     <p style="color: brown;">
                         Quantity Available is lower than Safety Stock of this product.
                         Check its procurements.
@@ -19,4 +19,15 @@
 		    </xpath>
 		</field>
 	</record>
+
+    <record id="product_mrp_area_tree" model="ir.ui.view">
+        <field name="name">product.mrp.area.tree.safety_stock</field>
+        <field name="model">product.mrp.area</field>
+        <field name="inherit_id" ref="mrp_multi_level.product_mrp_area_tree" />
+        <field name="arch" type="xml">
+            <field name="mrp_nbr_days" position="after">
+                <field name="safety_stock_warning" optional="hide" />
+            </field>
+        </field>
+    </record>
 </odoo>
