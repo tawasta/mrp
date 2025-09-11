@@ -9,6 +9,7 @@ class ProductMrpArea(models.Model):
     safety_stock_warning = fields.Boolean(
         string="More Qty needed",
         compute=lambda self: self._compute_safety_stock_warning(),
+        store=True
     )
 
     @api.depends('mrp_minimum_stock', 'qty_available')
