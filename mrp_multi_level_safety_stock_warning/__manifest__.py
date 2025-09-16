@@ -21,7 +21,7 @@
 {
     'name': 'MRP multi level – Show if more stock is needed based on safety stock',
     'summary': 'Shows if more stock is needed based on safety stock and Qty on hand',
-    'version': '14.0.1.0.1',
+    'version': '14.0.1.1.1',
     'category': 'MRP',
     'website': 'https://github.com/tawasta/mrp',
     'author': 'Futural',
