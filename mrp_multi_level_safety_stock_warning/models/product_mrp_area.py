@@ -19,3 +19,9 @@ class ProductMrpArea(models.Model):
                 prod_area.safety_stock_warning = True
             else:
                 prod_area.safety_stock_warning = False
+
+    def _compute_qty_available(self):
+        """Recomputes 'More Qty needed' value when available qty changes"""
+        res = super()._compute_qty_available()
+        self._compute_safety_stock_warning()
+        return res

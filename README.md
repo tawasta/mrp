@@ -49,7 +49,7 @@ addon | version | maintainers | summary
 [mrp_multi_level_optimization](mrp_multi_level_optimization/) | 14.0.1.0.0 |  | MRP multi level optimization
 [mrp_multi_level_parameter_abc](mrp_multi_level_parameter_abc/) | 14.0.1.1.0 |  | MRP product parameter ABC Fields
 [mrp_multi_level_queue](mrp_multi_level_queue/) | 14.0.1.0.0 |  | MRP Multi Level with queue jobs
-[mrp_multi_level_safety_stock_warning](mrp_multi_level_safety_stock_warning/) | 14.0.1.0.1 |  | Shows if more stock is needed based on safety stock and Qty on hand
+[mrp_multi_level_safety_stock_warning](mrp_multi_level_safety_stock_warning/) | 14.0.1.1.1 |  | Shows if more stock is needed based on safety stock and Qty on hand
 [mrp_operations_disable_sequence_dragging](mrp_operations_disable_sequence_dragging/) | 14.0.1.0.0 |  | Hides sequence column in operations tree view
 [mrp_product_only_select](mrp_product_only_select/) | 14.0.1.0.0 |  | Disable creating and editing of products from the MO product field
 [mrp_production_autoprocess_work_orders](mrp_production_autoprocess_work_orders/) | 14.0.1.0.3 |  | Created Work Orders get completed instantly
