@@ -98,7 +98,11 @@ Report creates 5 sheets to an excel:
 
 Configuration
 =============
-\-
+These sheets can be hidden from Manufacturing settings:
+- BOM by-products
+- Operations, energy, consumption
+- Product requirements
+- Material summaries
 
 Usage
 =====
@@ -109,7 +113,7 @@ Usage
 
 Known issues / Roadmap
 ======================
-* Set the amount to seconds in a year in the inventory settings. This
+* Set the amount to seconds in a year in the manufacturing settings. This
   value is used in the calculation of used consumable weight
 
 Credits

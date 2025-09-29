@@ -1394,682 +1394,697 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         # ----------- Sheet 3 -----------#
         # -------------------------------#
 
-        sheet3 = workbook.add_worksheet(_("BOM by-products"))
+        if not objects[0].company_id.hide_by_product_sheet:
+            sheet3 = workbook.add_worksheet(_("BOM by-products"))
 
-        sheet3.set_landscape()
-        sheet3.fit_to_pages(1, 0)
-        sheet3.set_zoom(80)
+            sheet3.set_landscape()
+            sheet3.fit_to_pages(1, 0)
+            sheet3.set_zoom(80)
 
-        # Some column sizes changed to match their title
-        sheet3.set_column(0, 0, 56)
-        sheet3.set_column(1, 1, 18)
-        sheet3.set_column(2, 2, 35)
-        sheet3.set_column(3, 3, 25)
-        sheet3.set_column(4, 4, 20)
-        sheet3.set_column(5, 5, 48)
-        sheet3.set_column(6, 6, 25)
-        sheet3.set_column(7, 7, 28)
-        sheet3.set_column(8, 8, 18)
+            # Some column sizes changed to match their title
+            sheet3.set_column(0, 0, 56)
+            sheet3.set_column(1, 1, 18)
+            sheet3.set_column(2, 2, 35)
+            sheet3.set_column(3, 3, 25)
+            sheet3.set_column(4, 4, 20)
+            sheet3.set_column(5, 5, 48)
+            sheet3.set_column(6, 6, 25)
+            sheet3.set_column(7, 7, 28)
+            sheet3.set_column(8, 8, 18)
 
-        # Column styles
-        bold = workbook.add_format({"bold": True})
+            # Column styles
+            bold = workbook.add_format({"bold": True})
 
-        title_style_product_level = workbook.add_format(
-            {"bold": True, "bg_color": "#C9C0FF", "bottom": 1}
-        )
+            title_style_product_level = workbook.add_format(
+                {"bold": True, "bg_color": "#C9C0FF", "bottom": 1}
+            )
 
-        sheet_title_3 = [
-            _("Internal category/display name"),
-            _("Level"),
-            _("Product to which operation is done"),
-            _("Product internal reference"),
-            _("Operation ID"),
-            _("Operation name"),
-            _("Waste product name"),
-            _("Waste amount"),
-            _("Waste unit"),
-        ]
+            sheet_title_3 = [
+                _("Internal category/display name"),
+                _("Level"),
+                _("Product to which operation is done"),
+                _("Product internal reference"),
+                _("Operation ID"),
+                _("Operation name"),
+                _("Waste product name"),
+                _("Waste amount"),
+                _("Waste unit"),
+            ]
 
-        sheet3.set_row(0, None, None, {"collapsed": 1})
+            sheet3.set_row(0, None, None, {"collapsed": 1})
 
-        for title in enumerate(sheet_title_3):
-            sheet3.write(0, title[0], title[1] or "", title_style_product_level)
+            for title in enumerate(sheet_title_3):
+                sheet3.write(0, title[0], title[1] or "", title_style_product_level)
 
-        sheet3.freeze_panes(1, 0)
+            sheet3.freeze_panes(1, 0)
 
         # -------------------------------#
         # ----------- Sheet 4 -----------#
         # -------------------------------#
 
-        sheet4 = workbook.add_worksheet(_("Operations, energy, consumption"))
+        if not objects[0].company_id.hide_operation_sheet:
+            sheet4 = workbook.add_worksheet(_("Operations, energy, consumption"))
 
-        sheet4.set_landscape()
-        sheet4.fit_to_pages(1, 0)
-        sheet4.set_zoom(80)
+            sheet4.set_landscape()
+            sheet4.fit_to_pages(1, 0)
+            sheet4.set_zoom(80)
 
-        # Some column sizes changed to match their title
-        sheet4.set_column(0, 0, 39)  # A
-        sheet4.set_column(1, 1, 20)  # B
-        sheet4.set_column(2, 2, 47)  # C
-        sheet4.set_column(3, 3, 18)  # D
-        sheet4.set_column(4, 4, 25)  # E
-        sheet4.set_column(5, 5, 40)  # F
-        sheet4.set_column(6, 6, 18)  # G
-        sheet4.set_column(7, 7, 35)  # H
-        sheet4.set_column(8, 8, 45)  # I
-        sheet4.set_column(9, 9, 25)  # J
-        sheet4.set_column(10, 10, 28)  # K
-        sheet4.set_column(11, 11, 26)  # L
-        sheet4.set_column(12, 12, 26)  # M
-        sheet4.set_column(13, 13, 22)  # N
-        sheet4.set_column(14, 14, 20)  # O
-        sheet4.set_column(15, 15, 20)  # P
-        sheet4.set_column(16, 16, 20)  # Q
-        sheet4.set_column(17, 17, 20)  # R
-        sheet4.set_column(18, 18, 40)  # S
-        sheet4.set_column(19, 19, 12)  # T
+            # Some column sizes changed to match their title
+            sheet4.set_column(0, 0, 39)  # A
+            sheet4.set_column(1, 1, 20)  # B
+            sheet4.set_column(2, 2, 47)  # C
+            sheet4.set_column(3, 3, 18)  # D
+            sheet4.set_column(4, 4, 25)  # E
+            sheet4.set_column(5, 5, 40)  # F
+            sheet4.set_column(6, 6, 18)  # G
+            sheet4.set_column(7, 7, 35)  # H
+            sheet4.set_column(8, 8, 45)  # I
+            sheet4.set_column(9, 9, 25)  # J
+            sheet4.set_column(10, 10, 28)  # K
+            sheet4.set_column(11, 11, 26)  # L
+            sheet4.set_column(12, 12, 26)  # M
+            sheet4.set_column(13, 13, 22)  # N
+            sheet4.set_column(14, 14, 20)  # O
+            sheet4.set_column(15, 15, 20)  # P
+            sheet4.set_column(16, 16, 20)  # Q
+            sheet4.set_column(17, 17, 20)  # R
+            sheet4.set_column(18, 18, 40)  # S
+            sheet4.set_column(19, 19, 12)  # T
 
-        # Column styles
-        bold = workbook.add_format({"bold": True})
+            # Column styles
+            bold = workbook.add_format({"bold": True})
 
-        title_style_product_level = workbook.add_format(
-            {"bold": True, "bg_color": "#ECB18F", "bottom": 1}
-        )
+            title_style_product_level = workbook.add_format(
+                {"bold": True, "bg_color": "#ECB18F", "bottom": 1}
+            )
 
-        sheet_title_4 = [
-            _("Internal category/display name"),  # 0 (A)
-            _("Product internal reference"),  # 1 (B)
-            _("Name"),  # 2 (C)
-            _("Operation ID"),  # 3 (D)
-            _("Operation name"),  # 4 (E)
-            _("Energy consumption during an operation / Total(kWh)"),  # 5 (F)
-            _("Energy Unit"),  # 6 (G)
-            _("Operation consumptions product ID"),  # 7 (H)
-            _("Name of the product consumed in an operation"),  # 8 (I)
-            _("Part name"),  # 9 (J)
-            _("Material"),  # 10 (K)
-            _("Material class"),  # 11 (L)
-            _("Material type"),  # 12 (M)
-            _("Material weight / per unit"),  # 13 (N)
-            _("Weight unit"),  # 14 (O)
-            _("Recycle material %"),  # 15 (P)
-            _("Waste products"),  # 16 (Q)
-            _("Waste endpoint"),  # 17 (R)
-            _("Consumed amount / produced 1 product"),  # 18 (S)
-            _("Unit"),  # 19 (T)
-        ]
+            sheet_title_4 = [
+                _("Internal category/display name"),  # 0 (A)
+                _("Product internal reference"),  # 1 (B)
+                _("Name"),  # 2 (C)
+                _("Operation ID"),  # 3 (D)
+                _("Operation name"),  # 4 (E)
+                _("Energy consumption during an operation / Total(kWh)"),  # 5 (F)
+                _("Energy Unit"),  # 6 (G)
+                _("Operation consumptions product ID"),  # 7 (H)
+                _("Name of the product consumed in an operation"),  # 8 (I)
+                _("Part name"),  # 9 (J)
+                _("Material"),  # 10 (K)
+                _("Material class"),  # 11 (L)
+                _("Material type"),  # 12 (M)
+                _("Material weight / per unit"),  # 13 (N)
+                _("Weight unit"),  # 14 (O)
+                _("Recycle material %"),  # 15 (P)
+                _("Waste products"),  # 16 (Q)
+                _("Waste endpoint"),  # 17 (R)
+                _("Consumed amount / produced 1 product"),  # 18 (S)
+                _("Unit"),  # 19 (T)
+            ]
 
-        sheet4.set_row(0, None, None, {"collapsed": 1})
+            sheet4.set_row(0, None, None, {"collapsed": 1})
 
-        for title in enumerate(sheet_title_4):
-            sheet4.write(0, title[0], title[1] or "", title_style_product_level)
+            for title in enumerate(sheet_title_4):
+                sheet4.write(0, title[0], title[1] or "", title_style_product_level)
 
-        sheet4.freeze_panes(1, 0)
+            sheet4.freeze_panes(1, 0)
 
         # -------------------------------#
         # ----------- Sheet 5 -----------#
         # -------------------------------#
 
-        sheet5 = workbook.add_worksheet(_("Product requirements"))
+        if not objects[0].company_id.hide_requirement_sheet:
+            sheet5 = workbook.add_worksheet(_("Product requirements"))
 
-        sheet5.set_landscape()
-        sheet5.fit_to_pages(1, 0)
-        sheet5.set_zoom(80)
+            sheet5.set_landscape()
+            sheet5.fit_to_pages(1, 0)
+            sheet5.set_zoom(80)
 
-        # Some column sizes changed to match their title
-        sheet5.set_column(0, 0, 47)
-        sheet5.set_column(1, 1, 12)
-        sheet5.set_column(2, 2, 25)
-        sheet5.set_column(3, 3, 47)
-        sheet5.set_column(4, 4, 20)
-        sheet5.set_column(5, 7, 29)
-        sheet5.set_column(8, 8, 25)
-        sheet5.set_column(9, 9, 20)
-        sheet5.set_column(10, 10, 20)
-        sheet5.set_column(11, 11, 20)
-        sheet5.set_column(12, 12, 20)
-        sheet5.set_column(13, 13, 20)
-        sheet5.set_column(14, 14, 34)
-        sheet5.set_column(15, 15, 20)
-        sheet5.set_column(16, 16, 28)
-        sheet5.set_column(17, 17, 20)
-        sheet5.set_column(18, 18, 20)
-        sheet5.set_column(19, 19, 20)
+            # Some column sizes changed to match their title
+            sheet5.set_column(0, 0, 47)
+            sheet5.set_column(1, 1, 12)
+            sheet5.set_column(2, 2, 25)
+            sheet5.set_column(3, 3, 47)
+            sheet5.set_column(4, 4, 20)
+            sheet5.set_column(5, 7, 29)
+            sheet5.set_column(8, 8, 25)
+            sheet5.set_column(9, 9, 20)
+            sheet5.set_column(10, 10, 20)
+            sheet5.set_column(11, 11, 20)
+            sheet5.set_column(12, 12, 20)
+            sheet5.set_column(13, 13, 20)
+            sheet5.set_column(14, 14, 34)
+            sheet5.set_column(15, 15, 20)
+            sheet5.set_column(16, 16, 28)
+            sheet5.set_column(17, 17, 20)
+            sheet5.set_column(18, 18, 20)
+            sheet5.set_column(19, 19, 20)
 
-        # Column styles
-        bold = workbook.add_format({"bold": True})
+            # Column styles
+            bold = workbook.add_format({"bold": True})
 
-        title_style_product_level = workbook.add_format(
-            {"bold": True, "bg_color": "#6AD25F", "bottom": 1}
-        )
+            title_style_product_level = workbook.add_format(
+                {"bold": True, "bg_color": "#6AD25F", "bottom": 1}
+            )
 
-        sheet_title_5 = [
-            _("Internal category/display name"),
-            _("Level"),
-            _("Product internal reference"),
-            _("Name"),
-            _("Unit"),
-            _("Part name"),
-            _("Material"),
-            _("Material class"),
-            _("Net weight in a product"),
-            _("Net weight Unit"),
-            _("Dangerous materials"),
-            _("RoHS"),
-            _("REACH"),
-            _("SCIP"),
-            _("POP (Persistant Organic Pollutants"),
-            _("Halogens"),
-            _("Conflict Area Minerals"),
-            _("Recycle material %"),
-            _("Waste product"),
-            _("Waste endpoint"),
-        ]
+            sheet_title_5 = [
+                _("Internal category/display name"),
+                _("Level"),
+                _("Product internal reference"),
+                _("Name"),
+                _("Unit"),
+                _("Part name"),
+                _("Material"),
+                _("Material class"),
+                _("Net weight in a product"),
+                _("Net weight Unit"),
+                _("Dangerous materials"),
+                _("RoHS"),
+                _("REACH"),
+                _("SCIP"),
+                _("POP (Persistant Organic Pollutants"),
+                _("Halogens"),
+                _("Conflict Area Minerals"),
+                _("Recycle material %"),
+                _("Waste product"),
+                _("Waste endpoint"),
+            ]
 
-        sheet5.set_row(0, None, None, {"collapsed": 1})
+            sheet5.set_row(0, None, None, {"collapsed": 1})
 
-        for title in enumerate(sheet_title_5):
-            sheet5.write(0, title[0], title[1] or "", title_style_product_level)
+            for title in enumerate(sheet_title_5):
+                sheet5.write(0, title[0], title[1] or "", title_style_product_level)
 
-        sheet5.freeze_panes(1, 0)
+            sheet5.freeze_panes(1, 0)
 
         # -------------------------------#
         # ----------- Sheet 6 -----------#
         # -------------------------------#
 
-        sheet6 = workbook.add_worksheet(_("Material summaries"))
+        if not objects[0].company_id.hide_summary_sheet:
+            sheet6 = workbook.add_worksheet(_("Material summaries"))
 
-        sheet6.set_landscape()
-        sheet6.fit_to_pages(1, 0)
-        sheet6.set_zoom(80)
+            sheet6.set_landscape()
+            sheet6.fit_to_pages(1, 0)
+            sheet6.set_zoom(80)
 
-        column = 0
-        columns_1 = 0
-        columns_2 = 0
-        columns_3 = 0
-        columns_4 = 0
-        columns_5 = 0
-        columns_6 = 0
-        columns_7 = 0
-        columns_8 = 0
-        columns_9 = 0
+            column = 0
+            columns_1 = 0
+            columns_2 = 0
+            columns_3 = 0
+            columns_4 = 0
+            columns_5 = 0
+            columns_6 = 0
+            columns_7 = 0
+            columns_8 = 0
+            columns_9 = 0
 
-        # Some column sizes changed to match their title
+            # Some column sizes changed to match their title
 
-        # 1. Product Materials Summary
-        sheet6.set_column(column, column, 22)  # A
-        column += 1
-        sheet6.set_column(column, column, 17)  # B
-        column += 1
-        sheet6.set_column(column, column, 13)  # C
-        column += 1
-        sheet6.set_column(column, column, 33)  # D
-        column += 1
-        columns_1 = column
+            # 1. Product Materials Summary
+            sheet6.set_column(column, column, 22)  # A
+            column += 1
+            sheet6.set_column(column, column, 17)  # B
+            column += 1
+            sheet6.set_column(column, column, 13)  # C
+            column += 1
+            sheet6.set_column(column, column, 33)  # D
+            column += 1
+            columns_1 = column
 
-        # 2. Packaging Materials Summary
-        sheet6.set_column(column, column, 22)  # D
-        column += 1
-        sheet6.set_column(column, column, 17)  # E
-        column += 1
-        sheet6.set_column(column, column, 13)  # F
-        column += 1
-        sheet6.set_column(column, column, 33)  # G
-        column += 1
-        columns_2 = column
+            # 2. Packaging Materials Summary
+            sheet6.set_column(column, column, 22)  # D
+            column += 1
+            sheet6.set_column(column, column, 17)  # E
+            column += 1
+            sheet6.set_column(column, column, 13)  # F
+            column += 1
+            sheet6.set_column(column, column, 33)  # G
+            column += 1
+            columns_2 = column
 
-        # 3. Product component materials
-        sheet6.set_column(column, column, 33)  # O
-        column += 1
-        sheet6.set_column(column, column, 33)  # O
-        column += 1
-        sheet6.set_column(column, column, 17)  # P
-        column += 1
-        sheet6.set_column(column, column, 13)  # Q
-        column += 1
-        sheet6.set_column(column, column, 33)  # R
-        column += 1
-        sheet6.set_column(column, column, 33)  # W
-        column += 1
-        sheet6.set_column(column, column, 31)  # X
-        column += 1
-        sheet6.set_column(column, column, 32)  # R
-        column += 1
-        sheet6.set_column(column, column, 26)  # W
-        column += 1
-        sheet6.set_column(column, column, 30)  # X
-        column += 1
-        columns_3 = column
+            # 3. Product component materials
+            sheet6.set_column(column, column, 33)  # O
+            column += 1
+            sheet6.set_column(column, column, 33)  # O
+            column += 1
+            sheet6.set_column(column, column, 17)  # P
+            column += 1
+            sheet6.set_column(column, column, 13)  # Q
+            column += 1
+            sheet6.set_column(column, column, 33)  # R
+            column += 1
+            sheet6.set_column(column, column, 33)  # W
+            column += 1
+            sheet6.set_column(column, column, 31)  # X
+            column += 1
+            sheet6.set_column(column, column, 32)  # R
+            column += 1
+            sheet6.set_column(column, column, 26)  # W
+            column += 1
+            sheet6.set_column(column, column, 30)  # X
+            column += 1
+            columns_3 = column
 
-        # 4. Delivery Packaging materials
-        sheet6.set_column(column, column, 33)  # S
-        column += 1
-        sheet6.set_column(column, column, 33)  # S
-        column += 1
-        sheet6.set_column(column, column, 17)  # T
-        column += 1
-        sheet6.set_column(column, column, 14)  # U
-        column += 1
-        sheet6.set_column(column, column, 11)  # V
-        column += 1
-        sheet6.set_column(column, column, 33)  # W
-        column += 1
-        sheet6.set_column(column, column, 31)  # X
-        column += 1
-        sheet6.set_column(column, column, 32)  # V
-        column += 1
-        sheet6.set_column(column, column, 26)  # W
-        column += 1
-        sheet6.set_column(column, column, 30)  # X
-        column += 1
-        columns_4 = column
+            # 4. Delivery Packaging materials
+            sheet6.set_column(column, column, 33)  # S
+            column += 1
+            sheet6.set_column(column, column, 33)  # S
+            column += 1
+            sheet6.set_column(column, column, 17)  # T
+            column += 1
+            sheet6.set_column(column, column, 14)  # U
+            column += 1
+            sheet6.set_column(column, column, 11)  # V
+            column += 1
+            sheet6.set_column(column, column, 33)  # W
+            column += 1
+            sheet6.set_column(column, column, 31)  # X
+            column += 1
+            sheet6.set_column(column, column, 32)  # V
+            column += 1
+            sheet6.set_column(column, column, 26)  # W
+            column += 1
+            sheet6.set_column(column, column, 30)  # X
+            column += 1
+            columns_4 = column
 
-        # 5. All materials consumed in production
-        sheet6.set_column(column, column, 33)  # Y
-        column += 1
-        sheet6.set_column(column, column, 33)  # Y
-        column += 1
-        sheet6.set_column(column, column, 21)  # Z
-        column += 1
-        sheet6.set_column(column, column, 21)  # AA
-        column += 1
-        sheet6.set_column(column, column, 13)  # AB
-        column += 1
-        sheet6.set_column(column, column, 33)  # W
-        column += 1
-        sheet6.set_column(column, column, 30)  # X
-        column += 1
-        sheet6.set_column(column, column, 30)  # X
-        column += 1
-        columns_5 = column
+            # 5. All materials consumed in production
+            sheet6.set_column(column, column, 33)  # Y
+            column += 1
+            sheet6.set_column(column, column, 33)  # Y
+            column += 1
+            sheet6.set_column(column, column, 21)  # Z
+            column += 1
+            sheet6.set_column(column, column, 21)  # AA
+            column += 1
+            sheet6.set_column(column, column, 13)  # AB
+            column += 1
+            sheet6.set_column(column, column, 33)  # W
+            column += 1
+            sheet6.set_column(column, column, 30)  # X
+            column += 1
+            sheet6.set_column(column, column, 30)  # X
+            column += 1
+            columns_5 = column
 
-        # 6. All materials in Incoming packaging
-        sheet6.set_column(column, column, 33)  # H
-        column += 1
-        sheet6.set_column(column, column, 33)  # H
-        column += 1
-        sheet6.set_column(column, column, 17)  # I
-        column += 1
-        sheet6.set_column(column, column, 13)  # J
-        column += 1
-        sheet6.set_column(column, column, 33)  # K
-        column += 1
-        sheet6.set_column(column, column, 33)  # W
-        column += 1
-        sheet6.set_column(column, column, 18)  # X
-        column += 1
-        sheet6.set_column(column, column, 18)  # X
-        column += 1
-        columns_6 = column
+            # 6. All materials in Incoming packaging
+            sheet6.set_column(column, column, 33)  # H
+            column += 1
+            sheet6.set_column(column, column, 33)  # H
+            column += 1
+            sheet6.set_column(column, column, 17)  # I
+            column += 1
+            sheet6.set_column(column, column, 13)  # J
+            column += 1
+            sheet6.set_column(column, column, 33)  # K
+            column += 1
+            sheet6.set_column(column, column, 33)  # W
+            column += 1
+            sheet6.set_column(column, column, 18)  # X
+            column += 1
+            sheet6.set_column(column, column, 18)  # X
+            column += 1
+            columns_6 = column
 
-        # 7. Summary of all materials
-        sheet6.set_column(column, column, 33)  # AC
-        column += 1
-        sheet6.set_column(column, column, 33)  # AC
-        column += 1
-        sheet6.set_column(column, column, 17)  # AD
-        column += 1
-        sheet6.set_column(column, column, 17)  # AE
-        column += 1
-        sheet6.set_column(column, column, 13)  # AF
-        column += 1
-        sheet6.set_column(column, column, 33)  # W
-        column += 1
-        sheet6.set_column(column, column, 25)  # X
-        column += 1
-        sheet6.set_column(column, column, 30)  # X
-        column += 1
-        columns_7 = column
+            # 7. Summary of all materials
+            sheet6.set_column(column, column, 33)  # AC
+            column += 1
+            sheet6.set_column(column, column, 33)  # AC
+            column += 1
+            sheet6.set_column(column, column, 17)  # AD
+            column += 1
+            sheet6.set_column(column, column, 17)  # AE
+            column += 1
+            sheet6.set_column(column, column, 13)  # AF
+            column += 1
+            sheet6.set_column(column, column, 33)  # W
+            column += 1
+            sheet6.set_column(column, column, 25)  # X
+            column += 1
+            sheet6.set_column(column, column, 30)  # X
+            column += 1
+            columns_7 = column
 
-        # 8. Workcenters Energy summary
-        sheet6.set_column(column, column, 35)  # L
-        column += 1
-        sheet6.set_column(column, column, 18)  # M
-        column += 1
-        sheet6.set_column(column, column, 13)  # N
-        column += 1
-        columns_8 = column
+            # 8. Workcenters Energy summary
+            sheet6.set_column(column, column, 35)  # L
+            column += 1
+            sheet6.set_column(column, column, 18)  # M
+            column += 1
+            sheet6.set_column(column, column, 13)  # N
+            column += 1
+            columns_8 = column
 
-        # 9. Operations Energy summary
-        sheet6.set_column(column, column, 35)  # L
-        column += 1
-        sheet6.set_column(column, column, 18)  # M
-        column += 1
-        sheet6.set_column(column, column, 13)  # N
-        column += 1
-        columns_9 = column
+            # 9. Operations Energy summary
+            sheet6.set_column(column, column, 35)  # L
+            column += 1
+            sheet6.set_column(column, column, 18)  # M
+            column += 1
+            sheet6.set_column(column, column, 13)  # N
+            column += 1
+            columns_9 = column
 
-        title_style_main_1 = workbook.add_format(
-            {"bold": True, "bg_color": "#83B9F7", "bottom": 1}
-        )
-        title_style_main_1.set_align("center")
-        title_style_main_1.set_align("vcenter")
+            title_style_main_1 = workbook.add_format(
+                {"bold": True, "bg_color": "#83B9F7", "bottom": 1}
+            )
+            title_style_main_1.set_align("center")
+            title_style_main_1.set_align("vcenter")
 
-        title_style_1 = workbook.add_format(
-            {"bold": True, "bg_color": "AFCDFF", "bottom": 1}
-        )
+            title_style_1 = workbook.add_format(
+                {"bold": True, "bg_color": "AFCDFF", "bottom": 1}
+            )
 
         # --------------------------------------------------------------------- #
         # ----------------- 1. Product Materials Summary ---------------------- #
         # --------------------------------------------------------------------- #
 
-        sheet_title_6 = [
-            _("Material"),  # 0 (A)
-            _("Total amount (g)"),  # 1 (B)
-            _("% of total"),  # 2 (C)
-            _("Post-consumer material, weight % "),  # 3 (D)
-        ]
+        if not objects[0].company_id.hide_summary_sheet:
+            sheet_title_6 = [
+                _("Material"),  # 0 (A)
+                _("Total amount (g)"),  # 1 (B)
+                _("% of total"),  # 2 (C)
+                _("Post-consumer material, weight % "),  # 3 (D)
+            ]
 
-        sheet6.merge_range(
-            0,
-            0,
-            1,
-            columns_1 - 1,
-            _("1. Product Materials Summary"),
-            title_style_main_1,
-        )
-        sheet6.set_row(0, None, None, {"collapsed": 1})
+            sheet6.merge_range(
+                0,
+                0,
+                1,
+                columns_1 - 1,
+                _("1. Product Materials Summary"),
+                title_style_main_1,
+            )
+            sheet6.set_row(0, None, None, {"collapsed": 1})
 
-        for title in enumerate(sheet_title_6):
-            sheet6.write(2, title[0], title[1] or "", title_style_1)
+            for title in enumerate(sheet_title_6):
+                sheet6.write(2, title[0], title[1] or "", title_style_1)
 
-        sheet6.freeze_panes(2, 0)
+            sheet6.freeze_panes(2, 0)
 
         # --------------------------------------------------------------------- #
         # ----------------- 2. Packaging Materials Summary -------------------- #
         # --------------------------------------------------------------------- #
 
-        sheet_title_6_recyc = [
-            _("Material"),
-            _("Total amount (g)"),
-            _("% of total"),
-            _("Post-consumer material, weight %"),
-        ]
+        if not objects[0].company_id.hide_summary_sheet:
+            sheet_title_6_recyc = [
+                _("Material"),
+                _("Total amount (g)"),
+                _("% of total"),
+                _("Post-consumer material, weight %"),
+            ]
 
-        title_style_main_2 = workbook.add_format(
-            {"bold": True, "bg_color": "#97E55C", "bottom": 1}
-        )
-        title_style_main_2.set_align("center")
-        title_style_main_2.set_align("vcenter")
+            title_style_main_2 = workbook.add_format(
+                {"bold": True, "bg_color": "#97E55C", "bottom": 1}
+            )
+            title_style_main_2.set_align("center")
+            title_style_main_2.set_align("vcenter")
 
-        title_style_sub_2 = workbook.add_format(
-            {"bold": True, "bg_color": "#D9F776", "bottom": 1}
-        )
+            title_style_sub_2 = workbook.add_format(
+                {"bold": True, "bg_color": "#D9F776", "bottom": 1}
+            )
 
-        sheet6.merge_range(
-            0,
-            columns_1,
-            1,
-            columns_2 - 1,
-            _("2. Packaging Materials Summary"),
-            title_style_main_2,
-        )
-        sheet6.set_row(0, None, None, {"collapsed": 1})
+            sheet6.merge_range(
+                0,
+                columns_1,
+                1,
+                columns_2 - 1,
+                _("2. Packaging Materials Summary"),
+                title_style_main_2,
+            )
+            sheet6.set_row(0, None, None, {"collapsed": 1})
 
-        for title in enumerate(sheet_title_6_recyc):
-            sheet6.write(2, title[0] + columns_1, title[1] or "", title_style_sub_2)
+            for title in enumerate(sheet_title_6_recyc):
+                sheet6.write(2, title[0] + columns_1, title[1] or "", title_style_sub_2)
 
         # --------------------------------------------------------------------- #
         # ------------------ 3. Product component materials ------------------- #
         # --------------------------------------------------------------------- #
 
-        sheet_title_material_template = [
-            _("Material (en)"),
-            _("Material"),
-            _("Total amount (g)"),
-            _("Weight, kg"),
-            _("% of total"),
-            _("Post-consumer material, weight %"),
-            _("Renewable (Biogenic) % weight"),
-            _("Renewable (Biogenic) Weight (kg)"),
-            _("Biogenic carbon, weight-%"),
-            _("Biogenic carbon, kg C/product"),
-        ]
+        if not objects[0].company_id.hide_summary_sheet:
+            sheet_title_material_template = [
+                _("Material (en)"),
+                _("Material"),
+                _("Total amount (g)"),
+                _("Weight, kg"),
+                _("% of total"),
+                _("Post-consumer material, weight %"),
+                _("Renewable (Biogenic) % weight"),
+                _("Renewable (Biogenic) Weight (kg)"),
+                _("Biogenic carbon, weight-%"),
+                _("Biogenic carbon, kg C/product"),
+            ]
 
-        title_style_main_7 = workbook.add_format(
-            {"bold": True, "bg_color": "#CB93FC", "bottom": 1}
-        )
-        title_style_main_7.set_align("center")
-        title_style_main_7.set_align("vcenter")
+            title_style_main_7 = workbook.add_format(
+                {"bold": True, "bg_color": "#CB93FC", "bottom": 1}
+            )
+            title_style_main_7.set_align("center")
+            title_style_main_7.set_align("vcenter")
 
-        title_style_sub_7 = workbook.add_format(
-            {"bold": True, "bg_color": "#DFC3F7", "bottom": 1}
-        )
+            title_style_sub_7 = workbook.add_format(
+                {"bold": True, "bg_color": "#DFC3F7", "bottom": 1}
+            )
 
-        sheet6.merge_range(
-            0,
-            columns_2,
-            1,
-            columns_3 - 1,
-            _("3. Product component materials"),
-            title_style_main_7,
-        )
-        sheet6.set_row(0, None, None, {"collapsed": 1})
+            sheet6.merge_range(
+                0,
+                columns_2,
+                1,
+                columns_3 - 1,
+                _("3. Product component materials"),
+                title_style_main_7,
+            )
+            sheet6.set_row(0, None, None, {"collapsed": 1})
 
-        for title in enumerate(sheet_title_material_template):
-            sheet6.write(2, title[0] + columns_2, title[1] or "", title_style_sub_7)
+            for title in enumerate(sheet_title_material_template):
+                sheet6.write(2, title[0] + columns_2, title[1] or "", title_style_sub_7)
 
         # --------------------------------------------------------------------- #
         # --------------- 4. Delivery Packaging materials --------------------- #
         # --------------------------------------------------------------------- #
 
-        sheet_title_material_template = [
-            _("Material (en)"),
-            _("Material"),
-            _("Total amount (g)"),
-            _("Weight, kg"),
-            _("% of total"),
-            _("Post-consumer material, weight %"),
-            _("Renewable (Biogenic) % weight"),
-            _("Renewable (Biogenic) Weight (kg)"),
-            _("Biogenic carbon, weight-%"),
-            _("Biogenic carbon, kg C/product"),
-        ]
+        if not objects[0].company_id.hide_summary_sheet:
+            sheet_title_material_template = [
+                _("Material (en)"),
+                _("Material"),
+                _("Total amount (g)"),
+                _("Weight, kg"),
+                _("% of total"),
+                _("Post-consumer material, weight %"),
+                _("Renewable (Biogenic) % weight"),
+                _("Renewable (Biogenic) Weight (kg)"),
+                _("Biogenic carbon, weight-%"),
+                _("Biogenic carbon, kg C/product"),
+            ]
 
-        title_style_main_8 = workbook.add_format(
-            {"bold": True, "bg_color": "#61B975", "bottom": 1}
-        )
-        title_style_main_8.set_align("center")
-        title_style_main_8.set_align("vcenter")
+            title_style_main_8 = workbook.add_format(
+                {"bold": True, "bg_color": "#61B975", "bottom": 1}
+            )
+            title_style_main_8.set_align("center")
+            title_style_main_8.set_align("vcenter")
 
-        title_style_sub_8 = workbook.add_format(
-            {"bold": True, "bg_color": "#92B099", "bottom": 1}
-        )
+            title_style_sub_8 = workbook.add_format(
+                {"bold": True, "bg_color": "#92B099", "bottom": 1}
+            )
 
-        sheet6.merge_range(
-            0,
-            columns_3,
-            1,
-            columns_4 - 1,
-            _("4. Delivery Packaging materials"),
-            title_style_main_8,
-        )
-        sheet6.set_row(0, None, None, {"collapsed": 1})
+            sheet6.merge_range(
+                0,
+                columns_3,
+                1,
+                columns_4 - 1,
+                _("4. Delivery Packaging materials"),
+                title_style_main_8,
+            )
+            sheet6.set_row(0, None, None, {"collapsed": 1})
 
-        for title in enumerate(sheet_title_material_template):
-            sheet6.write(2, title[0] + columns_3, title[1] or "", title_style_sub_8)
+            for title in enumerate(sheet_title_material_template):
+                sheet6.write(2, title[0] + columns_3, title[1] or "", title_style_sub_8)
 
         # --------------------------------------------------------------------- #
         # ----------- 5. All materials consumed in production ----------------- #
         # --------------------------------------------------------------------- #
 
-        sheet_title_material_template = [
-            _("Material (en)"),
-            _("Material"),
-            _("Total amount (g)"),
-            _("Weight, kg"),
-            _("% of total"),
-            _("Post-consumer material, weight %"),
-            _("Renewable (Biogenic) % weight"),
-            _("Biogenic carbon, kg C/product"),
-        ]
+        if not objects[0].company_id.hide_summary_sheet:
+            sheet_title_material_template = [
+                _("Material (en)"),
+                _("Material"),
+                _("Total amount (g)"),
+                _("Weight, kg"),
+                _("% of total"),
+                _("Post-consumer material, weight %"),
+                _("Renewable (Biogenic) % weight"),
+                _("Biogenic carbon, kg C/product"),
+            ]
 
-        title_style_main_5 = workbook.add_format(
-            {"bold": True, "bg_color": "#A8E669", "bottom": 1}
-        )
-        title_style_main_5.set_align("center")
-        title_style_main_5.set_align("vcenter")
+            title_style_main_5 = workbook.add_format(
+                {"bold": True, "bg_color": "#A8E669", "bottom": 1}
+            )
+            title_style_main_5.set_align("center")
+            title_style_main_5.set_align("vcenter")
 
-        title_style_sub_5 = workbook.add_format(
-            {"bold": True, "bg_color": "#BAE58E", "bottom": 1}
-        )
+            title_style_sub_5 = workbook.add_format(
+                {"bold": True, "bg_color": "#BAE58E", "bottom": 1}
+            )
 
-        sheet6.merge_range(
-            0,
-            columns_4,
-            1,
-            columns_5 - 1,
-            _("5. All materials consumed in production"),
-            title_style_main_5,
-        )
+            sheet6.merge_range(
+                0,
+                columns_4,
+                1,
+                columns_5 - 1,
+                _("5. All materials consumed in production"),
+                title_style_main_5,
+            )
 
-        sheet6.set_row(0, None, None, {"collapsed": 1})
+            sheet6.set_row(0, None, None, {"collapsed": 1})
 
-        for title in enumerate(sheet_title_material_template):
-            sheet6.write(2, title[0] + columns_4, title[1] or "", title_style_sub_5)
+            for title in enumerate(sheet_title_material_template):
+                sheet6.write(2, title[0] + columns_4, title[1] or "", title_style_sub_5)
 
         # --------------------------------------------------------------------- #
         # ------------ 6. All materials in Incoming packaging ----------------- #
         # --------------------------------------------------------------------- #
 
-        sheet_title_incoming_material = [
-            _("Material (en)"),
-            _("Material"),
-            _("Total amount (g)"),
-            _("Weight, kg"),
-            _("% of total"),
-            _("Post-consumer material, weight %"),
-            _("Waste flow"),
-            _("Waste fate"),
-        ]
+        if not objects[0].company_id.hide_summary_sheet:
+            sheet_title_incoming_material = [
+                _("Material (en)"),
+                _("Material"),
+                _("Total amount (g)"),
+                _("Weight, kg"),
+                _("% of total"),
+                _("Post-consumer material, weight %"),
+                _("Waste flow"),
+                _("Waste fate"),
+            ]
 
-        title_style_main_3 = workbook.add_format(
-            {"bold": True, "bg_color": "#E2C0FF", "bottom": 1}
-        )
-        title_style_main_3.set_align("center")
-        title_style_main_3.set_align("vcenter")
+            title_style_main_3 = workbook.add_format(
+                {"bold": True, "bg_color": "#E2C0FF", "bottom": 1}
+            )
+            title_style_main_3.set_align("center")
+            title_style_main_3.set_align("vcenter")
 
-        title_style_sub_3 = workbook.add_format(
-            {"bold": True, "bg_color": "#E8DCF2", "bottom": 1}
-        )
+            title_style_sub_3 = workbook.add_format(
+                {"bold": True, "bg_color": "#E8DCF2", "bottom": 1}
+            )
 
-        sheet6.merge_range(
-            0,
-            columns_5,
-            1,
-            columns_6 - 1,
-            _("6. All materials in Incoming packaging"),
-            title_style_main_3,
-        )
-        sheet6.set_row(0, None, None, {"collapsed": 1})
+            sheet6.merge_range(
+                0,
+                columns_5,
+                1,
+                columns_6 - 1,
+                _("6. All materials in Incoming packaging"),
+                title_style_main_3,
+            )
+            sheet6.set_row(0, None, None, {"collapsed": 1})
 
-        for title in enumerate(sheet_title_incoming_material):
-            sheet6.write(2, title[0] + columns_5, title[1] or "", title_style_sub_3)
+            for title in enumerate(sheet_title_incoming_material):
+                sheet6.write(2, title[0] + columns_5, title[1] or "", title_style_sub_3)
 
         # --------------------------------------------------------------------- #
         # ----------------- 7. Summary of all materials ----------------------- #
         # --------------------------------------------------------------------- #
 
-        sheet_title_total_material = [
-            _("Material (en)"),
-            _("Material"),
-            _("Total amount (g)"),
-            _("Weight, kg"),
-            _("% of total"),
-            _("Post-consumer material, weight %"),
-            _("Biogenic carbon, weight-%"),
-            _("Biogenic carbon, kg C/product"),
-        ]
+        if not objects[0].company_id.hide_summary_sheet:
+            sheet_title_total_material = [
+                _("Material (en)"),
+                _("Material"),
+                _("Total amount (g)"),
+                _("Weight, kg"),
+                _("% of total"),
+                _("Post-consumer material, weight %"),
+                _("Biogenic carbon, weight-%"),
+                _("Biogenic carbon, kg C/product"),
+            ]
 
-        title_style_main_6 = workbook.add_format(
-            {"bold": True, "bg_color": "#938DE5", "bottom": 1}
-        )
-        title_style_main_6.set_align("center")
-        title_style_main_6.set_align("vcenter")
+            title_style_main_6 = workbook.add_format(
+                {"bold": True, "bg_color": "#938DE5", "bottom": 1}
+            )
+            title_style_main_6.set_align("center")
+            title_style_main_6.set_align("vcenter")
 
-        title_style_sub_6 = workbook.add_format(
-            {"bold": True, "bg_color": "#C1BFDF", "bottom": 1}
-        )
+            title_style_sub_6 = workbook.add_format(
+                {"bold": True, "bg_color": "#C1BFDF", "bottom": 1}
+            )
 
-        sheet6.merge_range(
-            0,
-            columns_6,
-            1,
-            columns_7 - 1,
-            _("7. Summary of all materials"),
-            title_style_main_6,
-        )
+            sheet6.merge_range(
+                0,
+                columns_6,
+                1,
+                columns_7 - 1,
+                _("7. Summary of all materials"),
+                title_style_main_6,
+            )
 
-        sheet6.set_row(0, None, None, {"collapsed": 1})
+            sheet6.set_row(0, None, None, {"collapsed": 1})
 
-        for title in enumerate(sheet_title_total_material):
-            sheet6.write(2, title[0] + columns_6, title[1] or "", title_style_sub_6)
+            for title in enumerate(sheet_title_total_material):
+                sheet6.write(2, title[0] + columns_6, title[1] or "", title_style_sub_6)
 
         # --------------------------------------------------------------------- #
         # ---------------- 8. Workcenters Energy summary ---------------------- #
         # --------------------------------------------------------------------- #
 
-        sheet_title_energy_work = [
-            _("Workcenter"),  # 6 (G)
-            _("Energy use (kwH)"),  # 7 (H)
-            _("% of total"),  # 8 (I)
-        ]
+        if not objects[0].company_id.hide_summary_sheet:
+            sheet_title_energy_work = [
+                _("Workcenter"),  # 6 (G)
+                _("Energy use (kwH)"),  # 7 (H)
+                _("% of total"),  # 8 (I)
+            ]
 
-        title_style_main_4 = workbook.add_format(
-            {"bold": True, "bg_color": "#FF5050", "bottom": 1}
-        )
-        title_style_main_4.set_align("center")
-        title_style_main_4.set_align("vcenter")
+            title_style_main_4 = workbook.add_format(
+                {"bold": True, "bg_color": "#FF5050", "bottom": 1}
+            )
+            title_style_main_4.set_align("center")
+            title_style_main_4.set_align("vcenter")
 
-        title_style_sub_4 = workbook.add_format(
-            {"bold": True, "bg_color": "#FF7373", "bottom": 1}
-        )
+            title_style_sub_4 = workbook.add_format(
+                {"bold": True, "bg_color": "#FF7373", "bottom": 1}
+            )
 
-        sheet6.merge_range(
-            0,
-            columns_7,
-            1,
-            columns_8 - 1,
-            _("8. Workcenters Energy summary"),
-            title_style_main_4,
-        )
-        sheet6.set_row(0, None, None, {"collapsed": 1})
+            sheet6.merge_range(
+                0,
+                columns_7,
+                1,
+                columns_8 - 1,
+                _("8. Workcenters Energy summary"),
+                title_style_main_4,
+            )
+            sheet6.set_row(0, None, None, {"collapsed": 1})
 
-        for title in enumerate(sheet_title_energy_work):
-            sheet6.write(2, title[0] + columns_7, title[1] or "", title_style_sub_4)
+            for title in enumerate(sheet_title_energy_work):
+                sheet6.write(2, title[0] + columns_7, title[1] or "", title_style_sub_4)
 
         # --------------------------------------------------------------------- #
         # ------------- 9. Operations Energy summary -------------------------- #
         # --------------------------------------------------------------------- #
 
-        sheet_title_energy_6 = [
-            _("Process"),  # 6 (G)
-            _("Energy use (kwH)"),  # 7 (H)
-            _("% of total"),  # 8 (I)
-        ]
+        if not objects[0].company_id.hide_summary_sheet:
+            sheet_title_energy_6 = [
+                _("Process"),  # 6 (G)
+                _("Energy use (kwH)"),  # 7 (H)
+                _("% of total"),  # 8 (I)
+            ]
 
-        title_style_main_oper = workbook.add_format(
-            {"bold": True, "bg_color": "#FF9537", "bottom": 1}
-        )
-        title_style_main_oper.set_align("center")
-        title_style_main_oper.set_align("vcenter")
+            title_style_main_oper = workbook.add_format(
+                {"bold": True, "bg_color": "#FF9537", "bottom": 1}
+            )
+            title_style_main_oper.set_align("center")
+            title_style_main_oper.set_align("vcenter")
 
-        title_style_sub_oper = workbook.add_format(
-            {"bold": True, "bg_color": "#FFB675", "bottom": 1}
-        )
+            title_style_sub_oper = workbook.add_format(
+                {"bold": True, "bg_color": "#FFB675", "bottom": 1}
+            )
 
-        sheet6.merge_range(
-            0,
-            columns_8,
-            1,
-            columns_9 - 1,
-            _("9. Operations Energy summary"),
-            title_style_main_oper,
-        )
-        sheet6.set_row(0, None, None, {"collapsed": 1})
+            sheet6.merge_range(
+                0,
+                columns_8,
+                1,
+                columns_9 - 1,
+                _("9. Operations Energy summary"),
+                title_style_main_oper,
+            )
+            sheet6.set_row(0, None, None, {"collapsed": 1})
 
-        for title in enumerate(sheet_title_energy_6):
-            sheet6.write(2, title[0] + columns_8, title[1] or "", title_style_sub_oper)
+            for title in enumerate(sheet_title_energy_6):
+                sheet6.write(
+                    2, title[0] + columns_8, title[1] or "", title_style_sub_oper
+                )
 
         # -------------------------------------------------------------------- #
 
@@ -2079,6 +2094,9 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         d = 1
 
         accu = 2
+
+        parent_level_2 = 1
+        parent_level_5 = 1
 
         for o in objects:
             # --------------------------------------------------------------------- #
@@ -2169,91 +2187,95 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             # ------------------------------ Sheet 3 ------------------------------ #
             # --------------------------------------------------------------------- #
 
-            quantities = self.get_bom_quantities(o)
+            if not o.company_id.hide_by_product_sheet:
+                quantities = self.get_bom_quantities(o)
 
-            child_number = 0
-            for ch in o.bom_line_ids:
-                child_number += 1
-                if product_variant and ch._skip_bom_line(material_variant):
-                    continue
+                child_number = 0
+                for ch in o.bom_line_ids:
+                    child_number += 1
+                    if product_variant and ch._skip_bom_line(material_variant):
+                        continue
 
-                b, child_by_products = self.print_by_products(
-                    sheet3,
-                    row=b,
-                    level=0,
-                    parent_level=1,
-                    bom=o,
-                    product_variant=material_variant,
-                    style=None,
-                    child_number=0,
-                    quantities=quantities,
-                    identifier=ident,
-                    ch=ch,
-                    multiplier=1,
-                )
+                    b, child_by_products = self.print_by_products(
+                        sheet3,
+                        row=b,
+                        level=0,
+                        parent_level=1,
+                        bom=o,
+                        product_variant=material_variant,
+                        style=None,
+                        child_number=0,
+                        quantities=quantities,
+                        identifier=ident,
+                        ch=ch,
+                        multiplier=1,
+                    )
 
-                if child_by_products:
-                    b += 1
+                    if child_by_products:
+                        b += 1
 
             # --------------------------------------------------------------------- #
             # ------------------------------ Sheet 4 ------------------------------ #
             # --------------------------------------------------------------------- #
 
-            ident = "{}".format(o.id)
+            if not o.company_id.hide_operation_sheet:
+                ident = "{}".format(o.id)
 
-            quantities = self.get_bom_quantities(o)
+                quantities = self.get_bom_quantities(o)
 
-            self.operation_bom_consus(
-                bom=o,
-                product_variant=product_variant,
-                sheet4=sheet4,
-                row=c,
-                level=j,
-                parent_level=c,
-                identifier=ident,
-                style=None,
-            )
+                self.operation_bom_consus(
+                    bom=o,
+                    product_variant=product_variant,
+                    sheet4=sheet4,
+                    row=c,
+                    level=j,
+                    parent_level=c,
+                    identifier=ident,
+                    style=None,
+                )
 
             # --------------------------------------------------------------------- #
             # ------------------------------ Sheet 5 ------------------------------ #
             # --------------------------------------------------------------------- #
 
-            sheet5_style = None
+            if not o.company_id.hide_requirement_sheet:
+                sheet5_style = None
 
-            ident = "{}".format(o.id)
+                ident = "{}".format(o.id)
 
-            quantities = self.get_bom_quantities(o)
+                quantities = self.get_bom_quantities(o)
 
-            sheet5.write(d, 0, "N/A", sheet5_style)  # Internal category/display name
-            sheet5.write(d, 1, "1", sheet5_style)  # Level
-            sheet5.write(
-                d,
-                2,
-                o.product_id.default_code
-                or (product_variant and product_variant.default_code)
-                or "",
-                sheet5_style,
-            )  # Internal reference
-            sheet5.write(d, 3, o.product_tmpl_id.name, sheet5_style)  # Name
-            sheet5.write(d, 4, o.product_uom_id.name or "", sheet5_style)  # Unit
+                sheet5.write(
+                    d, 0, "N/A", sheet5_style
+                )  # Internal category/display name
+                sheet5.write(d, 1, "1", sheet5_style)  # Level
+                sheet5.write(
+                    d,
+                    2,
+                    o.product_id.default_code
+                    or (product_variant and product_variant.default_code)
+                    or "",
+                    sheet5_style,
+                )  # Internal reference
+                sheet5.write(d, 3, o.product_tmpl_id.name, sheet5_style)  # Name
+                sheet5.write(d, 4, o.product_uom_id.name or "", sheet5_style)  # Unit
 
-            parent_level_2 = 1
-            parent_level_5 = 1
+                j = 0
 
-            j = 0
+                material_variant = (
+                    product_variant or o.product_tmpl_id.product_variant_id
+                )
 
-            material_variant = product_variant or o.product_tmpl_id.product_variant_id
-
-            d = self.print_material_requirements(
-                product_id=material_variant,
-                sheet5=sheet5,
-                row=d,
-                level=1,
-                quantity=o.product_qty,
-                style=None,
-                parent_code="N/A",
-                parent=o,
-            )
+                d = self.print_material_requirements(
+                    product_id=material_variant,
+                    sheet5=sheet5,
+                    row=d,
+                    level=1,
+                    quantity=o.product_qty,
+                    style=None,
+                    parent_code="N/A",
+                    parent=o,
+                )
 
             def round_to_significant_figures(num, significant_figures):
                 if num == 0:
@@ -2279,292 +2301,315 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             # NOT IN INCOMING PACKAGING
             # IS NOT A DELIVERY PACKAGE
 
-            ident = "{}".format(o.id)
-            quantities = self.get_bom_quantities(o)
+            if not o.company_id.hide_summary_sheet:
+                ident = "{}".format(o.id)
+                quantities = self.get_bom_quantities(o)
 
-            materials_dict = {
-                "materials_weight": 0,
-                "wood_materials_weight": 0,
-                "glue_materials_weight": 0,
-                "metal_materials_weight": 0,
-                "plastic_materials_weight": 0,
-                "eee_materials_weight": 0,
-                "oil_materials_weight": 0,
-                "materials_recyc_weight": 0,
-                "wood_materials_recyc_weight": 0,
-                "glue_materials_recyc_weight": 0,
-                "metal_materials_recyc_weight": 0,
-                "plastic_materials_recyc_weight": 0,
-                "eee_materials_recyc_weight": 0,
-                "oil_materials_recyc_weight": 0,
-            }
+                materials_dict = {
+                    "materials_weight": 0,
+                    "wood_materials_weight": 0,
+                    "glue_materials_weight": 0,
+                    "metal_materials_weight": 0,
+                    "plastic_materials_weight": 0,
+                    "eee_materials_weight": 0,
+                    "oil_materials_weight": 0,
+                    "materials_recyc_weight": 0,
+                    "wood_materials_recyc_weight": 0,
+                    "glue_materials_recyc_weight": 0,
+                    "metal_materials_recyc_weight": 0,
+                    "plastic_materials_recyc_weight": 0,
+                    "eee_materials_recyc_weight": 0,
+                    "oil_materials_recyc_weight": 0,
+                }
 
-            materials_dict = self.product_material_summary(
-                sheet6,
-                bom=o,
-                product_variant=material_variant,
-                style=None,
-                child_number=0,
-                materials_dict=materials_dict,
-            )
+                materials_dict = self.product_material_summary(
+                    sheet6,
+                    bom=o,
+                    product_variant=material_variant,
+                    style=None,
+                    child_number=0,
+                    materials_dict=materials_dict,
+                )
 
-            total_wood_material_weight = materials_dict.get("wood_materials_weight", 0)
-            total_wood_material_recyc = materials_dict.get(
-                "wood_materials_recyc_weight", 0
-            )
-            total_glue_material_weight = materials_dict.get("glue_materials_weight", 0)
-            total_glue_material_recyc = materials_dict.get(
-                "glue_materials_recyc_weight", 0
-            )
-            total_metal_material_weight = materials_dict.get(
-                "metal_materials_weight", 0
-            )
-            total_metal_material_recyc = materials_dict.get(
-                "metal_materials_recyc_weight", 0
-            )
-            total_plastic_material_weight = materials_dict.get(
-                "plastic_materials_weight", 0
-            )
-            total_plastic_material_recyc = materials_dict.get(
-                "plastic_materials_recyc_weight", 0
-            )
-            total_eee_material_weight = materials_dict.get("eee_materials_weight", 0)
-            total_eee_material_recyc = materials_dict.get(
-                "eee_materials_recyc_weight", 0
-            )
-            total_oil_material_weight = materials_dict.get("oil_materials_weight", 0)
-            total_oil_material_recyc = materials_dict.get(
-                "oil_materials_recyc_weight", 0
-            )
+                total_wood_material_weight = materials_dict.get(
+                    "wood_materials_weight", 0
+                )
+                total_wood_material_recyc = materials_dict.get(
+                    "wood_materials_recyc_weight", 0
+                )
+                total_glue_material_weight = materials_dict.get(
+                    "glue_materials_weight", 0
+                )
+                total_glue_material_recyc = materials_dict.get(
+                    "glue_materials_recyc_weight", 0
+                )
+                total_metal_material_weight = materials_dict.get(
+                    "metal_materials_weight", 0
+                )
+                total_metal_material_recyc = materials_dict.get(
+                    "metal_materials_recyc_weight", 0
+                )
+                total_plastic_material_weight = materials_dict.get(
+                    "plastic_materials_weight", 0
+                )
+                total_plastic_material_recyc = materials_dict.get(
+                    "plastic_materials_recyc_weight", 0
+                )
+                total_eee_material_weight = materials_dict.get(
+                    "eee_materials_weight", 0
+                )
+                total_eee_material_recyc = materials_dict.get(
+                    "eee_materials_recyc_weight", 0
+                )
+                total_oil_material_weight = materials_dict.get(
+                    "oil_materials_weight", 0
+                )
+                total_oil_material_recyc = materials_dict.get(
+                    "oil_materials_recyc_weight", 0
+                )
 
-            total_material_weight = (
-                total_wood_material_weight
-                + total_glue_material_weight
-                + total_metal_material_weight
-                + total_plastic_material_weight
-                + total_eee_material_weight
-                + total_oil_material_weight
-            )
+                total_material_weight = (
+                    total_wood_material_weight
+                    + total_glue_material_weight
+                    + total_metal_material_weight
+                    + total_plastic_material_weight
+                    + total_eee_material_weight
+                    + total_oil_material_weight
+                )
 
-            materials_dict.get("materials_recyc_weight", 0)
+                materials_dict.get("materials_recyc_weight", 0)
 
-            sheet6.write(3, 0, "Wood")
-            sheet6.write(
-                3, 1, round_to_significant_figures(total_wood_material_weight, accu)
-            )
-            sheet6.write(
-                3,
-                2,
-                round_to_significant_figures(
-                    (
-                        total_material_weight
-                        and (total_wood_material_weight / total_material_weight) * 100
-                        or 0
+                sheet6.write(3, 0, "Wood")
+                sheet6.write(
+                    3, 1, round_to_significant_figures(total_wood_material_weight, accu)
+                )
+                sheet6.write(
+                    3,
+                    2,
+                    round_to_significant_figures(
+                        (
+                            total_material_weight
+                            and (total_wood_material_weight / total_material_weight)
+                            * 100
+                            or 0
+                        ),
+                        accu,
                     ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                3,
-                3,
-                round_to_significant_figures(
-                    (
-                        total_wood_material_weight
-                        and (total_wood_material_recyc / total_wood_material_weight)
-                        * 100
-                        or 0
+                )
+                sheet6.write(
+                    3,
+                    3,
+                    round_to_significant_figures(
+                        (
+                            total_wood_material_weight
+                            and (total_wood_material_recyc / total_wood_material_weight)
+                            * 100
+                            or 0
+                        ),
+                        accu,
                     ),
-                    accu,
-                ),
-            )
-            sheet6.write(4, 0, "Glue")
-            sheet6.write(
-                4, 1, round_to_significant_figures(total_glue_material_weight, accu)
-            )
-            sheet6.write(
-                4,
-                2,
-                round_to_significant_figures(
-                    (
-                        total_material_weight
-                        and (total_glue_material_weight / total_material_weight) * 100
-                        or 0
+                )
+                sheet6.write(4, 0, "Glue")
+                sheet6.write(
+                    4, 1, round_to_significant_figures(total_glue_material_weight, accu)
+                )
+                sheet6.write(
+                    4,
+                    2,
+                    round_to_significant_figures(
+                        (
+                            total_material_weight
+                            and (total_glue_material_weight / total_material_weight)
+                            * 100
+                            or 0
+                        ),
+                        accu,
                     ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                4,
-                3,
-                round_to_significant_figures(
-                    (
-                        total_glue_material_weight
-                        and (total_glue_material_recyc / total_glue_material_weight)
-                        * 100
-                        or 0
+                )
+                sheet6.write(
+                    4,
+                    3,
+                    round_to_significant_figures(
+                        (
+                            total_glue_material_weight
+                            and (total_glue_material_recyc / total_glue_material_weight)
+                            * 100
+                            or 0
+                        ),
+                        accu,
                     ),
-                    accu,
-                ),
-            )
-            sheet6.write(5, 0, "Metal")
-            sheet6.write(
-                5, 1, round_to_significant_figures(total_metal_material_weight, accu)
-            )
-            sheet6.write(
-                5,
-                2,
-                round_to_significant_figures(
-                    (
-                        total_material_weight
-                        and (total_metal_material_weight / total_material_weight) * 100
-                        or 0
+                )
+                sheet6.write(5, 0, "Metal")
+                sheet6.write(
+                    5,
+                    1,
+                    round_to_significant_figures(total_metal_material_weight, accu),
+                )
+                sheet6.write(
+                    5,
+                    2,
+                    round_to_significant_figures(
+                        (
+                            total_material_weight
+                            and (total_metal_material_weight / total_material_weight)
+                            * 100
+                            or 0
+                        ),
+                        accu,
                     ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                5,
-                3,
-                round_to_significant_figures(
-                    (
-                        total_metal_material_weight
-                        and (total_metal_material_recyc / total_metal_material_weight)
-                        * 100
-                        or 0
+                )
+                sheet6.write(
+                    5,
+                    3,
+                    round_to_significant_figures(
+                        (
+                            total_metal_material_weight
+                            and (
+                                total_metal_material_recyc / total_metal_material_weight
+                            )
+                            * 100
+                            or 0
+                        ),
+                        accu,
                     ),
-                    accu,
-                ),
-            )
-            sheet6.write(6, 0, "Plastic")
-            sheet6.write(
-                6, 1, round_to_significant_figures(total_plastic_material_weight, accu)
-            )
-            sheet6.write(
-                6,
-                2,
-                round_to_significant_figures(
-                    (
-                        total_material_weight
-                        and (total_plastic_material_weight / total_material_weight)
-                        * 100
-                        or 0
+                )
+                sheet6.write(6, 0, "Plastic")
+                sheet6.write(
+                    6,
+                    1,
+                    round_to_significant_figures(total_plastic_material_weight, accu),
+                )
+                sheet6.write(
+                    6,
+                    2,
+                    round_to_significant_figures(
+                        (
+                            total_material_weight
+                            and (total_plastic_material_weight / total_material_weight)
+                            * 100
+                            or 0
+                        ),
+                        accu,
                     ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                6,
-                3,
-                round_to_significant_figures(
-                    (
-                        total_plastic_material_weight
-                        and (
-                            total_plastic_material_recyc / total_plastic_material_weight
-                        )
-                        * 100
-                        or 0
+                )
+                sheet6.write(
+                    6,
+                    3,
+                    round_to_significant_figures(
+                        (
+                            total_plastic_material_weight
+                            and (
+                                total_plastic_material_recyc
+                                / total_plastic_material_weight
+                            )
+                            * 100
+                            or 0
+                        ),
+                        accu,
                     ),
-                    accu,
-                ),
-            )
-            sheet6.write(7, 0, "EEE")
-            sheet6.write(
-                7, 1, round_to_significant_figures(total_eee_material_weight, accu)
-            )
-            sheet6.write(
-                7,
-                2,
-                round_to_significant_figures(
-                    (
-                        total_material_weight
-                        and (total_eee_material_weight / total_material_weight) * 100
-                        or 0
+                )
+                sheet6.write(7, 0, "EEE")
+                sheet6.write(
+                    7, 1, round_to_significant_figures(total_eee_material_weight, accu)
+                )
+                sheet6.write(
+                    7,
+                    2,
+                    round_to_significant_figures(
+                        (
+                            total_material_weight
+                            and (total_eee_material_weight / total_material_weight)
+                            * 100
+                            or 0
+                        ),
+                        accu,
                     ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                7,
-                3,
-                round_to_significant_figures(
-                    (
-                        total_eee_material_weight
-                        and (total_eee_material_recyc / total_eee_material_weight) * 100
-                        or 0
+                )
+                sheet6.write(
+                    7,
+                    3,
+                    round_to_significant_figures(
+                        (
+                            total_eee_material_weight
+                            and (total_eee_material_recyc / total_eee_material_weight)
+                            * 100
+                            or 0
+                        ),
+                        accu,
                     ),
-                    accu,
-                ),
-            )
-            sheet6.write(8, 0, "OIL")
-            sheet6.write(
-                8, 1, round_to_significant_figures(total_oil_material_weight, accu)
-            )
-            sheet6.write(
-                8,
-                2,
-                round_to_significant_figures(
-                    (
-                        total_material_weight
-                        and (total_oil_material_weight / total_material_weight) * 100
-                        or 0
+                )
+                sheet6.write(8, 0, "OIL")
+                sheet6.write(
+                    8, 1, round_to_significant_figures(total_oil_material_weight, accu)
+                )
+                sheet6.write(
+                    8,
+                    2,
+                    round_to_significant_figures(
+                        (
+                            total_material_weight
+                            and (total_oil_material_weight / total_material_weight)
+                            * 100
+                            or 0
+                        ),
+                        accu,
                     ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                8,
-                3,
-                round_to_significant_figures(
-                    (
-                        total_oil_material_weight
-                        and (total_oil_material_recyc / total_oil_material_weight) * 100
-                        or 0
+                )
+                sheet6.write(
+                    8,
+                    3,
+                    round_to_significant_figures(
+                        (
+                            total_oil_material_weight
+                            and (total_oil_material_recyc / total_oil_material_weight)
+                            * 100
+                            or 0
+                        ),
+                        accu,
                     ),
-                    accu,
-                ),
-            )
-            sheet6.write(9, 0, "Total", bold)
-            total_all = (
-                total_wood_material_weight
-                + total_glue_material_weight
-                + total_metal_material_weight
-                + total_plastic_material_weight
-                + total_eee_material_weight
-                + total_oil_material_weight
-            )
-            total_all_recyc = (
-                total_wood_material_recyc
-                + total_glue_material_recyc
-                + total_metal_material_recyc
-                + total_plastic_material_recyc
-                + total_eee_material_recyc
-                + total_oil_material_recyc
-            )
-            sheet6.write(9, 1, round_to_significant_figures(total_all, accu))
-            sheet6.write(
-                9,
-                2,
-                round_to_significant_figures(
-                    (
-                        total_material_weight
-                        and (total_all / total_material_weight) * 100
-                        or 0
+                )
+                sheet6.write(9, 0, "Total", bold)
+                total_all = (
+                    total_wood_material_weight
+                    + total_glue_material_weight
+                    + total_metal_material_weight
+                    + total_plastic_material_weight
+                    + total_eee_material_weight
+                    + total_oil_material_weight
+                )
+                total_all_recyc = (
+                    total_wood_material_recyc
+                    + total_glue_material_recyc
+                    + total_metal_material_recyc
+                    + total_plastic_material_recyc
+                    + total_eee_material_recyc
+                    + total_oil_material_recyc
+                )
+                sheet6.write(9, 1, round_to_significant_figures(total_all, accu))
+                sheet6.write(
+                    9,
+                    2,
+                    round_to_significant_figures(
+                        (
+                            total_material_weight
+                            and (total_all / total_material_weight) * 100
+                            or 0
+                        ),
+                        accu,
                     ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                9,
-                3,
-                round_to_significant_figures(
-                    (
-                        total_material_weight
-                        and (total_all_recyc / total_material_weight) * 100
-                        or 0
+                )
+                sheet6.write(
+                    9,
+                    3,
+                    round_to_significant_figures(
+                        (
+                            total_material_weight
+                            and (total_all_recyc / total_material_weight) * 100
+                            or 0
+                        ),
+                        accu,
                     ),
-                    accu,
-                ),
-            )
+                )
 
             # --------------------------------------------------------------------- #
             # ----------------- 2. Packaging Materials Summary -------------------- #
@@ -2573,282 +2618,298 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             # NOT IN INCOMING PACKAGING
             # IS A DELIVERY PACKAGE
 
-            ident = "{}".format(o.id)
-            quantities = self.get_bom_quantities(o)
+            if not o.company_id.hide_summary_sheet:
+                ident = "{}".format(o.id)
+                quantities = self.get_bom_quantities(o)
 
-            materials_dict = {
-                "materials_weight": 0,
-                "cardboard_materials_weight": 0,
-                "paper_materials_weight": 0,
-                "plastic_materials_weight": 0,
-                "metal_materials_weight": 0,
-                "wood_materials_weight": 0,
-                "materials_recyc_weight": 0,
-                "cardboard_materials_recyc_weight": 0,
-                "paper_materials_recyc_weight": 0,
-                "plastic_materials_recyc_weight": 0,
-                "metal_materials_recyc_weight": 0,
-                "wood_materials_recyc_weight": 0,
-            }
+                materials_dict = {
+                    "materials_weight": 0,
+                    "cardboard_materials_weight": 0,
+                    "paper_materials_weight": 0,
+                    "plastic_materials_weight": 0,
+                    "metal_materials_weight": 0,
+                    "wood_materials_weight": 0,
+                    "materials_recyc_weight": 0,
+                    "cardboard_materials_recyc_weight": 0,
+                    "paper_materials_recyc_weight": 0,
+                    "plastic_materials_recyc_weight": 0,
+                    "metal_materials_recyc_weight": 0,
+                    "wood_materials_recyc_weight": 0,
+                }
 
-            materials_dict = self.packaging_material_summary(
-                sheet6,
-                bom=o,
-                product_variant=material_variant,
-                style=None,
-                child_number=0,
-                materials_dict=materials_dict,
-            )
+                materials_dict = self.packaging_material_summary(
+                    sheet6,
+                    bom=o,
+                    product_variant=material_variant,
+                    style=None,
+                    child_number=0,
+                    materials_dict=materials_dict,
+                )
 
-            total_cardboard_material_weight = materials_dict.get(
-                "cardboard_materials_weight", 0
-            )
-            total_cardboard_material_recyc = materials_dict.get(
-                "cardboard_materials_recyc_weight", 0
-            )
-            total_paper_material_weight = materials_dict.get(
-                "paper_materials_weight", 0
-            )
-            total_paper_material_recyc = materials_dict.get(
-                "paper_materials_recyc_weight", 0
-            )
-            total_plastic_material_weight = materials_dict.get(
-                "plastic_materials_weight", 0
-            )
-            total_plastic_material_recyc = materials_dict.get(
-                "plastic_materials_recyc_weight", 0
-            )
-            total_metal_material_weight = materials_dict.get(
-                "metal_materials_weight", 0
-            )
-            total_metal_material_recyc = materials_dict.get(
-                "metal_materials_recyc_weight", 0
-            )
-            total_wood_material_weight = materials_dict.get("wood_materials_weight", 0)
-            total_wood_material_recyc = materials_dict.get(
-                "wood_materials_recyc_weight", 0
-            )
+                total_cardboard_material_weight = materials_dict.get(
+                    "cardboard_materials_weight", 0
+                )
+                total_cardboard_material_recyc = materials_dict.get(
+                    "cardboard_materials_recyc_weight", 0
+                )
+                total_paper_material_weight = materials_dict.get(
+                    "paper_materials_weight", 0
+                )
+                total_paper_material_recyc = materials_dict.get(
+                    "paper_materials_recyc_weight", 0
+                )
+                total_plastic_material_weight = materials_dict.get(
+                    "plastic_materials_weight", 0
+                )
+                total_plastic_material_recyc = materials_dict.get(
+                    "plastic_materials_recyc_weight", 0
+                )
+                total_metal_material_weight = materials_dict.get(
+                    "metal_materials_weight", 0
+                )
+                total_metal_material_recyc = materials_dict.get(
+                    "metal_materials_recyc_weight", 0
+                )
+                total_wood_material_weight = materials_dict.get(
+                    "wood_materials_weight", 0
+                )
+                total_wood_material_recyc = materials_dict.get(
+                    "wood_materials_recyc_weight", 0
+                )
 
-            total_material_weight = (
-                total_cardboard_material_weight
-                + total_paper_material_weight
-                + total_plastic_material_weight
-                + total_metal_material_weight
-                + total_wood_material_weight
-            )
+                total_material_weight = (
+                    total_cardboard_material_weight
+                    + total_paper_material_weight
+                    + total_plastic_material_weight
+                    + total_metal_material_weight
+                    + total_wood_material_weight
+                )
 
-            materials_dict.get("materials_recyc_weight", 0)
+                materials_dict.get("materials_recyc_weight", 0)
 
-            sheet6.write(3, 4, "Cardboard")
-            sheet6.write(
-                3,
-                5,
-                round_to_significant_figures(total_cardboard_material_weight, accu),
-            )
-            sheet6.write(
-                3,
-                6,
-                round_to_significant_figures(
-                    (
+                sheet6.write(3, 4, "Cardboard")
+                sheet6.write(
+                    3,
+                    5,
+                    round_to_significant_figures(total_cardboard_material_weight, accu),
+                )
+                sheet6.write(
+                    3,
+                    6,
+                    round_to_significant_figures(
+                        (
+                            (
+                                total_material_weight
+                                and total_cardboard_material_weight
+                                / total_material_weight
+                                or 0
+                            )
+                            * 100
+                        ),
+                        accu,
+                    ),
+                )
+                sheet6.write(
+                    3,
+                    7,
+                    round_to_significant_figures(
+                        (
+                            total_cardboard_material_weight
+                            and (
+                                total_cardboard_material_recyc
+                                / total_cardboard_material_weight
+                            )
+                            * 100
+                            or 0
+                        ),
+                        accu,
+                    ),
+                )
+                sheet6.write(4, 4, "Paper")
+                sheet6.write(
+                    4,
+                    5,
+                    round_to_significant_figures(total_paper_material_weight, accu),
+                )
+                sheet6.write(
+                    4,
+                    6,
+                    round_to_significant_figures(
+                        (
+                            (
+                                total_material_weight
+                                and total_paper_material_weight / total_material_weight
+                                or 0
+                            )
+                            * 100
+                        ),
+                        accu,
+                    ),
+                )
+                sheet6.write(
+                    4,
+                    7,
+                    round_to_significant_figures(
+                        (
+                            total_paper_material_weight
+                            and (
+                                total_paper_material_recyc / total_paper_material_weight
+                            )
+                            * 100
+                            or 0
+                        ),
+                        accu,
+                    ),
+                )
+                sheet6.write(5, 4, "Plastic")
+                sheet6.write(
+                    5,
+                    5,
+                    round_to_significant_figures(total_plastic_material_weight, accu),
+                )
+                sheet6.write(
+                    5,
+                    6,
+                    round_to_significant_figures(
+                        (
+                            (
+                                total_material_weight
+                                and total_plastic_material_weight
+                                / total_material_weight
+                                or 0
+                            )
+                            * 100
+                        ),
+                        accu,
+                    ),
+                )
+                sheet6.write(
+                    5,
+                    7,
+                    round_to_significant_figures(
+                        (
+                            total_plastic_material_weight
+                            and (
+                                total_plastic_material_recyc
+                                / total_plastic_material_weight
+                            )
+                            * 100
+                            or 0
+                        ),
+                        accu,
+                    ),
+                )
+                sheet6.write(6, 4, "Metal")
+                sheet6.write(
+                    6,
+                    5,
+                    round_to_significant_figures(total_metal_material_weight, accu),
+                )
+                sheet6.write(
+                    6,
+                    6,
+                    round_to_significant_figures(
+                        (
+                            (
+                                total_material_weight
+                                and total_metal_material_weight / total_material_weight
+                                or 0
+                            )
+                            * 100
+                        ),
+                        accu,
+                    ),
+                )
+                sheet6.write(
+                    6,
+                    7,
+                    round_to_significant_figures(
+                        (
+                            total_metal_material_weight
+                            and (
+                                total_metal_material_recyc / total_metal_material_weight
+                            )
+                            * 100
+                            or 0
+                        ),
+                        accu,
+                    ),
+                )
+                sheet6.write(7, 4, "Wood")
+                sheet6.write(
+                    7, 5, round_to_significant_figures(total_wood_material_weight, accu)
+                )
+                sheet6.write(
+                    7,
+                    6,
+                    round_to_significant_figures(
+                        (
+                            (
+                                total_material_weight
+                                and total_wood_material_weight / total_material_weight
+                                or 0
+                            )
+                            * 100
+                        ),
+                        accu,
+                    ),
+                )
+                sheet6.write(
+                    7,
+                    7,
+                    round_to_significant_figures(
+                        (
+                            total_wood_material_weight
+                            and (total_wood_material_recyc / total_wood_material_weight)
+                            * 100
+                            or 0
+                        ),
+                        accu,
+                    ),
+                )
+                sheet6.write(8, 4, "Total", bold)
+                total_all = (
+                    total_cardboard_material_weight
+                    + total_paper_material_weight
+                    + total_plastic_material_weight
+                    + total_metal_material_weight
+                    + total_wood_material_weight
+                )
+                total_all_recyc = (
+                    total_cardboard_material_recyc
+                    + total_paper_material_recyc
+                    + total_plastic_material_recyc
+                    + total_metal_material_recyc
+                    + total_wood_material_recyc
+                )
+                sheet6.write(8, 5, round_to_significant_figures(total_all, accu))
+                sheet6.write(
+                    8,
+                    6,
+                    round_to_significant_figures(
+                        (
+                            (
+                                total_material_weight
+                                and total_all / total_material_weight
+                                or 0
+                            )
+                            * 100
+                        ),
+                        accu,
+                    ),
+                )
+                sheet6.write(
+                    8,
+                    7,
+                    round_to_significant_figures(
                         (
                             total_material_weight
-                            and total_cardboard_material_weight / total_material_weight
+                            and (total_all_recyc / total_material_weight) * 100
                             or 0
-                        )
-                        * 100
+                        ),
+                        accu,
                     ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                3,
-                7,
-                round_to_significant_figures(
-                    (
-                        total_cardboard_material_weight
-                        and (
-                            total_cardboard_material_recyc
-                            / total_cardboard_material_weight
-                        )
-                        * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(4, 4, "Paper")
-            sheet6.write(
-                4, 5, round_to_significant_figures(total_paper_material_weight, accu)
-            )
-            sheet6.write(
-                4,
-                6,
-                round_to_significant_figures(
-                    (
-                        (
-                            total_material_weight
-                            and total_paper_material_weight / total_material_weight
-                            or 0
-                        )
-                        * 100
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                4,
-                7,
-                round_to_significant_figures(
-                    (
-                        total_paper_material_weight
-                        and (total_paper_material_recyc / total_paper_material_weight)
-                        * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(5, 4, "Plastic")
-            sheet6.write(
-                5, 5, round_to_significant_figures(total_plastic_material_weight, accu)
-            )
-            sheet6.write(
-                5,
-                6,
-                round_to_significant_figures(
-                    (
-                        (
-                            total_material_weight
-                            and total_plastic_material_weight / total_material_weight
-                            or 0
-                        )
-                        * 100
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                5,
-                7,
-                round_to_significant_figures(
-                    (
-                        total_plastic_material_weight
-                        and (
-                            total_plastic_material_recyc / total_plastic_material_weight
-                        )
-                        * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(6, 4, "Metal")
-            sheet6.write(
-                6, 5, round_to_significant_figures(total_metal_material_weight, accu)
-            )
-            sheet6.write(
-                6,
-                6,
-                round_to_significant_figures(
-                    (
-                        (
-                            total_material_weight
-                            and total_metal_material_weight / total_material_weight
-                            or 0
-                        )
-                        * 100
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                6,
-                7,
-                round_to_significant_figures(
-                    (
-                        total_metal_material_weight
-                        and (total_metal_material_recyc / total_metal_material_weight)
-                        * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(7, 4, "Wood")
-            sheet6.write(
-                7, 5, round_to_significant_figures(total_wood_material_weight, accu)
-            )
-            sheet6.write(
-                7,
-                6,
-                round_to_significant_figures(
-                    (
-                        (
-                            total_material_weight
-                            and total_wood_material_weight / total_material_weight
-                            or 0
-                        )
-                        * 100
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                7,
-                7,
-                round_to_significant_figures(
-                    (
-                        total_wood_material_weight
-                        and (total_wood_material_recyc / total_wood_material_weight)
-                        * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(8, 4, "Total", bold)
-            total_all = (
-                total_cardboard_material_weight
-                + total_paper_material_weight
-                + total_plastic_material_weight
-                + total_metal_material_weight
-                + total_wood_material_weight
-            )
-            total_all_recyc = (
-                total_cardboard_material_recyc
-                + total_paper_material_recyc
-                + total_plastic_material_recyc
-                + total_metal_material_recyc
-                + total_wood_material_recyc
-            )
-            sheet6.write(8, 5, round_to_significant_figures(total_all, accu))
-            sheet6.write(
-                8,
-                6,
-                round_to_significant_figures(
-                    (
-                        (
-                            total_material_weight
-                            and total_all / total_material_weight
-                            or 0
-                        )
-                        * 100
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                8,
-                7,
-                round_to_significant_figures(
-                    (
-                        total_material_weight
-                        and (total_all_recyc / total_material_weight) * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
+                )
 
             # --------------------------------------------------------------------- #
             # ------------------ 3. Product component materials ------------------- #
@@ -2857,521 +2918,26 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             # NOT IN INCOMING PACKAGING
             # IS NOT A DELIVERY PACKAGE
 
-            content_products = []
+            if not o.company_id.hide_summary_sheet:
+                content_products = []
 
-            content_products = self.all_material_summary(
-                sheet6,
-                bom=o,
-                product_variant=material_variant,
-                style=None,
-                child_number=0,
-                products=content_products,
-            )
-
-            name_and_weight = {}
-
-            for product, qty, uom, bom, product_variant in content_products:
-                materials = self.env["product.material.composition"].search(
-                    domain=[
-                        ("product_product_id", "=", product.id),
-                        ("type", "!=", "product_packaging"),
-                        ("is_delivery_package", "=", False),
-                    ],
-                )
-
-                bom_product_id = (
-                    product_variant or bom.product_tmpl_id.product_variant_id
-                )
-
-                multiply_with = 1
-
-                if product.multiply_with_partial_weight:
-                    multiply_with = (
-                        product.weight and (bom_product_id.weight / product.weight) or 1
-                    )
-
-                qty = qty * multiply_with
-
-                for material in materials:
-                    product_material = material.product_material_id
-                    if not name_and_weight.get(product_material):
-                        name_and_weight[product_material] = [
-                            material.net_weight * qty,
-                            (material.recycled_percentage / 100)
-                            * material.net_weight
-                            * qty,
-                            (product_material.biogenic_material_weight_percentage / 100)
-                            * material.net_weight
-                            * qty,
-                            (product_material.renewable_weight_percentage / 100)
-                            * material.net_weight
-                            * qty,
-                        ]
-                    else:
-                        name_and_weight[product_material][0] += (
-                            material.net_weight * qty
-                        )
-                        name_and_weight[product_material][1] += (
-                            (material.recycled_percentage / 100)
-                            * material.net_weight
-                            * qty
-                        )
-                        name_and_weight[product_material][2] += (
-                            (product_material.biogenic_material_weight_percentage / 100)
-                            * material.net_weight
-                            * qty
-                        )
-                        name_and_weight[product_material][2] += (
-                            (product_material.renewable_weight_percentage / 100)
-                            * material.net_weight
-                            * qty
-                        )
-
-            r = 3
-
-            total_grouped_net_weight = 0
-
-            for weight, _recyc, _biogenic, _renew in name_and_weight.values():
-                total_grouped_net_weight += weight
-
-            check_weight = 0
-            total_grouped_recycled_weight = 0
-            total_grouped_biogenic_weight = 0
-            total_grouped_renewable_weight = 0
-
-            name_and_weight = dict(
-                sorted(
-                    name_and_weight.items(),
-                    key=lambda item: (item[0].name is None, str(item[0].name).lower()),
-                )
-            )
-
-            for material, weight_recyc in name_and_weight.items():
-                net_weight = weight_recyc[0]
-                sheet6.write(r, 8, material.with_context(lang="en_US").name or "")
-                sheet6.write(r, 9, material.with_context(lang="fi_FI").name or "")
-                sheet6.write(r, 10, round_to_significant_figures(net_weight, accu))
-                sheet6.write(
-                    r, 11, round_to_significant_figures(net_weight * 0.001, accu)
-                )  # weight in kg
-                sheet6.write(
-                    r,
-                    12,
-                    round_to_significant_figures(
-                        (
-                            total_grouped_net_weight
-                            and (net_weight / total_grouped_net_weight) * 100
-                            or 0
-                        ),
-                        accu,
-                    ),
-                )
-                check_weight += net_weight
-
-                total_grouped_recycled_weight += weight_recyc[1]
-                sheet6.write(
-                    r,
-                    13,
-                    round_to_significant_figures(
-                        (net_weight and (weight_recyc[1] / net_weight) * 100 or 0), accu
-                    ),
-                )
-
-                total_grouped_biogenic_weight += (
-                    material.biogenic_material_weight_percentage / 100
-                ) * net_weight
-
-                total_grouped_renewable_weight += (
-                    material.renewable_weight_percentage / 100
-                ) * net_weight
-
-                sheet6.write(
-                    r,
-                    14,
-                    round_to_significant_figures(
-                        (material.renewable_weight_percentage or 0), accu
-                    ),
-                )
-                sheet6.write(
-                    r,
-                    15,
-                    round_to_significant_figures(
-                        (
-                            (material.renewable_weight_percentage / 100)
-                            * net_weight
-                            * 0.001
-                        ),
-                        accu,
-                    ),
-                )
-
-                sheet6.write(
-                    r,
-                    16,
-                    round_to_significant_figures(
-                        (material.biogenic_material_weight_percentage or 0), accu
-                    ),
-                )
-                sheet6.write(
-                    r,
-                    17,
-                    round_to_significant_figures(
-                        (
-                            (material.biogenic_material_weight_percentage / 100)
-                            * net_weight
-                            * 0.001
-                        ),
-                        accu,
-                    ),
-                )
-                r += 1
-
-            sheet6.write(r, 8, "Total", bold)
-            sheet6.write(
-                r, 10, round_to_significant_figures(total_grouped_net_weight, accu)
-            )
-            sheet6.write(
-                r,
-                11,
-                round_to_significant_figures(total_grouped_net_weight * 0.001, accu),
-            )
-            sheet6.write(
-                r,
-                12,
-                round_to_significant_figures(
-                    (
-                        total_grouped_net_weight
-                        and (check_weight / total_grouped_net_weight) * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                r,
-                13,
-                round_to_significant_figures(
-                    (
-                        total_grouped_net_weight
-                        and (total_grouped_recycled_weight / total_grouped_net_weight)
-                        * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
-
-            sheet6.write(
-                r,
-                14,
-                round_to_significant_figures(
-                    (
-                        total_grouped_net_weight
-                        and (total_grouped_renewable_weight / total_grouped_net_weight)
-                        * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                r,
-                15,
-                round_to_significant_figures(
-                    total_grouped_renewable_weight * 0.001, accu
-                ),
-            )
-
-            sheet6.write(
-                r,
-                16,
-                round_to_significant_figures(
-                    (
-                        total_grouped_net_weight
-                        and (total_grouped_biogenic_weight / total_grouped_net_weight)
-                        * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                r,
-                17,
-                round_to_significant_figures(
-                    total_grouped_biogenic_weight * 0.001, accu
-                ),
-            )
-
-            # --------------------------------------------------------------------- #
-            # --------------- 4. Delivery Packaging materials --------------------- #
-            # --------------------------------------------------------------------- #
-
-            # NOT IN INCOMING PACKAGING
-            # IS A DELIVERY PACKAGE
-
-            pack_products = []
-
-            pack_products = self.all_material_summary(
-                sheet6,
-                bom=o,
-                product_variant=material_variant,
-                style=None,
-                child_number=0,
-                products=pack_products,
-            )
-
-            name_and_weight = {}
-
-            for product, qty, uom, bom, product_variant in pack_products:
-                materials = self.env["product.material.composition"].search(
-                    domain=[
-                        ("product_product_id", "=", product.id),
-                        ("type", "!=", "product_packaging"),
-                        ("is_delivery_package", "=", True),
-                    ],
-                )
-
-                for material in materials:
-                    product_material = material.product_material_id
-                    if not name_and_weight.get(product_material):
-                        name_and_weight[product_material] = [
-                            material.net_weight * qty,
-                            (material.recycled_percentage / 100)
-                            * material.net_weight
-                            * qty,
-                            (product_material.biogenic_material_weight_percentage / 100)
-                            * material.net_weight
-                            * qty,
-                            (product_material.renewable_weight_percentage / 100)
-                            * material.net_weight
-                            * qty,
-                        ]
-                    else:
-                        name_and_weight[product_material][0] += (
-                            material.net_weight * qty
-                        )
-                        name_and_weight[product_material][1] += (
-                            (material.recycled_percentage / 100)
-                            * material.net_weight
-                            * qty
-                        )
-                        name_and_weight[product_material][2] += (
-                            (product_material.biogenic_material_weight_percentage / 100)
-                            * material.net_weight
-                            * qty
-                        )
-                        name_and_weight[product_material][2] += (
-                            (product_material.renewable_weight_percentage / 100)
-                            * material.net_weight
-                            * qty
-                        )
-
-            r = 3
-
-            total_grouped_net_weight = 0
-
-            for weight, _recyc, _biogenic, _renew in name_and_weight.values():
-                total_grouped_net_weight += weight
-
-            check_weight = 0
-            total_grouped_recycled_weight = 0
-            total_grouped_biogenic_weight = 0
-            total_grouped_renewable_weight = 0
-
-            name_and_weight = dict(
-                sorted(
-                    name_and_weight.items(),
-                    key=lambda item: (item[0].name is None, str(item[0].name).lower()),
-                )
-            )
-
-            for material, weight_recyc in name_and_weight.items():
-                net_weight = weight_recyc[0]
-                sheet6.write(r, 18, material.with_context(lang="en_US").name or "")
-                sheet6.write(r, 19, material.with_context(lang="fi_FI").name or "")
-                sheet6.write(r, 20, round_to_significant_figures(net_weight, accu))
-                sheet6.write(
-                    r, 21, round_to_significant_figures(net_weight * 0.001, accu)
-                )  # weight in kg
-                sheet6.write(
-                    r,
-                    22,
-                    round_to_significant_figures(
-                        (
-                            total_grouped_net_weight
-                            and (net_weight / total_grouped_net_weight) * 100
-                            or 0
-                        ),
-                        accu,
-                    ),
-                )
-                check_weight += net_weight
-
-                total_grouped_recycled_weight += weight_recyc[1]
-                sheet6.write(
-                    r,
-                    23,
-                    round_to_significant_figures(
-                        (net_weight and (weight_recyc[1] / net_weight) * 100 or 0), accu
-                    ),
-                )
-
-                total_grouped_renewable_weight += (
-                    material.renewable_weight_percentage / 100
-                ) * net_weight
-                sheet6.write(
-                    r,
-                    24,
-                    round_to_significant_figures(
-                        material.renewable_weight_percentage or 0, accu
-                    ),
-                )
-                sheet6.write(
-                    r,
-                    25,
-                    round_to_significant_figures(
-                        (
-                            (material.renewable_weight_percentage / 100)
-                            * net_weight
-                            * 0.001
-                        ),
-                        accu,
-                    ),
-                )
-
-                total_grouped_biogenic_weight += (
-                    material.biogenic_material_weight_percentage / 100
-                ) * net_weight
-                sheet6.write(
-                    r,
-                    26,
-                    round_to_significant_figures(
-                        material.biogenic_material_weight_percentage or 0, accu
-                    ),
-                )
-                sheet6.write(
-                    r,
-                    27,
-                    round_to_significant_figures(
-                        (
-                            (material.biogenic_material_weight_percentage / 100)
-                            * net_weight
-                            * 0.001
-                        ),
-                        accu,
-                    ),
-                )
-
-                r += 1
-
-            sheet6.write(r, 18, "Total", bold)
-            sheet6.write(
-                r, 20, round_to_significant_figures(total_grouped_net_weight, accu)
-            )
-            sheet6.write(
-                r,
-                21,
-                round_to_significant_figures(total_grouped_net_weight * 0.001, accu),
-            )
-            sheet6.write(
-                r,
-                22,
-                round_to_significant_figures(
-                    (
-                        total_grouped_net_weight
-                        and (check_weight / total_grouped_net_weight) * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                r,
-                23,
-                round_to_significant_figures(
-                    (
-                        total_grouped_net_weight
-                        and (total_grouped_recycled_weight / total_grouped_net_weight)
-                        * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
-
-            sheet6.write(
-                r,
-                24,
-                round_to_significant_figures(
-                    (
-                        total_grouped_net_weight
-                        and (total_grouped_renewable_weight / total_grouped_net_weight)
-                        * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                r,
-                25,
-                round_to_significant_figures(
-                    total_grouped_renewable_weight * 0.001, accu
-                ),
-            )
-
-            sheet6.write(
-                r,
-                26,
-                round_to_significant_figures(
-                    (
-                        total_grouped_net_weight
-                        and (total_grouped_biogenic_weight / total_grouped_net_weight)
-                        * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                r,
-                27,
-                round_to_significant_figures(
-                    total_grouped_biogenic_weight * 0.001, accu
-                ),
-            )
-
-            # --------------------------------------------------------------------- #
-            # ----------- 5. All materials consumed in production ----------------- #
-            # --------------------------------------------------------------------- #
-
-            # NOT IN INCOMING PACKAGING
-
-            consu_oper_durat = []
-
-            bom_consus = self.all_bom_consus(o, product_variant, consu_oper_durat)
-
-            name_and_weight = {}
-            time_in_year = o.company_id.time_in_year
-
-            for consu_bom, oper_duration in bom_consus:
-                consu_products = []
-
-                consu_products = self.all_material_summary(
+                content_products = self.all_material_summary(
                     sheet6,
-                    bom=consu_bom,
+                    bom=o,
                     product_variant=material_variant,
                     style=None,
                     child_number=0,
-                    products=consu_products,
+                    products=content_products,
                 )
 
-                for product, qty, uom, bom, product_variant in consu_products:
-                    consu_materials = self.env["product.material.composition"].search(
+                name_and_weight = {}
+
+                for product, qty, uom, bom, product_variant in content_products:
+                    materials = self.env["product.material.composition"].search(
                         domain=[
                             ("product_product_id", "=", product.id),
                             ("type", "!=", "product_packaging"),
+                            ("is_delivery_package", "=", False),
                         ],
                     )
 
@@ -3390,182 +2956,736 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
                     qty = qty * multiply_with
 
-                    for material in consu_materials:
-                        grams = self.env.ref("uom.product_uom_gram")
-
-                        if (
-                            uom.category_id.id
-                            == self.env.ref("uom.product_uom_categ_kgm").id
-                        ):
-                            weight_in_grams = uom._compute_quantity(
-                                material.net_weight * qty, grams, round=False
-                            )
-                        else:
-                            weight_in_grams = (
-                                material.net_weight_uom_id._compute_quantity(
-                                    material.net_weight * qty, grams, round=False
+                    for material in materials:
+                        product_material = material.product_material_id
+                        if not name_and_weight.get(product_material):
+                            name_and_weight[product_material] = [
+                                material.net_weight * qty,
+                                (material.recycled_percentage / 100)
+                                * material.net_weight
+                                * qty,
+                                (
+                                    product_material.biogenic_material_weight_percentage
+                                    / 100
                                 )
-                            )
-
-                        if len(consu_materials) < 1:
-                            weight_in_grams = product.weight_uom_id._compute_quantity(
-                                product.weight * qty, grams, round=False
-                            )
-
-                        #  Check that time_in_year is not zero
-                        consumed_weight = (
-                            time_in_year
-                            and ((weight_in_grams / time_in_year) * (oper_duration))
-                            or 0
-                        )
-
-                        if not name_and_weight.get(material.product_material_id):
-                            name_and_weight[material.product_material_id] = [
-                                consumed_weight,
-                                (material.recycled_percentage / 100) * consumed_weight,
+                                * material.net_weight
+                                * qty,
+                                (product_material.renewable_weight_percentage / 100)
+                                * material.net_weight
+                                * qty,
                             ]
                         else:
-                            name_and_weight[material.product_material_id][
-                                0
-                            ] += consumed_weight
-                            name_and_weight[material.product_material_id][1] += (
-                                material.recycled_percentage / 100
-                            ) * consumed_weight
+                            name_and_weight[product_material][0] += (
+                                material.net_weight * qty
+                            )
+                            name_and_weight[product_material][1] += (
+                                (material.recycled_percentage / 100)
+                                * material.net_weight
+                                * qty
+                            )
+                            name_and_weight[product_material][2] += (
+                                (
+                                    product_material.biogenic_material_weight_percentage
+                                    / 100
+                                )
+                                * material.net_weight
+                                * qty
+                            )
+                            name_and_weight[product_material][2] += (
+                                (product_material.renewable_weight_percentage / 100)
+                                * material.net_weight
+                                * qty
+                            )
 
-            r = 3
+                r = 3
 
-            total_grouped_net_weight = 0
-            total_grouped_biogenic_weight = 0
-            total_grouped_renewable_weight = 0
+                total_grouped_net_weight = 0
 
-            for weight, _recyc in name_and_weight.values():
-                total_grouped_net_weight += weight
+                for weight, _recyc, _biogenic, _renew in name_and_weight.values():
+                    total_grouped_net_weight += weight
 
-            check_weight = 0
-            total_grouped_recycled_weight = 0
+                check_weight = 0
+                total_grouped_recycled_weight = 0
+                total_grouped_biogenic_weight = 0
+                total_grouped_renewable_weight = 0
 
-            name_and_weight = dict(
-                sorted(
-                    name_and_weight.items(),
-                    key=lambda item: (item[0].name is None, str(item[0].name).lower()),
+                name_and_weight = dict(
+                    sorted(
+                        name_and_weight.items(),
+                        key=lambda item: (
+                            item[0].name is None,
+                            str(item[0].name).lower(),
+                        ),
+                    )
                 )
-            )
 
-            for material, weight_recyc in name_and_weight.items():
-                net_weight = weight_recyc[0]
-                sheet6.write(r, 28, material.with_context(lang="en_US").name or "")
-                sheet6.write(r, 29, material.with_context(lang="fi_FI").name or "")
-                sheet6.write(r, 30, round_to_significant_figures(net_weight, accu))
+                for material, weight_recyc in name_and_weight.items():
+                    net_weight = weight_recyc[0]
+                    sheet6.write(r, 8, material.with_context(lang="en_US").name or "")
+                    sheet6.write(r, 9, material.with_context(lang="fi_FI").name or "")
+                    sheet6.write(r, 10, round_to_significant_figures(net_weight, accu))
+                    sheet6.write(
+                        r, 11, round_to_significant_figures(net_weight * 0.001, accu)
+                    )  # weight in kg
+                    sheet6.write(
+                        r,
+                        12,
+                        round_to_significant_figures(
+                            (
+                                total_grouped_net_weight
+                                and (net_weight / total_grouped_net_weight) * 100
+                                or 0
+                            ),
+                            accu,
+                        ),
+                    )
+                    check_weight += net_weight
+
+                    total_grouped_recycled_weight += weight_recyc[1]
+                    sheet6.write(
+                        r,
+                        13,
+                        round_to_significant_figures(
+                            (net_weight and (weight_recyc[1] / net_weight) * 100 or 0),
+                            accu,
+                        ),
+                    )
+
+                    total_grouped_biogenic_weight += (
+                        material.biogenic_material_weight_percentage / 100
+                    ) * net_weight
+
+                    total_grouped_renewable_weight += (
+                        material.renewable_weight_percentage / 100
+                    ) * net_weight
+
+                    sheet6.write(
+                        r,
+                        14,
+                        round_to_significant_figures(
+                            (material.renewable_weight_percentage or 0), accu
+                        ),
+                    )
+                    sheet6.write(
+                        r,
+                        15,
+                        round_to_significant_figures(
+                            (
+                                (material.renewable_weight_percentage / 100)
+                                * net_weight
+                                * 0.001
+                            ),
+                            accu,
+                        ),
+                    )
+
+                    sheet6.write(
+                        r,
+                        16,
+                        round_to_significant_figures(
+                            (material.biogenic_material_weight_percentage or 0), accu
+                        ),
+                    )
+                    sheet6.write(
+                        r,
+                        17,
+                        round_to_significant_figures(
+                            (
+                                (material.biogenic_material_weight_percentage / 100)
+                                * net_weight
+                                * 0.001
+                            ),
+                            accu,
+                        ),
+                    )
+                    r += 1
+
+                sheet6.write(r, 8, "Total", bold)
                 sheet6.write(
-                    r, 31, round_to_significant_figures(net_weight * 0.001, accu)
-                )  # weight in kg
+                    r, 10, round_to_significant_figures(total_grouped_net_weight, accu)
+                )
+                sheet6.write(
+                    r,
+                    11,
+                    round_to_significant_figures(
+                        total_grouped_net_weight * 0.001, accu
+                    ),
+                )
+                sheet6.write(
+                    r,
+                    12,
+                    round_to_significant_figures(
+                        (
+                            total_grouped_net_weight
+                            and (check_weight / total_grouped_net_weight) * 100
+                            or 0
+                        ),
+                        accu,
+                    ),
+                )
+                sheet6.write(
+                    r,
+                    13,
+                    round_to_significant_figures(
+                        (
+                            total_grouped_net_weight
+                            and (
+                                total_grouped_recycled_weight / total_grouped_net_weight
+                            )
+                            * 100
+                            or 0
+                        ),
+                        accu,
+                    ),
+                )
+
+                sheet6.write(
+                    r,
+                    14,
+                    round_to_significant_figures(
+                        (
+                            total_grouped_net_weight
+                            and (
+                                total_grouped_renewable_weight
+                                / total_grouped_net_weight
+                            )
+                            * 100
+                            or 0
+                        ),
+                        accu,
+                    ),
+                )
+                sheet6.write(
+                    r,
+                    15,
+                    round_to_significant_figures(
+                        total_grouped_renewable_weight * 0.001, accu
+                    ),
+                )
+
+                sheet6.write(
+                    r,
+                    16,
+                    round_to_significant_figures(
+                        (
+                            total_grouped_net_weight
+                            and (
+                                total_grouped_biogenic_weight / total_grouped_net_weight
+                            )
+                            * 100
+                            or 0
+                        ),
+                        accu,
+                    ),
+                )
+                sheet6.write(
+                    r,
+                    17,
+                    round_to_significant_figures(
+                        total_grouped_biogenic_weight * 0.001, accu
+                    ),
+                )
+
+            # --------------------------------------------------------------------- #
+            # --------------- 4. Delivery Packaging materials --------------------- #
+            # --------------------------------------------------------------------- #
+
+            # NOT IN INCOMING PACKAGING
+            # IS A DELIVERY PACKAGE
+
+            if not o.company_id.hide_summary_sheet:
+                pack_products = []
+
+                pack_products = self.all_material_summary(
+                    sheet6,
+                    bom=o,
+                    product_variant=material_variant,
+                    style=None,
+                    child_number=0,
+                    products=pack_products,
+                )
+
+                name_and_weight = {}
+
+                for product, qty, uom, bom, product_variant in pack_products:
+                    materials = self.env["product.material.composition"].search(
+                        domain=[
+                            ("product_product_id", "=", product.id),
+                            ("type", "!=", "product_packaging"),
+                            ("is_delivery_package", "=", True),
+                        ],
+                    )
+
+                    for material in materials:
+                        product_material = material.product_material_id
+                        if not name_and_weight.get(product_material):
+                            name_and_weight[product_material] = [
+                                material.net_weight * qty,
+                                (material.recycled_percentage / 100)
+                                * material.net_weight
+                                * qty,
+                                (
+                                    product_material.biogenic_material_weight_percentage
+                                    / 100
+                                )
+                                * material.net_weight
+                                * qty,
+                                (product_material.renewable_weight_percentage / 100)
+                                * material.net_weight
+                                * qty,
+                            ]
+                        else:
+                            name_and_weight[product_material][0] += (
+                                material.net_weight * qty
+                            )
+                            name_and_weight[product_material][1] += (
+                                (material.recycled_percentage / 100)
+                                * material.net_weight
+                                * qty
+                            )
+                            name_and_weight[product_material][2] += (
+                                (
+                                    product_material.biogenic_material_weight_percentage
+                                    / 100
+                                )
+                                * material.net_weight
+                                * qty
+                            )
+                            name_and_weight[product_material][2] += (
+                                (product_material.renewable_weight_percentage / 100)
+                                * material.net_weight
+                                * qty
+                            )
+
+                r = 3
+
+                total_grouped_net_weight = 0
+
+                for weight, _recyc, _biogenic, _renew in name_and_weight.values():
+                    total_grouped_net_weight += weight
+
+                check_weight = 0
+                total_grouped_recycled_weight = 0
+                total_grouped_biogenic_weight = 0
+                total_grouped_renewable_weight = 0
+
+                name_and_weight = dict(
+                    sorted(
+                        name_and_weight.items(),
+                        key=lambda item: (
+                            item[0].name is None,
+                            str(item[0].name).lower(),
+                        ),
+                    )
+                )
+
+                for material, weight_recyc in name_and_weight.items():
+                    net_weight = weight_recyc[0]
+                    sheet6.write(r, 18, material.with_context(lang="en_US").name or "")
+                    sheet6.write(r, 19, material.with_context(lang="fi_FI").name or "")
+                    sheet6.write(r, 20, round_to_significant_figures(net_weight, accu))
+                    sheet6.write(
+                        r, 21, round_to_significant_figures(net_weight * 0.001, accu)
+                    )  # weight in kg
+                    sheet6.write(
+                        r,
+                        22,
+                        round_to_significant_figures(
+                            (
+                                total_grouped_net_weight
+                                and (net_weight / total_grouped_net_weight) * 100
+                                or 0
+                            ),
+                            accu,
+                        ),
+                    )
+                    check_weight += net_weight
+
+                    total_grouped_recycled_weight += weight_recyc[1]
+                    sheet6.write(
+                        r,
+                        23,
+                        round_to_significant_figures(
+                            (net_weight and (weight_recyc[1] / net_weight) * 100 or 0),
+                            accu,
+                        ),
+                    )
+
+                    total_grouped_renewable_weight += (
+                        material.renewable_weight_percentage / 100
+                    ) * net_weight
+                    sheet6.write(
+                        r,
+                        24,
+                        round_to_significant_figures(
+                            material.renewable_weight_percentage or 0, accu
+                        ),
+                    )
+                    sheet6.write(
+                        r,
+                        25,
+                        round_to_significant_figures(
+                            (
+                                (material.renewable_weight_percentage / 100)
+                                * net_weight
+                                * 0.001
+                            ),
+                            accu,
+                        ),
+                    )
+
+                    total_grouped_biogenic_weight += (
+                        material.biogenic_material_weight_percentage / 100
+                    ) * net_weight
+                    sheet6.write(
+                        r,
+                        26,
+                        round_to_significant_figures(
+                            material.biogenic_material_weight_percentage or 0, accu
+                        ),
+                    )
+                    sheet6.write(
+                        r,
+                        27,
+                        round_to_significant_figures(
+                            (
+                                (material.biogenic_material_weight_percentage / 100)
+                                * net_weight
+                                * 0.001
+                            ),
+                            accu,
+                        ),
+                    )
+
+                    r += 1
+
+                sheet6.write(r, 18, "Total", bold)
+                sheet6.write(
+                    r, 20, round_to_significant_figures(total_grouped_net_weight, accu)
+                )
+                sheet6.write(
+                    r,
+                    21,
+                    round_to_significant_figures(
+                        total_grouped_net_weight * 0.001, accu
+                    ),
+                )
+                sheet6.write(
+                    r,
+                    22,
+                    round_to_significant_figures(
+                        (
+                            total_grouped_net_weight
+                            and (check_weight / total_grouped_net_weight) * 100
+                            or 0
+                        ),
+                        accu,
+                    ),
+                )
+                sheet6.write(
+                    r,
+                    23,
+                    round_to_significant_figures(
+                        (
+                            total_grouped_net_weight
+                            and (
+                                total_grouped_recycled_weight / total_grouped_net_weight
+                            )
+                            * 100
+                            or 0
+                        ),
+                        accu,
+                    ),
+                )
+
+                sheet6.write(
+                    r,
+                    24,
+                    round_to_significant_figures(
+                        (
+                            total_grouped_net_weight
+                            and (
+                                total_grouped_renewable_weight
+                                / total_grouped_net_weight
+                            )
+                            * 100
+                            or 0
+                        ),
+                        accu,
+                    ),
+                )
+                sheet6.write(
+                    r,
+                    25,
+                    round_to_significant_figures(
+                        total_grouped_renewable_weight * 0.001, accu
+                    ),
+                )
+
+                sheet6.write(
+                    r,
+                    26,
+                    round_to_significant_figures(
+                        (
+                            total_grouped_net_weight
+                            and (
+                                total_grouped_biogenic_weight / total_grouped_net_weight
+                            )
+                            * 100
+                            or 0
+                        ),
+                        accu,
+                    ),
+                )
+                sheet6.write(
+                    r,
+                    27,
+                    round_to_significant_figures(
+                        total_grouped_biogenic_weight * 0.001, accu
+                    ),
+                )
+
+            # --------------------------------------------------------------------- #
+            # ----------- 5. All materials consumed in production ----------------- #
+            # --------------------------------------------------------------------- #
+
+            # NOT IN INCOMING PACKAGING
+
+            if not o.company_id.hide_summary_sheet:
+                consu_oper_durat = []
+
+                bom_consus = self.all_bom_consus(o, product_variant, consu_oper_durat)
+
+                name_and_weight = {}
+                time_in_year = o.company_id.time_in_year
+
+                for consu_bom, oper_duration in bom_consus:
+                    consu_products = []
+
+                    consu_products = self.all_material_summary(
+                        sheet6,
+                        bom=consu_bom,
+                        product_variant=material_variant,
+                        style=None,
+                        child_number=0,
+                        products=consu_products,
+                    )
+
+                    for product, qty, uom, bom, product_variant in consu_products:
+                        consu_materials = self.env[
+                            "product.material.composition"
+                        ].search(
+                            domain=[
+                                ("product_product_id", "=", product.id),
+                                ("type", "!=", "product_packaging"),
+                            ],
+                        )
+
+                        bom_product_id = (
+                            product_variant or bom.product_tmpl_id.product_variant_id
+                        )
+
+                        multiply_with = 1
+
+                        if product.multiply_with_partial_weight:
+                            multiply_with = (
+                                product.weight
+                                and (bom_product_id.weight / product.weight)
+                                or 1
+                            )
+
+                        qty = qty * multiply_with
+
+                        for material in consu_materials:
+                            grams = self.env.ref("uom.product_uom_gram")
+
+                            if (
+                                uom.category_id.id
+                                == self.env.ref("uom.product_uom_categ_kgm").id
+                            ):
+                                weight_in_grams = uom._compute_quantity(
+                                    material.net_weight * qty, grams, round=False
+                                )
+                            else:
+                                weight_in_grams = (
+                                    material.net_weight_uom_id._compute_quantity(
+                                        material.net_weight * qty, grams, round=False
+                                    )
+                                )
+
+                            if len(consu_materials) < 1:
+                                weight_in_grams = (
+                                    product.weight_uom_id._compute_quantity(
+                                        product.weight * qty, grams, round=False
+                                    )
+                                )
+
+                            #  Check that time_in_year is not zero
+                            consumed_weight = (
+                                time_in_year
+                                and ((weight_in_grams / time_in_year) * (oper_duration))
+                                or 0
+                            )
+
+                            if not name_and_weight.get(material.product_material_id):
+                                name_and_weight[material.product_material_id] = [
+                                    consumed_weight,
+                                    (material.recycled_percentage / 100)
+                                    * consumed_weight,
+                                ]
+                            else:
+                                name_and_weight[material.product_material_id][
+                                    0
+                                ] += consumed_weight
+                                name_and_weight[material.product_material_id][1] += (
+                                    material.recycled_percentage / 100
+                                ) * consumed_weight
+
+                r = 3
+
+                total_grouped_net_weight = 0
+                total_grouped_biogenic_weight = 0
+                total_grouped_renewable_weight = 0
+
+                for weight, _recyc in name_and_weight.values():
+                    total_grouped_net_weight += weight
+
+                check_weight = 0
+                total_grouped_recycled_weight = 0
+
+                name_and_weight = dict(
+                    sorted(
+                        name_and_weight.items(),
+                        key=lambda item: (
+                            item[0].name is None,
+                            str(item[0].name).lower(),
+                        ),
+                    )
+                )
+
+                for material, weight_recyc in name_and_weight.items():
+                    net_weight = weight_recyc[0]
+                    sheet6.write(r, 28, material.with_context(lang="en_US").name or "")
+                    sheet6.write(r, 29, material.with_context(lang="fi_FI").name or "")
+                    sheet6.write(r, 30, round_to_significant_figures(net_weight, accu))
+                    sheet6.write(
+                        r, 31, round_to_significant_figures(net_weight * 0.001, accu)
+                    )  # weight in kg
+                    sheet6.write(
+                        r,
+                        32,
+                        round_to_significant_figures(
+                            (
+                                total_grouped_net_weight
+                                and (net_weight / total_grouped_net_weight) * 100
+                                or 0
+                            ),
+                            accu,
+                        ),
+                    )
+                    check_weight += net_weight
+                    total_grouped_recycled_weight += weight_recyc[1]
+                    sheet6.write(
+                        r,
+                        33,
+                        round_to_significant_figures(
+                            (net_weight and (weight_recyc[1] / net_weight) * 100 or 0),
+                            accu,
+                        ),
+                    )
+
+                    total_grouped_biogenic_weight += (
+                        material.biogenic_material_weight_percentage / 100
+                    ) * net_weight
+
+                    total_grouped_renewable_weight += (
+                        material.renewable_weight_percentage / 100
+                    ) * net_weight
+
+                    sheet6.write(
+                        r,
+                        34,
+                        round_to_significant_figures(
+                            material.renewable_weight_percentage or 0, accu
+                        ),
+                    )
+
+                    sheet6.write(
+                        r,
+                        35,
+                        round_to_significant_figures(
+                            (
+                                (material.biogenic_material_weight_percentage / 100)
+                                * net_weight
+                                * 0.001
+                            ),
+                            accu,
+                        ),
+                    )
+                    r += 1
+
+                sheet6.write(r, 28, "Total", bold)
+                sheet6.write(
+                    r, 30, round_to_significant_figures(total_grouped_net_weight, accu)
+                )
+                sheet6.write(
+                    r,
+                    31,
+                    round_to_significant_figures(
+                        total_grouped_net_weight * 0.001, accu
+                    ),
+                )
                 sheet6.write(
                     r,
                     32,
                     round_to_significant_figures(
                         (
                             total_grouped_net_weight
-                            and (net_weight / total_grouped_net_weight) * 100
+                            and (check_weight / total_grouped_net_weight) * 100
                             or 0
                         ),
                         accu,
                     ),
                 )
-                check_weight += net_weight
-                total_grouped_recycled_weight += weight_recyc[1]
                 sheet6.write(
                     r,
                     33,
                     round_to_significant_figures(
-                        (net_weight and (weight_recyc[1] / net_weight) * 100 or 0), accu
+                        (
+                            total_grouped_net_weight
+                            and (
+                                total_grouped_recycled_weight / total_grouped_net_weight
+                            )
+                            * 100
+                            or 0
+                        ),
+                        accu,
                     ),
                 )
-
-                total_grouped_biogenic_weight += (
-                    material.biogenic_material_weight_percentage / 100
-                ) * net_weight
-
-                total_grouped_renewable_weight += (
-                    material.renewable_weight_percentage / 100
-                ) * net_weight
 
                 sheet6.write(
                     r,
                     34,
                     round_to_significant_figures(
-                        material.renewable_weight_percentage or 0, accu
-                    ),
-                )
-
-                sheet6.write(
-                    r,
-                    35,
-                    round_to_significant_figures(
                         (
-                            (material.biogenic_material_weight_percentage / 100)
-                            * net_weight
-                            * 0.001
+                            total_grouped_net_weight
+                            and (
+                                total_grouped_renewable_weight
+                                / total_grouped_net_weight
+                            )
+                            * 100
+                            or 0
                         ),
                         accu,
                     ),
                 )
-                r += 1
-
-            sheet6.write(r, 28, "Total", bold)
-            sheet6.write(
-                r, 30, round_to_significant_figures(total_grouped_net_weight, accu)
-            )
-            sheet6.write(
-                r,
-                31,
-                round_to_significant_figures(total_grouped_net_weight * 0.001, accu),
-            )
-            sheet6.write(
-                r,
-                32,
-                round_to_significant_figures(
-                    (
-                        total_grouped_net_weight
-                        and (check_weight / total_grouped_net_weight) * 100
-                        or 0
+                sheet6.write(
+                    r,
+                    35,
+                    round_to_significant_figures(
+                        total_grouped_biogenic_weight * 0.001, accu
                     ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                r,
-                33,
-                round_to_significant_figures(
-                    (
-                        total_grouped_net_weight
-                        and (total_grouped_recycled_weight / total_grouped_net_weight)
-                        * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
-
-            sheet6.write(
-                r,
-                34,
-                round_to_significant_figures(
-                    (
-                        total_grouped_net_weight
-                        and (total_grouped_renewable_weight / total_grouped_net_weight)
-                        * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                r,
-                35,
-                round_to_significant_figures(
-                    total_grouped_biogenic_weight * 0.001, accu
-                ),
-            )
+                )
 
             # --------------------------------------------------------------------- #
             # ------------ 6. All materials in Incoming packaging ----------------- #
@@ -3573,418 +3693,453 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
             # IS IN INCOMING PACKAGING
 
-            products = []
+            if not o.company_id.hide_summary_sheet:
+                products = []
 
-            products = self.all_material_summary(
-                sheet6,
-                bom=o,
-                product_variant=material_variant,
-                style=None,
-                child_number=0,
-                products=products,
-            )
-
-            materials = self.env["product.material.composition"]
-            name_and_weight = {}
-
-            for product, qty, uom, bom, product_variant in products:
-                materials = self.env["product.material.composition"].search(
-                    domain=[
-                        ("product_product_id", "=", product.id),
-                        ("type", "=", "product_packaging"),
-                    ],
+                products = self.all_material_summary(
+                    sheet6,
+                    bom=o,
+                    product_variant=material_variant,
+                    style=None,
+                    child_number=0,
+                    products=products,
                 )
 
-                bom_product_id = (
-                    product_variant or bom.product_tmpl_id.product_variant_id
-                )
+                materials = self.env["product.material.composition"]
+                name_and_weight = {}
 
-                multiply_with = 1
-
-                if product.multiply_with_partial_weight:
-                    multiply_with = (
-                        product.weight and (bom_product_id.weight / product.weight) or 1
+                for product, qty, uom, bom, product_variant in products:
+                    materials = self.env["product.material.composition"].search(
+                        domain=[
+                            ("product_product_id", "=", product.id),
+                            ("type", "=", "product_packaging"),
+                        ],
                     )
 
-                qty = qty * multiply_with
+                    bom_product_id = (
+                        product_variant or bom.product_tmpl_id.product_variant_id
+                    )
 
-                for material in materials:
-                    if not name_and_weight.get(material.product_material_id):
-                        name_and_weight[material.product_material_id] = [
-                            material.net_weight * qty,
-                            (material.recycled_percentage / 100)
-                            * material.net_weight
-                            * qty,
-                            material.product_material_waste_component_id,
-                            material.product_material_waste_endpoint_id,
-                        ]
-                    else:
-                        name_and_weight[material.product_material_id][0] += (
-                            material.net_weight * qty
+                    multiply_with = 1
+
+                    if product.multiply_with_partial_weight:
+                        multiply_with = (
+                            product.weight
+                            and (bom_product_id.weight / product.weight)
+                            or 1
                         )
-                        name_and_weight[material.product_material_id][1] += (
-                            (material.recycled_percentage / 100)
-                            * material.net_weight
-                            * qty
-                        )
-                        name_and_weight[material.product_material_id][
-                            2
-                        ] += material.product_material_waste_component_id
-                        name_and_weight[material.product_material_id][
-                            3
-                        ] += material.product_material_waste_endpoint_id
 
-            r = 3
+                    qty = qty * multiply_with
 
-            total_grouped_net_weight = 0
+                    for material in materials:
+                        if not name_and_weight.get(material.product_material_id):
+                            name_and_weight[material.product_material_id] = [
+                                material.net_weight * qty,
+                                (material.recycled_percentage / 100)
+                                * material.net_weight
+                                * qty,
+                                material.product_material_waste_component_id,
+                                material.product_material_waste_endpoint_id,
+                            ]
+                        else:
+                            name_and_weight[material.product_material_id][0] += (
+                                material.net_weight * qty
+                            )
+                            name_and_weight[material.product_material_id][1] += (
+                                (material.recycled_percentage / 100)
+                                * material.net_weight
+                                * qty
+                            )
+                            name_and_weight[material.product_material_id][
+                                2
+                            ] += material.product_material_waste_component_id
+                            name_and_weight[material.product_material_id][
+                                3
+                            ] += material.product_material_waste_endpoint_id
 
-            for weight, _recyc, _waste_comp, _waste_end in name_and_weight.values():
-                total_grouped_net_weight += weight
+                r = 3
 
-            check_weight = 0
-            total_grouped_recycled_weight = 0
+                total_grouped_net_weight = 0
 
-            name_and_weight = dict(
-                sorted(
-                    name_and_weight.items(),
-                    key=lambda item: (item[0].name is None, str(item[0].name).lower()),
+                for weight, _recyc, _waste_comp, _waste_end in name_and_weight.values():
+                    total_grouped_net_weight += weight
+
+                check_weight = 0
+                total_grouped_recycled_weight = 0
+
+                name_and_weight = dict(
+                    sorted(
+                        name_and_weight.items(),
+                        key=lambda item: (
+                            item[0].name is None,
+                            str(item[0].name).lower(),
+                        ),
+                    )
                 )
-            )
 
-            for material, weight_recyc in name_and_weight.items():
-                sheet6.write(r, 36, material.with_context(lang="en_US").name or "")
-                sheet6.write(r, 37, material.with_context(lang="fi_FI").name or "")
-                sheet6.write(r, 38, round_to_significant_figures(weight_recyc[0], accu))
+                for material, weight_recyc in name_and_weight.items():
+                    sheet6.write(r, 36, material.with_context(lang="en_US").name or "")
+                    sheet6.write(r, 37, material.with_context(lang="fi_FI").name or "")
+                    sheet6.write(
+                        r, 38, round_to_significant_figures(weight_recyc[0], accu)
+                    )
+                    sheet6.write(
+                        r,
+                        39,
+                        round_to_significant_figures(weight_recyc[0] * 0.001, accu),
+                    )  # weight in kg
+                    sheet6.write(
+                        r,
+                        40,
+                        round_to_significant_figures(
+                            (
+                                total_grouped_net_weight
+                                and (weight_recyc[0] / total_grouped_net_weight) * 100
+                                or 0
+                            ),
+                            accu,
+                        ),
+                    )
+                    check_weight += weight_recyc[0]
+                    total_grouped_recycled_weight += weight_recyc[1]
+                    sheet6.write(
+                        r,
+                        41,
+                        round_to_significant_figures(
+                            (
+                                weight_recyc[0]
+                                and (weight_recyc[1] / weight_recyc[0]) * 100
+                                or 0
+                            ),
+                            accu,
+                        ),
+                    )
+                    waste_component = weight_recyc[2] and weight_recyc[2][0].name or ""
+                    sheet6.write(r, 42, waste_component)
+                    waste_endpoint = weight_recyc[3] and weight_recyc[3][0].name or ""
+                    sheet6.write(r, 43, waste_endpoint)
+                    r += 1
+
+                sheet6.write(r, 36, "Total", bold)
                 sheet6.write(
-                    r, 39, round_to_significant_figures(weight_recyc[0] * 0.001, accu)
-                )  # weight in kg
+                    r, 38, round_to_significant_figures(total_grouped_net_weight, accu)
+                )
+                sheet6.write(
+                    r,
+                    39,
+                    round_to_significant_figures(
+                        total_grouped_net_weight * 0.001, accu
+                    ),
+                )
                 sheet6.write(
                     r,
                     40,
                     round_to_significant_figures(
                         (
                             total_grouped_net_weight
-                            and (weight_recyc[0] / total_grouped_net_weight) * 100
+                            and (check_weight / total_grouped_net_weight) * 100
                             or 0
                         ),
                         accu,
                     ),
                 )
-                check_weight += weight_recyc[0]
-                total_grouped_recycled_weight += weight_recyc[1]
                 sheet6.write(
                     r,
                     41,
                     round_to_significant_figures(
                         (
-                            weight_recyc[0]
-                            and (weight_recyc[1] / weight_recyc[0]) * 100
+                            total_grouped_net_weight
+                            and (
+                                total_grouped_recycled_weight / total_grouped_net_weight
+                            )
+                            * 100
                             or 0
                         ),
                         accu,
                     ),
                 )
-                waste_component = weight_recyc[2] and weight_recyc[2][0].name or ""
-                sheet6.write(r, 42, waste_component)
-                waste_endpoint = weight_recyc[3] and weight_recyc[3][0].name or ""
-                sheet6.write(r, 43, waste_endpoint)
-                r += 1
-
-            sheet6.write(r, 36, "Total", bold)
-            sheet6.write(
-                r, 38, round_to_significant_figures(total_grouped_net_weight, accu)
-            )
-            sheet6.write(
-                r,
-                39,
-                round_to_significant_figures(total_grouped_net_weight * 0.001, accu),
-            )
-            sheet6.write(
-                r,
-                40,
-                round_to_significant_figures(
-                    (
-                        total_grouped_net_weight
-                        and (check_weight / total_grouped_net_weight) * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                r,
-                41,
-                round_to_significant_figures(
-                    (
-                        total_grouped_net_weight
-                        and (total_grouped_recycled_weight / total_grouped_net_weight)
-                        * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
 
             # --------------------------------------------------------------------- #
             # ----------------- 7. Summary of all materials ----------------------- #
             # --------------------------------------------------------------------- #
 
-            products = []
+            if not o.company_id.hide_summary_sheet:
+                products = []
 
-            products = self.all_material_summary(
-                sheet6,
-                bom=o,
-                product_variant=material_variant,
-                style=None,
-                child_number=0,
-                products=products,
-            )
-
-            materials = self.env["product.material.composition"]
-            name_and_weight = {}
-
-            for product, qty, uom, bom, product_variant in products:
-                materials = self.env["product.material.composition"].search(
-                    domain=[
-                        ("product_product_id", "=", product.id),
-                    ],
+                products = self.all_material_summary(
+                    sheet6,
+                    bom=o,
+                    product_variant=material_variant,
+                    style=None,
+                    child_number=0,
+                    products=products,
                 )
 
-                bom_product_id = (
-                    product_variant or bom.product_tmpl_id.product_variant_id
-                )
+                materials = self.env["product.material.composition"]
+                name_and_weight = {}
 
-                multiply_with = 1
-
-                if product.multiply_with_partial_weight:
-                    multiply_with = (
-                        product.weight and (bom_product_id.weight / product.weight) or 1
+                for product, qty, uom, bom, product_variant in products:
+                    materials = self.env["product.material.composition"].search(
+                        domain=[
+                            ("product_product_id", "=", product.id),
+                        ],
                     )
 
-                qty = qty * multiply_with
+                    bom_product_id = (
+                        product_variant or bom.product_tmpl_id.product_variant_id
+                    )
 
-                for material in materials:
-                    if not name_and_weight.get(material.product_material_id):
-                        name_and_weight[material.product_material_id] = [
-                            material.net_weight * qty,
-                            (material.recycled_percentage / 100)
-                            * material.net_weight
-                            * qty,
-                        ]
-                    else:
-                        name_and_weight[material.product_material_id][0] += (
-                            material.net_weight * qty
-                        )
-                        name_and_weight[material.product_material_id][1] += (
-                            (material.recycled_percentage / 100)
-                            * material.net_weight
-                            * qty
+                    multiply_with = 1
+
+                    if product.multiply_with_partial_weight:
+                        multiply_with = (
+                            product.weight
+                            and (bom_product_id.weight / product.weight)
+                            or 1
                         )
 
-            r = 3
+                    qty = qty * multiply_with
 
-            total_grouped_net_weight = 0
+                    for material in materials:
+                        if not name_and_weight.get(material.product_material_id):
+                            name_and_weight[material.product_material_id] = [
+                                material.net_weight * qty,
+                                (material.recycled_percentage / 100)
+                                * material.net_weight
+                                * qty,
+                            ]
+                        else:
+                            name_and_weight[material.product_material_id][0] += (
+                                material.net_weight * qty
+                            )
+                            name_and_weight[material.product_material_id][1] += (
+                                (material.recycled_percentage / 100)
+                                * material.net_weight
+                                * qty
+                            )
 
-            for weight, _recyc in name_and_weight.values():
-                total_grouped_net_weight += weight
+                r = 3
 
-            check_weight = 0
-            total_grouped_recycled_weight = 0
-            total_grouped_biogenic_weight = 0
+                total_grouped_net_weight = 0
 
-            name_and_weight = dict(
-                sorted(
-                    name_and_weight.items(),
-                    key=lambda item: (item[0].name is None, str(item[0].name).lower()),
+                for weight, _recyc in name_and_weight.values():
+                    total_grouped_net_weight += weight
+
+                check_weight = 0
+                total_grouped_recycled_weight = 0
+                total_grouped_biogenic_weight = 0
+
+                name_and_weight = dict(
+                    sorted(
+                        name_and_weight.items(),
+                        key=lambda item: (
+                            item[0].name is None,
+                            str(item[0].name).lower(),
+                        ),
+                    )
                 )
-            )
 
-            for material, weight_recyc in name_and_weight.items():
-                net_weight = weight_recyc[0]
-                sheet6.write(r, 44, material.with_context(lang="en_US").name or "")
-                sheet6.write(r, 45, material.with_context(lang="fi_FI").name or "")
-                sheet6.write(r, 46, round_to_significant_figures(net_weight, accu))
+                for material, weight_recyc in name_and_weight.items():
+                    net_weight = weight_recyc[0]
+                    sheet6.write(r, 44, material.with_context(lang="en_US").name or "")
+                    sheet6.write(r, 45, material.with_context(lang="fi_FI").name or "")
+                    sheet6.write(r, 46, round_to_significant_figures(net_weight, accu))
+                    sheet6.write(
+                        r, 47, round_to_significant_figures(net_weight * 0.001, accu)
+                    )  # weight in kg
+                    sheet6.write(
+                        r,
+                        48,
+                        round_to_significant_figures(
+                            (
+                                total_grouped_net_weight
+                                and (net_weight / total_grouped_net_weight) * 100
+                                or 0
+                            ),
+                            accu,
+                        ),
+                    )
+                    check_weight += net_weight
+                    total_grouped_recycled_weight += weight_recyc[1]
+                    sheet6.write(
+                        r,
+                        49,
+                        round_to_significant_figures(
+                            (net_weight and (weight_recyc[1] / net_weight) * 100 or 0),
+                            accu,
+                        ),
+                    )
+
+                    total_grouped_biogenic_weight += (
+                        material.biogenic_material_weight_percentage / 100
+                    ) * net_weight
+                    sheet6.write(
+                        r,
+                        50,
+                        round_to_significant_figures(
+                            (material.biogenic_material_weight_percentage or 0), accu
+                        ),
+                    )
+                    sheet6.write(
+                        r,
+                        51,
+                        round_to_significant_figures(
+                            (
+                                (material.biogenic_material_weight_percentage / 100)
+                                * net_weight
+                                * 0.001
+                            ),
+                            accu,
+                        ),
+                    )
+                    r += 1
+
+                sheet6.write(r, 44, "Total", bold)
                 sheet6.write(
-                    r, 47, round_to_significant_figures(net_weight * 0.001, accu)
-                )  # weight in kg
+                    r, 46, round_to_significant_figures(total_grouped_net_weight, accu)
+                )
+                sheet6.write(
+                    r,
+                    47,
+                    round_to_significant_figures(
+                        total_grouped_net_weight * 0.001, accu
+                    ),
+                )
                 sheet6.write(
                     r,
                     48,
                     round_to_significant_figures(
                         (
                             total_grouped_net_weight
-                            and (net_weight / total_grouped_net_weight) * 100
+                            and (check_weight / total_grouped_net_weight) * 100
                             or 0
                         ),
                         accu,
                     ),
                 )
-                check_weight += net_weight
-                total_grouped_recycled_weight += weight_recyc[1]
                 sheet6.write(
                     r,
                     49,
                     round_to_significant_figures(
-                        (net_weight and (weight_recyc[1] / net_weight) * 100 or 0), accu
+                        (
+                            total_grouped_net_weight
+                            and (
+                                total_grouped_recycled_weight / total_grouped_net_weight
+                            )
+                            * 100
+                            or 0
+                        ),
+                        accu,
                     ),
                 )
-
-                total_grouped_biogenic_weight += (
-                    material.biogenic_material_weight_percentage / 100
-                ) * net_weight
                 sheet6.write(
                     r,
                     50,
                     round_to_significant_figures(
-                        (material.biogenic_material_weight_percentage or 0), accu
+                        (
+                            total_grouped_net_weight
+                            and (
+                                total_grouped_biogenic_weight / total_grouped_net_weight
+                            )
+                            * 100
+                            or 0
+                        ),
+                        accu,
                     ),
                 )
                 sheet6.write(
                     r,
                     51,
                     round_to_significant_figures(
-                        (
-                            (material.biogenic_material_weight_percentage / 100)
-                            * net_weight
-                            * 0.001
-                        ),
-                        accu,
+                        total_grouped_biogenic_weight * 0.001, accu
                     ),
                 )
-                r += 1
-
-            sheet6.write(r, 44, "Total", bold)
-            sheet6.write(
-                r, 46, round_to_significant_figures(total_grouped_net_weight, accu)
-            )
-            sheet6.write(
-                r,
-                47,
-                round_to_significant_figures(total_grouped_net_weight * 0.001, accu),
-            )
-            sheet6.write(
-                r,
-                48,
-                round_to_significant_figures(
-                    (
-                        total_grouped_net_weight
-                        and (check_weight / total_grouped_net_weight) * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                r,
-                49,
-                round_to_significant_figures(
-                    (
-                        total_grouped_net_weight
-                        and (total_grouped_recycled_weight / total_grouped_net_weight)
-                        * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                r,
-                50,
-                round_to_significant_figures(
-                    (
-                        total_grouped_net_weight
-                        and (total_grouped_biogenic_weight / total_grouped_net_weight)
-                        * 100
-                        or 0
-                    ),
-                    accu,
-                ),
-            )
-            sheet6.write(
-                r,
-                51,
-                round_to_significant_figures(
-                    total_grouped_biogenic_weight * 0.001, accu
-                ),
-            )
 
             # --------------------------------------------------------------------- #
             # ---------------- 8. Workcenters Energy summary ---------------------- #
             # --------------------------------------------------------------------- #
 
-            operations = self.env["mrp.routing.workcenter"]
+            if not o.company_id.hide_summary_sheet:
+                operations = self.env["mrp.routing.workcenter"]
 
-            operations = self.energy_summary(
-                bom=o,
-                product_variant=material_variant,
-                sheet6=sheet6,
-                operations=operations,
-            )
+                operations = self.energy_summary(
+                    bom=o,
+                    product_variant=material_variant,
+                    sheet6=sheet6,
+                    operations=operations,
+                )
 
-            workcenter_and_energy = {}
+                workcenter_and_energy = {}
 
-            for oper in operations.sorted(key=lambda o: o.sequence):
-                workcenter = oper.workcenter_id
-                energy = (
-                    (workcenter.energy_consumption * oper.duration_active)
-                    + (workcenter.energy_consumption_passive * oper.duration_passive)
-                ) / 60
-                if not workcenter_and_energy.get(workcenter):
-                    workcenter_and_energy[workcenter] = energy
-                else:
-                    workcenter_and_energy[workcenter] += energy
-            t = 3
+                for oper in operations.sorted(key=lambda o: o.sequence):
+                    workcenter = oper.workcenter_id
+                    energy = (
+                        (workcenter.energy_consumption * oper.duration_active)
+                        + (
+                            workcenter.energy_consumption_passive
+                            * oper.duration_passive
+                        )
+                    ) / 60
+                    if not workcenter_and_energy.get(workcenter):
+                        workcenter_and_energy[workcenter] = energy
+                    else:
+                        workcenter_and_energy[workcenter] += energy
+                t = 3
 
-            total_grouped_energy = sum(workcenter_and_energy.values())
+                total_grouped_energy = sum(workcenter_and_energy.values())
 
-            for workcenter, energy in workcenter_and_energy.items():
-                sheet6.write(t, 52, workcenter.name)
-                sheet6.write(t, 53, energy)
-                sheet6.write(
-                    t,
-                    54,
-                    total_grouped_energy and (energy / total_grouped_energy) * 100,
-                ) or 0
-                t += 1
+                for workcenter, energy in workcenter_and_energy.items():
+                    sheet6.write(t, 52, workcenter.name)
+                    sheet6.write(t, 53, energy)
+                    sheet6.write(
+                        t,
+                        54,
+                        total_grouped_energy and (energy / total_grouped_energy) * 100,
+                    ) or 0
+                    t += 1
 
             # --------------------------------------------------------------------- #
             # ------------- 9. Operations Energy summary -------------------------- #
             # --------------------------------------------------------------------- #
 
-            operations = self.env["mrp.routing.workcenter"]
+            if not o.company_id.hide_summary_sheet:
+                operations = self.env["mrp.routing.workcenter"]
 
-            operations = self.energy_summary(
-                bom=o,
-                product_variant=material_variant,
-                sheet6=sheet6,
-                operations=operations,
-            )
+                operations = self.energy_summary(
+                    bom=o,
+                    product_variant=material_variant,
+                    sheet6=sheet6,
+                    operations=operations,
+                )
 
-            operation_and_energy = {}
+                operation_and_energy = {}
 
-            for oper in operations.sorted(key=lambda o: o.sequence):
-                workcenter = oper.workcenter_id
-                energy = (
-                    (workcenter.energy_consumption * oper.duration_active)
-                    + (workcenter.energy_consumption_passive * oper.duration_passive)
-                ) / 60
-                if not operation_and_energy.get(oper):
-                    operation_and_energy[oper] = energy
-                else:
-                    operation_and_energy[oper] += energy
-            t = 3
+                for oper in operations.sorted(key=lambda o: o.sequence):
+                    workcenter = oper.workcenter_id
+                    energy = (
+                        (workcenter.energy_consumption * oper.duration_active)
+                        + (
+                            workcenter.energy_consumption_passive
+                            * oper.duration_passive
+                        )
+                    ) / 60
+                    if not operation_and_energy.get(oper):
+                        operation_and_energy[oper] = energy
+                    else:
+                        operation_and_energy[oper] += energy
+                t = 3
 
-            total_grouped_energy = sum(operation_and_energy.values())
+                total_grouped_energy = sum(operation_and_energy.values())
 
-            for operation, energy in operation_and_energy.items():
-                sheet6.write(t, 55, operation.name)
-                sheet6.write(t, 56, energy)
-                sheet6.write(
-                    t,
-                    57,
-                    total_grouped_energy and (energy / total_grouped_energy) * 100,
-                ) or 0
-                t += 1
+                for operation, energy in operation_and_energy.items():
+                    sheet6.write(t, 55, operation.name)
+                    sheet6.write(t, 56, energy)
+                    sheet6.write(
+                        t,
+                        57,
+                        total_grouped_energy and (energy / total_grouped_energy) * 100,
+                    ) or 0
+                    t += 1
 
             # --------------------------------------------------------------------- #
 
@@ -4008,14 +4163,15 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     center_cell=center_cell,
                 )
 
-                d = self.print_bom_children_5(
-                    ch,
-                    sheet5,
-                    d,
-                    j,
-                    parent=o.product_tmpl_id,
-                    parent_level=parent_level_5,
-                    child_number=child_number,
-                    quantities=quantities,
-                    identifier=ident,
-                )
+                if not o.company_id.hide_requirement_sheet:
+                    d = self.print_bom_children_5(
+                        ch,
+                        sheet5,
+                        d,
+                        j,
+                        parent=o.product_tmpl_id,
+                        parent_level=parent_level_5,
+                        child_number=child_number,
+                        quantities=quantities,
+                        identifier=ident,
+                    )
