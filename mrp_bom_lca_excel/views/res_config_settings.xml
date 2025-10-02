@@ -4,12 +4,27 @@
         <field name="name">res.config.settings.view.form.inherit.lca.value</field>
         <field name="model">res.config.settings</field>
         <field name="priority" eval="100" />
-        <field name="inherit_id" ref="stock.res_config_settings_view_form" />
+        <field name="inherit_id" ref="mrp.res_config_settings_view_form" />
         <field name="arch" type="xml">
-            <xpath expr="//block[@id='schedule_info']" position="before">
+            <xpath
+                expr="//block[@name='process_operations_setting_container']"
+                position="after"
+            >
                 <block title="LCA Excel: Seconds in a year" id="lca_value">
                     <setting id="time_in_year">
                         <field name="time_in_year" />
+                    </setting>
+                    <setting id="hide_by_product">
+                        <field name="hide_by_product_sheet" />
+                    </setting>
+                    <setting id="hide_operation">
+                        <field name="hide_operation_sheet" />
+                    </setting>
+                    <setting id="hide_requirement">
+                        <field name="hide_requirement_sheet" />
+                    </setting>
+                    <setting id="hide_summary">
+                        <field name="hide_summary_sheet" />
                     </setting>
                 </block>
             </xpath>
