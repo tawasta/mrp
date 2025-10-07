@@ -14,8 +14,8 @@ addon | version | maintainers | summary
 --- | --- | --- | ---
 [mgmtsystem_hazard_risk_workcenter](mgmtsystem_hazard_risk_workcenter/) | 17.0.1.0.0 |  | Workcenter for Hazard Risk
 [mgmtsystem_hazard_test_tree_view](mgmtsystem_hazard_test_tree_view/) | 17.0.1.0.0 |  | Creates a tree view for Implementation Tests of hazard
-[mrp_auditlog_rules](mrp_auditlog_rules/) | 17.0.1.0.0 |  | Adds audit log rules for mrp.bom
-[mrp_bom_auditlog_rules](mrp_bom_auditlog_rules/) | 17.0.1.0.0 |  | Adds audit log rules for mrp.bom
+[mrp_auditlog_rules](mrp_auditlog_rules/) | 17.0.1.1.0 |  | Adds audit log rules for mrp.bom
+[mrp_bom_auditlog_rules](mrp_bom_auditlog_rules/) | 17.0.1.1.0 |  | Adds audit log rules for mrp.bom
 [mrp_bom_cost_cron](mrp_bom_cost_cron/) | 17.0.1.0.0 |  | Scheduled action to calculate product's cost price from BoM
 [mrp_bom_eco_analysis](mrp_bom_eco_analysis/) | 17.0.1.0.0 |  | ECO analysis modifications
 [mrp_bom_lca_excel](mrp_bom_lca_excel/) | 17.0.1.2.2 |  | Export an excel for LCA report of a BoM

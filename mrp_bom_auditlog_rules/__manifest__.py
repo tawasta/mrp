@@ -27,7 +27,7 @@
     "category": "Logging",
     "application": False,
     "installable": True,
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.1.0",
     "depends": [
         "mrp",
         "auditlog",
