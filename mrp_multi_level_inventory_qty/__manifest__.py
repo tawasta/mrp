@@ -21,7 +21,7 @@
 {
     "name": "Inventory product circulation report",
     "summary": "Inventory product circulation report",
-    "version": "14.0.2.2.16",
+    "version": "14.0.2.2.17",
     "category": "Reporting",
     "website": "https://github.com/tawasta/mrp",
     "author": "Tawasta",
