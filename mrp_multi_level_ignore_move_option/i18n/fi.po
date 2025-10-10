@@ -1,0 +1,76 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mrp_multi_level_ignore_move_option
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-10 08:19+0000\n"
+"PO-Revision-Date: 2025-10-10 11:21+0300\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.7\n"
+
+#. module: mrp_multi_level_ignore_move_option
+#: model:ir.model.fields,field_description:mrp_multi_level_ignore_move_option.field_mrp_area__display_name
+#: model:ir.model.fields,field_description:mrp_multi_level_ignore_move_option.field_mrp_multi_level__display_name
+msgid "Display Name"
+msgstr "Näyttönimi"
+
+#. module: mrp_multi_level_ignore_move_option
+#: model:ir.model.fields,field_description:mrp_multi_level_ignore_move_option.field_mrp_area__id
+#: model:ir.model.fields,field_description:mrp_multi_level_ignore_move_option.field_mrp_multi_level__id
+msgid "ID"
+msgstr "ID"
+
+#. module: mrp_multi_level_ignore_move_option
+#: model:ir.model.fields,field_description:mrp_multi_level_ignore_move_option.field_mrp_area__ignore_production_orders
+msgid "Ignore manufacturing orders"
+msgstr "Ohita valmistustilaukset"
+
+#. module: mrp_multi_level_ignore_move_option
+#: model:ir.model.fields,field_description:mrp_multi_level_ignore_move_option.field_mrp_area__ignore_purchase_orders
+msgid "Ignore purchase orders"
+msgstr "Ohita ostotilaukset"
+
+#. module: mrp_multi_level_ignore_move_option
+#: model:ir.model.fields,field_description:mrp_multi_level_ignore_move_option.field_mrp_area__ignore_sale_orders
+msgid "Ignore sale orders"
+msgstr "Ohita myyntitilaukset"
+
+#. module: mrp_multi_level_ignore_move_option
+#: model:ir.model.fields,field_description:mrp_multi_level_ignore_move_option.field_mrp_area____last_update
+#: model:ir.model.fields,field_description:mrp_multi_level_ignore_move_option.field_mrp_multi_level____last_update
+msgid "Last Modified on"
+msgstr "Viimeksi muokattu"
+
+#. module: mrp_multi_level_ignore_move_option
+#: model:ir.model,name:mrp_multi_level_ignore_move_option.model_mrp_area
+msgid "MRP Area"
+msgstr "Tarvelaskenta-alue"
+
+#. module: mrp_multi_level_ignore_move_option
+#: model:ir.model,name:mrp_multi_level_ignore_move_option.model_mrp_multi_level
+msgid "Multi Level MRP"
+msgstr "Monitasoinen tarvelaskenta"
+
+#. module: mrp_multi_level_ignore_move_option
+#: model:ir.model.fields,help:mrp_multi_level_ignore_move_option.field_mrp_area__ignore_production_orders
+msgid "Select to ignore manufacturing orders"
+msgstr "Valitsemalla poistat valmistustilaukset laskennasta"
+
+#. module: mrp_multi_level_ignore_move_option
+#: model:ir.model.fields,help:mrp_multi_level_ignore_move_option.field_mrp_area__ignore_purchase_orders
+msgid "Select to ignore purchase orders. Use with CAUTION!"
+msgstr "Valitsemalla poistat ostotilaukset laskennasta. Käytä VAROEN!"
+
+#. module: mrp_multi_level_ignore_move_option
+#: model:ir.model.fields,help:mrp_multi_level_ignore_move_option.field_mrp_area__ignore_sale_orders
+msgid "Select to ignore sale orders. Use with CAUTION!"
+msgstr "Valitsemalla poistat myyntitilaukset laskennasta. Käytä VAROEN!"

@@ -19,17 +19,17 @@
 ##############################################################################
 
 {
-    'name': 'MRP Multi Level – Ignore production orders in MRP moves',
-    'summary': 'Ignore production orders in MRP moves',
-    'version': '14.0.1.0.0',
-    'category': 'MRP',
-    'website': 'https://github.com/tawasta/mrp',
-    'author': 'Futural',
-    'license': 'AGPL-3',
-    'application': False,
-    'installable': True,
-    'depends': [
-        'mrp_multi_level',
+    "name": "MRP Multi Level – Ignore certain orders in MRP moves",
+    "summary": "Ignore certain orders in MRP moves",
+    "version": "14.0.1.1.0",
+    "category": "MRP",
+    "website": "https://github.com/tawasta/mrp",
+    "author": "Futural",
+    "license": "AGPL-3",
+    "application": False,
+    "installable": True,
+    "depends": [
+        "mrp_multi_level",
     ],
-    'data': ['views/mrp_area_view.xml'],
+    "data": ["views/mrp_area_view.xml"],
 }
