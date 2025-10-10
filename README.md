@@ -44,7 +44,7 @@ addon | version | maintainers | summary
 [mrp_multi_level_create_parameter_from_so](mrp_multi_level_create_parameter_from_so/) | 14.0.1.0.0 |  | Product Area parameter is created after SO confirmation
 [mrp_multi_level_create_parameter_from_so_bom_recursive](mrp_multi_level_create_parameter_from_so_bom_recursive/) | 14.0.2.0.3 |  | Sale order line product BoM is run through recursively
 [mrp_multi_level_ignore_move_option](mrp_multi_level_ignore_move_option/) | 14.0.1.1.0 |  | Ignore certain orders in MRP moves
-[mrp_multi_level_inventory_qty](mrp_multi_level_inventory_qty/) | 14.0.2.2.16 |  | Inventory product circulation report
+[mrp_multi_level_inventory_qty](mrp_multi_level_inventory_qty/) | 14.0.2.2.17 |  | Inventory product circulation report
 [mrp_multi_level_move_forecasted_qty](mrp_multi_level_move_forecasted_qty/) | 14.0.1.0.0 |  | Forecasted quantity for mrp.move
 [mrp_multi_level_mrp_move_current_date_in_order](mrp_multi_level_mrp_move_current_date_in_order/) | 14.0.1.0.0 |  | MRP moves are ordered also by Current Date field
 [mrp_multi_level_optimization](mrp_multi_level_optimization/) | 14.0.1.0.0 |  | MRP multi level optimization
