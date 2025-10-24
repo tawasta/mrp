@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <menuitem
+        id="menu_report_product_all"
+        name="Inventory Turnover"
+        action="mrp_multi_level_turnover_report.action_open_product_report"
+        parent="mrp.menu_mrp_reporting"
+        sequence="50"
+    />
+</odoo>

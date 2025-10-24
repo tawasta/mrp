@@ -1,7 +1,7 @@
 ##############################################################################
 #
-#    Author: Futural Oy
-#    Copyright 2020 Futural Oy (https://futural.fi)
+#    Author: Oy Tawasta OS Technologies Ltd.
+#    Copyright 2023 Oy Tawasta OS Technologies Ltd. (https://tawasta.fi)
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,18 +19,29 @@
 ##############################################################################
 
 {
-    "name": "Audit Log Rules - MRP",
-    "summary": "Adds audit log rules for mrp.bom",
-    "author": "Futural",
-    "license": "AGPL-3",
+    "name": "Inventory product circulation report",
+    "summary": "Inventory product circulation report",
+    "version": "17.0.1.0.0",
+    "category": "Reporting",
     "website": "https://github.com/tawasta/mrp",
-    "category": "Logging",
+    "author": "Tawasta",
+    "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "version": "17.0.1.0.0",
+    "external_dependencies": {
+        "python": [],
+        "bin": [],
+    },
     "depends": [
         "mrp",
-        "auditlog",
+        "mrp_multi_level",
+        #        "product_abc_classification",
     ],
-    "data": ["data/rules.xml"],
+    "data": [
+        "security/ir.model.access.csv",
+        "report/product_report.xml",
+        "wizard/open_product_report_wizard.xml",
+        "views/report_view.xml",
+        "security/ir.model.access.csv",
+    ],
 }

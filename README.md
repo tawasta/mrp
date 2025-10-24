@@ -14,8 +14,7 @@ addon | version | maintainers | summary
 --- | --- | --- | ---
 [mgmtsystem_hazard_risk_workcenter](mgmtsystem_hazard_risk_workcenter/) | 17.0.1.0.0 |  | Workcenter for Hazard Risk
 [mgmtsystem_hazard_test_tree_view](mgmtsystem_hazard_test_tree_view/) | 17.0.1.0.0 |  | Creates a tree view for Implementation Tests of hazard
-[mrp_auditlog_rules](mrp_auditlog_rules/) | 17.0.1.0.0 |  | Adds audit log rules for mrp.bom
-[mrp_bom_auditlog_rules](mrp_bom_auditlog_rules/) | 17.0.1.0.0 |  | Adds audit log rules for mrp.bom
+[mrp_auditlog_rules](mrp_auditlog_rules/) | 17.0.1.1.0 |  | Adds audit log rules for mrp.bom
 [mrp_bom_cost_cron](mrp_bom_cost_cron/) | 17.0.1.0.0 |  | Scheduled action to calculate product's cost price from BoM
 [mrp_bom_eco_analysis](mrp_bom_eco_analysis/) | 17.0.1.0.0 |  | ECO analysis modifications
 [mrp_bom_lca_excel](mrp_bom_lca_excel/) | 17.0.1.2.2 |  | Export an excel for LCA report of a BoM
@@ -33,6 +32,7 @@ addon | version | maintainers | summary
 [mrp_multi_level_move_forecasted_qty](mrp_multi_level_move_forecasted_qty/) | 17.0.1.0.0 |  | Forecasted quantity for mrp.move
 [mrp_multi_level_optimization](mrp_multi_level_optimization/) | 17.0.1.0.0 |  | MRP multi level optimization
 [mrp_multi_level_queue](mrp_multi_level_queue/) | 17.0.1.0.1 |  | MRP Multi Level with queue jobs
+[mrp_multi_level_turnover_report](mrp_multi_level_turnover_report/) | 17.0.1.0.0 |  | Inventory product circulation report
 [mrp_operations_disable_sequence_dragging](mrp_operations_disable_sequence_dragging/) | 17.0.1.0.0 |  | Hides sequence column in operations tree view inside BoM
 [mrp_product_only_select](mrp_product_only_select/) | 17.0.1.0.0 |  | Disable creating and editing of products from the MO product field
 [mrp_production_mass_cancel](mrp_production_mass_cancel/) | 17.0.1.0.0 |  | Allow cancellation of production orders en masse
