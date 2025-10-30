@@ -32,17 +32,17 @@ except Exception:
 REQUIRED_COLS = {
     # Header/template identifiers
     "product_tmpl_id",
-    "product_tmpl_name",       # now required
-    "product_tmpl_uom_id",     # now required
+    "product_tmpl_name",
+    "product_tmpl_uom_id",
     "product_qty",
     "code",
     "type",
     # Component line identifiers
     "line_product_id",
-    "line_product_name",       # now required
+    "line_product_name",
     "line_product_qty",
-    "line_product_uom",        # now required (by name)
-    "line_product_uom_id",     # now required (product's own uom_id)
+    "line_product_uom",
+    "line_product_uom_id",
 }
 ALLOWED_TYPES = {"normal", "phantom"}
 
