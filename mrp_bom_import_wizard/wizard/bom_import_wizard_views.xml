@@ -50,44 +50,74 @@
                     </code>
                 </p>
 
-                <!-- Optional section removed: all above are now required -->
                 <separator string="Rules"/>
                 <p>
-                    • <b>product_tmpl_id</b> and <b>line_product_id</b> are SKU (<i>default_code</i>).<br/>
-                    • <b>product_tmpl_name</b> and <b>line_product_name</b> are required and must differ from their SKU.<br/>
-                    • <b>product_tmpl_uom_id</b> and <b>line_product_uom_id</b> must be valid <i>uom.uom</i> IDs.<br/>
+                    • <b>product_tmpl_id</b> and <b>line_product_id</b> are product codes (<i>default_code</i>).<br/>
+                    • <b>product_tmpl_name</b> / <b>line_product_name</b> are required and must differ from codes.<br/>
+                    • <b>product_tmpl_uom_id</b> / <b>line_product_uom_id</b> must be valid <i>uom.uom</i> IDs.<br/>
                     • <b>line_product_uom</b> is the BoM line UoM by <b>name</b> and must exist in <i>uom.uom</i>.<br/>
                     • <b>type</b> must be <code>normal</code> or <code>phantom</code>.<br/>
-                    • Quantities must be positive numbers (components can be 0).<br/>
-                    • UoM categories must match between component's product UoM and BoM line UoM.
+                    • Quantities must be positive numbers (component qty may be 0).<br/>
+                    • UoM categories must match between product UoM and BoM line UoM.
                 </p>
 
                 <separator string="Example"/>
-                <div class="oe_inline">
-                    <table class="o_table o_inner_table">
+                <div class="table">
+                    <table class="o_table o_inner_table table-responsive">
                         <thead>
                         <tr>
-                            <th>product_tmpl_id</th><th>product_tmpl_name</th><th>product_tmpl_uom_id</th>
-                            <th>product_qty</th><th>code</th><th>type</th>
-                            <th>line_product_id</th><th>line_product_name</th>
-                            <th>line_product_qty</th><th>line_product_uom</th><th>line_product_uom_id</th>
+                            <th class="pr-5">product_tmpl_id</th>
+                            <th>product_tmpl_name</th>
+                            <th>product_tmpl_uom_id</th>
+                            <th>product_qty</th>
+                            <th>code</th>
+                            <th>type</th>
+                            <th>line_product_id</th>
+                            <th>line_product_name</th>
+                            <th>line_product_qty</th>
+                            <th>line_product_uom</th>
+                            <th>line_product_uom_id</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>FINISHED-001</td><td>My Finished Product</td><td>1</td>
-                            <td>1</td><td>KIT001</td><td>normal</td>
-                            <td>COMP-001</td><td>Component A</td><td>2</td><td>Units</td><td>1</td>
+                            <td>FINISHED-001</td>
+                            <td>My Finished Product</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>KIT001</td>
+                            <td>normal</td>
+                            <td>COMP-001</td>
+                            <td>Component A</td>
+                            <td>2</td>
+                            <td>Units</td>
+                            <td>1</td>
                         </tr>
                         <tr>
-                            <td>FINISHED-001</td><td>My Finished Product</td><td>1</td>
-                            <td>1</td><td>KIT001</td><td>normal</td>
-                            <td>COMP-002</td><td>Component B</td><td>3</td><td>Units</td><td>1</td>
+                            <td>FINISHED-001</td>
+                            <td>My Finished Product</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>KIT001</td>
+                            <td>normal</td>
+                            <td>COMP-002</td>
+                            <td>Component B</td>
+                            <td>3</td>
+                            <td>Units</td>
+                            <td>1</td>
                         </tr>
                         <tr>
-                            <td>FINISHED-002</td><td>Another Finished</td><td>1</td>
-                            <td>1</td><td>KIT002</td><td>phantom</td>
-                            <td>COMP-003</td><td>Component C</td><td>1</td><td>Units</td><td>1</td>
+                            <td>FINISHED-002</td>
+                            <td>Another Finished</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>KIT002</td>
+                            <td>phantom</td>
+                            <td>COMP-003</td>
+                            <td>Component C</td>
+                            <td>1</td>
+                            <td>Units</td>
+                            <td>1</td>
                         </tr>
                         </tbody>
                     </table>

@@ -1,4 +1,4 @@
 product_tmpl_id,product_tmpl_name,product_tmpl_uom_id,product_qty,code,type,line_product_id,line_product_name,line_product_qty,line_product_uom,line_product_uom_id
-FINISHED-001,My Finished Product,1,1,KIT001,normal,COMP-001,Component A,2,,1
+FINISHED-001,My Finished Product,1,1,KIT001,normal,COMP-001,Component A,2,Units,1
 FINISHED-001,My Finished Product,1,1,KIT001,normal,COMP-002,Component B,3,Units,1
-FINISHED-002,Another Finished,1,1,KIT002,phantom,COMP-003,Component C,1,,1
+FINISHED-002,Another Finished,1,1,KIT002,phantom,COMP-003,Component C,1,Units,1
