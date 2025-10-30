@@ -32,7 +32,7 @@ except Exception:
 # Required file columns. These must exist in the header row.
 REQUIRED_COLS = {
     "product_tmpl_id", "product_qty", "code", "type",
-    "line_product_id", "line_product_qty"  # optional columns are handled gracefully
+    "line_product_id", "line_product_qty"
 }
 ALLOWED_TYPES = {"normal", "phantom"}
 
