@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 BoM Import Wizard (CSV/XLSX)
 
@@ -31,8 +30,12 @@ except Exception:
 
 # Required file columns. These must exist in the header row.
 REQUIRED_COLS = {
-    "product_tmpl_id", "product_qty", "code", "type",
-    "line_product_id", "line_product_qty"
+    "product_tmpl_id",
+    "product_qty",
+    "code",
+    "type",
+    "line_product_id",
+    "line_product_qty",
 }
 ALLOWED_TYPES = {"normal", "phantom"}
 
@@ -43,8 +46,12 @@ class MrpBomImportWizard(models.TransientModel):
 
     data_file = fields.Binary(string="File", required=False)
     filename = fields.Char("Filename")
-    create_missing_products = fields.Boolean(string="Create Missing Products", default=True)
-    company_id = fields.Many2one("res.company", string="Company", default=lambda s: s.env.company)
+    create_missing_products = fields.Boolean(
+        string="Create Missing Products", default=True
+    )
+    company_id = fields.Many2one(
+        "res.company", string="Company", default=lambda s: s.env.company
+    )
     dry_run = fields.Boolean(string="Dry run (validate only)", default=False)
 
     @api.model
@@ -93,7 +100,9 @@ class MrpBomImportWizard(models.TransientModel):
         required = set(REQUIRED_COLS) | set(self.extra_required_columns() or set())
         missing = required - set(fieldnames or [])
         if missing:
-            raise UserError(_("Missing required columns: %s") % ", ".join(sorted(missing)))
+            raise UserError(
+                _("Missing required columns: %s") % ", ".join(sorted(missing))
+            )
 
     def _parse_int_id(self, value, field_label, rownum=None, allow_empty=True):
         """
@@ -102,7 +111,11 @@ class MrpBomImportWizard(models.TransientModel):
         """
         v = self._clean(value)
         if not v:
-            return None if allow_empty else self._raise(_("%s is required") % field_label, rownum)
+            return (
+                None
+                if allow_empty
+                else self._raise(_("%s is required") % field_label, rownum)
+            )
         try:
             iv = int(float(v))
         except Exception:
@@ -166,7 +179,9 @@ class MrpBomImportWizard(models.TransientModel):
         if not name:
             return False
         Uom = self.env["uom.uom"]
-        uom = Uom.search([("name", "=", name)], limit=1) or Uom.search([("name", "ilike", name)], limit=1)
+        uom = Uom.search([("name", "=", name)], limit=1) or Uom.search(
+            [("name", "ilike", name)], limit=1
+        )
         if not uom:
             raise UserError(_("Unit of Measure '%s' not found.") % name)
         return uom
@@ -266,14 +281,20 @@ class MrpBomImportWizard(models.TransientModel):
             line_sku = self._clean(row.get("line_product_id"))
             line_name = self._clean(row.get("line_product_name"))
             lqty_raw = self._clean(row.get("line_product_qty"))
-            luom_name = self._clean(row.get("line_product_uom"))  # BoM line UoM by name (optional)
-            line_uom_id_raw = self._clean(row.get("line_product_uom_id"))  # product's own uom_id (optional)
+            luom_name = self._clean(
+                row.get("line_product_uom")
+            )  # BoM line UoM by name (optional)
+            line_uom_id_raw = self._clean(
+                row.get("line_product_uom_id")
+            )  # product's own uom_id (optional)
 
             # Basic presence / format checks
             if not tmpl_sku:
                 errors.append(_("Row %s: 'product_tmpl_id' is empty.") % idx)
             if not code:
-                errors.append(_("Row %s: 'code' is empty. Provide a unique BoM code.") % idx)
+                errors.append(
+                    _("Row %s: 'code' is empty. Provide a unique BoM code.") % idx
+                )
             if rtype not in ALLOWED_TYPES:
                 errors.append(_("Row %s: 'type' must be 'normal' or 'phantom'.") % idx)
             if not line_sku:
@@ -285,25 +306,38 @@ class MrpBomImportWizard(models.TransientModel):
                 errors.append(e.name)
                 header_qty = None
             try:
-                line_qty = self._parse_float(lqty_raw, "line_product_qty", idx, allow_zero=True)
+                line_qty = self._parse_float(
+                    lqty_raw, "line_product_qty", idx, allow_zero=True
+                )
             except UserError as e:
                 errors.append(e.name)
                 line_qty = None
 
             # uom_id ints (optional)
             try:
-                header_uom_id = self._parse_int_id(tmpl_uom_id_raw, "product_tmpl_uom_id", idx, allow_empty=True)
+                header_uom_id = self._parse_int_id(
+                    tmpl_uom_id_raw, "product_tmpl_uom_id", idx, allow_empty=True
+                )
             except UserError as e:
                 errors.append(e.name)
                 header_uom_id = None
 
             try:
-                line_prod_uom_id = self._parse_int_id(line_uom_id_raw, "line_product_uom_id", idx, allow_empty=True)
+                line_prod_uom_id = self._parse_int_id(
+                    line_uom_id_raw, "line_product_uom_id", idx, allow_empty=True
+                )
             except UserError as e:
                 errors.append(e.name)
                 line_prod_uom_id = None
 
-            if not tmpl_sku or not code or rtype not in ALLOWED_TYPES or header_qty is None or line_qty is None or not line_sku:
+            if (
+                not tmpl_sku
+                or not code
+                or rtype not in ALLOWED_TYPES
+                or header_qty is None
+                or line_qty is None
+                or not line_sku
+            ):
                 continue
 
             # BoM line UoM if provided (by name)
@@ -329,7 +363,7 @@ class MrpBomImportWizard(models.TransientModel):
                 "line_sku": line_sku,
                 "line_name": line_name,
                 "line_qty": line_qty,
-                "line_uom": line_uom,                    # record or False (BoM line UoM by name)
+                "line_uom": line_uom,  # record or False (BoM line UoM by name)
                 "line_product_uom_id": line_prod_uom_id,  # int or None (product's own uom_id)
             }
 
@@ -354,7 +388,9 @@ class MrpBomImportWizard(models.TransientModel):
             groups.setdefault(key, []).append(row_norm)
 
         if errors:
-            msg = _("The file contains errors. Please fix them and try again:\n- ") + "\n- ".join(errors[:25])
+            msg = _(
+                "The file contains errors. Please fix them and try again:\n- "
+            ) + "\n- ".join(errors[:25])
             if len(errors) > 25:
                 msg += _("\n...and %s more.") % (len(errors) - 25)
             raise UserError(msg)
@@ -363,21 +399,28 @@ class MrpBomImportWizard(models.TransientModel):
         Bom = self.env["mrp.bom"].with_context(active_test=False)
         dup_errors = []
         for (tmpl_sku, code, rtype, header_qty_str), rows in groups.items():
-            tmpl = self.env["product.template"].with_context(active_test=False).search(
-                [("default_code", "=", tmpl_sku)], limit=1
+            tmpl = (
+                self.env["product.template"]
+                .with_context(active_test=False)
+                .search([("default_code", "=", tmpl_sku)], limit=1)
             )
             if tmpl:
-                existing = Bom.search([
-                    ("product_tmpl_id", "=", tmpl.id),
-                    ("code", "=", code),
-                    ("type", "=", rtype),
-                    ("product_qty", "=", float(header_qty_str)),
-                    ("company_id", "=", self.company_id.id),
-                ], limit=1)
+                existing = Bom.search(
+                    [
+                        ("product_tmpl_id", "=", tmpl.id),
+                        ("code", "=", code),
+                        ("type", "=", rtype),
+                        ("product_qty", "=", float(header_qty_str)),
+                        ("company_id", "=", self.company_id.id),
+                    ],
+                    limit=1,
+                )
                 if existing:
                     dup_errors.append(
-                        _("Duplicate BoM detected for template '%s' with code '%s' (type=%s, qty=%s). "
-                          "Please change 'code' or remove the existing BoM before importing.")
+                        _(
+                            "Duplicate BoM detected for template '%s' with code '%s' (type=%s, qty=%s). "
+                            "Please change 'code' or remove the existing BoM before importing."
+                        )
                         % (tmpl_sku, code, rtype, header_qty_str)
                     )
         if dup_errors:
@@ -392,7 +435,10 @@ class MrpBomImportWizard(models.TransientModel):
                 "tag": "display_notification",
                 "params": {
                     "title": _("Validation successful"),
-                    "message": _("%s BoM(s), %s line(s). No data was created (dry run).") % (total_boms, total_lines),
+                    "message": _(
+                        "%s BoM(s), %s line(s). No data was created (dry run)."
+                    )
+                    % (total_boms, total_lines),
                     "sticky": False,
                 },
             }
@@ -402,13 +448,17 @@ class MrpBomImportWizard(models.TransientModel):
         for (tmpl_sku, code, rtype, header_qty_str), rows in groups.items():
             # choose first non-empty name/uom_id in the group
             hdr_name = next((r["tmpl_name"] for r in rows if r.get("tmpl_name")), None)
-            hdr_uom_id = next((r["header_uom_id"] for r in rows if r.get("header_uom_id")), None)
+            hdr_uom_id = next(
+                (r["header_uom_id"] for r in rows if r.get("header_uom_id")), None
+            )
 
             # Ensure uom exists if provided (ID mode)
             if hdr_uom_id:
                 self._get_uom_by_id(hdr_uom_id)
 
-            tmpl = self._get_product_template(tmpl_sku, name=hdr_name, uom_id=hdr_uom_id)
+            tmpl = self._get_product_template(
+                tmpl_sku, name=hdr_name, uom_id=hdr_uom_id
+            )
             header_qty = float(header_qty_str)
 
             bom_vals = {
@@ -435,9 +485,14 @@ class MrpBomImportWizard(models.TransientModel):
                     uom_id=r.get("line_product_uom_id"),
                 )
                 uom_id = r["line_uom"].id if r["line_uom"] else comp.uom_id.id
-                if r["line_uom"] and r["line_uom"].category_id != comp.uom_id.category_id:
+                if (
+                    r["line_uom"]
+                    and r["line_uom"].category_id != comp.uom_id.category_id
+                ):
                     raise UserError(
-                        _("Row %s: Unit of Measure '%s' is not in the same category as component '%s'.")
+                        _(
+                            "Row %s: Unit of Measure '%s' is not in the same category as component '%s'."
+                        )
                         % (r["rownum"], r["line_uom"].name, r["line_sku"])
                     )
 
@@ -458,5 +513,7 @@ class MrpBomImportWizard(models.TransientModel):
         # Return BoMs in view
         action = self.env.ref("mrp.mrp_bom_form_action").read()[0]
         action["domain"] = [("id", "in", created_boms.ids)]
-        action["context"] = dict(self.env.context, default_company_id=self.company_id.id)
+        action["context"] = dict(
+            self.env.context, default_company_id=self.company_id.id
+        )
         return action
