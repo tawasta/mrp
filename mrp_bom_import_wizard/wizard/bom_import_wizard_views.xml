@@ -2,7 +2,9 @@
 <odoo>
     <record id="action_download_bom_csv_template" model="ir.actions.act_url">
         <field name="name">Download CSV template</field>
-        <field name="url">/mrp_bom_import_wizard/static/description/bom_import_template.csv</field>
+        <field
+            name="url"
+        >/mrp_bom_import_wizard/static/description/bom_import_template.csv</field>
         <field name="target">new</field>
     </record>
 
@@ -12,19 +14,21 @@
         <field name="arch" type="xml">
             <form string="Import Bill of Materials">
                 <group>
-                    <field name="data_file" filename="filename"/>
-                    <field name="filename" invisible="1"/>
-                    <field name="create_missing_products"/>
-                    <field name="company_id"/>
-                    <field name="dry_run"/>
+                    <field name="data_file" filename="filename" />
+                    <field name="filename" invisible="1" />
+                    <field name="create_missing_products" />
+                    <field name="company_id" />
+                    <field name="dry_run" />
                 </group>
 
                 <group string="Download templates">
                     <div class="oe_button_box" name="template_links">
-                        <button type="action"
-                                name="%(action_download_bom_csv_template)d"
-                                class="oe_stat_button"
-                                icon="fa-download">
+                        <button
+                            type="action"
+                            name="%(action_download_bom_csv_template)d"
+                            class="oe_stat_button"
+                            icon="fa-download"
+                        >
                             <div class="o_stat_info">
                                 <span class="o_stat_text">CSV template</span>
                             </div>
@@ -35,14 +39,15 @@
                     </p>
                 </group>
 
-                <separator string="How it works"/>
+                <separator string="How it works" />
                 <p>
-                    Upload a CSV/XLSX file. Each row represents <b>one component line</b> of a BoM.
+                    Upload a CSV/XLSX file. Each row represents <b
+                    >one component line</b> of a BoM.
                     Rows are grouped into a single BoM by:
                     <code>(product_tmpl_id, code, type, product_qty)</code>.
                 </p>
 
-                <separator string="Required columns"/>
+                <separator string="Required columns" />
                 <p>
                     <code>
                         product_tmpl_id, product_tmpl_name, product_tmpl_uom_id, product_qty, code, type,
@@ -50,18 +55,25 @@
                     </code>
                 </p>
 
-                <separator string="Rules"/>
+                <separator string="Rules" />
                 <p>
-                    • <b>product_tmpl_id</b> and <b>line_product_id</b> are product codes (<i>default_code</i>).<br/>
-                    • <b>product_tmpl_name</b> / <b>line_product_name</b> are required and must differ from codes.<br/>
-                    • <b>product_tmpl_uom_id</b> / <b>line_product_uom_id</b> must be valid <i>uom.uom</i> IDs.<br/>
-                    • <b>line_product_uom</b> is the BoM line UoM by <b>name</b> and must exist in <i>uom.uom</i>.<br/>
-                    • <b>type</b> must be <code>normal</code> or <code>phantom</code>.<br/>
-                    • Quantities must be positive numbers (component qty may be 0).<br/>
+                    • <b>product_tmpl_id</b> and <b
+                    >line_product_id</b> are product codes (<i>default_code</i>).<br />
+                    • <b>product_tmpl_name</b> / <b
+                    >line_product_name</b> are required and must differ from codes.<br
+                    />
+                    • <b>product_tmpl_uom_id</b> / <b
+                    >line_product_uom_id</b> must be valid <i>uom.uom</i> IDs.<br />
+                    • <b>line_product_uom</b> is the BoM line UoM by <b
+                    >name</b> and must exist in <i>uom.uom</i>.<br />
+                    • <b>type</b> must be <code>normal</code> or <code
+                    >phantom</code>.<br />
+                    • Quantities must be positive numbers (component qty may be 0).<br
+                    />
                     • UoM categories must match between product UoM and BoM line UoM.
                 </p>
 
-                <separator string="Example"/>
+                <separator string="Example" />
                 <div class="table">
                     <table class="o_table o_inner_table table-responsive">
                         <thead>
@@ -124,11 +136,13 @@
                 </div>
 
                 <footer>
-                    <button string="Cancel" class="btn-secondary" special="cancel"/>
-                    <button string="Validate/Import"
-                            type="object"
-                            name="action_import"
-                            class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                    <button
+                        string="Validate/Import"
+                        type="object"
+                        name="action_import"
+                        class="btn-primary"
+                    />
                 </footer>
             </form>
         </field>
@@ -138,9 +152,9 @@
         <field name="name">Import BoM</field>
         <field name="res_model">mrp.bom.import.wizard</field>
         <field name="view_mode">form</field>
-        <field name="view_id" ref="mrp_bom_import_wizard_form"/>
+        <field name="view_id" ref="mrp_bom_import_wizard_form" />
         <field name="target">new</field>
-        <field name="binding_model_id" ref="mrp.model_mrp_bom"/>
+        <field name="binding_model_id" ref="mrp.model_mrp_bom" />
         <field name="binding_type">action</field>
     </record>
 
@@ -149,5 +163,6 @@
         name="Import BoM"
         parent="mrp.menu_mrp_bom"
         action="action_mrp_bom_import"
-        sequence="12"/>
+        sequence="12"
+    />
 </odoo>

@@ -46,6 +46,7 @@ class MrpBomImportWizard(models.TransientModel):
         Child modules can add new import columns, extra validations, and creation values
         via a small set of hooks without overriding action_import.
     """
+
     _name = "mrp.bom.import.wizard"
     _description = "Import Bills of Materials (CSV/XLSX; one row per component)"
 
@@ -388,9 +389,7 @@ class MrpBomImportWizard(models.TransientModel):
             try:
                 line_uom = self._get_uom(luom_name)
             except UserError as e:
-                errors.append(
-                    _("Row %s: %s") % (idx, e.args[0] if e.args else str(e))
-                )
+                errors.append(_("Row %s: %s") % (idx, e.args[0] if e.args else str(e)))
                 line_uom = None
             if line_uom is None:
                 continue
@@ -434,9 +433,9 @@ class MrpBomImportWizard(models.TransientModel):
             groups.setdefault(key, []).append(row_norm)
 
         if errors:
-            msg = _("The file contains errors. Please fix them and try again:\n- ") + "\n- ".join(
-                errors[:25]
-            )
+            msg = _(
+                "The file contains errors. Please fix them and try again:\n- "
+            ) + "\n- ".join(errors[:25])
             if len(errors) > 25:
                 msg += _("\n...and %s more.") % (len(errors) - 25)
             raise UserError(msg)
@@ -494,7 +493,11 @@ class MrpBomImportWizard(models.TransientModel):
         for (tmpl_code, code, rtype, header_qty_str), rows in groups.items():
             hdr_name = next((r["tmpl_name"] for r in rows if r.get("tmpl_name")), None)
             hdr_uom_id = next(
-                (r["header_uom_id"] for r in rows if r.get("header_uom_id") is not None),
+                (
+                    r["header_uom_id"]
+                    for r in rows
+                    if r.get("header_uom_id") is not None
+                ),
                 None,
             )
 
