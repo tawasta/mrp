@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="action_download_bom_csv_template" model="ir.actions.act_url">
+        <field name="name">Download CSV template</field>
+        <field
+            name="url"
+        >/mrp_bom_import_wizard/static/description/bom_import_template.csv</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="mrp_bom_import_wizard_form" model="ir.ui.view">
+        <field name="name">mrp.bom.import.wizard.form</field>
+        <field name="model">mrp.bom.import.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Import Bill of Materials">
+                <group>
+                    <field name="data_file" filename="filename" />
+                    <field name="filename" invisible="1" />
+                    <field name="create_missing_products" />
+                    <field name="company_id" />
+                    <field name="dry_run" />
+                </group>
+
+                <group string="Download templates">
+                    <div class="oe_button_box" name="template_links">
+                        <button
+                            type="action"
+                            name="%(action_download_bom_csv_template)d"
+                            class="oe_stat_button"
+                            icon="fa-download"
+                        >
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">CSV template</span>
+                            </div>
+                        </button>
+                    </div>
+                    <p class="text-muted">
+                        Opens in a new tab. Save, fill rows, and upload the file above.
+                    </p>
+                </group>
+
+                <separator string="How it works" />
+                <p>
+                    Upload a CSV/XLSX file. Each row represents <b
+                    >one component line</b> of a BoM.
+                    Rows are grouped into a single BoM by:
+                    <code>(product_tmpl_id, code, type, product_qty)</code>.
+                </p>
+
+                <separator string="Required columns" />
+                <p>
+                    <code>
+                        product_tmpl_id, product_tmpl_name, product_tmpl_uom_id, product_qty, code, type,
+                        line_product_id, line_product_name, line_product_qty, line_product_uom, line_product_uom_id
+                    </code>
+                </p>
+
+                <separator string="Rules" />
+                <p>
+                    • <b>product_tmpl_id</b> and <b
+                    >line_product_id</b> are product codes (<i>default_code</i>).<br />
+                    • <b>product_tmpl_name</b> / <b
+                    >line_product_name</b> are required and must differ from codes.<br
+                    />
+                    • <b>product_tmpl_uom_id</b> / <b
+                    >line_product_uom_id</b> must be valid <i>uom.uom</i> IDs.<br />
+                    • <b>line_product_uom</b> is the BoM line UoM by <b
+                    >name</b> and must exist in <i>uom.uom</i>.<br />
+                    • <b>type</b> must be <code>normal</code> or <code
+                    >phantom</code>.<br />
+                    • Quantities must be positive numbers (component qty may be 0).<br
+                    />
+                    • UoM categories must match between product UoM and BoM line UoM.
+                </p>
+
+                <separator string="Example" />
+                <div class="table">
+                    <table class="o_table o_inner_table table-responsive">
+                        <thead>
+                        <tr>
+                            <th class="pr-5">product_tmpl_id</th>
+                            <th>product_tmpl_name</th>
+                            <th>product_tmpl_uom_id</th>
+                            <th>product_qty</th>
+                            <th>code</th>
+                            <th>type</th>
+                            <th>line_product_id</th>
+                            <th>line_product_name</th>
+                            <th>line_product_qty</th>
+                            <th>line_product_uom</th>
+                            <th>line_product_uom_id</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>FINISHED-001</td>
+                            <td>My Finished Product</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>KIT001</td>
+                            <td>normal</td>
+                            <td>COMP-001</td>
+                            <td>Component A</td>
+                            <td>2</td>
+                            <td>Units</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>FINISHED-001</td>
+                            <td>My Finished Product</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>KIT001</td>
+                            <td>normal</td>
+                            <td>COMP-002</td>
+                            <td>Component B</td>
+                            <td>3</td>
+                            <td>Units</td>
+                            <td>1</td>
+                        </tr>
+                        <tr>
+                            <td>FINISHED-002</td>
+                            <td>Another Finished</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>KIT002</td>
+                            <td>phantom</td>
+                            <td>COMP-003</td>
+                            <td>Component C</td>
+                            <td>1</td>
+                            <td>Units</td>
+                            <td>1</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <footer>
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                    <button
+                        string="Validate/Import"
+                        type="object"
+                        name="action_import"
+                        class="btn-primary"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_mrp_bom_import" model="ir.actions.act_window">
+        <field name="name">Import BoM</field>
+        <field name="res_model">mrp.bom.import.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="mrp_bom_import_wizard_form" />
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="mrp.model_mrp_bom" />
+        <field name="binding_type">action</field>
+    </record>
+
+    <menuitem
+        id="menu_mrp_bom_import"
+        name="Import BoM"
+        parent="mrp.menu_mrp_bom"
+        action="action_mrp_bom_import"
+        sequence="12"
+    />
+</odoo>
