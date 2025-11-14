@@ -4,12 +4,14 @@ import io
 from io import BytesIO
 from odoo import api, fields, models, _
 from odoo.exceptions import UserError
+import logging
 
 try:
     from openpyxl import load_workbook
 except Exception:
     load_workbook = None
 
+_logger = logging.getLogger(__name__)
 # Required file columns. These must exist in the header row.
 REQUIRED_COLS = {
     # Header/template identifiers
@@ -137,7 +139,7 @@ class MrpBomImportWizard(models.TransientModel):
         where = (" (row %s)" % rownum) if rownum else ""
         raise UserError(msg + where)
 
-    def _get_product_template(self, tmpl_code, name=None, uom_id=None):
+    def _get_product_template(self, tmpl_code, name=None, uom_id=None, standard_price=None):
         """
         Resolve or create product.template by default_code (SKU/code). Used for BoM header product.
         Enforces name is given and differs from code when creating.
@@ -158,12 +160,14 @@ class MrpBomImportWizard(models.TransientModel):
             "default_code": tmpl_code,
             "detailed_type": "product",
             "company_id": self.company_id.id,
+            "standard_price": standard_price or 0.0,
         }
         if uom_id:
             vals.update({"uom_id": uom_id, "uom_po_id": uom_id})
+        _logger.info("Creating missing product template: %s", vals)
         return ProductTemplate.create(vals)
 
-    def _get_product(self, line_code, name=None, uom_id=None):
+    def _get_product(self, line_code, name=None, uom_id=None, standard_price=None):
         """
         Resolve or create product.product by default_code (code). Used for component lines.
         Enforces name is given and differs from code when creating.
@@ -184,9 +188,11 @@ class MrpBomImportWizard(models.TransientModel):
             "default_code": line_code,
             "detailed_type": "product",
             "company_id": self.company_id.id,
+            "standard_price": standard_price or 0.0,
         }
         if uom_id:
             vals.update({"uom_id": uom_id, "uom_po_id": uom_id})
+        _logger.info("Creating missing product: %s", vals)
         return ProductProduct.create(vals)
 
     def _get_uom(self, name):
@@ -304,6 +310,8 @@ class MrpBomImportWizard(models.TransientModel):
             luom_name = self._clean(row.get("line_product_uom"))  # required by name
             line_uom_id_raw = self._clean(row.get("line_product_uom_id"))  # required
 
+            standard_price_raw = self._clean(row.get("standard_price"))
+
             # Basic presence / format checks
             if not tmpl_code:
                 errors.append(_("Row %s: 'product_tmpl_id' is empty.") % idx)
@@ -370,6 +378,16 @@ class MrpBomImportWizard(models.TransientModel):
                 errors.append(e.args[0] if e.args else str(e))
                 line_prod_uom_id = None
 
+            standard_price = None
+            if standard_price_raw:
+                try:
+                    standard_price = self._parse_float(
+                        standard_price_raw, "standard_price", idx, allow_zero=True
+                    )
+                except UserError as e:
+                    errors.append(e.args[0] if e.args else str(e))
+                    standard_price = None
+
             if (
                 not tmpl_code
                 or not tmpl_name
@@ -410,6 +428,7 @@ class MrpBomImportWizard(models.TransientModel):
                 "line_qty": line_qty,
                 "line_uom": line_uom,  # record
                 "line_product_uom_id": line_prod_uom_id,  # int
+                "standard_price": standard_price,
             }
 
             # Merge extension-specific parsed fields
@@ -501,11 +520,16 @@ class MrpBomImportWizard(models.TransientModel):
                 None,
             )
 
+            hdr_standard_price = next(
+                (r["standard_price"] for r in rows if r.get("standard_price") is not None),
+                None,
+            )
+
             # Ensure uom exists (ID mode, required)
             self._get_uom_by_id(hdr_uom_id)
 
             tmpl = self._get_product_template(
-                tmpl_code, name=hdr_name, uom_id=hdr_uom_id
+                tmpl_code, name=hdr_name, uom_id=hdr_uom_id, standard_price=hdr_standard_price
             )
             header_qty = float(header_qty_str)
 
@@ -527,6 +551,7 @@ class MrpBomImportWizard(models.TransientModel):
                     r["line_code"],
                     name=r.get("line_name") or None,
                     uom_id=r.get("line_product_uom_id"),
+                    standard_price=r.get("standard_price"),
                 )
                 uom_id = r["line_uom"].id
                 if r["line_uom"].category_id != comp.uom_id.category_id:
