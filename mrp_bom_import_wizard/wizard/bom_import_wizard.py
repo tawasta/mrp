@@ -139,7 +139,9 @@ class MrpBomImportWizard(models.TransientModel):
         where = (" (row %s)" % rownum) if rownum else ""
         raise UserError(msg + where)
 
-    def _get_product_template(self, tmpl_code, name=None, uom_id=None, standard_price=None):
+    def _get_product_template(
+        self, tmpl_code, name=None, uom_id=None, standard_price=None
+    ):
         """
         Resolve or create product.template by default_code (SKU/code). Used for BoM header product.
         Enforces name is given and differs from code when creating.
@@ -521,7 +523,11 @@ class MrpBomImportWizard(models.TransientModel):
             )
 
             hdr_standard_price = next(
-                (r["standard_price"] for r in rows if r.get("standard_price") is not None),
+                (
+                    r["standard_price"]
+                    for r in rows
+                    if r.get("standard_price") is not None
+                ),
                 None,
             )
 
@@ -529,7 +535,10 @@ class MrpBomImportWizard(models.TransientModel):
             self._get_uom_by_id(hdr_uom_id)
 
             tmpl = self._get_product_template(
-                tmpl_code, name=hdr_name, uom_id=hdr_uom_id, standard_price=hdr_standard_price
+                tmpl_code,
+                name=hdr_name,
+                uom_id=hdr_uom_id,
+                standard_price=hdr_standard_price,
             )
             header_qty = float(header_qty_str)
 
