@@ -5,7 +5,7 @@ class TestBom(TransactionCase):
     def setUp(self):
         """Set up some test data. This will be
         available for all the actual test methods"""
-        res = super(TestBom, self).setUp()
+        res = super().setUp()
         product_model = self.env["product.product"]
 
         self.uom_unit = self.env.ref("product.product_uom_unit")

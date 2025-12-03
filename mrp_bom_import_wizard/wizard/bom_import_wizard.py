@@ -1,10 +1,10 @@
 import base64
 import csv
 import io
-from io import BytesIO
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError
 import logging
+
+from odoo import _, api, fields, models
+from odoo.exceptions import UserError
 
 try:
     from openpyxl import load_workbook

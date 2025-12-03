@@ -23,7 +23,7 @@ class MaintenanceEquipment(models.Model):
     def name_get(self):
         res = []
         for maintenance in self:
-            name = "{} - {}".format(maintenance.name, maintenance.code)
+            name = f"{maintenance.name} - {maintenance.code}"
             res.append((maintenance.id, name))
         return res
 

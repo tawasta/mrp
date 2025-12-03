@@ -1,7 +1,7 @@
+import logging
+
 from odoo import _, models
 from odoo.exceptions import CacheMiss
-
-import logging
 
 _logger = logging.getLogger(__name__)
 

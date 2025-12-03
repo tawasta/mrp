@@ -127,7 +127,7 @@ class MultiLevelMrp(models.TransientModel):
 
         area_count = len(product_mrp_areas)
         area_number = 0
-        _logger.info("Area count: {}".format(area_count))
+        _logger.info(f"Area count: {area_count}")
         for product_mrp_area in product_mrp_areas:
             area_number += 1
 

@@ -1,7 +1,7 @@
-from odoo import api, fields, models, _
+import logging
 from itertools import groupby
 
-import logging
+from odoo import _, api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -67,9 +67,9 @@ class ProductProduct(models.Model):
         counter = 999999
         llc = 0
 
-        select_query = """
-            UPDATE product_product SET llc = {}
-        """.format(llc)
+        select_query = f"""
+            UPDATE product_product SET llc = {llc}
+        """
 
         self.env.cr.execute(select_query)
 

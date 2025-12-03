@@ -55,13 +55,13 @@ class ProductReport(models.Model):
             fields = {}
 
         if company_id:
-            svl_company_clause = "AND company_id IN ({})".format(company_id)
+            svl_company_clause = f"AND company_id IN ({company_id})"
         else:
             svl_company_clause = ""
 
         #                abc_p.id AS abc_profile_id,
 
-        select_ = """
+        select_ = f"""
                 p.id AS id,
                 p.id AS product_id,
 
@@ -69,56 +69,47 @@ class ProductReport(models.Model):
                 min(temp_float.value_float) AS temp_float,
 
                 (min(temp_value.value) / NULLIF(
-                    min(temp_float.value_float), 0.0)) * {temp_value_days} AS total_sufficiency,
+                    min(temp_float.value_float), 0.0)) * {days} AS total_sufficiency,
 
                 365 / NULLIF(((min(temp_value.value) /
-                    NULLIF(min(temp_float.value_float), 0.0)) * {temp_float_days}), 0.0)
+                    NULLIF(min(temp_float.value_float), 0.0)) * {days}), 0.0)
                         AS total_year_sufficiency,
 
                 (SELECT sum(value) FROM stock_valuation_layer
                     WHERE product_id = p.id {svl_company_clause}) AS value,
                 prop.value_float AS cost,
                 (SELECT sum(remaining_qty) FROM stock_valuation_layer
-                    WHERE product_id = p.id {svl_qty_company_clause}) AS quant_sum,
+                    WHERE product_id = p.id {svl_company_clause}) AS quant_sum,
                 sum(mrm.mrp_qty) * -1 AS move_sum,
 
                 (
                     (
                         (SELECT sum(value) FROM stock_valuation_layer
-                         WHERE product_id = p.id {svl_suf_company_clause})
+                         WHERE product_id = p.id {svl_company_clause})
                     )
                         /
                     (
                         NULLIF((SUM(mrm.mrp_qty) * -1 * prop.value_float), 0.0)
                     )
                 )
-                    * {sufficiency_days} AS sufficiency,
+                    * {days} AS sufficiency,
 
                 365 / NULLIF(((
                     (
                         (SELECT sum(value) FROM stock_valuation_layer
-                         WHERE product_id = p.id {svl_ysuf_company_clause})
+                         WHERE product_id = p.id {svl_company_clause})
                     )
                         /
                     (
                         NULLIF((SUM(mrm.mrp_qty) * -1 * prop.value_float), 0.0)
                     )
                 )
-                    * {year_sufficiency_days}), 0.0) AS year_sufficiency,
+                    * {days}), 0.0) AS year_sufficiency,
 
                 sum(mrm.mrp_qty) * -1 * prop.value_float AS cost_total,
 
                 t.name AS name
-        """.format(
-            temp_value_days=days,
-            temp_float_days=days,
-            svl_company_clause=svl_company_clause,
-            svl_qty_company_clause=svl_company_clause,
-            svl_suf_company_clause=svl_company_clause,
-            sufficiency_days=days,
-            svl_ysuf_company_clause=svl_company_clause,
-            year_sufficiency_days=days,
-        )
+        """
 
         for field in fields.values():
             select_ += field
@@ -127,9 +118,9 @@ class ProductReport(models.Model):
 
     def _from_product(self, from_clause="", days=1, company_id=None):
         if company_id:
-            irp_company_clause = "AND prop.company_id IN ({})".format(company_id)
-            mra_company_clause = "AND mra.company_id IN ({})".format(company_id)
-            mrm_company_clause = "AND mrm.company_id IN ({})".format(company_id)
+            irp_company_clause = f"AND prop.company_id IN ({company_id})"
+            mra_company_clause = f"AND mra.company_id IN ({company_id})"
+            mrm_company_clause = f"AND mrm.company_id IN ({company_id})"
         else:
             irp_company_clause = ""
             mra_company_clause = ""
@@ -248,9 +239,9 @@ class ProductReport(models.Model):
             product_ids = "(NULL, NULL)"
 
         if company_id:
-            mrm_company_clause = "AND temp_mrm.company_id IN ({})".format(company_id)
-            svl_company_clause = "AND company_id IN ({})".format(company_id)
-            irp_company_clause = "AND temp_prop.company_id IN ({})".format(company_id)
+            mrm_company_clause = f"AND temp_mrm.company_id IN ({company_id})"
+            svl_company_clause = f"AND company_id IN ({company_id})"
+            irp_company_clause = f"AND temp_prop.company_id IN ({company_id})"
         else:
             mrm_company_clause = ""
             svl_company_clause = ""
@@ -281,7 +272,7 @@ class ProductReport(models.Model):
 
         with_ = ("WITH %s" % with_clause) if with_clause else ""
 
-        where_clause = "WHERE p.id in {}".format(product_ids)
+        where_clause = f"WHERE p.id in {product_ids}"
 
         query_return = "%s SELECT %s FROM %s%s GROUP BY %s" % (
             with_,
