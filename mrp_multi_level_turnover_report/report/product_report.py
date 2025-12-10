@@ -32,9 +32,9 @@ class ProductReport(models.Model):
                 res[0]["sufficiency"] = res[0]["total_sufficiency"]
         return res
 
-    name = fields.Char("Name", readonly=True)
+    name = fields.Char(readonly=True)
     product_id = fields.Many2one("product.product", "Product", readonly=True)
-    cost = fields.Float("Cost", readonly=True)
+    cost = fields.Float(readonly=True)
     cost_total = fields.Float("Demand Value", readonly=True)
     move_sum = fields.Float("Demand Quantity", readonly=True)
     quant_sum = fields.Float("Quantity Now", readonly=True)
@@ -46,9 +46,9 @@ class ProductReport(models.Model):
     year_sufficiency = fields.Float("Inventory Turnover", readonly=True)
     total_year_sufficiency = fields.Float("Total Inventory Turnover", readonly=True)
     total_sufficiency = fields.Float("Total Coverage in Days", readonly=True)
-    temp_value = fields.Float("Temp Value", readonly=True)
-    temp_qty = fields.Float("Temp Qty", readonly=True)
-    temp_float = fields.Float("Temp Float", readonly=True)
+    temp_value = fields.Float(readonly=True)
+    temp_qty = fields.Float(readonly=True)
+    temp_float = fields.Float(readonly=True)
 
     def _select_product(self, fields=None, days=1, company_id=None):
         if not fields:

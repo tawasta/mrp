@@ -53,10 +53,8 @@ class MrpBomImportWizard(models.TransientModel):
     _description = "Import Bills of Materials (CSV/XLSX; one row per component)"
 
     data_file = fields.Binary(string="File", required=False)
-    filename = fields.Char("Filename")
-    create_missing_products = fields.Boolean(
-        string="Create Missing Products", default=True
-    )
+    filename = fields.Char()
+    create_missing_products = fields.Boolean(default=True)
     company_id = fields.Many2one(
         "res.company", string="Company", default=lambda s: s.env.company
     )

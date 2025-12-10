@@ -5,7 +5,7 @@ from odoo.exceptions import ValidationError
 class MaintenanceEquipment(models.Model):
     _inherit = "maintenance.equipment"
 
-    brand = fields.Char(string="Brand", store=True)
+    brand = fields.Char(store=True)
     model_year = fields.Char(string="Year Model", store=True)
 
     workcenter_id = fields.One2many(
@@ -13,8 +13,8 @@ class MaintenanceEquipment(models.Model):
     )
     code = fields.Char(string="Machine number")
 
-    dust_removal = fields.Boolean(string="Dust removal")
-    compressed_air = fields.Boolean(string="Compressed Air")
+    dust_removal = fields.Boolean()
+    compressed_air = fields.Boolean()
     machine_purpose = fields.Text(string="The purpose of the machine", copy=False)
     location_category_id = fields.Many2one(
         "mrp.workcenter.category", string="Location", copy=False, store=True
