@@ -47,7 +47,7 @@ class MrpMultiLevel(models.TransientModel):
                 llc_history.append((llc, products))
 
             counter = len(products)
-            log_msg = "Low level code %s finished - Nbr. products: %s" % (llc, counter)
+            log_msg = f"Low level code {llc} finished - Nbr. products: {counter}"
             logger.info(log_msg)
 
         handled_products = self.env["product.product"]

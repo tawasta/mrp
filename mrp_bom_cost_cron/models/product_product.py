@@ -101,7 +101,7 @@ class ProductProduct(models.Model):
             products = self.get_products(llc)
             counter = len(list(products))
 
-            log_msg = "Low level code %s finished - Nbr. products: %s" % (llc, counter)
+            log_msg = f"Low level code {llc} finished - Nbr. products: {counter}"
             _logger.info(log_msg)
 
         _logger.info("End low level code calculation")

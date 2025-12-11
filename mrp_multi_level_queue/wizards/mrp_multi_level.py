@@ -59,7 +59,8 @@ class MultiLevelMrp(models.TransientModel):
     @api.model
     def _mrp_calculation_queued(self, mrp_areas):
         mrp_lowest_llc = self._low_level_code_calculation()
-        # Use _mrp_calculation from this module to allow splitting LLC:s into standalone jobs
+        # Use _mrp_calculation from this module
+        # to allow splitting LLC:s into standalone jobs
         res = self._mrp_calculation_run_queued(mrp_lowest_llc, mrp_areas)
 
         if res:

@@ -199,10 +199,10 @@ class ProductReport(models.Model):
             variants = list(variant_generator(category))
         if product_id:
             search_domain += [("id", "=", product_id)]
-        #        if abc_level_ids:
-        #            search_domain += [("abc_classification_level_id", "in", abc_level_ids)]
-        #        if abc_profile_id:
-        #            search_domain += [("abc_classification_profile_id", "=", abc_profile_id)]
+        # if abc_level_ids:
+        #     search_domain += [("abc_classification_level_id", "in", abc_level_ids)]
+        # if abc_profile_id:
+        #     search_domain += [("abc_classification_profile_id", "=", abc_profile_id)]
 
         if search_domain:
             product_ids = (

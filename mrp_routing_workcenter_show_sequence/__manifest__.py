@@ -20,7 +20,7 @@
 
 {
     "name": "MRP: Show Operations' Sequence Field in Form View",
-    "summary": "Show sequence that was visible in 14.0 but has since then been hidden in core",
+    "summary": "Show sequence that was visible in 14.0 but has since then been hidden",
     "version": "17.0.1.0.0",
     "category": "MRP",
     "website": "https://github.com/tawasta/mrp",

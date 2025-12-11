@@ -42,7 +42,7 @@ addon | version | maintainers | summary
 [mrp_production_tree_date_planned_start_as_date](mrp_production_tree_date_planned_start_as_date/) | 17.0.1.0.0 |  | Show date planned start as date in mrp production tree
 [mrp_production_tree_view_order](mrp_production_tree_view_order/) | 17.0.1.0.1 |  | Order MO tree view by Create Date
 [mrp_report_bom_structure_product_unit_price](mrp_report_bom_structure_product_unit_price/) | 17.0.1.0.0 |  | Use product Unit price instead of its multiple on report
-[mrp_routing_workcenter_show_sequence](mrp_routing_workcenter_show_sequence/) | 17.0.1.0.0 |  | Show sequence that was visible in 14.0 but has since then been hidden in core
+[mrp_routing_workcenter_show_sequence](mrp_routing_workcenter_show_sequence/) | 17.0.1.0.0 |  | Show sequence that was visible in 14.0 but has since then been hidden
 [mrp_subcontracting_compute_as_sudo](mrp_subcontracting_compute_as_sudo/) | 17.0.1.0.0 |  | Process computations as sudo when using MRP Subcontracting
 [mrp_unbuild_note_for_mo](mrp_unbuild_note_for_mo/) | 17.0.1.0.0 |  | Unbuild note to Manufacturing order
 
