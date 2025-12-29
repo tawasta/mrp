@@ -132,15 +132,16 @@ class ProductReport(models.Model):
         from_ = """
                 temp_value, temp_float, product_product p
                     LEFT JOIN product_template t ON (p.product_tmpl_id=t.id)
-                    LEFT JOIN ir_property prop ON (prop.res_id='product.product,' || p.id
-                        {prop_clause})
+                    LEFT JOIN ir_property prop ON (
+                        prop.res_id='product.product,' || p.id {prop_clause})
                     LEFT JOIN product_mrp_area mra ON (mra.product_id=p.id {mra_clause})
                     LEFT JOIN mrp_move mrm ON (
                         mrm.product_id=p.id AND mrm.mrp_type='d'
                         AND mrm.mrp_date < CURRENT_DATE + INTERVAL '{days} DAY'
                         {mrm_clause})
                     LEFT JOIN mrp_area m_area ON (m_area.id=mra.mrp_area_id)
-                    LEFT JOIN {currency_table} ON currency_table.company_id IN {table_company_id}
+                    LEFT JOIN {currency_table} ON (
+                        currency_table.company_id IN {table_company_id})
                 {from_clause}
         """.format(
             prop_clause=irp_company_clause,
@@ -249,7 +250,8 @@ class ProductReport(models.Model):
 
         with_clause = """
                 temp_value (value) AS
-                    (SELECT sum(value) FROM stock_valuation_layer WHERE product_id IN {} {}),
+                    (SELECT sum(value)
+                        FROM stock_valuation_layer WHERE product_id IN {} {}),
                 temp_float (value_float) AS
                     (SELECT sum(temp_mrm.mrp_qty * -1 * temp_prop.value_float)
                     FROM product_product temp_p
@@ -274,13 +276,20 @@ class ProductReport(models.Model):
 
         where_clause = f"WHERE p.id in {product_ids}"
 
-        query_return = "%s SELECT %s FROM %s%s GROUP BY %s" % (
-            with_,
-            self._select_product(fields, days=days, company_id=company_id),
-            self._from_product(from_clause, days=days, company_id=company_id),
-            where_clause,
-            self._group_by_product(groupby),
+        query_return = """{with_values} SELECT {select_product}
+                FROM {from_product}{where_values}
+                GROUP BY {group_by_values}""".format(
+            with_values=with_,
+            select_product=self._select_product(
+                fields, days=days, company_id=company_id
+            ),
+            from_product=self._from_product(
+                from_clause, days=days, company_id=company_id
+            ),
+            where_values=where_clause,
+            group_by_values=self._group_by_product(groupby),
         )
+
         return query_return
 
     def init(self):
