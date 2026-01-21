@@ -32,6 +32,7 @@ Contributors
 ------------
 
 * Miika Nissi<miika.nissi@tawasta.fi>
+* Joona Isoaho<joona.isoaho@futural.fi>
 
 Maintainer
 ----------
