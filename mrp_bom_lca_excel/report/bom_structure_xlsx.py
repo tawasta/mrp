@@ -344,7 +344,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         a += 1
 
         ident = "{}{}{}".format(identifier, "0000", ch.id)
-        level = "{}.{}".format(parent_level, child_number)
+        level = f"{parent_level}.{child_number}"
 
         parent_with_code = "{}{}".format(
             parent.default_code and "[" + parent.default_code + "] " or "", parent.name
@@ -378,10 +378,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 "{}{}{}".format(
                     main_vendor[0].partner_id.country_id.name,
                     main_vendor[0].partner_id.street
-                    and " {}".format(main_vendor[0].partner_id.street)
+                    and f" {main_vendor[0].partner_id.street}"
                     or "",
                     main_vendor[0].partner_id.city
-                    and " {}".format(main_vendor[0].partner_id.city)
+                    and f" {main_vendor[0].partner_id.city}"
                     or "",
                 )
                 or "",
@@ -903,7 +903,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         bold = style
 
         if level:
-            level = "{}.{}".format(parent_level, child_number)
+            level = f"{parent_level}.{child_number}"
         else:
             level = str(1)
 
@@ -1007,7 +1007,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         j += 1
 
         ident = "{}{}{}".format(identifier, "0000", ch.id)
-        level = "{}.{}".format(parent_level, child_number)
+        level = f"{parent_level}.{child_number}"
 
         child_bom = ch.product_id.bom_ids and ch.product_id.bom_ids[0]
 
@@ -1111,7 +1111,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
         d += 1
 
         ident = "{}{}{}".format(identifier, "0000", ch.id)
-        level = "{}.{}".format(parent_level, child_number)
+        level = f"{parent_level}.{child_number}"
 
         child_bom = ch.product_id.bom_ids and ch.product_id.bom_ids[0]
 
@@ -1188,7 +1188,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             j += 1
 
             bom = oper.workcenter_id.bom_consu
-            ident = "{}".format(bom.id)
+            ident = f"{bom.id}"
 
             quantities = self.get_bom_quantities(bom)
 
@@ -1285,7 +1285,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             if product_variant and ch._skip_bom_line(product_variant):
                 continue
             child_number += 1
-            ident = "{}".format(ch.child_bom_id.id)
+            ident = f"{ch.child_bom_id.id}"
 
             if ch.child_bom_id:
                 c = self.operation_bom_consus(
@@ -2108,7 +2108,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 product_variant
             )
 
-            ident = "{}".format(o.id)
+            ident = f"{o.id}"
 
             quantities = self.get_bom_quantities(o)
 
@@ -2127,7 +2127,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet2.write(a, 5, o.product_qty, bold)  # Quantity in products
 
             main_vendor = o.product_id.seller_ids and o.product_id.seller_ids.filtered(
-                lambda v: v.company_id == o.company_id
+                lambda v, o=o: v.company_id == o.company_id
             )
 
             main_vendor = main_vendor and main_vendor[0] or ""
@@ -2147,10 +2147,10 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                     "{}{}{}".format(
                         main_vendor[0].partner_id.country_id.name,
                         main_vendor[0].partner_id.street
-                        and " {}".format(main_vendor[0].partner_id.street)
+                        and f" {main_vendor[0].partner_id.street}"
                         or "",
                         main_vendor[0].partner_id.city
-                        and " {}".format(main_vendor[0].partner_id.city)
+                        and f" {main_vendor[0].partner_id.city}"
                         or "",
                     )
                     or "",
@@ -2219,7 +2219,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             # --------------------------------------------------------------------- #
 
             if not o.company_id.hide_operation_sheet:
-                ident = "{}".format(o.id)
+                ident = f"{o.id}"
 
                 quantities = self.get_bom_quantities(o)
 
@@ -2241,7 +2241,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             if not o.company_id.hide_requirement_sheet:
                 sheet5_style = None
 
-                ident = "{}".format(o.id)
+                ident = f"{o.id}"
 
                 quantities = self.get_bom_quantities(o)
 
@@ -2302,7 +2302,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             # IS NOT A DELIVERY PACKAGE
 
             if not o.company_id.hide_summary_sheet:
-                ident = "{}".format(o.id)
+                ident = f"{o.id}"
                 quantities = self.get_bom_quantities(o)
 
                 materials_dict = {
@@ -2619,7 +2619,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             # IS A DELIVERY PACKAGE
 
             if not o.company_id.hide_summary_sheet:
-                ident = "{}".format(o.id)
+                ident = f"{o.id}"
                 quantities = self.get_bom_quantities(o)
 
                 materials_dict = {
@@ -2932,7 +2932,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
                 name_and_weight = {}
 
-                for product, qty, uom, bom, product_variant in content_products:
+                for product, qty, _uom, bom, product_variant in content_products:
                     materials = self.env["product.material.composition"].search(
                         domain=[
                             ("product_product_id", "=", product.id),
@@ -3207,7 +3207,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
                 name_and_weight = {}
 
-                for product, qty, uom, bom, product_variant in pack_products:
+                for product, qty, _uom, _bom, _product_variant in pack_products:
                     materials = self.env["product.material.composition"].search(
                         domain=[
                             ("product_product_id", "=", product.id),
@@ -3708,7 +3708,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 materials = self.env["product.material.composition"]
                 name_and_weight = {}
 
-                for product, qty, uom, bom, product_variant in products:
+                for product, qty, _uom, bom, product_variant in products:
                     materials = self.env["product.material.composition"].search(
                         domain=[
                             ("product_product_id", "=", product.id),
@@ -3878,7 +3878,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 materials = self.env["product.material.composition"]
                 name_and_weight = {}
 
-                for product, qty, uom, bom, product_variant in products:
+                for product, qty, _uom, bom, product_variant in products:
                     materials = self.env["product.material.composition"].search(
                         domain=[
                             ("product_product_id", "=", product.id),

@@ -59,7 +59,8 @@ class MultiLevelMrp(models.TransientModel):
     @api.model
     def _mrp_calculation_queued(self, mrp_areas):
         mrp_lowest_llc = self._low_level_code_calculation()
-        # Use _mrp_calculation from this module to allow splitting LLC:s into standalone jobs
+        # Use _mrp_calculation from this module
+        # to allow splitting LLC:s into standalone jobs
         res = self._mrp_calculation_run_queued(mrp_lowest_llc, mrp_areas)
 
         if res:
@@ -99,9 +100,7 @@ class MultiLevelMrp(models.TransientModel):
             # Prepare value for asynchronous LLC calculation
             llc = 0
             mrp_area.current_llc_calculation = llc
-            job_desc = _("MRP Multi-level: MRP Calculation LLC {} for {}").format(
-                llc, mrp_area.name
-            )
+            job_desc = f"MRP Multi-level: MRP Calculation LLC {llc} for {mrp_area.name}"
 
             self.with_delay(description=job_desc)._mrp_calculation_llc(
                 mrp_area, mrp_lowest_llc, llc
@@ -127,7 +126,7 @@ class MultiLevelMrp(models.TransientModel):
 
         area_count = len(product_mrp_areas)
         area_number = 0
-        _logger.info("Area count: {}".format(area_count))
+        _logger.info(f"Area count: {area_count}")
         for product_mrp_area in product_mrp_areas:
             area_number += 1
 
@@ -153,9 +152,7 @@ class MultiLevelMrp(models.TransientModel):
         _logger.info(end_msg)
 
         if not final_llc:
-            job_desc = _("MRP Multi-level: MRP Calculation LLC {} for {}").format(
-                llc, mrp_area.name
-            )
+            job_desc = f"MRP Multi-level: MRP Calculation LLC {llc} for {mrp_area.name}"
             self.with_delay(description=job_desc)._mrp_calculation_llc(
                 mrp_area, mrp_lowest_llc, llc
             )

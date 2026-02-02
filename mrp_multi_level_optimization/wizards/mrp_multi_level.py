@@ -17,9 +17,9 @@ class MrpMultiLevel(models.TransientModel):
         counter = 999999
         llc = 0
 
-        select_query = """
-            UPDATE product_product SET llc = {}
-        """.format(llc)
+        select_query = f"""
+            UPDATE product_product SET llc = {llc}
+        """
 
         self.env.cr.execute(select_query)  # pylint: disable=E8103
 
@@ -47,7 +47,7 @@ class MrpMultiLevel(models.TransientModel):
                 llc_history.append((llc, products))
 
             counter = len(products)
-            log_msg = "Low level code %s finished - Nbr. products: %s" % (llc, counter)
+            log_msg = f"Low level code {llc} finished - Nbr. products: {counter}"
             logger.info(log_msg)
 
         handled_products = self.env["product.product"]
@@ -58,13 +58,11 @@ class MrpMultiLevel(models.TransientModel):
                 update_query = """
                     UPDATE product_product SET llc = {} WHERE id in ({})
                 """.format(llc_val, ",".join(str(i) for i in diff.ids))
-                logger.info("LLC: {}, counter: {}".format(llc_val, len(diff)))
+                logger.info(f"LLC: {llc_val}, counter: {len(diff)}")
                 self.env.cr.execute(update_query)  # pylint: disable=E8103
                 handled_products |= diff
 
         mrp_lowest_llc = llc
         exec_time = timeit.default_timer() - start
-        logger.info(
-            "End low level code calculation, took {:.2f} seconds".format(exec_time)
-        )
+        logger.info(f"End low level code calculation, took {exec_time:.2f} seconds")
         return mrp_lowest_llc
