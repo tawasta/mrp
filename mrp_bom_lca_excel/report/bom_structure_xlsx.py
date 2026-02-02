@@ -2127,7 +2127,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
             sheet2.write(a, 5, o.product_qty, bold)  # Quantity in products
 
             main_vendor = o.product_id.seller_ids and o.product_id.seller_ids.filtered(
-                lambda v: v.company_id == o.company_id
+                lambda v, o=o: v.company_id == o.company_id
             )
 
             main_vendor = main_vendor and main_vendor[0] or ""
@@ -2932,7 +2932,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
                 name_and_weight = {}
 
-                for product, qty, uom, bom, product_variant in content_products:
+                for product, qty, _uom, bom, product_variant in content_products:
                     materials = self.env["product.material.composition"].search(
                         domain=[
                             ("product_product_id", "=", product.id),
@@ -3207,7 +3207,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
 
                 name_and_weight = {}
 
-                for product, qty, uom, bom, product_variant in pack_products:
+                for product, qty, _uom, _bom, _product_variant in pack_products:
                     materials = self.env["product.material.composition"].search(
                         domain=[
                             ("product_product_id", "=", product.id),
@@ -3708,7 +3708,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 materials = self.env["product.material.composition"]
                 name_and_weight = {}
 
-                for product, qty, uom, bom, product_variant in products:
+                for product, qty, _uom, bom, product_variant in products:
                     materials = self.env["product.material.composition"].search(
                         domain=[
                             ("product_product_id", "=", product.id),
@@ -3878,7 +3878,7 @@ class ReportMrpBomStructureXlsxRecursiveStructure(models.AbstractModel):
                 materials = self.env["product.material.composition"]
                 name_and_weight = {}
 
-                for product, qty, uom, bom, product_variant in products:
+                for product, qty, _uom, bom, product_variant in products:
                     materials = self.env["product.material.composition"].search(
                         domain=[
                             ("product_product_id", "=", product.id),
