@@ -36,22 +36,18 @@ class MaintenanceEquipment(models.Model):
         """
         for record in self:
             if record.location_category_id:
-                work_centers_with_mismatching_location = self.env[
-                    "mrp.workcenter"
-                ].search(
+                mismatching_location = self.env["mrp.workcenter"].search(
                     [
                         ("maintenance_id", "=", record.id),
                         ("category_id", "!=", record.location_category_id.id),
                     ]
                 )
 
-                if work_centers_with_mismatching_location:
+                if mismatching_location:
                     msg = _(
-                        "According to Work Center {}, this Equipment's location "
-                        "should be {}."
-                    ).format(
-                        work_centers_with_mismatching_location[0].name,
-                        work_centers_with_mismatching_location[0].category_id.name,
+                        "According to Work Center %(mismatching_location[0].name)s, "
+                        "this Equipment's location should be "
+                        "%(mismatching_location[0].category_id.name)s."
                     )
 
                     raise ValidationError(msg)
