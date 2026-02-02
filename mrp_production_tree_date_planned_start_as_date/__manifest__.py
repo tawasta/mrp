@@ -23,7 +23,7 @@
     "category": "Stock",
     "summary": "Show date planned start as date in mrp production tree",
     "website": "https://github.com/tawasta/mrp",
-    "author": "Tawasta",
+    "author": "Futural",
     "license": "AGPL-3",
     "application": False,
     "installable": True,

@@ -24,7 +24,7 @@
     "category": "MRP",
     "version": "17.0.1.0.0",
     "website": "https://github.com/tawasta/mrp",
-    "author": "Tawasta",
+    "author": "Futural",
     "license": "AGPL-3",
     "application": False,
     "installable": True,

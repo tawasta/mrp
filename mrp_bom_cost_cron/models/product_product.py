@@ -1,7 +1,7 @@
-from odoo import api, fields, models, _
+import logging
 from itertools import groupby
 
-import logging
+from odoo import _, api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -49,8 +49,12 @@ class ProductProduct(models.Model):
             priority = 0
             for batch, llc in batch_products:
                 job_desc = _(
-                    "Update component cost for products {} with llc {}"
-                ).format(batch, llc)
+                    """Update component cost for products {batch_value}
+                    with llc {llc_value}"""
+                ).format(
+                    batch_value=batch,
+                    llc_value=llc,
+                )
                 self.with_delay(
                     description=job_desc, priority=priority
                 )._cron_button_bom_cost(batch)
@@ -58,8 +62,7 @@ class ProductProduct(models.Model):
         _logger.info("Cron Compute component cost completed")
 
     def get_products(self, llc):
-        for product in self.env["product.product"].search([("llc", "=", llc)]):
-            yield product
+        yield from self.env["product.product"].search([("llc", "=", llc)])
 
     @api.model
     def _low_level_code_calculation(self):
@@ -68,10 +71,15 @@ class ProductProduct(models.Model):
         llc = 0
 
         select_query = """
-            UPDATE product_product SET llc = {}
-        """.format(llc)
+            UPDATE product_product SET llc = %(llc_value)s
+        """
 
-        self.env.cr.execute(select_query)
+        self.env.cr.execute(
+            select_query,
+            {
+                "llc_value": llc,
+            },
+        )
 
         products = self.env["product.product"].search([("llc", "=", llc)])
         if products:
@@ -92,16 +100,23 @@ class ProductProduct(models.Model):
             products = bom_lines.mapped("product_id")
 
             select_query = """
-                UPDATE product_product SET llc = {} WHERE id in ({})
-            """.format(llc, ",".join(str(i) for i in products.ids))
+                UPDATE product_product SET llc = %(llc_value)s
+                WHERE id in %(product_ids)s
+            """
 
             if products:
-                self.env.cr.execute(select_query)
+                self.env.cr.execute(
+                    select_query,
+                    {
+                        "llc_value": llc,
+                        "product_ids": tuple(products.ids),
+                    },
+                )
 
             products = self.get_products(llc)
             counter = len(list(products))
 
-            log_msg = "Low level code %s finished - Nbr. products: %s" % (llc, counter)
+            log_msg = f"Low level code {llc} finished - Nbr. products: {counter}"
             _logger.info(log_msg)
 
         _logger.info("End low level code calculation")

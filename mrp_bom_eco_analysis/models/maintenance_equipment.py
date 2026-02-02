@@ -5,7 +5,7 @@ from odoo.exceptions import ValidationError
 class MaintenanceEquipment(models.Model):
     _inherit = "maintenance.equipment"
 
-    brand = fields.Char(string="Brand", store=True)
+    brand = fields.Char(store=True)
     model_year = fields.Char(string="Year Model", store=True)
 
     workcenter_id = fields.One2many(
@@ -13,8 +13,8 @@ class MaintenanceEquipment(models.Model):
     )
     code = fields.Char(string="Machine number")
 
-    dust_removal = fields.Boolean(string="Dust removal")
-    compressed_air = fields.Boolean(string="Compressed Air")
+    dust_removal = fields.Boolean()
+    compressed_air = fields.Boolean()
     machine_purpose = fields.Text(string="The purpose of the machine", copy=False)
     location_category_id = fields.Many2one(
         "mrp.workcenter.category", string="Location", copy=False, store=True
@@ -23,7 +23,7 @@ class MaintenanceEquipment(models.Model):
     def name_get(self):
         res = []
         for maintenance in self:
-            name = "{} - {}".format(maintenance.name, maintenance.code)
+            name = f"{maintenance.name} - {maintenance.code}"
             res.append((maintenance.id, name))
         return res
 
@@ -36,22 +36,18 @@ class MaintenanceEquipment(models.Model):
         """
         for record in self:
             if record.location_category_id:
-                work_centers_with_mismatching_location = self.env[
-                    "mrp.workcenter"
-                ].search(
+                mismatching_location = self.env["mrp.workcenter"].search(
                     [
                         ("maintenance_id", "=", record.id),
                         ("category_id", "!=", record.location_category_id.id),
                     ]
                 )
 
-                if work_centers_with_mismatching_location:
+                if mismatching_location:
                     msg = _(
-                        "According to Work Center {}, this Equipment's location "
-                        "should be {}."
-                    ).format(
-                        work_centers_with_mismatching_location[0].name,
-                        work_centers_with_mismatching_location[0].category_id.name,
+                        "According to Work Center %(mismatching_location[0].name)s, "
+                        "this Equipment's location should be "
+                        "%(mismatching_location[0].category_id.name)s."
                     )
 
                     raise ValidationError(msg)
