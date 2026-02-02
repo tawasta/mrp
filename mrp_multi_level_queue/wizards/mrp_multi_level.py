@@ -100,9 +100,7 @@ class MultiLevelMrp(models.TransientModel):
             # Prepare value for asynchronous LLC calculation
             llc = 0
             mrp_area.current_llc_calculation = llc
-            job_desc = _("MRP Multi-level: MRP Calculation LLC {} for {}").format(
-                llc, mrp_area.name
-            )
+            job_desc = f"MRP Multi-level: MRP Calculation LLC {llc} for {mrp_area.name}"
 
             self.with_delay(description=job_desc)._mrp_calculation_llc(
                 mrp_area, mrp_lowest_llc, llc
@@ -154,9 +152,7 @@ class MultiLevelMrp(models.TransientModel):
         _logger.info(end_msg)
 
         if not final_llc:
-            job_desc = _("MRP Multi-level: MRP Calculation LLC {} for {}").format(
-                llc, mrp_area.name
-            )
+            job_desc = f"MRP Multi-level: MRP Calculation LLC {llc} for {mrp_area.name}"
             self.with_delay(description=job_desc)._mrp_calculation_llc(
                 mrp_area, mrp_lowest_llc, llc
             )

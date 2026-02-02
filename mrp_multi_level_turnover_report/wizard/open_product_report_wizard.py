@@ -22,7 +22,7 @@ class OpenProductReportWizard(models.TransientModel):
         return self.env.company
 
     def forecast_open_report(self):
-        self.env.ref("mrp_multi_level_turnover_report.view_product_report_pivot").id
+        # self.env.ref("mrp_multi_level_turnover_report.view_product_report_pivot").id
 
         ctx = dict(
             self._context,
@@ -33,7 +33,7 @@ class OpenProductReportWizard(models.TransientModel):
             #            abc_level_ids=self.abc_level_ids.ids,
             company_id=self.company_id.id,
         )
-        self.env["product.report"].with_context(ctx).init()
+        self.env["product.report"].with_context(**ctx).init()
 
         return {
             "name": "Inventory Turnover report",
