@@ -135,11 +135,21 @@ class MrpBomImportWizard(models.TransientModel):
         try:
             iv = int(float(v))
         except Exception as exc:
-            where = (" (row %s)" % rownum) if rownum else ""
-            raise UserError(_("Invalid %(field_label)s '%(value)s'%(where)s")) from exc
+            raise UserError(
+                _(
+                    "Invalid %(field_label)s "
+                    "'%(value)s'%((' (row %s)' % rownum) if rownum else '')s"
+                )
+            ) from exc
         if iv <= 0:
-            where = (" (row %(rownum)s)") if rownum else ""
-            raise UserError(_("%(field_label)s must be a positive ID%(where)s"))
+            # where = (" (row %(rownum)s)") if rownum else ""
+            # raise UserError(_("%(field_label)s must be a positive ID%(where)s"))
+            raise UserError(
+                _(
+                    "%(field_label)s must be a positive "
+                    "ID%((' (row %(rownum)s)') if rownum else '')s"
+                )
+            )
         return iv
 
     def _raise(self, msg, rownum=None):
@@ -247,11 +257,19 @@ class MrpBomImportWizard(models.TransientModel):
         try:
             val = float(value)
         except Exception as exc:
-            where = (" (row %s)" % rownum) if rownum else ""
-            raise UserError(_("Invalid %(field_label)s '%(value)s'%(where)s")) from exc
+            raise UserError(
+                _(
+                    "Invalid %(field_label)s "
+                    "'%(value)s'%((' (row %s)' % rownum) if rownum else '')s"
+                )
+            ) from exc
         if val < 0 or (not allow_zero and val == 0):
-            where = (" (row %(rownum)s)") if rownum else ""
-            raise UserError(_("%(field_label)s must be positive%(where)s"))
+            raise UserError(
+                _(
+                    "%(field_label)s must be "
+                    "positive%((' (row %(rownum)s)') if rownum else '')s"
+                )
+            )
         return val
 
     # ---------- readers ----------
@@ -287,6 +305,7 @@ class MrpBomImportWizard(models.TransientModel):
 
     # ---------- action ----------
 
+    # flake8: noqa: C901
     def action_import(self):
         """
         Button entry: decode file, parse rows, validate, prevent duplicates,
@@ -430,8 +449,8 @@ class MrpBomImportWizard(models.TransientModel):
             # BoM line UoM (by name) — required
             try:
                 line_uom = self._get_uom(luom_name)
-            except UserError as e:
-                errors.append(_("Row %s: %s") % (idx, e.args[0] if e.args else str(e)))
+            except UserError:
+                errors.append(_("Row %(idx)s: %(e.args[0] if e.args else str(e))s"))
                 line_uom = None
             if line_uom is None:
                 continue
@@ -506,27 +525,26 @@ class MrpBomImportWizard(models.TransientModel):
                 if existing:
                     err = _(
                         "Duplicate BoM detected "
-                        "for template '%s' with code '%s' (type=%s, qty=%s). "
+                        "for template '%(tmpl_code)s' with code "
+                        "'%(code)s' (type=%(rtype)s, qty=%(header_qty_str)s). "
                         "Please change 'code' or remove the existing BoM "
                         "before importing."
-                    ) % (tmpl_code, code, rtype, header_qty_str)
+                    )
                     dup_errors.append(err)
         if dup_errors:
             raise UserError(" / ".join(dup_errors))
 
         # Dry run (validate only)
         if self.dry_run:
-            total_boms = len(groups)
-            total_lines = len(all_rows)
             return {
                 "type": "ir.actions.client",
                 "tag": "display_notification",
                 "params": {
                     "title": _("Validation successful"),
                     "message": _(
-                        "%s BoM(s), %s line(s). No data was created (dry run)."
-                    )
-                    % (total_boms, total_lines),
+                        "%(len(groups))s BoM(s), %(len(all_rows))s line(s). "
+                        "No data was created (dry run)."
+                    ),
                     "sticky": False,
                 },
             }
@@ -588,10 +606,14 @@ class MrpBomImportWizard(models.TransientModel):
                 if r["line_uom"].category_id != comp.uom_id.category_id:
                     raise UserError(
                         _(
-                            "Row %s: Unit of Measure '%s' "
-                            "is not in the same category as component '%s'."
+                            "Row {rownum}: Unit of Measure '{line_uom}' "
+                            "is not in the same category as "
+                            "component '{line_code}'.".format(
+                                rownum=r["rownum"],
+                                line_uom=r["line_uom"].name,
+                                line_code=r["line_code"],
+                            )
                         )
-                        % (r["rownum"], r["line_uom"].name, r["line_code"])
                     )
 
                 vals = {
