@@ -134,12 +134,12 @@ class MrpBomImportWizard(models.TransientModel):
             )
         try:
             iv = int(float(v))
-        except Exception:
+        except Exception as exc:
             where = (" (row %s)" % rownum) if rownum else ""
-            raise UserError(_("Invalid %s '%s'%s") % (field_label, value, where))
+            raise UserError(_("Invalid %(field_label)s '%(value)s'%(where)s")) from exc
         if iv <= 0:
-            where = (" (row %s)" % rownum) if rownum else ""
-            raise UserError(_("%s must be a positive ID%s") % (field_label, where))
+            where = (" (row %(rownum)s)") if rownum else ""
+            raise UserError(_("%(field_label)s must be a positive ID%(where)s"))
         return iv
 
     def _raise(self, msg, rownum=None):
@@ -246,12 +246,12 @@ class MrpBomImportWizard(models.TransientModel):
         """
         try:
             val = float(value)
-        except Exception:
+        except Exception as exc:
             where = (" (row %s)" % rownum) if rownum else ""
-            raise UserError(_("Invalid %s '%s'%s") % (field_label, value, where))
+            raise UserError(_("Invalid %(field_label)s '%(value)s'%(where)s")) from exc
         if val < 0 or (not allow_zero and val == 0):
-            where = (" (row %s)" % rownum) if rownum else ""
-            raise UserError(_("%s must be positive%s") % (field_label, where))
+            where = (" (row %(rownum)s)") if rownum else ""
+            raise UserError(_("%(field_label)s must be positive%(where)s"))
         return val
 
     # ---------- readers ----------
@@ -264,8 +264,7 @@ class MrpBomImportWizard(models.TransientModel):
         text = content.decode("utf-8", errors="ignore")
         reader = csv.DictReader(io.StringIO(text))
         self._ensure_columns(reader.fieldnames)
-        for row in reader:
-            yield row
+        yield from reader
 
     def _read_xlsx_rows(self, content: bytes):
         """
@@ -341,7 +340,8 @@ class MrpBomImportWizard(models.TransientModel):
             if tmpl_name and tmpl_code and tmpl_name == tmpl_code:
                 err = (
                     _(
-                        "Row %s: product_tmpl_name must differ from product_tmpl_id (code)"
+                        "Row %s: product_tmpl_name must "
+                        "differ from product_tmpl_id (code)"
                     )
                     % idx
                 )
@@ -361,7 +361,8 @@ class MrpBomImportWizard(models.TransientModel):
             if line_name and line_code and line_name == line_code:
                 err = (
                     _(
-                        "Row %s: line_product_name must differ from line_product_id (code)."
+                        "Row %s: line_product_name must "
+                        "differ from line_product_id (code)."
                     )
                     % idx
                 )
@@ -485,7 +486,7 @@ class MrpBomImportWizard(models.TransientModel):
         # Duplicate BoM prevention
         Bom = self.env["mrp.bom"].with_context(active_test=False)
         dup_errors = []
-        for (tmpl_code, code, rtype, header_qty_str), rows in groups.items():
+        for (tmpl_code, code, rtype, header_qty_str), _rows in groups.items():
             tmpl = (
                 self.env["product.template"]
                 .with_context(active_test=False)
