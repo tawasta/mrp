@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="mrp_production_form_view" model="ir.ui.view">
+        <field name="name">mrp.production.form.message</field>
+        <field name="model">mrp.production</field>
+        <field name="inherit_id" ref="mrp.mrp_production_form_view" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//button[@invisible='not move_raw_ids or not show_produce']"
+                position="attributes"
+            >
+                <attribute name="name">button_mark_done_with_message</attribute>
+            </xpath>
+            <xpath
+                expr="//button[@invisible='not move_raw_ids or not show_produce_all']"
+                position="attributes"
+            >
+                <attribute name="name">button_mark_done_with_message</attribute>
+            </xpath>
+            <xpath
+                expr="//button[@invisible='move_raw_ids or not show_produce']"
+                position="attributes"
+            >
+                <attribute name="name">button_mark_done_with_message</attribute>
+            </xpath>
+            <xpath
+                expr="//button[@invisible='move_raw_ids or not show_produce_all']"
+                position="attributes"
+            >
+                <attribute name="name">button_mark_done_with_message</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>
