@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<record id="view_message_form" model="ir.ui.view">
+		<field name="name">mrp.production.message.wizard.form</field>
+		<field name="model">mrp.production.message.wizard</field>
+		<field name="arch" type="xml">
+            <form id="message_form">
+                <field name="production_ids" invisible="1" />
+                <div>
+                    <p>Are you sure you want to produce the product?</p>
+                </div>
+                <footer>
+                    <button
+                        name="produce_all"
+                        type="object"
+                        string="Produce All"
+                        class="btn-primary"
+                    />
+                    <button special="cancel" string="Cancel" class="btn-secondary" />
+                </footer>
+            </form>
+		</field>
+	</record>
+
+    <record id="action_mrp_production_message" model="ir.actions.act_window">
+        <field name="name">Produce All</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.production.message.wizard</field>
+        <field name="target">new</field>
+        <field name="view_mode">form</field>
+        <field
+            name="binding_model_id"
+            ref="mrp_production_produce_confirm_message.model_mrp_production_message_wizard"
+        />
+    </record>
+</odoo>
