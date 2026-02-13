@@ -150,7 +150,7 @@ class ProductReport(models.Model):
             table_company_id=(
                 company_id
                 and tuple([company_id, company_id])
-                or tuple(self.env.companies.ids)
+                or tuple(self.env.companies.ids + self.env.companies.ids)
             ),
             days=days,
             currency_table=self.env["res.currency"]._get_query_currency_table(

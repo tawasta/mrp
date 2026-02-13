@@ -33,7 +33,7 @@ addon | version | maintainers | summary
 [mrp_multi_level_move_forecasted_qty](mrp_multi_level_move_forecasted_qty/) | 17.0.1.0.0 |  | Forecasted quantity for mrp.move
 [mrp_multi_level_optimization](mrp_multi_level_optimization/) | 17.0.1.0.0 |  | MRP multi level optimization
 [mrp_multi_level_queue](mrp_multi_level_queue/) | 17.0.1.0.1 |  | MRP Multi Level with queue jobs
-[mrp_multi_level_turnover_report](mrp_multi_level_turnover_report/) | 17.0.1.0.0 |  | Inventory product circulation report
+[mrp_multi_level_turnover_report](mrp_multi_level_turnover_report/) | 17.0.1.0.1 |  | Inventory product circulation report
 [mrp_operations_disable_sequence_dragging](mrp_operations_disable_sequence_dragging/) | 17.0.1.0.0 |  | Hides sequence column in operations tree view inside BoM
 [mrp_product_only_select](mrp_product_only_select/) | 17.0.1.0.0 |  | Disable creating and editing of products from the MO product field
 [mrp_production_mass_cancel](mrp_production_mass_cancel/) | 17.0.1.0.0 |  | Allow cancellation of production orders en masse
