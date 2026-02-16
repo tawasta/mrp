@@ -44,4 +44,9 @@
         "views/report_view.xml",
         "security/ir.model.access.csv",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "mrp_multi_level_turnover_report/static/src/scss/style.scss",
+        ],
+    },
 }

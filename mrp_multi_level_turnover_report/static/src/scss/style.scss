@@ -1,0 +1,12 @@
+.o_pivot table {
+    th[data-tooltip="Total Inventory Turnover"],
+    th[data-tooltip="Total Coverage in Days"],
+    th[data-tooltip="Temp Value"],
+    th[data-tooltip="Temp Float"] {
+        visibility: hidden;
+        padding: 0px;
+        overflow: hidden;
+        font-size: 0px;
+        background-color: white;
+    }
+}
