@@ -24,6 +24,7 @@ addon | version | maintainers | summary
 [mrp_bom_primary_vendor_info](mrp_bom_primary_vendor_info/) | 17.0.1.0.0 |  | Helper fields for showing primary vendor's info
 [mrp_bom_raw_material_quantities](mrp_bom_raw_material_quantities/) | 17.0.1.0.0 |  | Helper module for calculating total raw material requirements of a BOM
 [mrp_bom_structure_xlsx_cost](mrp_bom_structure_xlsx_cost/) | 17.0.1.0.0 |  | Add cost to MRP BOM Structure XLSX
+[mrp_create_purchase_from_work_order](mrp_create_purchase_from_work_order/) | 17.0.1.0.0 |  | Create Purchases from Work Orders
 [mrp_inventory_hide_forecasted_inventory](mrp_inventory_hide_forecasted_inventory/) | 17.0.1.0.0 |  | Hide Forecasted Inventory in MRP Inventory tree view
 [mrp_inventory_product_category](mrp_inventory_product_category/) | 17.0.1.0.0 |  | Shows product category in mrp.inventory list view
 [mrp_inventory_responsible_id](mrp_inventory_responsible_id/) | 17.0.1.0.0 |  | Shows product template responsible id in mrp.inventory list view

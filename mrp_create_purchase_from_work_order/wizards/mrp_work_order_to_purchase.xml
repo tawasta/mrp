@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_workorder_purchase_form" model="ir.ui.view">
+        <field name="name">mrp.work.order.to.purchase.wizard.form</field>
+        <field name="model">mrp.work.order.to.purchase</field>
+        <field name="arch" type="xml">
+            <form id="workorder_purchase_form">
+                <div>
+                    <p>Select a product, vendor and quantity.</p>
+                </div>
+                <group>
+                    <field
+                        name="workorder_ids"
+                        invisible="1"
+                        options="{'no_create': True}"
+                    />
+                    <field
+                        name="product_id"
+                        required="1"
+                        options="{'no_create': True}"
+                    />
+                    <field name="product_qty" required="1" />
+                    <field
+                        name="partner_id"
+                        required="1"
+                        options="{'no_create': True}"
+                    />
+                    <field
+                        name="picking_type_id"
+                        required="1"
+                        options="{'no_create': True}"
+                    />
+                </group>
+                <footer>
+                    <button
+                        name="button_create_purchase"
+                        type="object"
+                        string="Create"
+                        class="btn-primary"
+                    />
+                    <button special="cancel" string="Cancel" class="btn-secondary" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_workorder_purchase" model="ir.actions.act_window">
+        <field name="name">Create Purchase</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">mrp.work.order.to.purchase</field>
+        <field name="target">new</field>
+        <field name="view_mode">form</field>
+        <field
+            name="binding_model_id"
+            ref="mrp_create_purchase_from_work_order.model_mrp_work_order_to_purchase"
+        />
+    </record>
+</odoo>
