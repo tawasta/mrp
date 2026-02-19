@@ -21,7 +21,7 @@
 {
     "name": "Create Purchases from Work Orders",
     "summary": "Create Purchases from Work Orders",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.0.1",
     "category": "MRP",
     "website": "https://github.com/tawasta/mrp",
     "author": "Futural",
