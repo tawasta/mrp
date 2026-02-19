@@ -69,7 +69,6 @@ class MrpWorkOrderToPurchase(models.TransientModel):
 
         return order_line
 
-    @api.model
     def button_create_purchase(self):
         self.ensure_one()
 
