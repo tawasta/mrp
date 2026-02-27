@@ -1,4 +1,4 @@
-from odoo import _, fields, models
+from odoo import _, api, fields, models
 
 
 class MrpWorkorder(models.Model):
@@ -15,7 +15,25 @@ class MrpWorkorder(models.Model):
         copy=False,
     )
 
+    purchase_order_status = fields.Text(
+        string="PO status", compute=lambda self: self._compute_purchase_order_status()
+    )
+
+    @api.depends("purchase_order_ids")
+    def _compute_purchase_order_status(self):
+        """Computes purchase statuses"""
+        for wo in self:
+            if wo.purchase_order_ids:
+                po_status = []
+                for po in wo.purchase_order_ids:
+                    state = dict(po._fields["state"].selection).get(po.state)
+                    po_status.append(state)
+                wo.purchase_order_status = ", ".join(po_status)
+            else:
+                wo.purchase_order_status = ""
+
     def workorder_to_purchase_wizard(self):
+        """This opens up a wizard to create purchases"""
         view = self.env.ref(
             "mrp_create_purchase_from_work_order.view_workorder_purchase_form"
         )
