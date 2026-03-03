@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0-20250131\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-02 07:36+0000\n"
-"PO-Revision-Date: 2026-03-02 09:36+0200\n"
+"POT-Creation-Date: 2026-03-03 11:30+0000\n"
+"PO-Revision-Date: 2026-03-03 13:30+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fi\n"
@@ -101,6 +101,7 @@ msgid "Purchase Order"
 msgstr "Ostotilaus"
 
 #. module: mrp_create_purchase_from_work_order
+#: model:ir.actions.act_window,name:mrp_create_purchase_from_work_order.action_open_purchase_order
 #: model:ir.model.fields,field_description:mrp_create_purchase_from_work_order.field_mrp_workorder__purchase_order_ids
 #: model_terms:ir.ui.view,arch_db:mrp_create_purchase_from_work_order.mrp_production_workorder_form_view_inherit
 msgid "Purchase Orders"
@@ -132,6 +133,7 @@ msgid "Work Order to Purchase order"
 msgstr "Työtilauksesta ostotilaus"
 
 #. module: mrp_create_purchase_from_work_order
+#: model:ir.actions.act_window,name:mrp_create_purchase_from_work_order.action_open_workorder
 #: model_terms:ir.ui.view,arch_db:mrp_create_purchase_from_work_order.purchase_order_form
 msgid "Work Orders"
 msgstr "Työtilaukset"

@@ -25,6 +25,14 @@
 		</field>
 	</record>
 
+    <record id="action_open_purchase_order" model="ir.actions.act_window">
+        <field name="name">Purchase Orders</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="domain">[('id','=',active_id)]</field>
+    </record>
+
     <record id="mrp_production_workorder_form_view_inherit" model="ir.ui.view">
 		<field name="name">mrp.workorder.form.purchase.orders.from.work.order</field>
 		<field name="model">mrp.workorder</field>
@@ -34,6 +42,12 @@
                 <page string="Purchase Orders" invisible="not purchase_order_ids">
                     <field name="purchase_order_ids">
                         <tree delete="false" create="false">
+                            <button
+                                name="%(mrp_create_purchase_from_work_order.action_open_purchase_order)d"
+                                type="action"
+                                class="oe_stat_button"
+                                icon="fa-list"
+                            />
                             <field name="name" />
                             <field name="partner_id" />
                             <field name="date_order" />

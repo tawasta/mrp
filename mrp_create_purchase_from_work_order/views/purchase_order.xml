@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
+    <record id="action_open_workorder" model="ir.actions.act_window">
+        <field name="name">Work Orders</field>
+        <field name="res_model">mrp.workorder</field>
+        <field name="view_mode">tree,form</field>
+        <field name="target">current</field>
+        <field name="domain">[('id','=',active_id)]</field>
+    </record>
+
     <record id="purchase_order_form" model="ir.ui.view">
         <field name="name">purchase.order.form.work.orders</field>
         <field name="model">purchase.order</field>
@@ -9,6 +17,12 @@
                 <page string="Work Orders" invisible="not workorder_ids">
                     <field name="workorder_ids">
                         <tree delete="false" create="false">
+                            <button
+                                name="%(mrp_create_purchase_from_work_order.action_open_workorder)d"
+                                type="action"
+                                class="oe_stat_button"
+                                icon="fa-list"
+                            />
                             <field name="name" />
                             <field name="product_id" />
                             <field name="production_id" />
