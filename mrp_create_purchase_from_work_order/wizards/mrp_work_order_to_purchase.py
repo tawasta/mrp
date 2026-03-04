@@ -8,7 +8,9 @@ class MrpWorkOrderToPurchase(models.TransientModel):
     workorder_ids = fields.Many2many(
         "mrp.workorder",
     )
-    product_id = fields.Many2one("product.product")
+    product_ids = fields.Many2many(
+        "product.product", default=lambda self: self._get_default_products()
+    )
     partner_id = fields.Many2one("res.partner")
     product_qty = fields.Float(string="Quantity", default=1)
     picking_type_id = fields.Many2one(
@@ -17,6 +19,16 @@ class MrpWorkOrderToPurchase(models.TransientModel):
         required=True,
         default=lambda self: self._get_default_picking_type(),
     )
+
+    def _get_default_products(self):
+        workorders = self.env["mrp.workorder"].browse(self._context.get("active_ids"))
+        products = self.env["product.product"]
+        for wo in workorders:
+            operation = wo.operation_id
+            for line in operation.bom_id.bom_line_ids:
+                if line.operation_id == operation:
+                    products |= line.product_id
+        return products
 
     def _get_default_picking_type(self):
         type_obj = self.env["stock.picking.type"]
@@ -73,10 +85,11 @@ class MrpWorkOrderToPurchase(models.TransientModel):
         self.ensure_one()
 
         po_res = self.create_purchase()
-        product = self.product_id
+        products = self.product_ids
         partner = self.partner_id
 
-        self.create_purchase_line(product, partner, po_res)
+        for product in products:
+            self.create_purchase_line(product, partner, po_res)
 
         return {
             "view_type": "form",
