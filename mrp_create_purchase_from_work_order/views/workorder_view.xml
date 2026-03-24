@@ -58,6 +58,10 @@
                     </field>
                 </page>
             </notebook>
+
+            <field name="qty_production" position="after">
+                <field name="purchase_cost" />
+		    </field>
 		</field>
 	</record>
 
