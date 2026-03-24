@@ -19,6 +19,21 @@ class MrpWorkorder(models.Model):
         string="PO status", compute=lambda self: self._compute_purchase_order_status()
     )
 
+    purchase_cost = fields.Float(compute=lambda self: self._compute_purchase_cost())
+
+    def _compute_purchase_cost(self):
+        for workorder in self:
+            purchase_cost = 0
+
+            for purchase in workorder.purchase_order_ids:
+                po_lines = purchase.order_line.filtered(
+                    lambda line, workorder=workorder: line.product_id
+                    in workorder.move_raw_ids.mapped("product_id")
+                )
+                for po_line in po_lines:
+                    purchase_cost += po_line.price_unit * po_line.product_qty
+            workorder.purchase_cost = purchase_cost
+
     @api.depends("purchase_order_ids")
     def _compute_purchase_order_status(self):
         """Computes purchase statuses"""
