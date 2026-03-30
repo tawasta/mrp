@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_product_template_create_mrp_parameter_wizard" model="ir.ui.view">
+        <field name="model">product.template.create.mrp.parameter</field>
+        <field name="arch" type="xml">
+            <form string="MRP parameters Create action">
+                <p>You can create MRP Product Parameters for the selected products</p>
+                <footer>
+                    <button
+                        string="Confirm to Create"
+                        type="object"
+                        class="oe_highlight"
+                        name="action_mass_create_product_mrp_parameter"
+                    />
+                    or
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record
+        model="ir.actions.act_window"
+        id="action_product_template_create_mrp_parameter"
+    >
+        <field name="name">Create MRP Product Parameters</field>
+        <field name="res_model">product.template.create.mrp.parameter</field>
+        <field name="binding_model_id" ref="mrp.model_product_template" />
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

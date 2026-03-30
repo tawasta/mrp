@@ -1,0 +1,1 @@
+from . import product_template_create_mrp_parameter
