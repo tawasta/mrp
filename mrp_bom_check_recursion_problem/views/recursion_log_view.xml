@@ -13,6 +13,7 @@
         id="menu_mrp_recursion_logs"
         action="action_recursion_mrp_bom_log"
         parent="mrp.menu_mrp_reporting"
+        groups="base.group_system"
         sequence="60"
     />
 

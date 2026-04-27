@@ -36,7 +36,7 @@ class MrpBom(models.Model):
                     names = finished_products.mapped("display_name")
                     recursion_log = self.env["recursion.mrp.bom.log"]
                     log_values = {
-                        "name": fields.fields.Datetime.now(),
+                        "name": fields.Datetime.now(),
                         "problem_products": names,
                     }
                     recursion_log.create(log_values)
