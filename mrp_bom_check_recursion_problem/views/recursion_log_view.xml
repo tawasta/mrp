@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="action_recursion_mrp_bom_log" model="ir.actions.act_window">
+        <field name="name">BoM recursion logs</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">recursion.mrp.bom.log</field>
+        <field name="domain">[]</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        name="BoM recursion logs"
+        id="menu_mrp_recursion_logs"
+        action="action_recursion_mrp_bom_log"
+        parent="mrp.menu_mrp_reporting"
+        groups="base.group_system"
+        sequence="60"
+    />
+
+    <record id="recursion_mrp_bom_log_view_form" model="ir.ui.view">
+        <field name="name">recursion.mrp.bom.log.form</field>
+        <field name="model">recursion.mrp.bom.log</field>
+        <field name="arch" type="xml">
+            <form string="Logs" id="cost_logs" create="false">
+                <sheet name="recursion_log">
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1" />
+                        </h1>
+                    </div>
+                    <group>
+                        <field name="problem_products" readonly="1" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="recursion_mrp_bom_log_view_tree" model="ir.ui.view">
+        <field name="name">recursion.mrp.bom.log.tree</field>
+        <field name="model">recursion.mrp.bom.log</field>
+        <field name="arch" type="xml">
+            <tree create="false">
+                <field name="name" />
+                <field name="problem_products" />
+            </tree>
+        </field>
+    </record>
+</odoo>
