@@ -16,6 +16,7 @@ addon | version | maintainers | summary
 [mgmtsystem_hazard_test_tree_view](mgmtsystem_hazard_test_tree_view/) | 17.0.1.0.0 |  | Creates a tree view for Implementation Tests of hazard
 [mrp_auditlog_rules](mrp_auditlog_rules/) | 17.0.1.1.0 |  | Adds audit log rules for mrp.bom
 [mrp_bom_check_recursion_problem](mrp_bom_check_recursion_problem/) | 17.0.1.0.0 |  | Create log records from BoMs that create recursion problems
+[mrp_bom_component_menu_allow_create](mrp_bom_component_menu_allow_create/) | 17.0.1.0.0 |  | Allow to Create records in BOM Component Menu to help creating BOMs
 [mrp_bom_cost_cron](mrp_bom_cost_cron/) | 17.0.1.0.0 |  | Scheduled action to calculate product's cost price from BoM
 [mrp_bom_eco_analysis](mrp_bom_eco_analysis/) | 17.0.1.0.0 |  | ECO analysis modifications
 [mrp_bom_import_wizard](mrp_bom_import_wizard/) | 17.0.1.0.0 |  | BoM Import (Excel/CSV)
