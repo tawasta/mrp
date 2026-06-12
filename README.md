@@ -32,6 +32,7 @@ addon | version | maintainers | summary
 [mrp_inventory_responsible_id](mrp_inventory_responsible_id/) | 17.0.1.0.0 |  | Shows product template responsible id in mrp.inventory list view
 [mrp_inventory_sh_product_tags_filter](mrp_inventory_sh_product_tags_filter/) | 17.0.1.0.0 |  | MRP Inventory - Group and Filter by SH product tags
 [mrp_inventory_tree_reorder_running_availability](mrp_inventory_tree_reorder_running_availability/) | 17.0.1.0.0 |  | Reorder Running Availability in MRP Inventory tree
+[mrp_log_problems](mrp_log_problems/) | 17.0.1.0.0 |  | Module to log MRP related problems
 [mrp_multi_level_area_form_group](mrp_multi_level_area_form_group/) | 17.0.1.0.0 |  | Manufacture / User group enables to see MRP Moves
 [mrp_multi_level_create_mrp_parameters](mrp_multi_level_create_mrp_parameters/) | 17.0.1.0.0 |  | Module meant for developers to mass create MRP Product Parameters
 [mrp_multi_level_move_forecasted_qty](mrp_multi_level_move_forecasted_qty/) | 17.0.1.0.0 |  | Forecasted quantity for mrp.move
