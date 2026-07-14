@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+	<record id="mrp_bom_form_view_section" model="ir.ui.view">
+		<field name="name">mrp.bom.form.section.corrections</field>
+		<field name="model">mrp.bom</field>
+		<field
+            name="inherit_id"
+            ref="mrp_bom_widget_section_and_note_one2many.mrp_bom_form_view_section"
+        />
+		<field name="arch" type="xml">
+            <xpath
+                expr="//page[@name='components_w_sections_notes']//field[@name='display_type']"
+                position="attributes"
+            >
+                <attribute name="invisible">0</attribute>
+                <attribute name="column_invisible">1</attribute>
+		    </xpath>
+
+            <xpath
+                expr="//page[@name='components_w_sections_notes']//field[@name='company_id']"
+                position="attributes"
+            >
+                <attribute name="invisible">0</attribute>
+                <attribute name="column_invisible">1</attribute>
+		    </xpath>
+
+            <xpath
+                expr="//page[@name='components_w_sections_notes']//field[@name='product_id']"
+                position="attributes"
+            >
+                <attribute name="required">not display_type</attribute>
+                <attribute name="invisible">0</attribute>
+		    </xpath>
+
+            <xpath
+                expr="//page[@name='components_w_sections_notes']//field[@name='product_tmpl_id']"
+                position="attributes"
+            >
+                <attribute name="invisible">0</attribute>
+                <attribute name="column_invisible">1</attribute>
+		    </xpath>
+
+            <xpath
+                expr="//page[@name='components_w_sections_notes']//field[@name='name']"
+                position="attributes"
+            >
+                <attribute name="column_invisible">1</attribute>
+		    </xpath>
+
+            <xpath
+                expr="//page[@name='components_w_sections_notes']//field[@name='name']"
+                position="after"
+            >
+                <field
+                    name="name"
+                    widget="section_and_note_text"
+                    nolabel="1"
+                    required="display_type"
+                />
+		    </xpath>
+
+            <xpath
+                expr="//page[@name='components_w_sections_notes']//field[@name='product_uom_category_id']"
+                position="attributes"
+            >
+                <attribute name="invisible">0</attribute>
+                <attribute name="column_invisible">1</attribute>
+		    </xpath>
+
+            <xpath
+                expr="//page[@name='components_w_sections_notes']//field[@name='parent_product_tmpl_id']"
+                position="attributes"
+            >
+                <attribute name="invisible">0</attribute>
+                <attribute name="column_invisible">1</attribute>
+		    </xpath>
+
+            <xpath
+                expr="//page[@name='components_w_sections_notes']//field[@name='product_uom_id']"
+                position="attributes"
+            >
+                <attribute name="required">not display_type</attribute>
+                <attribute name="invisible">0</attribute>
+		    </xpath>
+
+            <xpath
+                expr="//page[@name='components_w_sections_notes']//field[@name='possible_bom_product_template_attribute_value_ids']"
+                position="attributes"
+            >
+                <attribute name="invisible">0</attribute>
+                <attribute name="column_invisible">1</attribute>
+		    </xpath>
+
+            <xpath
+                expr="//page[@name='components_w_sections_notes']//field[@name='bom_product_template_attribute_value_ids']"
+                position="attributes"
+            >
+                <attribute name="invisible">0</attribute>
+                <attribute name="column_invisible">parent.product_id</attribute>
+		    </xpath>
+
+            <xpath
+                expr="//page[@name='components_w_sections_notes']//field[@name='allowed_operation_ids']"
+                position="attributes"
+            >
+                <attribute name="invisible">0</attribute>
+                <attribute name="column_invisible">1</attribute>
+		    </xpath>
+
+            <xpath
+                expr="//page[@name='components_w_sections_notes']//field[@name='operation_id']"
+                position="attributes"
+            >
+                <attribute name="invisible">0</attribute>
+                <attribute
+                    name="column_invisible"
+                >parent.type not in ('normal', 'phantom')</attribute>
+		    </xpath>
+
+            <xpath
+                expr="//page[@name='components_w_sections_notes']//field[@name='manual_consumption_readonly']"
+                position="attributes"
+            >
+                <attribute name="invisible">0</attribute>
+                <attribute name="column_invisible">1</attribute>
+		    </xpath>
+
+            <xpath
+                expr="//page[@name='components_w_sections_notes']//field[@name='manual_consumption']"
+                position="attributes"
+            >
+                <attribute name="invisible">0</attribute>
+                <attribute name="readonly">manual_consumption_readonly</attribute>
+		    </xpath>
+		</field>
+	</record>
+</odoo>
