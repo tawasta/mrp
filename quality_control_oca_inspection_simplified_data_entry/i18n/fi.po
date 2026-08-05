@@ -1,0 +1,98 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* quality_control_oca_inspection_simplified_data_entry
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0-20260803\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-05 07:41+0000\n"
+"PO-Revision-Date: 2026-08-05 07:41+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: quality_control_oca_inspection_simplified_data_entry
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_simplified_data_entry.qc_inspection_form_view_inherit_oca
+msgid ""
+"<span class=\"text-muted ms-2 d-block d-md-inline mt-2 mt-md-0\">\n"
+"                  Opens each question one by one for convenient data entry.\n"
+"              </span>"
+msgstr ""
+"<span class=\"text-muted ms-2 d-block d-md-inline mt-2 mt-md-0\">\n"
+"                  Avaa kysymykset yksitellen nopeaa tietojen syöttöä varten.\n"
+"              </span>"
+
+#. module: quality_control_oca_inspection_simplified_data_entry
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_simplified_data_entry.qc_inspection_line_form_view_simplified_data_entry
+msgid ""
+"<span invisible=\"question_type != 'qualitative'\">Choose one of the options below.</span>\n"
+"              <span invisible=\"question_type != 'quantitative'\">Enter the measured value.</span>\n"
+"              <span invisible=\"question_type != 'freetext'\">Write your answer below.</span>"
+msgstr ""
+"<span invisible=\"question_type != 'qualitative'\">Valitse yksi vaihtoehdoista.</span>\n"
+"              <span invisible=\"question_type != 'quantitative'\">Syötä mittauksen tulos.</span>\n"
+"              <span invisible=\"question_type != 'freetext'\">Kirjoita vastauksesi.</span>"
+
+#. module: quality_control_oca_inspection_simplified_data_entry
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_simplified_data_entry.field_qc_inspection_line__answer_display
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_simplified_data_entry.qc_inspection_line_form_view_simplified_data_entry
+msgid "Answer"
+msgstr "Vastaus"
+
+#. module: quality_control_oca_inspection_simplified_data_entry
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_simplified_data_entry.qc_inspection_line_form_view_simplified_data_entry
+msgid "Close"
+msgstr "Sulje"
+
+#. module: quality_control_oca_inspection_simplified_data_entry
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_simplified_data_entry.field_qc_inspection__display_name
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_simplified_data_entry.field_qc_inspection_line__display_name
+msgid "Display Name"
+msgstr "Nimi"
+
+#. module: quality_control_oca_inspection_simplified_data_entry
+#. odoo-python
+#: code:addons/quality_control_oca_inspection_simplified_data_entry/models/qc_inspection_line.py:0
+msgid "Enter your answer"
+msgstr "Syötä vastauksesi"
+
+#. module: quality_control_oca_inspection_simplified_data_entry
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_simplified_data_entry.qc_inspection_form_view_inherit_oca
+msgid "Fill in Answers"
+msgstr "Syötä vastaukset"
+
+#. module: quality_control_oca_inspection_simplified_data_entry
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_simplified_data_entry.field_qc_inspection__id
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_simplified_data_entry.field_qc_inspection_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: quality_control_oca_inspection_simplified_data_entry
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_simplified_data_entry.qc_inspection_line_form_view_simplified_data_entry
+msgid "Measured value"
+msgstr "Mittauksen tulos"
+
+#. module: quality_control_oca_inspection_simplified_data_entry
+#: model:ir.model,name:quality_control_oca_inspection_simplified_data_entry.model_qc_inspection
+msgid "Quality control inspection"
+msgstr "Laatukontrolli"
+
+#. module: quality_control_oca_inspection_simplified_data_entry
+#: model:ir.model,name:quality_control_oca_inspection_simplified_data_entry.model_qc_inspection_line
+msgid "Quality control inspection line"
+msgstr "Laatukontrollin rivi"
+
+#. module: quality_control_oca_inspection_simplified_data_entry
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_simplified_data_entry.qc_inspection_line_form_view_simplified_data_entry
+msgid "Save & Next"
+msgstr "Tallenna & Seuraava"
+
+#. module: quality_control_oca_inspection_simplified_data_entry
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_simplified_data_entry.qc_inspection_line_form_view_simplified_data_entry
+msgid "Your answer..."
+msgstr "Vastauksesi..."
+

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="qc_inspection_form_view_inherit_oca" model="ir.ui.view">
+    <field name="name">qc.inspection.form.inherit.oca.simplified.data.entry</field>
+    <field name="model">qc.inspection</field>
+    <field name="inherit_id" ref="quality_control_oca.qc_inspection_form_view" />
+    <field name="arch" type="xml">
+      <!--
+      <button name="action_todo" position="after">
+        <button
+          name="action_fill_answers"
+          type="object"
+          string="Fill in answers"
+          class="oe_highlight"
+          invisible="state != 'ready'"
+        />
+      </button>
+      -->
+
+      <!-- Add data entry launch button itself -->
+      <xpath expr="//field[@name='inspection_lines']" position="before">
+        <div class="mb-3" invisible="state != 'ready'">
+          <button
+            name="action_fill_answers"
+            type="object"
+            string="Fill in Answers"
+            class="btn-primary"
+          />
+          <span class="text-muted ms-2 d-block d-md-inline mt-2 mt-md-0">
+                  Opens each question one by one for convenient data entry.
+              </span>
+        </div>
+      </xpath>
+
+      <!-- Modify the lines view: add a helper readonly value view
+       that shows the value regardless of question type. Hide by default
+       the three separate writable value columns, but keep them around
+       so they can still be toggled visible and used by the user, if needed
+       -->
+
+      <xpath
+        expr="//field[@name='inspection_lines']//field[@name='question_type']"
+        position="after"
+      >
+        <field name="answer_display" />
+      </xpath>
+
+      <xpath
+        expr="//field[@name='inspection_lines']//field[@name='question_type']"
+        position="attributes"
+      >
+        <attribute name="optional">hide</attribute>
+      </xpath>
+
+      <xpath
+        expr="//field[@name='inspection_lines']//field[@name='qualitative_value']"
+        position="attributes"
+      >
+        <attribute name="optional">hide</attribute>
+      </xpath>
+
+      <xpath
+        expr="//field[@name='inspection_lines']//field[@name='quantitative_value']"
+        position="attributes"
+      >
+        <attribute name="optional">hide</attribute>
+      </xpath>
+
+      <xpath
+        expr="//field[@name='inspection_lines']//field[@name='uom_id']"
+        position="attributes"
+      >
+        <attribute name="optional">hide</attribute>
+      </xpath>
+
+      <xpath
+        expr="//field[@name='inspection_lines']//field[@name='valid_values']"
+        position="attributes"
+      >
+        <attribute name="optional">hide</attribute>
+      </xpath>
+    </field>
+  </record>
+
+  <record id="qc_inspection_form_view_inherit_freetext" model="ir.ui.view">
+    <field name="name">qc.inspection.form.inherit.freetext.simplified.data.entry</field>
+    <field name="model">qc.inspection</field>
+    <field name="inherit_id" ref="quality_control_oca.qc_inspection_form_view" />
+    <field name="arch" type="xml">
+      <!-- hide by default also the freetext value field -->
+      <xpath
+        expr="//field[@name='inspection_lines']//field[@name='freetext_value']"
+        position="attributes"
+      >
+        <attribute name="optional">hide</attribute>
+      </xpath>
+    </field>
+  </record>
+</odoo>
