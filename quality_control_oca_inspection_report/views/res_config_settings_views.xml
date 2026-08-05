@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="res_config_settings_view_form" model="ir.ui.view">
+    <field name="name">res.config.settings.view.form.inherit.qc.report</field>
+    <field name="model">res.config.settings</field>
+    <field name="inherit_id" ref="base_setup.res_config_settings_view_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//form" position="inside">
+        <app
+          string="Quality Control Report"
+          name="quality_control_oca_inspection_report"
+        >
+          <block title="Inspection Report" name="qc_inspection_report_block">
+            <setting
+              string="Report Title"
+              help="Title printed at the top of the inspection PDF report."
+            >
+              <field name="qc_inspection_report_title" />
+            </setting>
+            <setting
+              string="Product Information Section Title"
+              help="Heading for the product info section of the PDF report."
+            >
+              <field name="qc_inspection_report_product_section_title" />
+            </setting>
+            <setting
+              string="Inspection Information Section Title"
+              help="Heading for the inspection lines section of the PDF report."
+            >
+              <field name="qc_inspection_report_inspection_section_title" />
+            </setting>
+          </block>
+        </app>
+      </xpath>
+    </field>
+  </record>
+</odoo>

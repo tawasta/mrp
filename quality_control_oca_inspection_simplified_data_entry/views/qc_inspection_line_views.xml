@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="qc_inspection_line_form_view_simplified_data_entry" model="ir.ui.view">
+    <field name="name">qc.inspection.line.answer.form</field>
+    <field name="model">qc.inspection.line</field>
+    <field name="arch" type="xml">
+      <form>
+        <field name="question_type" invisible="1" />
+        <field name="possible_ql_values" invisible="1" />
+        <sheet>
+          <div class="oe_title mb-4">
+            <h2 class="mb-1">
+              <field name="name" readonly="1" nolabel="1" />
+            </h2>
+            <div class="text-muted small">
+              <span
+                invisible="question_type != 'qualitative'"
+              >Choose one of the options below.</span>
+              <span
+                invisible="question_type != 'quantitative'"
+              >Enter the measured value.</span>
+              <span
+                invisible="question_type != 'freetext'"
+              >Write your answer below.</span>
+            </div>
+          </div>
+
+          <group invisible="question_type != 'qualitative'">
+            <field
+              name="qualitative_value"
+              string="Answer"
+              widget="radio"
+              nolabel="1"
+            />
+          </group>
+
+          <group invisible="question_type != 'quantitative'">
+            <label for="quantitative_value" string="Measured value" />
+            <div class="o_row">
+              <field name="quantitative_value" nolabel="1" placeholder="0.00" />
+              <field name="uom_id" groups="uom.group_uom" nolabel="1" />
+            </div>
+          </group>
+
+          <group invisible="question_type != 'freetext'">
+            <field
+              name="freetext_value"
+              string="Answer"
+              nolabel="1"
+              placeholder="Your answer..."
+            />
+          </group>
+        </sheet>
+        <footer>
+          <button
+            name="action_save_and_next"
+            type="object"
+            string="Save &amp; Next"
+            class="btn-primary"
+          />
+          <button string="Close" special="cancel" class="btn-secondary" />
+        </footer>
+      </form>
+    </field>
+  </record>
+</odoo>
