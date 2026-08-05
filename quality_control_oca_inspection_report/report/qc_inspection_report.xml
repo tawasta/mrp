@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="action_report_qc_inspection" model="ir.actions.report">
+    <field name="name">Inspection Report</field>
+    <field name="model">qc.inspection</field>
+    <field name="report_type">qweb-pdf</field>
+    <field
+      name="report_name"
+    >quality_control_oca_inspection_report.report_qc_inspection</field>
+    <field
+      name="report_file"
+    >quality_control_oca_inspection_report.report_qc_inspection</field>
+    <field name="print_report_name">'Inspection - %s' % (object.name)</field>
+    <field name="binding_model_id" ref="quality_control_oca.model_qc_inspection" />
+    <field name="binding_type">report</field>
+  </record>
+</odoo>

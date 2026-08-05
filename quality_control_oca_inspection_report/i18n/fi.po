@@ -1,0 +1,188 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* quality_control_oca_inspection_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0-20260803\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-05 05:30+0000\n"
+"PO-Revision-Date: 2026-08-05 05:30+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: quality_control_oca_inspection_report
+#: model:ir.actions.report,print_report_name:quality_control_oca_inspection_report.action_report_qc_inspection
+msgid "'Inspection - %s' % (object.name)"
+msgstr "'Laatukontrolli - %s' % (object.name)"
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.report_qc_inspection_document
+msgid "1. General Information"
+msgstr "1. Yleistiedot"
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.report_qc_inspection_document
+msgid "4. Inspection Result"
+msgstr "4. Tulokset"
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.report_qc_inspection_document
+msgid "5. Additional Information"
+msgstr "5. Lisätiedot"
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.report_qc_inspection_document
+msgid "6. Photos"
+msgstr "6. Valokuvat"
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.report_qc_inspection_document
+msgid "<strong>Customer</strong>"
+msgstr "<strong>Asiakas</strong>"
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.report_qc_inspection_document
+msgid "<strong>Inspected by</strong>"
+msgstr "<strong>Tarkastuiksen suorittaja</strong>"
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.report_qc_inspection_document
+msgid "<strong>Inspected on</strong>"
+msgstr "<strong>Tarkastettu</strong>"
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.report_qc_inspection_document
+msgid "<strong>No</strong>"
+msgstr "<strong>Hylätty</strong>"
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.report_qc_inspection_document
+msgid "<strong>Passed: </strong>"
+msgstr "<strong>Tulos: </strong>"
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.report_qc_inspection_document
+msgid "<strong>Product SKU</strong>"
+msgstr "<strong>SKU</strong>"
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.report_qc_inspection_document
+msgid "<strong>Product</strong>"
+msgstr "<strong>Tuote</strong>"
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.report_qc_inspection_document
+msgid "<strong>Yes</strong>"
+msgstr "<strong>Hyväksytty</strong>"
+
+#. module: quality_control_oca_inspection_report
+#: model:ir.model,name:quality_control_oca_inspection_report.model_res_company
+msgid "Companies"
+msgstr "Yritykset"
+
+#. module: quality_control_oca_inspection_report
+#: model:ir.model,name:quality_control_oca_inspection_report.model_res_config_settings
+msgid "Config Settings"
+msgstr "Asetukset"
+
+#. module: quality_control_oca_inspection_report
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_qc_inspection__display_name
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_res_company__display_name
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_res_config_settings__display_name
+msgid "Display Name"
+msgstr "Nimi"
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.res_config_settings_view_form
+msgid "Heading for the inspection lines section of the PDF report."
+msgstr "Otsikkoteksti PDF-tulosteen tarkistusriveille."
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.res_config_settings_view_form
+msgid "Heading for the product info section of the PDF report."
+msgstr "Otsikkoteksti PDF-tulosteen tuoteinfo"
+
+#. module: quality_control_oca_inspection_report
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_qc_inspection__id
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_res_company__id
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_res_config_settings__id
+msgid "ID"
+msgstr "Tunnus"
+
+#. module: quality_control_oca_inspection_report
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_res_company__qc_inspection_report_inspection_section_title
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.res_config_settings_view_form
+msgid "Inspection Information Section Title"
+msgstr "Osion otsikko: Tarkistuksen tiedot"
+
+#. module: quality_control_oca_inspection_report
+#: model:ir.actions.report,name:quality_control_oca_inspection_report.action_report_qc_inspection
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.res_config_settings_view_form
+msgid "Inspection Report"
+msgstr "Tarkastusraportti"
+
+#. module: quality_control_oca_inspection_report
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_res_company__qc_inspection_report_title
+msgid "Inspection Report Title"
+msgstr "Tarkastusraportin otsikko"
+
+#. module: quality_control_oca_inspection_report
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_res_config_settings__qc_inspection_report_inspection_section_title
+msgid "Inspection Report: Inspection Information Section Title"
+msgstr "Tarkastusraportti: tarkistuksen tietojen otsikko"
+
+#. module: quality_control_oca_inspection_report
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_res_config_settings__qc_inspection_report_product_section_title
+msgid "Inspection Report: Product Information Section Title"
+msgstr "Tarkastusraportti: tuotetietojen otsikko"
+
+#. module: quality_control_oca_inspection_report
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_res_config_settings__qc_inspection_report_title
+msgid "Inspection Report: Title"
+msgstr "Tarkastusraportti: otsikko"
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.report_qc_inspection_document
+msgid "No photos attached."
+msgstr "Ei liitettyjä kuvia"
+
+#. module: quality_control_oca_inspection_report
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_res_company__qc_inspection_report_product_section_title
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.res_config_settings_view_form
+msgid "Product Information Section Title"
+msgstr "Tuotetieto-osion otsikko"
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.res_config_settings_view_form
+msgid "Quality Control Report"
+msgstr "Laatukontrolliraportti"
+
+#. module: quality_control_oca_inspection_report
+#: model:ir.model,name:quality_control_oca_inspection_report.model_qc_inspection
+msgid "Quality control inspection"
+msgstr "Laatukontrolli"
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.report_qc_inspection_document
+msgid "Question"
+msgstr "Kysymys"
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.res_config_settings_view_form
+msgid "Report Title"
+msgstr "Raportin otsikko"
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.res_config_settings_view_form
+msgid "Title printed at the top of the inspection PDF report."
+msgstr "Otsikko, joka näytetään PDF-raportin yläosassa"
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.report_qc_inspection_document
+msgid "Value"
+msgstr "Arvo"

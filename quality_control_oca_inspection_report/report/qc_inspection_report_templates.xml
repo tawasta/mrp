@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <template id="report_qc_inspection_document">
+    <t t-call="web.external_layout">
+      <t t-set="doc" t-value="doc.with_context(lang=doc.env.lang)" />
+      <t
+        t-set="report_title"
+        t-value="doc.company_id.qc_inspection_report_title or 'Inspection'"
+      />
+
+      <t
+        t-set="product_information_section_title"
+        t-value="doc.company_id.qc_inspection_report_product_section_title or 'Product Information'"
+      />
+
+      <t
+        t-set="inspection_information_section_title"
+        t-value="doc.company_id.qc_inspection_report_inspection_section_title or 'Inspection Information'"
+      />
+
+      <t t-set="images" t-value="doc._report_image_attachments()" />
+
+      <div class="page">
+        <div class="text-center mb-4">
+          <h2 class="mb-0">
+            <span t-esc="report_title" />
+          </h2>
+          <div class="text-muted">
+            <span t-field="doc.name" />
+          </div>
+        </div>
+
+        <!-- 1. General information -->
+        <h4 class="mt-4 mb-2 border-bottom pb-1">1. General Information</h4>
+        <div class="mb-4">
+          <div class="row mb-1">
+            <div class="col-3">
+              <strong>Customer</strong>
+            </div>
+            <div class="col-9">
+              <span
+                t-if="doc.object_id and doc.object_id.partner_id"
+                t-field="doc.object_id.partner_id"
+              />
+            </div>
+          </div>
+          <div class="row mb-1">
+            <div class="col-3">
+              <strong>Inspected on</strong>
+            </div>
+            <div class="col-9">
+              <span t-field="doc.date_done" />
+            </div>
+          </div>
+          <div class="row mb-1">
+            <div class="col-3">
+              <strong>Inspected by</strong>
+            </div>
+            <div class="col-9">
+              <span t-field="doc.user" />
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. Product information -->
+        <h4 class="mt-4 mb-2 border-bottom pb-1">2. <span
+          t-esc="product_information_section_title"
+        /></h4>
+        <div class="mb-4">
+          <div class="row mb-1">
+            <div class="col-3">
+              <strong>Product</strong>
+            </div>
+            <div class="col-9">
+              <span t-field="doc.product_id" />
+            </div>
+          </div>
+          <div class="row mb-1">
+            <div class="col-3">
+              <strong>Product SKU</strong>
+            </div>
+            <div class="col-9">
+              <span t-if="doc.product_id" t-field="doc.product_id.default_code" />
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. Inspection information -->
+        <h4 class="mt-4 mb-2 border-bottom pb-1">3. <span
+          t-esc="inspection_information_section_title"
+        /></h4>
+        <table class="table table-sm o_main_table">
+          <thead>
+            <tr>
+              <th>Question</th>
+              <th class="text-end">Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr t-foreach="doc.inspection_lines" t-as="line">
+              <td>
+                <span t-field="line.name" />
+              </td>
+              <td class="text-end">
+                <!-- Question type defines which field actually contains the answer -->
+                <span
+                  t-if="line.question_type == 'qualitative'"
+                  t-field="line.qualitative_value"
+                />
+                <span
+                  t-if="line.question_type == 'freetext'"
+                  t-field="line.freetext_value"
+                />
+                <span t-if="line.question_type == 'quantitative'">
+                  <span t-field="line.quantitative_value" />
+                  <span t-field="line.uom_id" />
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- 4. Inspection result -->
+        <h4 class="mt-4 mb-2 border-bottom pb-1">4. Inspection Result</h4>
+        <p class="fs-5">
+          <strong>Passed: </strong>
+          <span t-if="doc.success" class="text-success">
+            <strong>Yes</strong>
+          </span>
+          <span t-else="" class="text-danger">
+            <strong>No</strong>
+          </span>
+        </p>
+
+        <!-- 5. Additional information -->
+        <h4 class="mt-4 mb-2 border-bottom pb-1">5. Additional Information</h4>
+        <p t-field="doc.external_notes" />
+
+        <!-- 6. Photos -->
+        <h4
+          class="mt-4 mb-2 border-bottom pb-1"
+          style="page-break-after: avoid;"
+        >6. Photos</h4>
+        <div t-if="images" class="row">
+          <div
+            t-foreach="images"
+            t-as="image"
+            class="col-6 mb-3 text-center"
+            style="page-break-inside: avoid; break-inside: avoid;"
+          >
+            <img
+              t-att-src="image_data_uri(image.datas)"
+              class="img img-fluid"
+              style="max-height: 250px;"
+            />
+            <div class="text-muted small">
+              <span t-esc="image.name" />
+            </div>
+          </div>
+        </div>
+        <p t-else="" class="text-muted">No photos attached.</p>
+      </div>
+    </t>
+  </template>
+
+  <template id="report_qc_inspection">
+    <t t-call="web.html_container">
+      <t t-foreach="docs" t-as="doc">
+        <t
+          t-call="quality_control_oca_inspection_report.report_qc_inspection_document"
+        />
+      </t>
+    </t>
+  </template>
+</odoo>

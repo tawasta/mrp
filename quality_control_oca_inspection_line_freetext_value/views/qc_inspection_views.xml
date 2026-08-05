@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="qc_inspection_form_view" model="ir.ui.view">
+    <field name="name">qc.inspection.form.inherit.freetext</field>
+    <field name="model">qc.inspection</field>
+    <field name="inherit_id" ref="quality_control_oca.qc_inspection_form_view" />
+    <field name="arch" type="xml">
+      <xpath
+        expr="//field[@name='inspection_lines']//field[@name='qualitative_value']"
+        position="after"
+      >
+        <field
+          name="freetext_value"
+          invisible="question_type != 'freetext'"
+          optional="show"
+        />
+      </xpath>
+
+      <!-- Conditionally hide some values that are unneeded both when
+     dealing with a qualitative or a freetext question -->
+      <xpath
+        expr="//field[@name='inspection_lines']//field[@name='qualitative_value']"
+        position="attributes"
+      >
+        <attribute name="invisible" add="question_type == 'freetext'" separator="or" />
+      </xpath>
+
+      <xpath
+        expr="//field[@name='inspection_lines']//field[@name='quantitative_value']"
+        position="attributes"
+      >
+        <attribute name="invisible" add="question_type == 'freetext'" separator="or" />
+      </xpath>
+
+      <xpath
+        expr="//field[@name='inspection_lines']//field[@name='uom_id']"
+        position="attributes"
+      >
+        <attribute name="invisible" add="question_type == 'freetext'" separator="or" />
+      </xpath>
+    </field>
+  </record>
+</odoo>
