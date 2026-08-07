@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+  <record id="ir_cron_button_create_mrp_parameters" model="ir.cron">
+    <field name="name">Create MRP Product Parameters</field>
+    <field name="model_id" ref="model_product_template_create_mrp_parameter" />
+    <field name="state">code</field>
+    <field
+      name="code"
+    >model.action_mass_create_product_mrp_parameter(use_cron=True)</field>
+    <field name="user_id" ref="base.user_root" />
+    <field name="interval_number" eval="1" />
+    <field name="interval_type">days</field>
+    <field name="priority" eval="5" />
+    <field name="active" eval="0" />
+  </record>
+</odoo>
