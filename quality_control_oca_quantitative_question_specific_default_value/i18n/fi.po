@@ -1,0 +1,68 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* quality_control_oca_quantitative_question_specific_default_value
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0-20260817\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-18 05:39+0000\n"
+"PO-Revision-Date: 2026-08-18 05:39+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: quality_control_oca_quantitative_question_specific_default_value
+#: model:ir.model.fields,field_description:quality_control_oca_quantitative_question_specific_default_value.field_qc_test_question__default_quantitative_value
+msgid "Default Quantitative Value"
+msgstr "Oletusarvo"
+
+#. module: quality_control_oca_quantitative_question_specific_default_value
+#: model:ir.model.fields,field_description:quality_control_oca_quantitative_question_specific_default_value.field_qc_inspection__display_name
+#: model:ir.model.fields,field_description:quality_control_oca_quantitative_question_specific_default_value.field_qc_test_question__display_name
+msgid "Display Name"
+msgstr "Nimi"
+
+#. module: quality_control_oca_quantitative_question_specific_default_value
+#: model:ir.model.fields,field_description:quality_control_oca_quantitative_question_specific_default_value.field_qc_inspection__id
+#: model:ir.model.fields,field_description:quality_control_oca_quantitative_question_specific_default_value.field_qc_test_question__id
+msgid "ID"
+msgstr "ID"
+
+#. module: quality_control_oca_quantitative_question_specific_default_value
+#: model:ir.model.fields,help:quality_control_oca_quantitative_question_specific_default_value.field_qc_test_question__use_specific_default_value
+msgid ""
+"If enabled, the Default value below is used to pre-fill this question's "
+"answer instead of the midpoint of Min/Max (requires 'Pre-fill with correct "
+"values' to be enabled on the test)."
+msgstr ""
+"Jos käytössä, alla olevaa oletusarvoa käytetään tämän kysymyksen "
+"vastauksen esitäyttöön minimin ja maksimin puolivälin sijaan (edellyttää, "
+"että testissä on käytössä \"Esitäytä oikeilla arvoilla\")."
+
+#. module: quality_control_oca_quantitative_question_specific_default_value
+#: model:ir.model,name:quality_control_oca_quantitative_question_specific_default_value.model_qc_inspection
+msgid "Quality control inspection"
+msgstr "Laatukontrolli"
+
+#. module: quality_control_oca_quantitative_question_specific_default_value
+#: model:ir.model,name:quality_control_oca_quantitative_question_specific_default_value.model_qc_test_question
+msgid "Quality control question"
+msgstr "Laatukontrollin kysymys"
+
+#. module: quality_control_oca_quantitative_question_specific_default_value
+#: model:ir.model.fields,field_description:quality_control_oca_quantitative_question_specific_default_value.field_qc_test_question__use_specific_default_value
+msgid "Use specific pre-fill value"
+msgstr "Käytä tiettyä esitäyttöarvoa"
+
+#. module: quality_control_oca_quantitative_question_specific_default_value
+#: model:ir.model.fields,help:quality_control_oca_quantitative_question_specific_default_value.field_qc_test_question__default_quantitative_value
+msgid ""
+"Value used to pre-fill this question's answer when 'Use specific pre-fill "
+"value' is enabled."
+msgstr ""
+"Arvo, jota käytetään tämän kysymyksen vastauksen esitäyttöön, kun \"Käytä "
+"tiettyä esitäyttöarvoa\" on käytössä."
