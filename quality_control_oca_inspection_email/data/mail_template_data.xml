@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+  <record id="mail_template_qc_inspection" model="mail.template">
+    <field name="name">Quality Control: Inspection Results</field>
+    <field name="model_id" ref="quality_control_oca.model_qc_inspection" />
+    <field
+      name="subject"
+    >{{ object.company_id.name }} Inspection results ({{ object.name }})</field>
+    <field
+      name="email_from"
+    >{{ (object.user.email_formatted or object.company_id.email_formatted or user.email_formatted) }}</field>
+    <field name="partner_to" eval="False" />
+    <field name="use_default_to" eval="False" />
+    <field
+      name="description"
+    >Used to send inspection results to the suggested recipients</field>
+    <field name="body_html" type="html">
+      <div style="margin: 0px; padding: 0px;">
+        <p style="margin: 0px; padding: 0px; font-size: 13px;">
+            Hello,
+            <br /><br />
+            Please find attached the inspection results for
+            <t t-out="object.name or ''">INS/00001</t>.
+            <br /><br />
+            Best regards,
+            - <t t-out="object.company_id.name">My Company</t>
+          </p>
+      </div>
+    </field>
+    <!-- attach the inspection report PDF -->
+    <field
+      name="report_template_ids"
+      eval="[(4, ref('quality_control_oca_inspection_report.action_report_qc_inspection'))]"
+    />
+    <field name="auto_delete" eval="True" />
+  </record>
+</odoo>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="qc_inspection_form_view" model="ir.ui.view">
+    <field name="name">qc.inspection.form.inherit.email</field>
+    <field name="model">qc.inspection</field>
+    <field name="inherit_id" ref="quality_control_oca.qc_inspection_form_view" />
+    <field name="arch" type="xml">
+      <xpath expr="//button[@name='action_cancel']" position="after">
+        <button
+          name="action_send_by_email"
+          type="object"
+          string="Send by E-mail"
+          invisible="state not in ('success', 'failed')"
+        />
+      </xpath>
+      <xpath expr="//field[@name='auto_generated']" position="after">
+        <field name="partner_inspection_email_recipient_ids" widget="many2many_tags" />
+        <field name="inspection_email_sent" readonly="1" />
+      </xpath>
+    </field>
+  </record>
+
+  <record id="qc_inspection_tree_view" model="ir.ui.view">
+    <field name="name">qc.inspection.list.inherit.email</field>
+    <field name="model">qc.inspection</field>
+    <field name="inherit_id" ref="quality_control_oca.qc_inspection_tree_view" />
+    <field name="arch" type="xml">
+      <xpath expr="//field[@name='success']" position="after">
+        <field name="inspection_email_sent" optional="show" />
+      </xpath>
+    </field>
+  </record>
+
+  <record id="qc_inspection_search_view" model="ir.ui.view">
+    <field name="name">qc.inspection.search.inherit.email</field>
+    <field name="model">qc.inspection</field>
+    <field name="inherit_id" ref="quality_control_oca.qc_inspection_search_view" />
+    <field name="arch" type="xml">
+      <xpath expr="//filter[@name='incorrect']" position="after">
+        <separator />
+        <filter
+          string="Not Sent by E-mail"
+          name="not_sent_by_email"
+          domain="[('inspection_email_sent', '=', False)]"
+        />
+      </xpath>
+    </field>
+  </record>
+</odoo>
