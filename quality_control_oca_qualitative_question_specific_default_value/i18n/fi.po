@@ -1,0 +1,68 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* quality_control_oca_qualitative_question_specific_default_value
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0-20260817\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-19 06:37+0000\n"
+"PO-Revision-Date: 2026-08-19 06:37+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: quality_control_oca_qualitative_question_specific_default_value
+#: model:ir.model.fields,field_description:quality_control_oca_qualitative_question_specific_default_value.field_qc_test_question_value__is_default_qualitative_value
+msgid "Default pre-fill value"
+msgstr "Oletusarvo"
+
+#. module: quality_control_oca_qualitative_question_specific_default_value
+#: model:ir.model.fields,field_description:quality_control_oca_qualitative_question_specific_default_value.field_qc_inspection__display_name
+#: model:ir.model.fields,field_description:quality_control_oca_qualitative_question_specific_default_value.field_qc_test_question_value__display_name
+msgid "Display Name"
+msgstr "Nimi"
+
+#. module: quality_control_oca_qualitative_question_specific_default_value
+#: model:ir.model.fields,field_description:quality_control_oca_qualitative_question_specific_default_value.field_qc_inspection__id
+#: model:ir.model.fields,field_description:quality_control_oca_qualitative_question_specific_default_value.field_qc_test_question_value__id
+msgid "ID"
+msgstr "ID"
+
+#. module: quality_control_oca_qualitative_question_specific_default_value
+#: model:ir.model.fields,help:quality_control_oca_qualitative_question_specific_default_value.field_qc_test_question_value__is_default_qualitative_value
+msgid ""
+"If enabled, this answer is used to pre-fill the question instead of the "
+"first correct answer found (requires 'Pre-fill with correct values' to be "
+"enabled on the test)."
+msgstr ""
+"Jos käytössä, tätä vastausta käytetään kysymyksen esitäyttöön ensimmäisen "
+"löytyvän oikean vastauksen sijaan (edellyttää, että testissä on käytössä "
+"\"Esitäytä oikeilla arvoilla\")."
+
+#. module: quality_control_oca_qualitative_question_specific_default_value
+#. odoo-python
+#: code:addons/quality_control_oca_qualitative_question_specific_default_value/models/qc_test_question_value.py:0
+msgid "Only a correct answer can be set as the default pre-fill value."
+msgstr "Vain oikea vastaus voidaan asettaa oletusarvoiseksi esitäyttövastaukseksi."
+
+#. module: quality_control_oca_qualitative_question_specific_default_value
+#. odoo-python
+#: code:addons/quality_control_oca_qualitative_question_specific_default_value/models/qc_test_question_value.py:0
+msgid "Only one answer can be set as the default pre-fill value per question."
+msgstr ""
+"Vain yksi vastaus per kysymys voidaan asettaa oletusarvoiseksi "
+"esitäyttövastaukseksi."
+
+#. module: quality_control_oca_qualitative_question_specific_default_value
+#: model:ir.model,name:quality_control_oca_qualitative_question_specific_default_value.model_qc_test_question_value
+msgid "Possible values for qualitative questions."
+msgstr "Laadullisten kysymysten mahdolliset arvot."
+
+#. module: quality_control_oca_qualitative_question_specific_default_value
+#: model:ir.model,name:quality_control_oca_qualitative_question_specific_default_value.model_qc_inspection
+msgid "Quality control inspection"
+msgstr "Laatukontrolli"
