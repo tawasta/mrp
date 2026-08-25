@@ -19,8 +19,9 @@
 ##############################################################################
 
 {
-    "name": "Quality Control OCA: Inspection PDF Report",
-    "summary": "PDF printing functionality for the inspection records",
+    "name": "Quality Control OCA: Inspection E-mail",
+    "summary": "Send a quality control inspection by e-mail, with its PDF "
+    "report attached",
     "version": "19.0.1.0.0",
     "category": "Manufacturing/Quality",
     "website": "https://github.com/tawasta/mrp",
@@ -29,13 +30,12 @@
     "application": False,
     "installable": True,
     "depends": [
+        "mail",
         "quality_control_oca",
-        "quality_control_oca_inspection_line_freetext_value",
-        "quality_control_stock_oca",
+        "quality_control_oca_inspection_report",
     ],
     "data": [
-        "report/qc_inspection_report.xml",
-        "report/qc_inspection_report_templates.xml",
-        "views/res_config_settings_views.xml",
+        "data/mail_template_data.xml",
+        "views/qc_inspection_views.xml",
     ],
 }

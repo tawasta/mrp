@@ -1,0 +1,47 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* quality_control_oca_inspection_freetext_serial
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0-20260817\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-18 06:35+0000\n"
+"PO-Revision-Date: 2026-08-18 06:35+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: quality_control_oca_inspection_freetext_serial
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_freetext_serial.field_qc_inspection__display_name
+msgid "Display Name"
+msgstr "Nimi"
+
+#. module: quality_control_oca_inspection_freetext_serial
+#: model:ir.model.fields,help:quality_control_oca_inspection_freetext_serial.field_qc_inspection__serial_number
+msgid ""
+"Freetext identifier to help you find inspections related to a particular "
+"serial number or other identifier. Not connected to Odoo's own serial number"
+" / lot tracking."
+msgstr ""
+"Vapaamuotoinen tunniste, jolla hakea tiettyyn sarjanumeroon tai "
+"muuhun tunnisteeseen liittyvät tarkastukset. Ei yhteydessä Odoon "
+"omaan sarjanumero-/eräseurantaan."
+
+#. module: quality_control_oca_inspection_freetext_serial
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_freetext_serial.field_qc_inspection__id
+msgid "ID"
+msgstr "ID"
+
+#. module: quality_control_oca_inspection_freetext_serial
+#: model:ir.model,name:quality_control_oca_inspection_freetext_serial.model_qc_inspection
+msgid "Quality control inspection"
+msgstr "Laatukontrolli"
+
+#. module: quality_control_oca_inspection_freetext_serial
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_freetext_serial.field_qc_inspection__serial_number
+msgid "Serial Number / Identifier"
+msgstr "Sarjanumero / tunniste"

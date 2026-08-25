@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <record id="qc_test_question_form_view" model="ir.ui.view">
+    <field name="name">qc.test.question.form.inherit.default.value</field>
+    <field name="model">qc.test.question</field>
+    <field name="inherit_id" ref="quality_control_oca.qc_test_question_form_view" />
+    <field name="arch" type="xml">
+      <xpath expr="//group[@name='quantitative']" position="after">
+        <group invisible="type != 'quantitative'">
+          <field name="use_specific_default_value" />
+          <field
+            name="default_quantitative_value"
+            invisible="not use_specific_default_value"
+            required="use_specific_default_value"
+          />
+        </group>
+      </xpath>
+    </field>
+  </record>
+</odoo>

@@ -10,7 +10,11 @@
     <field
       name="report_file"
     >quality_control_oca_inspection_report.report_qc_inspection</field>
-    <field name="print_report_name">'Inspection - %s' % (object.name)</field>
+    <!-- Put the serial number also in the report filename if quality_control_oca_inspection_freetext_serial
+     is installed, but do not require it -->
+    <field
+      name="print_report_name"
+    >'_'.join(filter(None, ['inspection_report', object.product_id.default_code, object._fields.get('serial_number') and object.serial_number, object.date_done and object.date_done.strftime('%Y-%m-%d')]))</field>
     <field name="binding_model_id" ref="quality_control_oca.model_qc_inspection" />
     <field name="binding_type">report</field>
   </record>

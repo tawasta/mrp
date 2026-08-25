@@ -19,8 +19,8 @@
 ##############################################################################
 
 {
-    "name": "Quality Control OCA: Inspection PDF Report",
-    "summary": "PDF printing functionality for the inspection records",
+    "name": "Quality Control OCA: Inspection Freetext Serial",
+    "summary": "Add a freetext Serial Number / Identifier field to inspections",
     "version": "19.0.1.0.0",
     "category": "Manufacturing/Quality",
     "website": "https://github.com/tawasta/mrp",
@@ -28,14 +28,8 @@
     "license": "AGPL-3",
     "application": False,
     "installable": True,
-    "depends": [
-        "quality_control_oca",
-        "quality_control_oca_inspection_line_freetext_value",
-        "quality_control_stock_oca",
-    ],
+    "depends": ["quality_control_oca"],
     "data": [
-        "report/qc_inspection_report.xml",
-        "report/qc_inspection_report_templates.xml",
-        "views/res_config_settings_views.xml",
+        "views/qc_inspection_views.xml",
     ],
 }

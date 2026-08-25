@@ -1,0 +1,128 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* quality_control_oca_inspection_email
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0-20260817\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-25 09:33+0000\n"
+"PO-Revision-Date: 2026-08-25 09:33+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: quality_control_oca_inspection_email
+#: model:mail.template,body_html:quality_control_oca_inspection_email.mail_template_qc_inspection
+msgid ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"        <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"            Hello,\n"
+"            <br/><br/>\n"
+"            Please find attached the <t t-out=\"object.name or ''\">INS/00001</t> inspection results.\n"
+"            <br/><br/>\n"
+"            Best regards,<br/>\n"
+"            - <t t-out=\"object.company_id.name\">My Company</t>\n"
+"          </p>\n"
+"      </div>\n"
+"    "
+msgstr ""
+"<div style=\"margin: 0px; padding: 0px;\">\n"
+"        <p style=\"margin: 0px; padding: 0px; font-size: 13px;\">\n"
+"            Hei,\n"
+"            <br/><br/>\n"
+"            Ohessa <t t-out=\"object.name or ''\">INS/00001</t>:n tarkastustulokset.\n"
+"            <br/><br/>\n"
+"            Ystävällisin terveisin,<br/>\n"
+"            - <t t-out=\"object.company_id.name\">My Company</t>\n"
+"          </p>\n"
+"      </div>\n"
+"    "
+
+#. module: quality_control_oca_inspection_email
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_email.field_qc_inspection__display_name
+msgid "Display Name"
+msgstr "Nimi"
+
+#. module: quality_control_oca_inspection_email
+#: model:ir.model.fields,help:quality_control_oca_inspection_email.field_qc_inspection__inspection_email_sent
+msgid ""
+"Have the inspection results already been communicated to their recipients by"
+" e-mail."
+msgstr ""
+"Kertoo, onko tarkastuksen tulokset jo lähetetty vastaanottajille "
+"sähköpostitse."
+
+#. module: quality_control_oca_inspection_email
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_email.field_qc_inspection__id
+msgid "ID"
+msgstr "ID"
+
+#. module: quality_control_oca_inspection_email
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_email.field_qc_inspection__inspection_email_sent
+msgid "Inspection E-mail Sent"
+msgstr "Tarkastus lähetetty sähköpostitse"
+
+#. module: quality_control_oca_inspection_email
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_email.qc_inspection_search_view
+msgid "Not Sent by E-mail"
+msgstr "Ei lähetetty sähköpostitse"
+
+#. module: quality_control_oca_inspection_email
+#: model:mail.template,name:quality_control_oca_inspection_email.mail_template_qc_inspection
+msgid "Quality Control: Inspection Results"
+msgstr "Laadunvalvonta: Tarkastuksen tulokset"
+
+#. module: quality_control_oca_inspection_email
+#: model:ir.model,name:quality_control_oca_inspection_email.model_qc_inspection
+msgid "Quality control inspection"
+msgstr "Laadunvalvonnan tarkastus"
+
+#. module: quality_control_oca_inspection_email
+#. odoo-python
+#: code:addons/quality_control_oca_inspection_email/models/qc_inspection.py:0
+msgid "Send Inspection Results by E-mail"
+msgstr "Lähetä tarkastuksen tulokset sähköpostitse"
+
+#. module: quality_control_oca_inspection_email
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_email.qc_inspection_form_view
+msgid "Send by E-mail"
+msgstr "Lähetä sähköpostitse"
+
+#. module: quality_control_oca_inspection_email
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_email.field_qc_inspection__partner_inspection_email_recipient_ids
+msgid "Suggested Inspection Report E-mail Recipients"
+msgstr "Ehdotetut tarkastusraportin vastaanottajat"
+
+#. module: quality_control_oca_inspection_email
+#: model:ir.model.fields,help:quality_control_oca_inspection_email.field_qc_inspection__partner_inspection_email_recipient_ids
+msgid ""
+"Suggested recipients used to pre-fill the 'Send by E-mail' wizard. "
+"Recipients can still be changed when sending."
+msgstr ""
+"Ehdotetut vastaanottajat, joilla \"Lähetä sähköpostitse\" -näkymä "
+"esitäytetään. Vastaanottajia voi vielä muuttaa lähetettäessä."
+
+#. module: quality_control_oca_inspection_email
+#: model:mail.template,description:quality_control_oca_inspection_email.mail_template_qc_inspection
+msgid "Used to send inspection results to the suggested recipients"
+msgstr ""
+"Käytetään tarkastuksen tulosten lähettämiseen ehdotetuille vastaanottajille"
+
+#. module: quality_control_oca_inspection_email
+#: model:mail.template,subject:quality_control_oca_inspection_email.mail_template_qc_inspection
+msgid ""
+"{{ object.company_id.name }} Inspection results{{ (lambda v: v and ' ' + v "
+"or '')(' / '.join(filter(None, [object.product_id.default_code, "
+"object._fields.get('serial_number') and object.serial_number]))) }}{{ "
+"object.date_done and ' (' + object.date_done.strftime('%Y-%m-%d') + ')' or "
+"'' }}"
+msgstr ""
+"{{ object.company_id.name }} Tarkastusraportti: {{ (lambda v: v and ' ' + v "
+"or '')(' / '.join(filter(None, [object.product_id.default_code, "
+"object._fields.get('serial_number') and object.serial_number]))) }}{{ "
+"object.date_done and ' (' + object.date_done.strftime('%Y-%m-%d') + ')' or "
+"'' }}"
