@@ -20,6 +20,15 @@
 
       <t t-set="images" t-value="doc._report_image_attachments()" />
 
+      <!-- The sale order (when there is one, e.g. via sale_stock) is the most
+           relevant source for the customer to show; fall back to the source
+           document otherwise. t-field needs a "record.field_name" expression,
+           so this holds the record, not the already-resolved partner. -->
+      <t
+        t-set="customer_record"
+        t-value="(doc.picking_id and doc.picking_id._fields.get('sale_id') and doc.picking_id.sale_id) or doc.object_id"
+      />
+
       <div class="page">
         <div class="text-center mb-4">
           <h2 class="mb-0">
@@ -39,8 +48,8 @@
             </div>
             <div class="col-9">
               <span
-                t-if="doc.object_id and doc.object_id.partner_id"
-                t-field="doc.object_id.partner_id"
+                t-if="customer_record and customer_record.partner_id"
+                t-field="customer_record.partner_id"
               />
             </div>
           </div>

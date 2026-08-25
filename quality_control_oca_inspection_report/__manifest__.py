@@ -31,6 +31,7 @@
     "depends": [
         "quality_control_oca",
         "quality_control_oca_inspection_line_freetext_value",
+        "quality_control_stock_oca",
     ],
     "data": [
         "report/qc_inspection_report.xml",
