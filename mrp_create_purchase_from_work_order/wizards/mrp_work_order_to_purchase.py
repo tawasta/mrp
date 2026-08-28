@@ -24,10 +24,8 @@ class MrpWorkOrderToPurchase(models.TransientModel):
         workorders = self.env["mrp.workorder"].browse(self._context.get("active_ids"))
         products = self.env["product.product"]
         for wo in workorders:
-            operation = wo.operation_id
-            for line in operation.bom_id.bom_line_ids:
-                if line.operation_id == operation:
-                    products |= line.product_id
+            if wo.purchase_product_id:
+                products |= wo.purchase_product_id
         return products
 
     def _get_default_picking_type(self):

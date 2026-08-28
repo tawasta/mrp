@@ -15,6 +15,7 @@
 		    </button>
 
             <xpath expr="//tree/field[@name='state']" position="before">
+                <field name="purchase_product_id" optional="show" />
                 <field
                     name="purchase_order_ids"
                     widget="many2many_tags"

@@ -4,6 +4,10 @@ from odoo import _, api, fields, models
 class MrpWorkorder(models.Model):
     _inherit = "mrp.workorder"
 
+    purchase_product_id = fields.Many2one(
+        "product.product", related="operation_id.purchase_product_id"
+    )
+
     purchase_order_ids = fields.Many2many(
         comodel_name="purchase.order",
         relation="workorder_purchase_order_rel",
@@ -21,6 +25,7 @@ class MrpWorkorder(models.Model):
 
     purchase_cost = fields.Float(compute=lambda self: self._compute_purchase_cost())
 
+    @api.depends("purchase_order_ids.state", "purchase_order_ids.amount_total")
     def _compute_purchase_cost(self):
         for workorder in self:
             purchase_cost = 0
@@ -28,7 +33,7 @@ class MrpWorkorder(models.Model):
             for purchase in workorder.purchase_order_ids:
                 po_lines = purchase.order_line.filtered(
                     lambda line, workorder=workorder: line.product_id
-                    in workorder.move_raw_ids.mapped("product_id")
+                    == workorder.operation_id.purchase_product_id
                 )
                 for po_line in po_lines:
                     purchase_cost += po_line.price_unit * po_line.product_qty
