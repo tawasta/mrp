@@ -25,6 +25,7 @@ class MrpWorkorder(models.Model):
 
     purchase_cost = fields.Float(compute=lambda self: self._compute_purchase_cost())
 
+    @api.depends("purchase_order_ids.state", "purchase_order_ids.amount_total")
     def _compute_purchase_cost(self):
         for workorder in self:
             purchase_cost = 0
