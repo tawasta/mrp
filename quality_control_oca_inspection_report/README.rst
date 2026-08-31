@@ -11,7 +11,12 @@ Quality Control OCA: Inspection PDF Report
 
 Configuration
 =============
-* None needed
+* Settings -> Quality Control Report -> Inspection Report:
+
+  * Report title and section headings (per company).
+  * "Trim Trailing Decimals" - when enabled, quantitative result values on
+    the PDF drop insignificant trailing zeros (`12.3` instead of
+    `12.3000`). 
 
 Usage
 =====

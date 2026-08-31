@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0-20260817\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-31 20:18+0000\n"
-"PO-Revision-Date: 2026-08-31 20:18+0000\n"
+"POT-Creation-Date: 2026-08-31 20:34+0000\n"
+"PO-Revision-Date: 2026-08-31 20:34+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -99,10 +99,20 @@ msgstr "Asetukset"
 
 #. module: quality_control_oca_inspection_report
 #: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_qc_inspection__display_name
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_qc_inspection_line__display_name
 #: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_res_company__display_name
 #: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_res_config_settings__display_name
 msgid "Display Name"
 msgstr "Nimi"
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.res_config_settings_view_form
+msgid ""
+"Drop insignificant trailing zeros from quantitative result values on the PDF"
+" report (e.g. 12.3 instead of 12.30000)."
+msgstr ""
+"Poista merkityksettömät päättävät nollat PDF-raportin määrällisistä "
+"tulosarvoista (esim. 12,3 eikä 12,30000)."
 
 #. module: quality_control_oca_inspection_report
 #: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.res_config_settings_view_form
@@ -116,6 +126,7 @@ msgstr "Otsikkoteksti PDF-tulosteen tuoteinfo"
 
 #. module: quality_control_oca_inspection_report
 #: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_qc_inspection__id
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_qc_inspection_line__id
 #: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_res_company__id
 #: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_res_config_settings__id
 msgid "ID"
@@ -154,9 +165,24 @@ msgid "Inspection Report: Title"
 msgstr "Tarkastusraportti: otsikko"
 
 #. module: quality_control_oca_inspection_report
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_res_config_settings__qc_inspection_report_trim_decimals
+msgid "Inspection Report: Trim Trailing Decimals"
+msgstr "Tarkastusraportti: karsi päättävät desimaalit"
+
+#. module: quality_control_oca_inspection_report
 #: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.report_qc_inspection_document
 msgid "No photos attached."
 msgstr "Ei liitettyjä kuvia"
+
+#. module: quality_control_oca_inspection_report
+#: model:ir.model.fields,help:quality_control_oca_inspection_report.field_res_company__qc_inspection_report_trim_decimals
+#: model:ir.model.fields,help:quality_control_oca_inspection_report.field_res_config_settings__qc_inspection_report_trim_decimals
+msgid ""
+"On the inspection PDF report, drop insignificant trailing zeros from "
+"quantitative result values (e.g. show 12.3 instead of 12.30000)."
+msgstr ""
+"Poistaa tarkastuksen PDF-raportissa merkityksettömät päättävät nollat "
+"määrällisistä tulosarvoista (esim. näyttää 12,3 eikä 12,30000)."
 
 #. module: quality_control_oca_inspection_report
 #: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_res_company__qc_inspection_report_product_section_title
@@ -175,6 +201,11 @@ msgid "Quality control inspection"
 msgstr "Laadunvalvonnan tarkastus"
 
 #. module: quality_control_oca_inspection_report
+#: model:ir.model,name:quality_control_oca_inspection_report.model_qc_inspection_line
+msgid "Quality control inspection line"
+msgstr "Laadunvalvonnan tarkastusrivi"
+
+#. module: quality_control_oca_inspection_report
 #: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.res_config_settings_view_form
 msgid "Report Title"
 msgstr "Raportin otsikko"
@@ -183,3 +214,13 @@ msgstr "Raportin otsikko"
 #: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.res_config_settings_view_form
 msgid "Title printed at the top of the inspection PDF report."
 msgstr "Otsikko, joka näytetään PDF-raportin yläosassa"
+
+#. module: quality_control_oca_inspection_report
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.res_config_settings_view_form
+msgid "Trim Trailing Decimals"
+msgstr "Karsi päättävät desimaalit"
+
+#. module: quality_control_oca_inspection_report
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_report.field_res_company__qc_inspection_report_trim_decimals
+msgid "Trim Trailing Decimals on Inspection Report"
+msgstr "Karsi tarkastusraportin päättävät desimaalit"

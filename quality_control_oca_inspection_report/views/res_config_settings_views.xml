@@ -29,6 +29,12 @@
             >
               <field name="qc_inspection_report_inspection_section_title" />
             </setting>
+            <setting
+              string="Trim Trailing Decimals"
+              help="Drop insignificant trailing zeros from quantitative result values on the PDF report (e.g. 12.3 instead of 12.30000)."
+            >
+              <field name="qc_inspection_report_trim_decimals" />
+            </setting>
           </block>
         </app>
       </xpath>
