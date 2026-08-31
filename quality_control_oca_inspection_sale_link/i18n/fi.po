@@ -1,0 +1,68 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* quality_control_oca_inspection_sale_link
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0-20260817\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-31 17:22+0000\n"
+"PO-Revision-Date: 2026-08-31 17:22+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: quality_control_oca_inspection_sale_link
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_sale_link.field_qc_inspection__display_name
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_sale_link.field_qc_inspection_line__display_name
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_sale_link.field_sale_order__display_name
+msgid "Display Name"
+msgstr "Nimi"
+
+#. module: quality_control_oca_inspection_sale_link
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_sale_link.field_qc_inspection__id
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_sale_link.field_qc_inspection_line__id
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_sale_link.field_sale_order__id
+msgid "ID"
+msgstr "Tunnus"
+
+#. module: quality_control_oca_inspection_sale_link
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_sale_link.field_sale_order__qc_inspection_count
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_sale_link.sale_order_form_qc_view
+msgid "Inspections"
+msgstr "Tarkastukset"
+
+#. module: quality_control_oca_inspection_sale_link
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_sale_link.field_sale_order__qc_inspection_ids
+msgid "Quality Inspections"
+msgstr "Laatutarkastukset"
+
+#. module: quality_control_oca_inspection_sale_link
+#: model:ir.model,name:quality_control_oca_inspection_sale_link.model_qc_inspection
+msgid "Quality control inspection"
+msgstr "Laadunvalvonnan tarkastus"
+
+#. module: quality_control_oca_inspection_sale_link
+#: model:ir.model,name:quality_control_oca_inspection_sale_link.model_qc_inspection_line
+msgid "Quality control inspection line"
+msgstr "Laadunvalvonnan tarkastusrivi"
+
+#. module: quality_control_oca_inspection_sale_link
+#: model:ir.actions.act_window,name:quality_control_oca_inspection_sale_link.action_qc_inspection_from_sale_order
+msgid "Quality inspections from sale order"
+msgstr "Myyntitilauksen laatutarkastukset"
+
+#. module: quality_control_oca_inspection_sale_link
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_sale_link.field_qc_inspection__sale_order_id
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_sale_link.field_qc_inspection_line__sale_order_id
+#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_sale_link.qc_inspection_search_view_sale
+msgid "Sale Order"
+msgstr "Myyntitilaus"
+
+#. module: quality_control_oca_inspection_sale_link
+#: model:ir.model,name:quality_control_oca_inspection_sale_link.model_sale_order
+msgid "Sales Order"
+msgstr "Myyntitilaus"
