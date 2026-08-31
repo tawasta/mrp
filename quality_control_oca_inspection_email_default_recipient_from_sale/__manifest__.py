@@ -30,7 +30,10 @@
     "author": "Futural",
     "license": "AGPL-3",
     "application": False,
-    "installable": True,
+    # Deprecated: its behaviour is now covered by
+    # quality_control_oca_inspection_partner (partner_id) +
+    # quality_control_oca_inspection_partner_picking_partner_from_sale.
+    "installable": False,
     "depends": [
         "quality_control_oca_inspection_email",
         "quality_control_stock_oca",

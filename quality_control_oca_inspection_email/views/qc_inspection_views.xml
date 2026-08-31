@@ -14,7 +14,6 @@
         />
       </xpath>
       <xpath expr="//field[@name='auto_generated']" position="after">
-        <field name="partner_inspection_email_recipient_ids" widget="many2many_tags" />
         <field name="inspection_email_sent" readonly="1" />
       </xpath>
     </field>
