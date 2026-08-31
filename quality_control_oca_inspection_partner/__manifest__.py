@@ -31,8 +31,10 @@
     "installable": True,
     "depends": [
         "quality_control_oca",
+        "quality_control_oca_inspection_report",
     ],
     "data": [
         "views/qc_inspection_views.xml",
+        "report/qc_inspection_report_templates.xml",
     ],
 }

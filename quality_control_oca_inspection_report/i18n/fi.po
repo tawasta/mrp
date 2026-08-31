@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 19.0-20260817\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-08-25 09:06+0000\n"
-"PO-Revision-Date: 2026-08-25 09:06+0000\n"
+"POT-Creation-Date: 2026-08-31 20:18+0000\n"
+"PO-Revision-Date: 2026-08-31 20:18+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,9 +22,10 @@ msgid ""
 "object._fields.get('serial_number') and object.serial_number, "
 "object.date_done and object.date_done.strftime('%Y-%m-%d')]))"
 msgstr ""
-"'_'.join(filter(None, ['laatutarkastus', object.product_id.default_code, "
-"object._fields.get('serial_number') and object.serial_number, "
-"object.date_done and object.date_done.strftime('%Y-%m-%d')]))"
+"'_'.join(filter(None, ['laatutarkastus', "
+"object.product_id.default_code, object._fields.get('serial_number') and "
+"object.serial_number, object.date_done and "
+"object.date_done.strftime('%Y-%m-%d')]))"
 
 #. module: quality_control_oca_inspection_report
 #: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.report_qc_inspection_document
@@ -174,11 +175,6 @@ msgid "Quality control inspection"
 msgstr "Laadunvalvonnan tarkastus"
 
 #. module: quality_control_oca_inspection_report
-#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.report_qc_inspection_document
-msgid "Question"
-msgstr "Kysymys"
-
-#. module: quality_control_oca_inspection_report
 #: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.res_config_settings_view_form
 msgid "Report Title"
 msgstr "Raportin otsikko"
@@ -187,8 +183,3 @@ msgstr "Raportin otsikko"
 #: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.res_config_settings_view_form
 msgid "Title printed at the top of the inspection PDF report."
 msgstr "Otsikko, joka näytetään PDF-raportin yläosassa"
-
-#. module: quality_control_oca_inspection_report
-#: model_terms:ir.ui.view,arch_db:quality_control_oca_inspection_report.report_qc_inspection_document
-msgid "Value"
-msgstr "Arvo"

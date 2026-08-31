@@ -99,12 +99,6 @@
           t-esc="inspection_information_section_title"
         /></h4>
         <table class="table table-sm o_main_table">
-          <thead>
-            <tr>
-              <th>Question</th>
-              <th class="text-end">Value</th>
-            </tr>
-          </thead>
           <tbody>
             <tr t-foreach="doc.inspection_lines" t-as="line">
               <td>

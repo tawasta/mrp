@@ -104,3 +104,13 @@ class TestInspectionPartner(BaseCommon):
         inspection.flush_recordset()
         tracked = inspection.message_ids.tracking_value_ids.mapped("field_id.name")
         self.assertIn("partner_id", tracked)
+
+    def test_partner_shown_in_report(self):
+        self._require_sale()
+        inspection = self._create_inspection(self.sale_a)
+        self.assertEqual(inspection.partner_id, self.partner_a)
+        html, _ = self.env["ir.actions.report"]._render_qweb_html(
+            "quality_control_oca_inspection_report.action_report_qc_inspection",
+            inspection.ids,
+        )
+        self.assertIn(self.partner_a.name.encode(), html)
