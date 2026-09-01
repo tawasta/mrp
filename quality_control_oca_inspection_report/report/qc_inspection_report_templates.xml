@@ -20,6 +20,11 @@
 
       <t t-set="images" t-value="doc._report_image_attachments()" />
 
+      <t
+        t-set="trim_quantitative_decimals"
+        t-value="doc.company_id.qc_inspection_report_trim_decimals"
+      />
+
       <!-- The sale order (when there is one, e.g. via sale_stock) is the most
            relevant source for the customer to show; fall back to the source
            document otherwise. t-field needs a "record.field_name" expression,
@@ -99,12 +104,6 @@
           t-esc="inspection_information_section_title"
         /></h4>
         <table class="table table-sm o_main_table">
-          <thead>
-            <tr>
-              <th>Question</th>
-              <th class="text-end">Value</th>
-            </tr>
-          </thead>
           <tbody>
             <tr t-foreach="doc.inspection_lines" t-as="line">
               <td>
@@ -121,7 +120,9 @@
                   t-field="line.freetext_value"
                 />
                 <span t-if="line.question_type == 'quantitative'">
-                  <span t-field="line.quantitative_value" />
+                  <span
+                    t-out="line._report_format_quantitative_value(trim_quantitative_decimals)"
+                  />
                   <span t-field="line.uom_id" />
                 </span>
               </td>

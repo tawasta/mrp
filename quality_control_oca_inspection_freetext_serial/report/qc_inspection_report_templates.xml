@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+  <template
+    id="report_qc_inspection_document_serial"
+    inherit_id="quality_control_oca_inspection_report.report_qc_inspection_document"
+  >
+    <!-- Add the freetext serial number right below the "Product SKU" row
+         (span -> div.col-9 -> div.row) -->
+    <xpath expr="//span[@t-field='doc.product_id.default_code']/../.." position="after">
+      <div class="row mb-1">
+        <div class="col-3">
+          <strong>Serial Number / Identifier</strong>
+        </div>
+        <div class="col-9">
+          <span t-field="doc.serial_number" />
+        </div>
+      </div>
+    </xpath>
+  </template>
+</odoo>

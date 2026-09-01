@@ -32,6 +32,7 @@
     "depends": [
         "mail",
         "quality_control_oca",
+        "quality_control_oca_inspection_partner",
         "quality_control_oca_inspection_report",
     ],
     "data": [

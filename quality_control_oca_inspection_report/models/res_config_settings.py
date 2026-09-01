@@ -21,3 +21,9 @@ class ResConfigSettings(models.TransientModel):
         string="Inspection Report: Inspection Information Section Title",
         readonly=False,
     )
+
+    qc_inspection_report_trim_decimals = fields.Boolean(
+        related="company_id.qc_inspection_report_trim_decimals",
+        string="Inspection Report: Trim Trailing Decimals",
+        readonly=False,
+    )

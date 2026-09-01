@@ -21,3 +21,9 @@ class ResCompany(models.Model):
         default="Inspection Information",
         translate=True,
     )
+
+    qc_inspection_report_trim_decimals = fields.Boolean(
+        string="Trim Trailing Decimals on Inspection Report",
+        help="On the inspection PDF report, drop insignificant trailing zeros "
+        "from quantitative result values (e.g. show 12.3 instead of 12.30000).",
+    )

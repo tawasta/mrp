@@ -1,0 +1,60 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* quality_control_oca_inspection_manual_product
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0-20260817\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-09-01 05:23+0000\n"
+"PO-Revision-Date: 2026-09-01 05:23+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: quality_control_oca_inspection_manual_product
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_manual_product.field_qc_inspection__display_name
+msgid "Display Name"
+msgstr "Nimi"
+
+#. module: quality_control_oca_inspection_manual_product
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_manual_product.field_qc_inspection__id
+msgid "ID"
+msgstr "Tunnus"
+
+#. module: quality_control_oca_inspection_manual_product
+#: model:ir.model.fields,field_description:quality_control_oca_inspection_manual_product.field_qc_inspection__product_id
+msgid "Product"
+msgstr "Tuote"
+
+#. module: quality_control_oca_inspection_manual_product
+#: model:ir.model.fields,help:quality_control_oca_inspection_manual_product.field_qc_inspection__product_id
+msgid ""
+"Product that was inspected. Prefilled from the reference (product, stock "
+"move or lot); can be set by hand when the reference is something else (e.g. "
+"a sale order), and may be left empty."
+msgstr ""
+"Tarkastettu tuote. Esitäytetään viitteestä (tuote, varastosiirto tai "
+"eränumero); voidaan asettaa käsin, kun viite on jokin muu (esim. "
+"myyntitilaus), ja voidaan jättää tyhjäksi."
+
+#. module: quality_control_oca_inspection_manual_product
+#: model:ir.model,name:quality_control_oca_inspection_manual_product.model_qc_inspection
+msgid "Quality control inspection"
+msgstr "Laadunvalvonnan tarkastus"
+
+#. module: quality_control_oca_inspection_manual_product
+#. odoo-python
+#: code:addons/quality_control_oca_inspection_manual_product/models/qc_inspection.py:0
+msgid ""
+"The inspected product is taken automatically from the reference (%(ref)s) "
+"and cannot be changed by hand. Manual entry is only possible when the "
+"reference does not identify a product."
+msgstr ""
+"Tarkastettu tuote otetaan automaattisesti viitteestä (%(ref)s) eikä sitä voi "
+"muuttaa käsin. Käsin syöttäminen on mahdollista vain, kun viite ei määritä "
+"tuotetta."
+
