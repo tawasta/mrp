@@ -2,9 +2,9 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-=================================================
+===============================================
 Quality Control OCA: Inspection Sale Order Link
-=================================================
+===============================================
 
 * Makes `sale.order` a valid reference target for Quality Control inspections
 * Adds a computed, stored `sale_order_id` on inspections and inspection lines.
