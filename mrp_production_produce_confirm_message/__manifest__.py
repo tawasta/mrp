@@ -22,7 +22,7 @@
     "name": "Show confirm message before producing a product in Manufacturing order",
     "summary": """First show a confirm message after clicking
                  'Produce All' button in Manufacturing order""",
-    "version": "17.0.1.0.0",
+    "version": "17.0.1.0.1",
     "category": "Manufacturing",
     "website": "https://github.com/tawasta/mrp",
     "author": "Futural",
