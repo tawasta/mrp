@@ -1,26 +1,26 @@
 from odoo import models
-from odoo.tools import float_round, formatLang
 
 
 class QcInspection(models.Model):
     _inherit = "qc.inspection"
 
-    # report_notes = fields.Text(
-    #     string="Notes",
-    #     help="Free text shown in the Additional Information section of the "
-    #     "inspection report.",
-    # )
+    def _get_report_partner(self):
+        """Partner the report is addressed to.
 
-    # report_passed = fields.Boolean(
-    #     string="Passed",
-    #     compute="_compute_report_passed",
-    # )
+        Drives both the printed Customer row and the report language. Reads the
+        partner straight off the referenced document, when that document has
+        a partner_id field."""
+        self.ensure_one()
+        obj = self.object_id
+        # object_id may reference a product or a lot, which have no partner
+        if obj and "partner_id" in obj._fields and obj.partner_id:
+            return obj.partner_id[:1]
+        return self.env["res.partner"]
 
-    # @api.depends("inspection_lines.success")
-    # def _compute_report_passed(self):
-    #     for inspection in self:
-    #         lines = inspection.inspection_lines
-    #         inspection.report_passed = bool(lines) and all(lines.mapped("success"))
+    def _get_report_lang(self):
+        """Language for the PDF: the partner's, falling back to the user's."""
+        self.ensure_one()
+        return self._get_report_partner().lang or self.env.lang
 
     def _report_image_attachments(self):
         """Return image attachments posted in the chatter of this inspection."""
@@ -37,25 +37,3 @@ class QcInspection(models.Model):
         return attachments.filtered(
             lambda a: (a.mimetype or "").startswith("image/")
         ).sorted("id")
-
-
-class QcInspectionLine(models.Model):
-    _inherit = "qc.inspection.line"
-
-    def _report_format_quantitative_value(self, trim=False):
-        """Locale-formatted quantitative value for the PDF report.
-
-        With ``trim`` (the company's ``qc_inspection_report_trim_decimals``
-        setting), insignificant trailing zeros are dropped, e.g. ``12.30000``
-        renders as ``12.3`` and ``12.00000`` as ``12``. Without it, the value
-        keeps the full "Quality Control" decimal precision, matching the
-        default ``t-field`` rendering.
-        """
-        self.ensure_one()
-        max_digits = self.env["decimal.precision"].precision_get("Quality Control")
-        digits = max_digits
-        if trim:
-            rounded = float_round(self.quantitative_value, precision_digits=max_digits)
-            text = f"{rounded:.{max_digits}f}".rstrip("0").rstrip(".")
-            digits = len(text.split(".", 1)[1]) if "." in text else 0
-        return formatLang(self.env, self.quantitative_value, digits=digits)

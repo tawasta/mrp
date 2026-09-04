@@ -2,7 +2,13 @@
 <odoo>
   <template id="report_qc_inspection_document">
     <t t-call="web.external_layout">
-      <t t-set="doc" t-value="doc.with_context(lang=doc.env.lang)" />
+      <!-- "lang" comes from the calling template, which also passes it as
+           t-lang. Re-browsing doc with it keeps translated record fields and
+           number formatting in step with the translated template terms, and
+           lets web.external_layout emit the right data-oe-lang so the header
+           and footer are rendered in the same language. Must stay inside the
+           t-call body: QWeb copies a body's t-set values back into the call. -->
+      <t t-set="doc" t-value="doc.with_context(lang=lang)" />
       <t
         t-set="report_title"
         t-value="doc.company_id.qc_inspection_report_title or 'Inspection'"
@@ -25,14 +31,9 @@
         t-value="doc.company_id.qc_inspection_report_trim_decimals"
       />
 
-      <!-- The sale order (when there is one, e.g. via sale_stock) is the most
-           relevant source for the customer to show; fall back to the source
-           document otherwise. t-field needs a "record.field_name" expression,
-           so this holds the record, not the already-resolved partner. -->
-      <t
-        t-set="customer_record"
-        t-value="(doc.picking_id and doc.picking_id._fields.get('sale_id') and doc.picking_id.sale_id) or doc.object_id"
-      />
+      <!-- Same partner that decides the report language, so the printed
+           Customer and the language can never disagree. -->
+      <t t-set="customer" t-value="doc._get_report_partner()" />
 
       <div class="page">
         <div class="text-center mb-4">
@@ -52,10 +53,7 @@
               <strong>Customer</strong>
             </div>
             <div class="col-9">
-              <span
-                t-if="customer_record and customer_record.partner_id"
-                t-field="customer_record.partner_id"
-              />
+              <span t-if="customer" t-field="customer.display_name" />
             </div>
           </div>
           <div class="row mb-1">
@@ -176,8 +174,11 @@
   <template id="report_qc_inspection">
     <t t-call="web.html_container">
       <t t-foreach="docs" t-as="doc">
+        <!-- Render in the partner's language, not the printing user's -->
+        <t t-set="lang" t-value="doc._get_report_lang()" />
         <t
           t-call="quality_control_oca_inspection_report.report_qc_inspection_document"
+          t-lang="lang"
         />
       </t>
     </t>

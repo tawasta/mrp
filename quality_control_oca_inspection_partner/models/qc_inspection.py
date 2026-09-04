@@ -37,6 +37,12 @@ class QcInspection(models.Model):
                 return obj[fname][:1]
         return self.env["res.partner"]
 
+    def _get_report_partner(self):
+        """The qc.inspection now carries its own partner, so the report does not need
+        to dig through the referenced document anymore"""
+        self.ensure_one()
+        return self.partner_id
+
     @api.depends("object_id")
     def _compute_partner_id(self):
         for inspection in self:

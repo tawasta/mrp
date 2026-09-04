@@ -114,3 +114,28 @@ class TestInspectionPartner(BaseCommon):
             inspection.ids,
         )
         self.assertIn(self.partner_a.name.encode(), html)
+
+    def test_report_partner_is_the_inspection_partner(self):
+        """The inspection's own partner_id decides who the report is for,
+        rather than the referenced document."""
+        self._require_sale()
+        inspection = self._create_inspection(
+            self.sale_a, partner_id=self.partner_manual.id
+        )
+        self.assertEqual(inspection._get_report_partner(), self.partner_manual)
+
+    def test_manual_partner_decides_report_lang(self):
+        """A manually set partner overrides the referenced document for the
+        report language too, not just for the printed customer."""
+        self._require_sale()
+        self.env["res.lang"]._activate_lang("fi_FI")
+        self.partner_manual.lang = "fi_FI"
+        inspection = self._create_inspection(
+            self.sale_a, partner_id=self.partner_manual.id
+        )
+        self.assertEqual(inspection._get_report_lang(), "fi_FI")
+
+    def test_report_lang_falls_back_without_partner(self):
+        inspection = self._create_inspection(self.product)
+        self.assertFalse(inspection.partner_id)
+        self.assertEqual(inspection._get_report_lang(), self.env.lang)
