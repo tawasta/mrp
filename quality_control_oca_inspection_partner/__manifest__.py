@@ -35,6 +35,5 @@
     ],
     "data": [
         "views/qc_inspection_views.xml",
-        "report/qc_inspection_report_templates.xml",
     ],
 }
