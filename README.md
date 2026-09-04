@@ -43,7 +43,7 @@ addon | version | maintainers | summary
 [mrp_operations_disable_sequence_dragging](mrp_operations_disable_sequence_dragging/) | 17.0.1.0.0 |  | Hides sequence column in operations tree view inside BoM
 [mrp_product_only_select](mrp_product_only_select/) | 17.0.1.0.0 |  | Disable creating and editing of products from the MO product field
 [mrp_production_mass_cancel](mrp_production_mass_cancel/) | 17.0.1.0.0 |  | Allow cancellation of production orders en masse
-[mrp_production_produce_confirm_message](mrp_production_produce_confirm_message/) | 17.0.1.0.0 |  | First show a confirm message after clicking 'Produce All' button in Manufacturing order
+[mrp_production_produce_confirm_message](mrp_production_produce_confirm_message/) | 17.0.1.0.1 |  | First show a confirm message after clicking 'Produce All' button in Manufacturing order
 [mrp_production_raw_materials_to_purchase_request](mrp_production_raw_materials_to_purchase_request/) | 17.0.1.0.1 |  | Purchase request creation from manufacturing order
 [mrp_production_raw_materials_warning_field](mrp_production_raw_materials_warning_field/) | 17.0.1.0.0 |  | Helper field indicating if materials are available and assigned
 [mrp_production_tree_date_planned_start_as_date](mrp_production_tree_date_planned_start_as_date/) | 17.0.1.0.0 |  | Show date planned start as date in mrp production tree

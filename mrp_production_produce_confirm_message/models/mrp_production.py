@@ -15,6 +15,6 @@ class MrpProduction(models.Model):
             "view_id": view.id,
             "target": "new",
             "context": dict(
-                self.env.context, default_production_ids=[(4, p.id) for p in self]
+                self.env.context, default_production_ids=[(p.id) for p in self]
             ),
         }
