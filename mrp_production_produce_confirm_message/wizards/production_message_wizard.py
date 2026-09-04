@@ -11,8 +11,5 @@ class ProductionMessageWizard(models.TransientModel):
 
     def produce_all(self):
         self.ensure_one()
-        production_ids = self.env["mrp.production"].browse(
-            self._context.get("active_ids")
-        )
 
-        return production_ids.button_mark_done()
+        return self.production_ids.button_mark_done()
