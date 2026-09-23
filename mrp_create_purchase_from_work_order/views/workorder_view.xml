@@ -5,6 +5,18 @@
 		<field name="model">mrp.workorder</field>
 		<field name="inherit_id" ref="mrp.mrp_production_workorder_tree_editable_view" />
 		<field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="purchase_order_ids" column_invisible="True" />
+                <button
+                    name="workorder_to_purchase_wizard"
+                    type="object"
+                    string="Create Purchase"
+                    class="btn btn-primary"
+                    invisible="purchase_order_ids"
+                />
+
+            </field>
+
             <button name="button_start" position="before">
                 <button
                     name="workorder_to_purchase_wizard"

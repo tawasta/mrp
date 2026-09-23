@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0-20250131\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-03-03 11:30+0000\n"
-"PO-Revision-Date: 2026-03-03 13:30+0200\n"
+"POT-Creation-Date: 2026-09-23 07:37+0000\n"
+"PO-Revision-Date: 2026-09-23 10:51+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fi\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.8\n"
+"X-Generator: Poedit 3.9\n"
 
 #. module: mrp_create_purchase_from_work_order
 #: model_terms:ir.ui.view,arch_db:mrp_create_purchase_from_work_order.view_workorder_purchase_form
@@ -63,7 +63,7 @@ msgstr "Näyttönimi"
 #. module: mrp_create_purchase_from_work_order
 #: model:ir.model.fields,field_description:mrp_create_purchase_from_work_order.field_mrp_work_order_to_purchase__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: mrp_create_purchase_from_work_order
 #: model:ir.model.fields,field_description:mrp_create_purchase_from_work_order.field_mrp_work_order_to_purchase__write_uid
@@ -74,6 +74,11 @@ msgstr "Viimeksi päivittänyt"
 #: model:ir.model.fields,field_description:mrp_create_purchase_from_work_order.field_mrp_work_order_to_purchase__write_date
 msgid "Last Updated on"
 msgstr "Viimeksi päivitetty"
+
+#. module: mrp_create_purchase_from_work_order
+#: model:ir.model,name:mrp_create_purchase_from_work_order.model_report_mrp_report_mo_overview
+msgid "MO Overview Report"
+msgstr "Tuotantotilauksen yleiskatsausraportti"
 
 #. module: mrp_create_purchase_from_work_order
 #: model_terms:ir.ui.view,arch_db:mrp_create_purchase_from_work_order.view_mrp_production_workorder_form_view_filter
@@ -91,9 +96,20 @@ msgid "Partner"
 msgstr "Toimittaja"
 
 #. module: mrp_create_purchase_from_work_order
-#: model:ir.model.fields,field_description:mrp_create_purchase_from_work_order.field_mrp_work_order_to_purchase__product_id
+#: model:ir.model.fields,field_description:mrp_create_purchase_from_work_order.field_mrp_work_order_to_purchase__product_ids
 msgid "Product"
 msgstr "Tuote"
+
+#. module: mrp_create_purchase_from_work_order
+#: model:ir.model.fields,field_description:mrp_create_purchase_from_work_order.field_mrp_routing_workcenter__purchase_product_id
+#: model:ir.model.fields,field_description:mrp_create_purchase_from_work_order.field_mrp_workorder__purchase_product_id
+msgid "Product to purchase"
+msgstr "Tuote ostolle"
+
+#. module: mrp_create_purchase_from_work_order
+#: model:ir.model.fields,field_description:mrp_create_purchase_from_work_order.field_mrp_workorder__purchase_cost
+msgid "Purchase Cost"
+msgstr "Ostohinta"
 
 #. module: mrp_create_purchase_from_work_order
 #: model:ir.model,name:mrp_create_purchase_from_work_order.model_purchase_order
@@ -118,9 +134,33 @@ msgid "Quantity"
 msgstr "Määrä"
 
 #. module: mrp_create_purchase_from_work_order
+#. odoo-python
+#: code:addons/mrp_create_purchase_from_work_order/models/stock_picking.py:0
+#, python-format
+msgid "Related Work Order could not be set as Done."
+msgstr "Liittyvää työtilausta ei voitu merkitä valmiiksi."
+
+#. module: mrp_create_purchase_from_work_order
 #: model_terms:ir.ui.view,arch_db:mrp_create_purchase_from_work_order.view_workorder_purchase_form
 msgid "Select a product, vendor and quantity."
 msgstr "Valitse tuote, toimittaja ja määrä."
+
+#. module: mrp_create_purchase_from_work_order
+#. odoo-python
+#: code:addons/mrp_create_purchase_from_work_order/models/stock_picking.py:0
+#, python-format
+msgid "This specific error occurred:"
+msgstr "Tämä tietty virhe tapahtui:"
+
+#. module: mrp_create_purchase_from_work_order
+#: model:ir.model,name:mrp_create_purchase_from_work_order.model_stock_picking
+msgid "Transfer"
+msgstr "Siirto"
+
+#. module: mrp_create_purchase_from_work_order
+#: model:ir.model,name:mrp_create_purchase_from_work_order.model_mrp_routing_workcenter
+msgid "Work Center Usage"
+msgstr "Työpisteen käyttäminen"
 
 #. module: mrp_create_purchase_from_work_order
 #: model:ir.model,name:mrp_create_purchase_from_work_order.model_mrp_workorder
