@@ -22,6 +22,7 @@
                                 type="action"
                                 class="oe_stat_button"
                                 icon="fa-list"
+                                title="Details"
                             />
                             <field name="name" />
                             <field name="product_id" />

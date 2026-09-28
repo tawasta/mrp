@@ -1,4 +1,5 @@
 from . import mrp_routing_workcenter
+from . import mrp_workcenter
 from . import mrp_workorder
 from . import purchase_order
 from . import stock_picking
