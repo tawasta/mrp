@@ -21,7 +21,7 @@
 {
     "name": "Create Purchases from Work Orders",
     "summary": "Create Purchases from Work Orders",
-    "version": "17.0.2.2.5",
+    "version": "17.0.2.2.6",
     "category": "MRP",
     "website": "https://github.com/tawasta/mrp",
     "author": "Futural",
@@ -36,6 +36,7 @@
     "data": [
         "security/ir.model.access.csv",
         "views/mrp_routing_view.xml",
+        "views/mrp_workcenter.xml",
         "views/purchase_order.xml",
         "views/workorder_view.xml",
         "wizards/mrp_work_order_to_purchase.xml",
