@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="mrp_workcenter_view" model="ir.ui.view">
+        <field name="name">mrp.workcenter.form.emissions</field>
+        <field name="model">mrp.workcenter</field>
+        <field name="inherit_id" ref="mrp.mrp_workcenter_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='capacity']" position="inside">
+                <field name="co2_emissions_per_time_unit" />
+                <field name="co2_emissions_per_production_unit" />
+            </xpath>
+        </field>
+    </record>
+</odoo>
