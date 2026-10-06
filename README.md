@@ -19,6 +19,7 @@ addon | version | maintainers | summary
 [mrp_bom_component_menu_allow_create](mrp_bom_component_menu_allow_create/) | 17.0.1.0.0 |  | Allow to Create records in BOM Component Menu to help creating BOMs
 [mrp_bom_cost_cron](mrp_bom_cost_cron/) | 17.0.1.0.0 |  | Scheduled action to calculate product's cost price from BoM
 [mrp_bom_eco_analysis](mrp_bom_eco_analysis/) | 17.0.1.0.0 |  | ECO analysis modifications
+[mrp_bom_emissions](mrp_bom_emissions/) | 17.0.1.0.0 |  | MRP BOM Emissions
 [mrp_bom_import_wizard](mrp_bom_import_wizard/) | 17.0.1.0.0 |  | BoM Import (Excel/CSV)
 [mrp_bom_lca_excel](mrp_bom_lca_excel/) | 17.0.1.2.2 |  | Export an excel for LCA report of a BoM
 [mrp_bom_line_comment](mrp_bom_line_comment/) | 17.0.1.0.0 |  | Allow adding a comment for BoM line
