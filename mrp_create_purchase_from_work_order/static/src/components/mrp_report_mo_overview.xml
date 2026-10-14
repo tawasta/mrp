@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates id="template" xml:space="preserve">
+    <t t-inherit="mrp.MoOverview" t-inherit-mode="extension">
+        <xpath expr='//th[@t-if="showAvailabilities"]' position="before">
+            <th class="text-center">Subcontracted<br />quantity</th>
+        </xpath>
+    </t>
+
+    <t t-inherit="mrp.MoOverviewLine" t-inherit-mode="extension">
+        <xpath expr='//td[@t-if="props.showOptions.availabilities"]' position="before">
+            <td class="text-center" t-out="props.data.sub_uom_name" />
+        </xpath>
+    </t>
+</templates>

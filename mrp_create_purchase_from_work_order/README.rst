@@ -13,6 +13,9 @@ Create Purchases from Work Orders
     Select a product, vendor and quantity in the wizard form. A purchase order
     is created with the selected values.
 
+    MO Overview is changed to reflect purchase costs and quantities by
+    its related work order.
+
 Configuration
 =============
 ::

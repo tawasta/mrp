@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 17.0-20250131\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-28 08:57+0000\n"
-"PO-Revision-Date: 2026-09-28 11:59+0300\n"
+"POT-Creation-Date: 2026-10-14 05:50+0000\n"
+"PO-Revision-Date: 2026-10-14 08:51+0300\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: fi\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.9\n"
+"X-Generator: Poedit 3.10\n"
 
 #. module: mrp_create_purchase_from_work_order
 #: model_terms:ir.ui.view,arch_db:mrp_create_purchase_from_work_order.view_workorder_purchase_form
@@ -74,7 +74,7 @@ msgstr "Näyttönimi"
 #. module: mrp_create_purchase_from_work_order
 #: model:ir.model.fields,field_description:mrp_create_purchase_from_work_order.field_mrp_work_order_to_purchase__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: mrp_create_purchase_from_work_order
 #: model:ir.model.fields,field_description:mrp_create_purchase_from_work_order.field_mrp_work_order_to_purchase__write_uid
@@ -157,6 +157,13 @@ msgid "Select a product, vendor and quantity."
 msgstr "Valitse tuote, toimittaja ja määrä."
 
 #. module: mrp_create_purchase_from_work_order
+#. odoo-javascript
+#: code:addons/mrp_create_purchase_from_work_order/static/src/components/mrp_report_mo_overview.xml:0
+#, python-format
+msgid "Subcontracted"
+msgstr "Alihankittu"
+
+#. module: mrp_create_purchase_from_work_order
 #. odoo-python
 #: code:addons/mrp_create_purchase_from_work_order/models/stock_picking.py:0
 #, python-format
@@ -209,3 +216,10 @@ msgstr "Työtilaukset ilman luotuja ostoja"
 #: model:ir.model.fields,field_description:mrp_create_purchase_from_work_order.field_purchase_order__workorder_ids
 msgid "Workorder"
 msgstr "Työtilaus"
+
+#. module: mrp_create_purchase_from_work_order
+#. odoo-javascript
+#: code:addons/mrp_create_purchase_from_work_order/static/src/components/mrp_report_mo_overview.xml:0
+#, python-format
+msgid "quantity"
+msgstr "määrä"
