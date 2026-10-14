@@ -41,4 +41,9 @@
         "views/workorder_view.xml",
         "wizards/mrp_work_order_to_purchase.xml",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "mrp_create_purchase_from_work_order/static/src/**/*",
+        ]
+    },
 }
