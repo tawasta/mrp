@@ -24,7 +24,9 @@ class MrpWorkOrderToPurchase(models.TransientModel):
         workorders = self.env["mrp.workorder"].browse(self._context.get("active_ids"))
         products = self.env["product.product"]
         for wo in workorders:
-            if wo.purchase_product_id:
+            if wo.workcenter_id.default_purchase_product_id:
+                products |= wo.workcenter_id.default_purchase_product_id
+            elif wo.purchase_product_id:
                 products |= wo.purchase_product_id
         return products
 
