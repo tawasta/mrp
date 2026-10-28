@@ -12,6 +12,8 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[mgmtsystem_hazard_residual_risk_default_name](mgmtsystem_hazard_residual_risk_default_name/) | 17.0.1.0.0 |  | Default name of a residual risk evaluation is the name of the hazard
+[mgmtsystem_hazard_residual_risk_number](mgmtsystem_hazard_residual_risk_number/) | 17.0.1.0.0 |  | Risk number for residual risk evaluations, and residual risk numbers in the hazard list
 [mgmtsystem_hazard_risk_workcenter](mgmtsystem_hazard_risk_workcenter/) | 17.0.1.0.0 |  | Workcenter for Hazard Risk
 [mgmtsystem_hazard_test_tree_view](mgmtsystem_hazard_test_tree_view/) | 17.0.1.0.0 |  | Creates a tree view for Implementation Tests of hazard
 [mrp_auditlog_rules](mrp_auditlog_rules/) | 17.0.1.1.0 |  | Adds audit log rules for mrp.bom
