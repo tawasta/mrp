@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.hazard.analysis.fields</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="100" />
+        <field name="inherit_id" ref="mgmtsystem.view_mgmtsystem_configuration" />
+        <field name="arch" type="xml">
+            <div id="mgmtsystem_documentation_setting" position="after">
+                <block title="Hazard suppliers">
+                    <setting>
+                        <label for="hazard_supplier_company_id" />
+                        <span
+                            class="fa fa-lg fa-building-o"
+                            title="Values set here are company-specific."
+                            role="img"
+                            aria-label="Values set here are company-specific."
+                            groups="base.group_multi_company"
+                        />
+                        <div class="row">
+                            <div class="text-muted col-lg-8">
+                                The suppliers of a hazard are selected from the
+                                supplier companies that belong to this company.
+                                If empty, the suppliers of all the companies are
+                                listed.
+                            </div>
+                        </div>
+                        <div class="content-group">
+                            <div class="mt16">
+                                <field
+                                    name="hazard_supplier_company_id"
+                                    class="o_light_label"
+                                />
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </div>
+        </field>
+    </record>
+</odoo>

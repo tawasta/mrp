@@ -1,0 +1,61 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mgmtsystem_hazard_analysis_fields
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fi_FI\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: mgmtsystem_hazard_analysis_fields
+#: model_terms:ir.ui.view,arch_db:mgmtsystem_hazard_analysis_fields.res_config_settings_view_form
+msgid "Hazard suppliers"
+msgstr "Vaarojen toimittajat"
+
+#. module: mgmtsystem_hazard_analysis_fields
+#: model:ir.model.fields,field_description:mgmtsystem_hazard_analysis_fields.field_mgmtsystem_hazard__workcenter_category_id
+msgid "Location"
+msgstr "Sijainti"
+
+#. module: mgmtsystem_hazard_analysis_fields
+#: model:ir.model.fields,field_description:mgmtsystem_hazard_analysis_fields.field_mgmtsystem_hazard__supplier_id
+msgid "Supplier"
+msgstr "Toimittaja"
+
+#. module: mgmtsystem_hazard_analysis_fields
+#: model:ir.model.fields,field_description:mgmtsystem_hazard_analysis_fields.field_res_company__hazard_supplier_company_id
+#: model:ir.model.fields,field_description:mgmtsystem_hazard_analysis_fields.field_res_config_settings__hazard_supplier_company_id
+msgid "Supplier company"
+msgstr "Toimittajien yritys"
+
+#. module: mgmtsystem_hazard_analysis_fields
+#: model:ir.model.fields,help:mgmtsystem_hazard_analysis_fields.field_res_company__hazard_supplier_company_id
+#: model:ir.model.fields,help:mgmtsystem_hazard_analysis_fields.field_res_config_settings__hazard_supplier_company_id
+msgid ""
+"The supplier of a hazard is selected from the supplier companies that belong "
+"to this company. If empty, the suppliers of all the companies are listed."
+msgstr ""
+"Vaaran toimittaja valitaan niistä toimittajayrityksistä, jotka kuuluvat "
+"tähän yritykseen. Jos tyhjä, listataan kaikkien yritysten toimittajat."
+
+#. module: mgmtsystem_hazard_analysis_fields
+#: model_terms:ir.ui.view,arch_db:mgmtsystem_hazard_analysis_fields.res_config_settings_view_form
+msgid ""
+"The suppliers of a hazard are selected from the supplier companies that "
+"belong to this company. If empty, the suppliers of all the companies are "
+"listed."
+msgstr ""
+"Vaaran toimittajat valitaan niistä toimittajayrityksistä, jotka kuuluvat "
+"tähän yritykseen. Jos tyhjä, listataan kaikkien yritysten toimittajat."
+
+#. module: mgmtsystem_hazard_analysis_fields
+#: model_terms:ir.ui.view,arch_db:mgmtsystem_hazard_analysis_fields.res_config_settings_view_form
+msgid "Values set here are company-specific."
+msgstr "Tässä asetetut arvot ovat yrityskohtaisia."
