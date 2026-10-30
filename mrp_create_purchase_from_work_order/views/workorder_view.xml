@@ -7,12 +7,13 @@
 		<field name="arch" type="xml">
             <field name="state" position="after">
                 <field name="purchase_order_ids" column_invisible="True" />
+                <field name="is_subcontractor_work" column_invisible="True" />
                 <button
                     name="workorder_to_purchase_wizard"
                     type="object"
                     string="Create Purchase"
                     class="btn btn-primary"
-                    invisible="purchase_order_ids"
+                    invisible="purchase_order_ids or not is_subcontractor_work"
                 />
 
             </field>
