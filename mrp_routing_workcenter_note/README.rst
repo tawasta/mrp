@@ -14,6 +14,11 @@ Make Description of MRP Operation translatable.
 
 Changes in 19.0
 ===============
+The module was renamed from mrp_routing_workcenter_translatable_description to
+mrp_routing_workcenter_note. When a 17.0 database is upgraded, rename the
+module in the upgrade (for example with OpenUpgrade's update_module_names), so
+that the fields and their data stay with the module.
+
 Odoo 19.0 removed the Description field (note) of MRP operations and the work
 instruction of work orders. This module recreates the field with the same name
 and type as in 17.0 (translatable HTML), so that the descriptions and their

@@ -1,0 +1,49 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mrp_routing_workcenter_note
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-18 10:00+0000\n"
+"PO-Revision-Date: 2026-11-18 10:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fi\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: mrp_routing_workcenter_note
+#: model:ir.model.fields,field_description:mrp_routing_workcenter_note.field_mrp_routing_workcenter__note
+#: model:ir.model.fields,field_description:mrp_routing_workcenter_note.field_mrp_workorder__operation_note
+#: model_terms:ir.ui.view,arch_db:mrp_routing_workcenter_note.mrp_routing_workcenter_form_view
+msgid "Description"
+msgstr "Kuvaus"
+
+#. module: mrp_routing_workcenter_note
+#: model_terms:ir.ui.view,arch_db:mrp_routing_workcenter_note.mrp_routing_workcenter_form_view
+msgid "Description of the operation..."
+msgstr "Työvaiheen kuvaus..."
+
+#. module: mrp_routing_workcenter_note
+#: model:ir.model.fields,field_description:mrp_routing_workcenter_note.field_mrp_workorder__has_operation_note
+msgid "Has Operation Note"
+msgstr "On työohje"
+
+#. module: mrp_routing_workcenter_note
+#: model:ir.model,name:mrp_routing_workcenter_note.model_mrp_routing_workcenter
+msgid "Work Center Usage"
+msgstr "Työpisteen käyttäminen"
+
+#. module: mrp_routing_workcenter_note
+#: model_terms:ir.ui.view,arch_db:mrp_routing_workcenter_note.mrp_production_workorder_form_view_inherit
+msgid "Work Instruction"
+msgstr "Työohjeet"
+
+#. module: mrp_routing_workcenter_note
+#: model:ir.model,name:mrp_routing_workcenter_note.model_mrp_workorder
+msgid "Work Order"
+msgstr "Työtilaus"
