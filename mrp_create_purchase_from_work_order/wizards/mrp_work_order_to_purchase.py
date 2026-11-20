@@ -21,7 +21,9 @@ class MrpWorkOrderToPurchase(models.TransientModel):
     )
 
     def _get_default_products(self):
-        workorders = self.env["mrp.workorder"].browse(self._context.get("active_ids"))
+        workorders = self.env["mrp.workorder"].browse(
+            self.env.context.get("active_ids")
+        )
         products = self.env["product.product"]
         for wo in workorders:
             if wo.workcenter_id.default_purchase_product_id:
@@ -72,7 +74,7 @@ class MrpWorkOrderToPurchase(models.TransientModel):
             "order_id": purchase_order.id,
             "product_id": product.id,
             "product_qty": self.product_qty,
-            "product_uom": product.uom_id.id,
+            "product_uom_id": product.uom_id.id,
             "partner_id": partner_id.id,
         }
 

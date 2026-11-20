@@ -2,7 +2,7 @@ import logging
 
 from markupsafe import Markup
 
-from odoo import _, models
+from odoo import models
 
 _logger = logging.getLogger(__name__)
 
@@ -17,11 +17,11 @@ class StockPicking(models.Model):
                 try:
                     wos.action_mark_as_done()
                 except Exception as e:
-                    message = _("Related Work Order could not be set as Done.")
+                    message = self.env._("Related Work Order could not be set as Done.")
                     _logger.exception(message)
                     message = Markup("%s<br/><br/>%s<br/>%s") % (
                         message,
-                        _("This specific error occurred:"),
+                        self.env._("This specific error occurred:"),
                         str(e),
                     )
                     picking.sudo().message_post(body=message)

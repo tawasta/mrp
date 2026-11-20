@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 
 class MrpWorkorder(models.Model):
@@ -33,12 +33,15 @@ class MrpWorkorder(models.Model):
             purchase_cost = 0
 
             for purchase in workorder.purchase_order_ids:
-                po_lines = purchase.order_line.filtered(
-                    lambda line, workorder=workorder: line.product_id
-                    == workorder.operation_id.purchase_product_id
-                )
-                for po_line in po_lines:
-                    purchase_cost += po_line.price_unit * po_line.product_qty
+                if purchase.state != "cancel":
+                    po_lines = purchase.order_line.filtered(
+                        lambda line, workorder=workorder: line.product_id
+                        == workorder.operation_id.purchase_product_id
+                        or line.product_id
+                        == workorder.workcenter_id.default_purchase_product_id
+                    )
+                    for po_line in po_lines:
+                        purchase_cost += po_line.price_unit * po_line.product_qty
             workorder.purchase_cost = purchase_cost
 
     @api.depends("purchase_order_ids")
@@ -54,13 +57,35 @@ class MrpWorkorder(models.Model):
             else:
                 wo.purchase_order_status = ""
 
+    def _compute_expected_operation_cost(self, without_employee_cost=False):
+        cost = super()._compute_expected_operation_cost(
+            without_employee_cost=without_employee_cost
+        )
+        cost += self.purchase_cost
+
+        return cost
+
+    def _compute_current_operation_cost(self):
+        cost = super()._compute_current_operation_cost()
+        cost += self.purchase_cost
+
+        return cost
+
+    def _get_current_theorical_operation_cost(self, without_employee_cost=False):
+        cost = super()._get_current_theorical_operation_cost(
+            without_employee_cost=without_employee_cost
+        )
+        cost += self.purchase_cost
+
+        return cost
+
     def workorder_to_purchase_wizard(self):
         """This opens up a wizard to create purchases"""
         view = self.env.ref(
             "mrp_create_purchase_from_work_order.view_workorder_purchase_form"
         )
         return {
-            "name": _("Creating a purchase..."),
+            "name": self.env._("Creating a purchase..."),
             "type": "ir.actions.act_window",
             "view_mode": "form",
             "res_model": "mrp.work.order.to.purchase",

@@ -74,7 +74,7 @@ msgstr "Näyttönimi"
 #. module: mrp_create_purchase_from_work_order
 #: model:ir.model.fields,field_description:mrp_create_purchase_from_work_order.field_mrp_work_order_to_purchase__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: mrp_create_purchase_from_work_order
 #: model:ir.model.fields,field_description:mrp_create_purchase_from_work_order.field_mrp_work_order_to_purchase__write_uid

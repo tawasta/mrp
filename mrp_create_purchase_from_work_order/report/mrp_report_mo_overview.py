@@ -4,6 +4,13 @@ from odoo import models
 class ReportMoOverview(models.AbstractModel):
     _inherit = "report.mrp.report_mo_overview"
 
+    def _get_bom_operation_cost(self, workorder, production, kit_operation=False):
+        cost = super()._get_bom_operation_cost(
+            workorder=workorder, production=production, kit_operation=kit_operation
+        )
+        cost += workorder.purchase_cost
+        return cost
+
     def _get_finished_operation_data(self, production, level=0, current_index=False):
         data = super()._get_finished_operation_data(
             production=production, level=level, current_index=current_index
@@ -13,14 +20,14 @@ class ReportMoOverview(models.AbstractModel):
 
         if operations:
             for index, workorder in enumerate(production.workorder_ids):
-                operations[index]["mo_cost"] += workorder.purchase_cost
-
                 quantity = 0
 
                 for purchase in workorder.purchase_order_ids:
                     po_lines = purchase.order_line.filtered(
                         lambda line, workorder=workorder: line.product_id
                         == workorder.operation_id.purchase_product_id
+                        or line.product_id
+                        == workorder.workcenter_id.default_purchase_product_id
                     )
                     for po_line in po_lines:
                         quantity += po_line.product_qty
@@ -40,29 +47,25 @@ class ReportMoOverview(models.AbstractModel):
 
         if operations:
             for index, workorder in enumerate(production.workorder_ids):
-                operations[index]["mo_cost"] += workorder.purchase_cost
-
                 quantity = 0
 
                 for purchase in workorder.purchase_order_ids:
                     po_lines = purchase.order_line.filtered(
                         lambda line, workorder=workorder: line.product_id
                         == workorder.operation_id.purchase_product_id
+                        or line.product_id
+                        == workorder.workcenter_id.default_purchase_product_id
                     )
                     for po_line in po_lines:
                         quantity += po_line.product_qty
 
-                operations[index]["sub_uom_name"] = (
-                    f"{quantity} {workorder.purchase_product_id.uom_id.name}"
+                uom_name = (
+                    workorder.purchase_product_id.uom_id.name
+                    or workorder.workcenter_id.default_purchase_product_id.uom_id.name
                 )
+                if quantity and uom_name:
+                    operations[index]["sub_uom_name"] = f"{quantity} {uom_name}"
 
             data["details"] = operations
 
-        costs = 0
-
-        for workorder in production.workorder_ids:
-            costs += workorder.purchase_cost
-
-        if data.get("summary", False) and "mo_cost" in data.get("summary").keys():
-            data["summary"]["mo_cost"] += costs
         return data
