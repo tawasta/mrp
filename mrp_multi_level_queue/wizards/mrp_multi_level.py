@@ -1,7 +1,7 @@
 import logging
 from datetime import date, datetime, timedelta
 
-from odoo import _, api, models
+from odoo import api, models
 
 from odoo.addons.queue_job.exception import RetryableJobError
 
@@ -16,15 +16,16 @@ class MultiLevelMrp(models.TransientModel):
         res = super()._mrp_cleanup(mrp_areas)
         area_names = ",".join([str(a.name) for a in mrp_areas]).lstrip(",")
 
-        job_desc = _("MRP Multi-level: MRP Applicable for {}").format(area_names)
+        job_desc = f"MRP Multi-level: MRP Applicable for {area_names}"
+        job_desc = self.env._(job_desc)
         self.with_delay(description=job_desc)._calculate_mrp_applicable_queued(
             mrp_areas
         )
 
         if res:
-            msg = _("MRP Cleanup done")
+            msg = self.env._("MRP Cleanup done")
         else:
-            msg = _("MRP Cleanup failed!")
+            msg = self.env._("MRP Cleanup failed!")
 
         return msg
 
@@ -33,13 +34,15 @@ class MultiLevelMrp(models.TransientModel):
         res = super()._calculate_mrp_applicable(mrp_areas)
         area_names = ",".join([str(a.name) for a in mrp_areas]).lstrip(",")
 
-        job_desc = _("MRP Multi-level: MRP Initialisation for {}").format(area_names)
+        # job_desc = self.env._(f"MRP Multi-level: MRP Initialisation for {area_names}")
+        job_desc = f"MRP Multi-level: MRP Initialisation for {area_names}"
+        job_desc = self.env._(job_desc)
         self.with_delay(description=job_desc)._mrp_initialisation_queued(mrp_areas)
 
         if res:
-            msg = _("MRP Applicable calculation done")
+            msg = self.env._("MRP Applicable calculation done")
         else:
-            msg = _("MRP Applicable calculation failed!")
+            msg = self.env._("MRP Applicable calculation failed!")
 
         return msg
 
@@ -48,11 +51,13 @@ class MultiLevelMrp(models.TransientModel):
         super()._mrp_initialisation(mrp_areas)
         area_names = ",".join([str(a.name) for a in mrp_areas]).lstrip(",")
 
-        job_desc = _("MRP Multi-level: MRP Calculation for {}").format(area_names)
+        job_desc = f"MRP Multi-level: MRP Calculation for {area_names}"
+        job_desc = self.env._(job_desc)
+
         self.with_delay(description=job_desc)._mrp_calculation_queued(mrp_areas)
 
         # res is empty on success, so no check here
-        msg = _("MRP Initialisation done")
+        msg = self.env._("MRP Initialisation done")
 
         return msg
 
@@ -64,9 +69,9 @@ class MultiLevelMrp(models.TransientModel):
         res = self._mrp_calculation_run_queued(mrp_lowest_llc, mrp_areas)
 
         if res:
-            msg = _("MRP LLC Calculation queued")
+            msg = self.env._("MRP LLC Calculation queued")
         else:
-            msg = _("MRP LLC Calculation queue failed!")
+            msg = self.env._("MRP LLC Calculation queue failed!")
 
         return msg
 
@@ -74,18 +79,22 @@ class MultiLevelMrp(models.TransientModel):
     def _mrp_final_process_queued(self, mrp_areas):
         for area in mrp_areas:
             if area.current_llc_calculation >= 0:
-                raise RetryableJobError(_("Previous MRP calculation is not finished"))
+                raise RetryableJobError(
+                    self.env._("Previous MRP calculation is not finished")
+                )
 
         super()._mrp_final_process(mrp_areas)
 
         # res is empty on success, so no check here
-        msg = _("MRP Final process done")
+        msg = self.env._("MRP Final process done")
 
         return msg
 
+    # pylint: disable=W8163
     def run_mrp_multi_level_queued(self):
         for area in self.env["mrp.area"].search([]):
-            job_desc = _("MRP Multi-level: MRP Cleanup for '{}'").format(area.name)
+            job_desc = f"MRP Multi-level: MRP Cleanup for '{area.name}'"
+            job_desc = self.env._(job_desc)
             self.with_delay(description=job_desc)._mrp_cleanup_queued(area)
 
     @api.model
@@ -95,7 +104,9 @@ class MultiLevelMrp(models.TransientModel):
             mrp_areas = self.env["mrp.area"].search([])
         for mrp_area in mrp_areas:
             if mrp_area.current_llc_calculation >= 0:
-                raise RetryableJobError(_("Previous MRP calculation is not finished"))
+                raise RetryableJobError(
+                    self.env._("Previous MRP calculation is not finished")
+                )
 
             # Prepare value for asynchronous LLC calculation
             llc = 0
@@ -134,16 +145,11 @@ class MultiLevelMrp(models.TransientModel):
             if area_number == area_count:
                 final_product = True
 
-            job_desc = _(
-                "MRP Multi-level: MRP Calculation LLC {current_llc} for '{mrp_area}', "
-                "{product} ({area_number}/{area_count})"
-            ).format(
-                current_llc=current_llc,
-                mrp_area=mrp_area.name,
-                product=product_mrp_area.product_id.display_name,
-                area_number=area_number,
-                area_count=area_count,
-            )
+            job_desc = f"""
+            MRP Multi-level: MRP Calculation LLC {current_llc} for '{mrp_area.name}',
+            {product_mrp_area.product_id.display_name} ({area_number}/{area_count})
+            """
+            job_desc = self.env._(job_desc)
             self.with_delay(description=job_desc)._mrp_calculation_area(
                 product_mrp_area, current_llc, final_product
             )
@@ -159,14 +165,16 @@ class MultiLevelMrp(models.TransientModel):
         else:
             # Leave some delay for these to ensure all calculations are done
 
-            job_desc = _("MRP Multi-level: Reset LLC for {}").format(mrp_area.name)
+            job_desc = f"MRP Multi-level: Reset LLC for {mrp_area.name}"
+            job_desc = self.env._(job_desc)
+
             self.with_delay(
                 description=job_desc, eta=datetime.now() + timedelta(minutes=5)
             )._mrp_area_set_llc(mrp_area, -1)
 
-            job_desc = _("MRP Multi-level: MRP Final Process for {}").format(
-                mrp_area.name
-            )
+            job_desc = f"MRP Multi-level: MRP Final Process for {mrp_area.name}"
+            job_desc = self.env._(job_desc)
+
             self.with_delay(
                 description=job_desc, eta=datetime.now() + timedelta(minutes=15)
             )._mrp_final_process_queued(mrp_area)
@@ -180,9 +188,9 @@ class MultiLevelMrp(models.TransientModel):
         current_llc = product_mrp_area.mrp_area_id.current_llc_calculation
 
         if llc > current_llc:
-            raise RetryableJobError(
-                _("LLC {} calculation is not yet done").format(current_llc)
-            )
+            error_msg = f"LLC {current_llc} calculation is not yet done"
+            error_msg = self.env._(error_msg)
+            raise RetryableJobError(error_msg)
 
         nbr_create = 0
         onhand = product_mrp_area.qty_available
@@ -207,7 +215,7 @@ class MultiLevelMrp(models.TransientModel):
 
             if onhand < product_mrp_area.mrp_minimum_stock and nbr_create == 0:
                 qtytoorder = product_mrp_area.mrp_minimum_stock - onhand
-                name = _("Safety Stock")
+                name = self.env._("Safety Stock")
                 cm = self.create_action(
                     product_mrp_area_id=product_mrp_area,
                     mrp_date=date.today(),
