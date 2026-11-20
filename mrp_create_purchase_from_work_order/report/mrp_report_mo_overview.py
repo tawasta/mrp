@@ -25,8 +25,8 @@ class ReportMoOverview(models.AbstractModel):
                     for po_line in po_lines:
                         quantity += po_line.product_qty
 
-                operations[index]["sub_uom_name"] = "{} {}".format(
-                    quantity, workorder.purchase_product_id.uom_id.name
+                operations[index]["sub_uom_name"] = (
+                    f"{quantity} {workorder.purchase_product_id.uom_id.name}"
                 )
 
         return data
@@ -52,8 +52,8 @@ class ReportMoOverview(models.AbstractModel):
                     for po_line in po_lines:
                         quantity += po_line.product_qty
 
-                operations[index]["sub_uom_name"] = "{} {}".format(
-                    quantity, workorder.purchase_product_id.uom_id.name
+                operations[index]["sub_uom_name"] = (
+                    f"{quantity} {workorder.purchase_product_id.uom_id.name}"
                 )
 
             data["details"] = operations
