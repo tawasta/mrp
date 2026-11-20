@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="mrp_production_workorder_tree_editable_view" model="ir.ui.view">
+    <field name="name">mrp.workorder.tree.create.purchase</field>
+    <field name="model">mrp.workorder</field>
+    <field name="inherit_id" ref="mrp.mrp_production_workorder_tree_editable_view" />
+    <field name="arch" type="xml">
+      <field name="state" position="after">
+        <field name="purchase_order_ids" column_invisible="True" />
+        <field name="is_subcontractor_work" column_invisible="True" />
+        <button
+          name="workorder_to_purchase_wizard"
+          type="object"
+          string="Create Purchase"
+          class="btn btn-primary"
+          invisible="purchase_order_ids or not is_subcontractor_work"
+        />
+      </field>
+
+      <button name="button_start" position="before">
+        <button
+          name="workorder_to_purchase_wizard"
+          string="Create Purchase"
+          type="object"
+          class="btn btn-primary"
+        />
+      </button>
+
+      <xpath expr="//tree/field[@name='state']" position="before">
+        <field name="purchase_product_id" optional="show" />
+        <field name="purchase_order_ids" widget="many2many_tags" optional="show" />
+        <field name="purchase_order_status" optional="show" />
+      </xpath>
+    </field>
+  </record>
+
+  <record id="action_open_purchase_order" model="ir.actions.act_window">
+    <field name="name">Purchase Orders</field>
+    <field name="res_model">purchase.order</field>
+    <field name="view_mode">tree,form</field>
+    <field name="target">current</field>
+    <field name="domain">[('id','=',active_id)]</field>
+  </record>
+
+  <record id="mrp_production_workorder_form_view_inherit" model="ir.ui.view">
+    <field name="name">mrp.workorder.form.purchase.orders.from.work.order</field>
+    <field name="model">mrp.workorder</field>
+    <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit" />
+    <field name="arch" type="xml">
+      <notebook position="inside">
+        <page string="Purchase Orders" invisible="not purchase_order_ids">
+          <field name="purchase_order_ids">
+            <tree delete="false" create="false">
+              <button
+                name="%(mrp_create_purchase_from_work_order.action_open_purchase_order)d"
+                type="action"
+                class="oe_stat_button"
+                icon="fa-list"
+                title="Details"
+              />
+              <field name="name" />
+              <field name="partner_id" />
+              <field name="date_order" />
+              <field name="amount_untaxed" />
+              <field name="amount_total" />
+              <field name="state" />
+            </tree>
+          </field>
+        </page>
+      </notebook>
+
+      <field name="qty_production" position="after">
+        <field name="purchase_cost" />
+      </field>
+    </field>
+  </record>
+
+  <record id="view_mrp_production_workorder_form_view_filter" model="ir.ui.view">
+    <field name="name">mrp.workorder.select.no.purchases.filter</field>
+    <field name="model">mrp.workorder</field>
+    <field name="inherit_id" ref="mrp.view_mrp_production_workorder_form_view_filter" />
+    <field name="arch" type="xml">
+      <filter name="late" position="after">
+        <filter
+          string="No purchases"
+          name="no_purchases"
+          domain="[('purchase_order_ids', '=', False)]"
+          help="Work orders without created purchases"
+        />
+      </filter>
+    </field>
+  </record>
+
+  <record model="ir.actions.act_window" id="mrp.mrp_workorder_todo">
+    <field name="context">
+            {'search_default_ready': True,
+            'search_default_progress': True,
+            'search_default_pending': True,
+            'search_default_waiting': True,
+            'search_default_no_purchases': True
+            }
+        </field>
+  </record>
+</odoo>
