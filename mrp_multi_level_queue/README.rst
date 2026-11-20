@@ -28,16 +28,9 @@ with Run Manually on the scheduled action.
 
 Known issues / Roadmap
 ======================
-* When a product calculation job fails, the products of the next low level
-  codes wait in retries, while the LLC reset (after 5 minutes) and the final
-  process (after 15 minutes) still run. The MRP run then ends with missing
-  planned orders and no error in the MRP inventory.
 * The non-grouped demand calculation is a copy of an older MRP Multi Level
   version and does not use its current calculation methods, so the results can
   differ from a standard run (for example for phantom products).
-* The order of the low level codes relies on the last queued product job of a
-  level running last. With several queue workers, or a level without products,
-  the next level can start too early or never.
 * The MRP inventory is empty from the cleanup until the final process.
 
 Credits
