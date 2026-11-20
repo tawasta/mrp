@@ -33,12 +33,15 @@ class MrpWorkorder(models.Model):
             purchase_cost = 0
 
             for purchase in workorder.purchase_order_ids:
-                po_lines = purchase.order_line.filtered(
-                    lambda line, workorder=workorder: line.product_id
-                    == workorder.operation_id.purchase_product_id
-                )
-                for po_line in po_lines:
-                    purchase_cost += po_line.price_unit * po_line.product_qty
+                if purchase.state != "cancel":
+                    po_lines = purchase.order_line.filtered(
+                        lambda line, workorder=workorder: line.product_id
+                        == workorder.operation_id.purchase_product_id
+                        or line.product_id
+                        == workorder.workcenter_id.default_purchase_product_id
+                    )
+                    for po_line in po_lines:
+                        purchase_cost += po_line.price_unit * po_line.product_qty
             workorder.purchase_cost = purchase_cost
 
     @api.depends("purchase_order_ids")
@@ -53,6 +56,28 @@ class MrpWorkorder(models.Model):
                 wo.purchase_order_status = ", ".join(po_status)
             else:
                 wo.purchase_order_status = ""
+
+    def _compute_expected_operation_cost(self, without_employee_cost=False):
+        cost = super()._compute_expected_operation_cost(
+            without_employee_cost=without_employee_cost
+        )
+        cost += self.purchase_cost
+
+        return cost
+
+    def _compute_current_operation_cost(self):
+        cost = super()._compute_current_operation_cost()
+        cost += self.purchase_cost
+
+        return cost
+
+    def _get_current_theorical_operation_cost(self, without_employee_cost=False):
+        cost = super()._get_current_theorical_operation_cost(
+            without_employee_cost=without_employee_cost
+        )
+        cost += self.purchase_cost
+
+        return cost
 
     def workorder_to_purchase_wizard(self):
         """This opens up a wizard to create purchases"""
