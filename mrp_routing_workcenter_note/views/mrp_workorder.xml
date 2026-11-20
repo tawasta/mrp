@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <record id="mrp_production_workorder_form_view_inherit" model="ir.ui.view">
+    <field name="name">mrp.production.work.order.form.instruction</field>
+    <field name="model">mrp.workorder</field>
+    <field name="inherit_id" ref="mrp.mrp_production_workorder_form_view_inherit" />
+    <field name="arch" type="xml">
+      <page name="components" position="after">
+        <page
+          string="Work Instruction"
+          name="workorder_page_work_instruction"
+          invisible="not has_operation_note"
+        >
+          <field name="operation_note" nolabel="1" />
+        </page>
+      </page>
+    </field>
+  </record>
+</odoo>
