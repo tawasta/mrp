@@ -6,34 +6,26 @@
 Create Purchases from Work Orders
 =================================
 
-::
+Enable to create purchases from work orders.
 
-    Enable to create purchases from work orders.
+Select a product, vendor and quantity in the wizard form. A purchase order is
+created with the selected values.
 
-    Select a product, vendor and quantity in the wizard form. A purchase order
-    is created with the selected values.
-
-    MO Overview is changed to reflect purchase costs and quantities by
-    its related work order.
+MO Overview is changed to reflect purchase costs and quantities by its related
+work order.
 
 Configuration
 =============
-::
-
-    None needed
+None needed
 
 Usage
 =====
-::
-
-    Select work orders, then click on the "Create Purchase" button to open up
-    the wizard form. Then select values in this form and press "Create".
+Select work orders, then click on the "Create Purchase" button to open up the
+wizard form. Then select values in this form and press "Create".
 
 Known issues / Roadmap
 ======================
-::
-
-    Check that there are no same field names in future versions.
+Check that there are no same field names in future versions.
 
 Credits
 =======
@@ -42,6 +34,7 @@ Contributors
 ------------
 
 * Timo Kekäläinen <timo.kekalainen@tawasta.fi>
+* Valtteri Lattu <valtteri.lattu@futural.fi>
 
 Maintainer
 ----------

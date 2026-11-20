@@ -1,4 +1,4 @@
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 
 class MrpWorkorder(models.Model):
@@ -60,7 +60,7 @@ class MrpWorkorder(models.Model):
             "mrp_create_purchase_from_work_order.view_workorder_purchase_form"
         )
         return {
-            "name": _("Creating a purchase..."),
+            "name": self.env._("Creating a purchase..."),
             "type": "ir.actions.act_window",
             "view_mode": "form",
             "res_model": "mrp.work.order.to.purchase",
