@@ -113,7 +113,7 @@ class MultiLevelMrp(models.TransientModel):
 
     @api.model
     def _mrp_calculation_llc(self, mrp_area, mrp_lowest_llc, llc):
-        _logger.info("Starting MRP calculation for LLC %s" % llc)
+        _logger.info(f"Starting MRP calculation for LLC {llc}")
         current_llc = llc
         product_mrp_area_obj = self.env["product.mrp.area"]
 
@@ -148,7 +148,7 @@ class MultiLevelMrp(models.TransientModel):
                 product_mrp_area, current_llc, final_product
             )
 
-        end_msg = "End MRP calculation for LLC %s" % current_llc
+        end_msg = f"End MRP calculation for LLC {current_llc}"
         _logger.info(end_msg)
 
         if not final_llc:
