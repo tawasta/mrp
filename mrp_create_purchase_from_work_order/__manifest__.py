@@ -21,13 +21,13 @@
 {
     "name": "Create Purchases from Work Orders",
     "summary": "Create Purchases from Work Orders",
-    "version": "17.0.2.2.7",
+    "version": "19.0.1.0.0",
     "category": "MRP",
     "website": "https://github.com/tawasta/mrp",
     "author": "Futural",
     "license": "AGPL-3",
     "application": False,
-    "installable": True,
+    "installable": False,
     "depends": [
         "mrp",
         "onchange_helper",
