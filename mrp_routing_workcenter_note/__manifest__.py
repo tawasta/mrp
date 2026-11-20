@@ -19,8 +19,8 @@
 ##############################################################################
 
 {
-    "name": "Translatable Description in MRP Operations",
-    "summary": "Make Description of MRP Operation translatable",
+    "name": "Adds Description to MRP Operations",
+    "summary": "Adds Description field to MRP Operation",
     "version": "19.0.1.0.0",
     "category": "Manufacturing",
     "website": "https://github.com/tawasta/mrp",

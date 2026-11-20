@@ -2,11 +2,11 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-==========================================
-Translatable Description in MRP Operations
-==========================================
+=======================================
+Adds Description field to MRP Operation
+=======================================
 
-Make Description of MRP Operation translatable.
+The module adds translatable Description field to MRP Operations.
 
 * The operation form has a Description tab with a translatable description
 * The work order form shows the description of its operation on the Work
@@ -15,21 +15,13 @@ Make Description of MRP Operation translatable.
 Changes in 19.0
 ===============
 The module was renamed from mrp_routing_workcenter_translatable_description to
-mrp_routing_workcenter_note. When a 17.0 database is upgraded, rename the
-module in the upgrade (for example with OpenUpgrade's update_module_names), so
-that the fields and their data stay with the module.
+mrp_routing_workcenter_note.
 
 Odoo 19.0 removed the Description field (note) of MRP operations and the work
 instruction of work orders. This module recreates the field with the same name
 and type as in 17.0 (translatable HTML), so that the descriptions and their
 translations of a 17.0 database are kept when the database is upgraded, for
 example with OpenUpgrade.
-
-The PDF and Google Slide work sheets of 17.0 are not recreated.
-
-Fixed compared to 17.0: when the description of an operation was cleared, the
-editor left empty markup and the work order showed an empty Work Instruction
-tab. In 19.0 the tab is hidden when the description is empty.
 
 Configuration
 =============
@@ -45,9 +37,6 @@ Known issues / Roadmap
 * The descriptions are kept only if the upgrade keeps the note column of the
   operations until this module is installed in 19.0. Check this with the actual
   upgrade chain (also the 18.0 step) before upgrading a production database.
-* In 17.0 the description was hidden when the work sheet type was PDF or Google
-  Slide. In 19.0 such old descriptions are shown again on the operation and the
-  work order.
 
 Credits
 =======
