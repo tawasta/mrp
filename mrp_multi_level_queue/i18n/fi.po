@@ -1,0 +1,153 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mrp_multi_level_queue
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 19.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-20 00:00+0000\n"
+"PO-Revision-Date: 2026-11-20 00:00+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mrp_multi_level_queue
+#: model:ir.model.fields,field_description:mrp_multi_level_queue.field_mrp_area__current_llc_calculation
+msgid "Current LLC calculation"
+msgstr "Käynnissä oleva LLC-laskenta"
+
+#. module: mrp_multi_level_queue
+#. odoo-python
+#: code:addons/mrp_multi_level_queue/wizards/mrp_multi_level.py:0
+msgid "LLC {} calculation is not yet done"
+msgstr "LLC {} -laskenta ei ole vielä valmis"
+
+#. module: mrp_multi_level_queue
+#: model:ir.model,name:mrp_multi_level_queue.model_mrp_area
+msgid "MRP Area"
+msgstr "MRP-alue"
+
+#. module: mrp_multi_level_queue
+#. odoo-python
+#: code:addons/mrp_multi_level_queue/wizards/mrp_multi_level.py:0
+msgid "MRP Applicable calculation done"
+msgstr "MRP-soveltuvuuden laskenta valmis"
+
+#. module: mrp_multi_level_queue
+#. odoo-python
+#: code:addons/mrp_multi_level_queue/wizards/mrp_multi_level.py:0
+msgid "MRP Applicable calculation failed!"
+msgstr "MRP-soveltuvuuden laskenta epäonnistui!"
+
+#. module: mrp_multi_level_queue
+#. odoo-python
+#: code:addons/mrp_multi_level_queue/wizards/mrp_multi_level.py:0
+msgid "MRP Cleanup done"
+msgstr "MRP-siivous valmis"
+
+#. module: mrp_multi_level_queue
+#. odoo-python
+#: code:addons/mrp_multi_level_queue/wizards/mrp_multi_level.py:0
+msgid "MRP Cleanup failed!"
+msgstr "MRP-siivous epäonnistui!"
+
+#. module: mrp_multi_level_queue
+#. odoo-python
+#: code:addons/mrp_multi_level_queue/wizards/mrp_multi_level.py:0
+msgid "MRP Final process done"
+msgstr "MRP-loppukäsittely valmis"
+
+#. module: mrp_multi_level_queue
+#. odoo-python
+#: code:addons/mrp_multi_level_queue/wizards/mrp_multi_level.py:0
+msgid "MRP Initialisation done"
+msgstr "MRP-alustus valmis"
+
+#. module: mrp_multi_level_queue
+#. odoo-python
+#: code:addons/mrp_multi_level_queue/wizards/mrp_multi_level.py:0
+msgid "MRP LLC Calculation queue failed!"
+msgstr "MRP:n LLC-laskennan jonotus epäonnistui!"
+
+#. module: mrp_multi_level_queue
+#. odoo-python
+#: code:addons/mrp_multi_level_queue/wizards/mrp_multi_level.py:0
+msgid "MRP LLC Calculation queued"
+msgstr "MRP:n LLC-laskenta jonotettu"
+
+#. module: mrp_multi_level_queue
+#. odoo-python
+#: code:addons/mrp_multi_level_queue/wizards/mrp_multi_level.py:0
+msgid "MRP Multi-level: MRP Applicable for {}"
+msgstr "Monitasoinen MRP: MRP-soveltuvuus, {}"
+
+#. module: mrp_multi_level_queue
+#. odoo-python
+#: code:addons/mrp_multi_level_queue/wizards/mrp_multi_level.py:0
+msgid "MRP Multi-level: MRP Calculation LLC {current_llc} for '{mrp_area}', {product} ({area_number}/{area_count})"
+msgstr "Monitasoinen MRP: MRP-laskenta LLC {current_llc}, '{mrp_area}', {product} ({area_number}/{area_count})"
+
+#. module: mrp_multi_level_queue
+#. odoo-python
+#: code:addons/mrp_multi_level_queue/wizards/mrp_multi_level.py:0
+msgid "MRP Multi-level: MRP Calculation for {}"
+msgstr "Monitasoinen MRP: MRP-laskenta, {}"
+
+#. module: mrp_multi_level_queue
+#. odoo-python
+#: code:addons/mrp_multi_level_queue/wizards/mrp_multi_level.py:0
+msgid "MRP Multi-level: MRP Cleanup for '{}'"
+msgstr "Monitasoinen MRP: MRP-siivous, '{}'"
+
+#. module: mrp_multi_level_queue
+#. odoo-python
+#: code:addons/mrp_multi_level_queue/wizards/mrp_multi_level.py:0
+msgid "MRP Multi-level: MRP Final Process for {}"
+msgstr "Monitasoinen MRP: MRP-loppukäsittely, {}"
+
+#. module: mrp_multi_level_queue
+#. odoo-python
+#: code:addons/mrp_multi_level_queue/wizards/mrp_multi_level.py:0
+msgid "MRP Multi-level: MRP Initialisation for {}"
+msgstr "Monitasoinen MRP: MRP-alustus, {}"
+
+#. module: mrp_multi_level_queue
+#. odoo-python
+#: code:addons/mrp_multi_level_queue/wizards/mrp_multi_level.py:0
+msgid "MRP Multi-level: Reset LLC for {}"
+msgstr "Monitasoinen MRP: LLC:n nollaus, {}"
+
+#. module: mrp_multi_level_queue
+#: model:ir.model,name:mrp_multi_level_queue.model_mrp_multi_level
+msgid "Multi Level MRP"
+msgstr "Monitasoinen MRP"
+
+#. module: mrp_multi_level_queue
+#: model:ir.actions.server,name:mrp_multi_level_queue.mrp_multi_level_cron_ir_actions_server
+msgid "Multi Level MRP: Queued"
+msgstr "Monitasoinen MRP: jonotettu"
+
+#. module: mrp_multi_level_queue
+#. odoo-python
+#: code:addons/mrp_multi_level_queue/wizards/mrp_multi_level.py:0
+msgid "Previous MRP calculation is not finished"
+msgstr "Edellinen MRP-laskenta ei ole valmis"
+
+#. module: mrp_multi_level_queue
+#. odoo-python
+#: code:addons/mrp_multi_level_queue/wizards/mrp_multi_level.py:0
+msgid "Safety Stock"
+msgstr "Varmuusvarasto"
+
+#. module: mrp_multi_level_queue
+#: model:ir.model.fields,help:mrp_multi_level_queue.field_mrp_area__current_llc_calculation
+msgid ""
+"Technical field to help with asynchronous LLC calculation. Set to -1 to "
+"allow running MRP calculation again"
+msgstr ""
+"Tekninen kenttä asynkronista LLC-laskentaa varten. Aseta arvoksi -1, jotta "
+"MRP-laskennan voi ajaa uudelleen"
