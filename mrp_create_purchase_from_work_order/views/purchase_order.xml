@@ -14,7 +14,13 @@
     <field name="inherit_id" ref="purchase.purchase_order_form" />
     <field name="arch" type="xml">
       <notebook position="inside">
-        <page string="Work Orders" invisible="not workorder_ids">
+        <!-- Only users who can read work orders: without the group, purchase
+             users could not open any purchase order -->
+        <page
+          string="Work Orders"
+          invisible="not workorder_ids"
+          groups="mrp.group_mrp_user"
+        >
           <field name="workorder_ids">
             <list delete="false" create="false">
               <button

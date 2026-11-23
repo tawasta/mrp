@@ -14,6 +14,10 @@ created with the selected values.
 MO Overview is changed to reflect purchase costs and quantities by its related
 work order.
 
+The Work Orders tab of a purchase order is shown only to manufacturing users,
+who can read work orders. Purchase users without manufacturing rights can open
+purchase orders without an access error.
+
 Configuration
 =============
 None needed
