@@ -1,0 +1,25 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* mgmtsystem_hazard_residual_risk_number
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: fi_FI\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: mgmtsystem_hazard_residual_risk_number
+#: model:ir.model.fields,field_description:mgmtsystem_hazard_residual_risk_number.field_mgmtsystem_hazard__residual_risk_numbers
+msgid "Residual risk numbers"
+msgstr "Jäännösriskin riskiluvut"
+
+#. module: mgmtsystem_hazard_residual_risk_number
+#: model:ir.model.fields,field_description:mgmtsystem_hazard_residual_risk_number.field_mgmtsystem_hazard_residual_risk__risk_number
+msgid "Risk number"
+msgstr "Riskiluku"
