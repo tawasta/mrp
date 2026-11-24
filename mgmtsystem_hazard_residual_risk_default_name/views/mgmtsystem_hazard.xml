@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_mgmtsystem_hazard_form" model="ir.ui.view">
+        <field name="name">mgmtsystem.hazard.form.residual.risk.default.name</field>
+        <field name="model">mgmtsystem.hazard</field>
+        <field
+            name="inherit_id"
+            ref="mgmtsystem_hazard_risk.view_mgmtsystem_hazard_form"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='residual_risk_ids']" position="attributes">
+                <attribute name="context">{'default_name': name}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

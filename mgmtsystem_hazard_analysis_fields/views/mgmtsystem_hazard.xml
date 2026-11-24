@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_mgmtsystem_hazard_form" model="ir.ui.view">
+        <field name="name">mgmtsystem.hazard.form.analysis.fields</field>
+        <field name="model">mgmtsystem.hazard</field>
+        <field
+            name="inherit_id"
+            ref="mgmtsystem_hazard_risk_workcenter.view_mgmtsystem_hazard_form"
+        />
+        <field name="arch" type="xml">
+            <field name="analysis_date" position="after">
+                <field name="workcenter_id" position="move" />
+                <field name="workcenter_category_id" required="1" />
+                <field name="supplier_id" />
+            </field>
+        </field>
+    </record>
+</odoo>
